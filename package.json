@@ -1,0 +1,32 @@
+{
+  "name": "@meilisearch/instant-meilisearch",
+  "version": "0.1.0",
+  "description": "The search client to use MeiliSearch with instantSearch.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js,.ts,.tsx .",
+    "lint:fix": "eslint --ext .js,.ts,.tsx --fix ."
+  },
+  "keywords": [
+    "search",
+    "instantsearch",
+    "client"
+  ],
+  "author": "Clementine Urquizar",
+  "license": "ISC",
+  "dependencies": {
+    "meilisearch": "^0.11.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "2.0.5"
+  }
+}
