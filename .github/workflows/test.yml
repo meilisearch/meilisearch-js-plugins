@@ -18,11 +18,8 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test
-      - name: Run ESM demo
-        run: cd examples/esm
-      - name: Install ESM dependencies
-        run: yarn
-      - name: Build ESM demo
-        run: yarn build
+      - name:  Run ESM demo
+        working-directory: ./examples/esm
+        run: yarn && yarn build
 
 
