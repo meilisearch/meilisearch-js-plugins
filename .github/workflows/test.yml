@@ -18,7 +18,9 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test
-      - name:  Run ESM demo
+      - name: Build project
+        run: yarn build
+      - name: Run ESM demo
         run: yarn --cwd examples/esm && yarn --cwd examples/esm start
 
 
