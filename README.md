@@ -1,1 +1,3 @@
 # Instant MeiliSearch
+
+## Requirements
