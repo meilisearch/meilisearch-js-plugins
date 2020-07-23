@@ -19,7 +19,6 @@ jobs:
       - name: Run tests
         run: yarn test
       - name:  Run ESM demo
-        working-directory: ./examples/esm
-        run: yarn && yarn build
+        run: yarn --cwd examples/esm && yarn --cwd examples/esm start
 
 

@@ -1,4 +1,3 @@
-// const instantMeiliSearch = require('../src/index')
 import instantMeiliSearch from '../../../dist/instant-meilisearch.esm'
 
 console.log(instantMeiliSearch)
