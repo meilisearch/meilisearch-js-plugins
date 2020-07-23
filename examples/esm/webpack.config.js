@@ -9,14 +9,6 @@ module.exports = {
     filename: 'instant-meilisearch-demo.js',
   },
   resolve: {
-    extensions: ['.js'], //resolve all the modules other than index.ts
+    extensions: ['.js'], // resolve all the modules other than index.ts
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       use: 'ts-loader',
-  //       test: /\.ts?$/,
-  //     },
-  //   ],
-  // },
 }
