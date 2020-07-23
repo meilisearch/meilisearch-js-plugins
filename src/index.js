@@ -1,7 +1,5 @@
 import MeiliSearch from 'meilisearch'
 
-console.log({ MeiliSearch });
-
 // MEILISEARCH CLIENT
 
 function instantMeiliSearch(hostUrl, apiKey, options = {}) {

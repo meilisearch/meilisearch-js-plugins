@@ -1,4 +1,6 @@
-const instantMeiliSearch = require('../../dist/instant-meilisearch.cjs')
+const UMDinstantMeiliSearch = require('../../dist/instant-meilisearch.umd')
+const CJSinstantMeiliSearch = require('../../dist/instant-meilisearch.cjs')
 
-const test = instantMeiliSearch('http://localhost:7700', 'masterKey')
-console.log({ test })
+const UMDtest = UMDinstantMeiliSearch('http://localhost:7700', 'masterKey')
+const CJStest = CJSinstantMeiliSearch('http://localhost:7700', 'masterKey')
+console.log({ UMDtest, CJStest })

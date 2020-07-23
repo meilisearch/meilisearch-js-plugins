@@ -8,9 +8,9 @@
     "lint:fix": "eslint --ext .js,.ts,.tsx --fix .",
     "build": "rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js "
   },
-  "main": "./dist/instant-meilisearch.esm.js",
+  "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",
-  "browser": "./dist/instant-meilisearch.browser.js",
+  "browser": "./dist/instant-meilisearch.umd.js",
   "cjs": "./dist/instant-meilisearch.cjs.js",
   "keywords": [
     "search",
