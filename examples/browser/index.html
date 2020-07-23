@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    Hello
+</body>
+</html>
+<script src="instant-meilisearch.browser.min.js"></script>
+<script>
+  console.log(instantMeiliSearch);
+  const test = instantMeiliSearch(
+        "http://localhost:7700",
+        "masterKey"
+      )
+  console.log({ test });
+  
+</script>
