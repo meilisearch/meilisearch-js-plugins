@@ -26,5 +26,3 @@ jobs:
         run: node examples/node/index.js
       - name: Run Browser Demo
         run: yarn --cwd examples/express && yarn --cwd examples/express test
-
-`
