@@ -1,1 +1,5 @@
 # Instant MeiliSearch
+
+## Requirements
+
+## Usage

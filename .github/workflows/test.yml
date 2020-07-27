@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Docker setup
+        run: docker run -d -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --no-analytics=true --master-key='masterKey'
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn test
+      - name: Build project
+        run: yarn build
+      - name: Run ESM demo
+        run: yarn --cwd examples/esm && yarn --cwd examples/esm start
+      - name: Run Node Demo
+        run: node examples/node/index.js
+      - name: Run Browser Demo
+        run: yarn --cwd examples/express && yarn --cwd examples/express test
