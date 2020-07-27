@@ -1,7 +1,7 @@
 {
   "name": "@meilisearch/instant-meilisearch",
   "version": "0.1.0",
-  "description": "The search client to use MeiliSearch with instantSearch.",
+  "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
     "test": "jest",
     "lint": "eslint --ext .js,.ts,.tsx .",
