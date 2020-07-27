@@ -6,7 +6,7 @@ The root project `instant-meilisearch` should be built before you can try this d
 
 ## Launching
 
-Launch the javascript file using node:
+Launch the JavaScript file using Node:
 
 ```bash
 node index.js
