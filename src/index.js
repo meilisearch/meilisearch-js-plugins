@@ -11,8 +11,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     transformToMeiliSearchParams: function (params) {
       const searchInput = {
         q: params.query,
-        facetsDistribution:
-          params.facets.length ? params.facets : undefined,
+        facetsDistribution: params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
         limit: this.limitPerRequest,
@@ -20,13 +19,17 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       return removeUndefinedFromObject(searchInput)
     },
 
-    parseHighlight: function (formattedHit, params) {
+    replaceHighlightTags: function (
+      formattedHit,
+      highlightPreTag,
+      highlightPostTag
+    ) {
       return Object.keys(formattedHit).reduce((result, key) => {
         let newHighlightString = formattedHit[key]
         if (isString(formattedHit[key])) {
           newHighlightString = formattedHit[key]
-            .replaceAll('<em>', params.highlightPreTag)
-            .replaceAll('</em>', params.highlightPostTag)
+            .replaceAll('<em>', highlightPreTag)
+            .replaceAll('</em>', highlightPostTag)
         }
         result[key] = { value: newHighlightString.toString() }
         return result
@@ -44,7 +47,11 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         delete hit._formatted
         return {
           ...hit,
-          _highlightResult: this.parseHighlight(formattedHit, params),
+          _highlightResult: this.replaceHighlightTags(
+            formattedHit,
+            params.highlightPreTag,
+            params.highlightPostTag
+          ),
         }
       })
     },
@@ -62,7 +69,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
 
     parseMeiliSearchResponse: function (indexUid, meiliSearchResponse, params) {
       this.hitsPerPage = params.hitsPerPage || this.hitsPerPage
-       const {
+      const {
         exhaustiveFacetsCount,
         exhaustiveNbHits,
         facetsDistribution: facets,
@@ -71,7 +78,6 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         query,
         hits,
       } = meiliSearchResponse
-
       const parsedResponse = {
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
