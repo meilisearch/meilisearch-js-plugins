@@ -96,7 +96,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     },
 
     search: async function (requests) {
-      const searchInput = this.meiliSearchInputForSearch(requests[0].params)
+      const searchInput = this.transformToMeiliSearchParams(requests[0].params)
       const indexUid = requests[0].indexName
       const searchResponse = await this.client
         .getIndex(indexUid)
