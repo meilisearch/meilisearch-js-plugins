@@ -62,17 +62,27 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
 
     parseMeiliSearchResponse: function (indexUid, meiliSearchResponse, params) {
       this.hitsPerPage = params.hitsPerPage || this.hitsPerPage
+       const {
+        exhaustiveFacetsCount,
+        exhaustiveNbHits,
+        facetsDistribution: facets,
+        nbHits,
+        processingTimeMs,
+        query,
+        hits,
+      } = meiliSearchResponse
+
       const parsedResponse = {
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
-        exhaustiveFacetsCount: meiliSearchResponse.exhaustiveFacetsCount,
-        exhaustiveNbHits: meiliSearchResponse.exhaustiveNbHits,
-        facets: meiliSearchResponse.facetsDistribution,
-        nbHits: meiliSearchResponse.nbHits,
-        processingTimeMs: meiliSearchResponse.processingTimeMs,
-        query: meiliSearchResponse.query,
-        ...this.paginationParams(meiliSearchResponse.hits.length, params),
-        hits: this.parseHits(meiliSearchResponse.hits, params),
+        facets,
+        exhaustiveFacetsCount,
+        exhaustiveNbHits,
+        nbHits,
+        processingTimeMs,
+        query,
+        ...this.paginationParams(hits.length, params),
+        hits: this.parseHits(hits, params),
       }
       return {
         results: [removeUndefinedFromObject(parsedResponse)],
