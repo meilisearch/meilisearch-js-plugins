@@ -8,7 +8,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     limitPerRequest: options.limitPerRequest || 50,
     attributesToHighlight: '*',
 
-    meiliSearchInputForSearch: function (params) {
+    transformToMeiliSearchParams: function (params) {
       const searchInput = {
         q: params.query,
         facetsDistribution:
