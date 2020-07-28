@@ -12,7 +12,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       const searchInput = {
         q: params.query,
         facetsDistribution:
-          params.facets.length === 0 ? undefined : params.facets,
+          params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
         limit: this.limitPerRequest,
