@@ -128,6 +128,18 @@ search.start();
 - The open-source InstantSearch library is widely used and well documented in the [Algolia documentation](https://www.algolia.com/doc/api-reference/widgets/js/). It provides all the widgets to customize and improve your search bar environment in your website.
 - The [MeiliSearch documentation](https://docs.meilisearch.com/).
 
+## Compatibility with MeiliSearch
+
+This package is compatible with the following MeiliSearch versions:
+
+- `v0.12.X`
+
+## Development Workflow and Contributing
+
+Any new contribution is more than welcome in this project!
+
+If you want to know more about the development workflow or want to contribute, please visit our [contributing guidelines](/CONTRIBUTING.md) for detailed instructions!
+
 <hr>
 
 **MeiliSearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.
