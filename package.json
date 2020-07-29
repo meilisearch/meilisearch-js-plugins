@@ -1,6 +1,7 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "private": false,
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
     "test": "jest",
@@ -12,13 +13,17 @@
   "module": "./dist/instant-meilisearch.esm.js",
   "browser": "./dist/instant-meilisearch.umd.js",
   "cjs": "./dist/instant-meilisearch.cjs.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "keywords": [
     "search",
     "instantsearch",
     "client"
   ],
   "author": "Clementine Urquizar",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "meilisearch": "^0.11.3"
   },
