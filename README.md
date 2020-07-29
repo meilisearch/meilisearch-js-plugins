@@ -25,7 +25,7 @@
 
 **MeiliSearch** is a powerful, fast, open-source, easy to use and deploy search engine. Both searching and indexing are highly customizable. Features such as typo-tolerance, filters, and synonyms are provided out-of-the-box.
 
-This library is a plugin to establish the communication between your MeiliSearch instance and the open-source InstantSearch tools (powered by Algolia) for your front-end application.
+This library is a plugin to establish the communication between your [MeiliSearch](https://github.com/meilisearch/MeiliSearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.
 
 If you use React or Vue, you might want to check out these repositories:
 
