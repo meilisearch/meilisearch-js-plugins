@@ -73,14 +73,11 @@ In `index.html`:
 
   <body>
     <div>
-      <h1>Enjoy searching with MeiliSearch!</h1>
-      <div>
-        <div id="searchbox"></div>
-        <div id="hits"></div>
-      </div>
+      <div id="searchbox"></div>
+      <div id="hits"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/meilisearch/dist/bundles/meilisearch.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
     <script src="./app.js"></script>
   </body>
