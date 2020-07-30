@@ -77,7 +77,7 @@ In `index.html`:
       <div id="hits"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
     <script src="./app.js"></script>
   </body>
