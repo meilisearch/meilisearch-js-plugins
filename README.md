@@ -130,6 +130,8 @@ search.start();
 
 - The open-source InstantSearch library is widely used and well documented in the [Algolia documentation](https://www.algolia.com/doc/api-reference/widgets/js/). It provides all the widgets to customize and improve your search bar environment in your website.
 - The [MeiliSearch documentation](https://docs.meilisearch.com/).
+- If you use React, you might check out [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
+- If you use Vue, you might check out [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 
 ## Compatibility with MeiliSearch
 
