@@ -6,7 +6,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     client: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     hitsPerPage: options.hitsPerPage || 10,
     limitPerRequest: options.limitPerRequest || 50,
-    attributesToHighlight: '*',
+    attributesToHighlight: ['*'],
 
     transformToMeiliSearchParams: function (params) {
       const searchInput = {
@@ -33,8 +33,8 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         // and we replace the <em> by the expected tag for InstantSearch
         if (isString(formattedHit[key])) {
           newHighlightString = formattedHit[key]
-            .replaceAll('<em>', highlightPreTag)
-            .replaceAll('</em>', highlightPostTag)
+            .replace(/<em>/g, highlightPreTag)
+            .replace(/<\/em>/g, highlightPostTag)
         }
         result[key] = { value: newHighlightString.toString() }
         return result
