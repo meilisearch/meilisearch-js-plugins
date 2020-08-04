@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
@@ -25,7 +25,7 @@
   "author": "Clementine Urquizar",
   "license": "MIT",
   "dependencies": {
-    "meilisearch": "^0.11.3"
+    "meilisearch": "^0.12.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

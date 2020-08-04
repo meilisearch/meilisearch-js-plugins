@@ -88,7 +88,7 @@ In `app.js`:
 
 ```js
 const search = instantsearch({
-  indexName: "codesandbox-IS",
+  indexName: "steam-video-games",
   searchClient: instantMeiliSearch(
     "https://demos.meilisearch.com",
     "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
@@ -134,7 +134,7 @@ search.start();
 
 This package is compatible with the following MeiliSearch versions:
 
-- `v0.12.X`
+- `v0.13.X`
 
 ## Development Workflow and Contributing
 
