@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
