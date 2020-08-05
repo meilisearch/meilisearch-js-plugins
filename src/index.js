@@ -27,7 +27,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       // formattedHit is the `_formatted` object returned by MeiliSearch.
       // It contains all the highlighted attributes
       return Object.keys(formattedHit).reduce((result, key) => {
-        let newHighlightString = formattedHit[key]
+        let newHighlightString = formattedHit[key] || ''
         // If the value of the attribute is a string,
         // the highlight is applied by MeiliSearch (<em> tags)
         // and we replace the <em> by the expected tag for InstantSearch
