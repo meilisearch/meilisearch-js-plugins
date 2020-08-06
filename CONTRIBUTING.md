@@ -52,12 +52,18 @@ $ yarn lint:fix
 $ yarn build
 ```
 
-### Playground
+### Playgrounds
 
 To test directly your changes in `instant-meilisearch`, you can run the Vue playground:
 
 ```bash
 $ yarn playground:vue
+```
+
+Or the React playground:
+
+```bash
+$ yarn playground:react
 ```
 
 ### Release Process
