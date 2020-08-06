@@ -53,7 +53,7 @@ class App extends Component {
           <div className="right-panel">
             <SearchBox />
             <Hits hitComponent={Hit} />
-            <Pagination />
+            <Pagination showLast={true}/>
           </div>
         </InstantSearch>
       </div>
