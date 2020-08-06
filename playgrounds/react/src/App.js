@@ -1,4 +1,3 @@
-// import MeiliSearch from "meilisearch";
 import "instantsearch.css/themes/algolia-min.css";
 import React, { Component } from "react";
 import {
