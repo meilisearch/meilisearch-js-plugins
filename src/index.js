@@ -7,10 +7,11 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     hitsPerPage: options.hitsPerPage || 10,
     limitPerRequest: options.limitPerRequest || 50,
     attributesToHighlight: ['*'],
+    placeholderSearch: options.placeholderSearch !== false, // true by default
 
     transformToMeiliSearchParams: function (params) {
       const searchInput = {
-        q: params.query === '' ? null : params.query,
+        q: this.placeholderSearch && params.query === '' ? null : params.query,
         facetsDistribution: params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
