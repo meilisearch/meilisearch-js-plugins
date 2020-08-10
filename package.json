@@ -5,6 +5,11 @@
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
     "test": "jest",
+    "test:demo": "yarn build && yarn test:demo:browser && yarn test:demo:nodejs && yarn test:demo:esm",
+    "test:demo:browser": "yarn --cwd examples/express && yarn --cwd examples/express test",
+    "test:demo:nodejs": "node examples/node/index.js",
+    "test:demo:esm": "yarn --cwd examples/esm && yarn --cwd examples/esm start",
+    "test:all": "yarn test yarn test:demo",
     "lint": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "eslint --ext .js,.ts,.tsx --fix .",
     "build": "rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js ",

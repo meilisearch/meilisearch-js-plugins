@@ -21,8 +21,8 @@ jobs:
       - name: Build project
         run: yarn build
       - name: Run ESM demo
-        run: yarn --cwd examples/esm && yarn --cwd examples/esm start
-      - name: Run Node Demo
-        run: node examples/node/index.js
-      - name: Run Browser Demo
-        run: yarn --cwd examples/express && yarn --cwd examples/express test
+        run: yarn test:demo:esm
+      - name: Run Node.js demo
+        run: yarn test:demo:nodejs
+      - name: Run Browser demo
+        run: yarn test:demo:browser
