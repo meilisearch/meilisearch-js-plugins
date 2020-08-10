@@ -53,7 +53,8 @@ const searchClient = instantMeiliSearch(
   "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
   {
     hitsPerPage: 6, // default: 10
-    limitPerRequest: 30 // default: 50
+    limitPerRequest: 30, // default: 50
+    placeholderSearch: false // default: true. Displays documents even when the query is empty.
   }
 );
 ```

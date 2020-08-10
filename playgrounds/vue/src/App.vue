@@ -40,7 +40,7 @@
             </template>
           </ais-hits>
 
-          <ais-pagination/>
+          <ais-pagination :padding="4" />
         </div>
       </ais-instant-search>
     </div>
@@ -56,7 +56,11 @@ export default {
     return {
       searchClient: instantMeiliSearch(
         "https://demos.meilisearch.com",
-        "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25"
+        "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
+        {
+          hitsPerPage: 6,
+          limitPerRequest: 100
+        }
       )
     };
   }
