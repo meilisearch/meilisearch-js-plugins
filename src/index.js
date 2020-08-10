@@ -10,7 +10,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
 
     transformToMeiliSearchParams: function (params) {
       const searchInput = {
-        q: params.query,
+        q: params.query === '' ? null : params.query,
         facetsDistribution: params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
