@@ -52,6 +52,20 @@ $ yarn lint:fix
 $ yarn build
 ```
 
+### Playgrounds
+
+To test directly your changes in `instant-meilisearch`, you can run the Vue playground:
+
+```bash
+$ yarn playground:vue
+```
+
+Or the React playground:
+
+```bash
+$ yarn playground:react
+```
+
 ### Release Process
 
 MeiliSearch tools follow the [Semantic Versioning Convention](https://semver.org/).
@@ -75,7 +89,7 @@ About this automation:
 Make a PR modifying the file [`package.json`](/package.json) with the right version.
 
 ```javascript
-"version": X.X.X
+"version": "X.X.X"
 ```
 
 Once the changes are merged on `master`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases).
