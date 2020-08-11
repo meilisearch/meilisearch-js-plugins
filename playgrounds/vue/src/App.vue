@@ -41,6 +41,10 @@
           </ais-hits>
 
           <ais-pagination :padding="4" />
+
+          <ais-configure
+            :hits-per-page.camel="6"
+          />
         </div>
       </ais-instant-search>
     </div>
@@ -58,8 +62,7 @@ export default {
         "https://demos.meilisearch.com",
         "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
         {
-          hitsPerPage: 6,
-          limitPerRequest: 100
+          paginationTotalHits: 60
         }
       )
     };
