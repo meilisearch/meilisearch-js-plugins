@@ -40,10 +40,12 @@ $ yarn --dev
 Each PR should pass the tests and the linter to be accepted.
 
 ```bash
-# Tests
+# Tests with Jest
 $ docker pull getmeili/meilisearch:latest # Fetch the latest version of MeiliSearch image from Docker Hub
 $ docker run -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --master-key=masterKey --no-analytics
 $ yarn test
+# Tests with demos
+$ yarn test:demo
 # Linter
 $ yarn lint
 # Linter with fixing
