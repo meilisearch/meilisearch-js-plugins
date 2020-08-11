@@ -5,7 +5,7 @@ describe('Instant MeiliSearch Browser test', () => {
 
   it('Should have generated a instant-meiisearch client and displayed', async () => {
     await expect(page).toMatch(
-      '{"client":{"cancelTokenSource":{"token":{"promise":{}}},"config":{"host":"http://localhost:7700","apiKey":"masterKey"}},"hitsPerPage":10,"limitPerRequest":50,"attributesToHighlight":["*"],"placeholderSearch":true}'
+      '{"client":{"cancelTokenSource":{"token":{"promise":{}}},"config":{"host":"http://localhost:7700","apiKey":"masterKey"}},"hitsPerPage":10,"totalResults":50,"attributesToHighlight":["*"],"placeholderSearch":true}'
     )
   })
 })

@@ -5,7 +5,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
   return {
     client: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     hitsPerPage: options.hitsPerPage || 10,
-    limitPerRequest: options.limitPerRequest || 50,
+    totalResults: options.totalResults || 50,
     attributesToHighlight: ['*'],
     placeholderSearch: options.placeholderSearch !== false, // true by default
 
@@ -15,7 +15,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         facetsDistribution: params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
-        limit: this.limitPerRequest,
+        limit: this.totalResults,
       }
       return removeUndefinedFromObject(searchInput)
     },
