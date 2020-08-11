@@ -52,12 +52,19 @@ const searchClient = instantMeiliSearch(
   "https://demos.meilisearch.com",
   "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
   {
-    hitsPerPage: 6, // default: 10. Ignored if no pagination widget set.
-    totalResults: 30, // default: 50
-    placeholderSearch: false // default: true. Displays documents even when the query is empty.
+    paginationTotalHits: 30, // default: 200.
+    placeholderSearch: false // default: true.
   }
 );
 ```
+
+- `paginationTotalHits` (`200` by default): The total number of hits you can browse during pagination.<br>
+It means, by default, you can have `paginationTotalHits / hitsPerPage = 200 / 20 = 10` pages to browse during pagination.<br>
+By default, `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples)<br>
+If the pagination widget is not set, this parameter is ignored.
+
+- `placeholderSearch` (`true` by default). Displays documents even when the query is empty.
+
 
 ## Example with InstantSearch
 
