@@ -4,18 +4,20 @@ import { isString, removeUndefinedFromObject } from './utils.js'
 export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
   return {
     client: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
-    hitsPerPage: options.hitsPerPage || 10,
-    limitPerRequest: options.limitPerRequest || 50,
     attributesToHighlight: ['*'],
+    paginationTotalHits: options.paginationTotalHits || 200,
     placeholderSearch: options.placeholderSearch !== false, // true by default
 
     transformToMeiliSearchParams: function (params) {
+      const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
+        ? this.paginationTotalHits
+        : this.hitsPerPage
       const searchInput = {
         q: this.placeholderSearch && params.query === '' ? null : params.query,
         facetsDistribution: params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
-        limit: this.limitPerRequest,
+        limit,
       }
       return removeUndefinedFromObject(searchInput)
     },
@@ -43,10 +45,8 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     },
 
     parseHits: function (meiliSearchHits, params) {
-      if (params.page !== undefined) {
-        // If there is a pagination widget set
-        const hitsPerPage = this.hitsPerPage
-        const start = params.page * hitsPerPage
+      if (this.pagination) {
+        const start = params.page * this.hitsPerPage
         meiliSearchHits = meiliSearchHits.splice(start, this.hitsPerPage)
       }
 
@@ -65,7 +65,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     },
 
     paginationParams: function (hitsLength, params) {
-      if (params.page !== undefined) {
+      if (this.pagination) {
         const adjust = hitsLength % this.hitsPerPage === 0 ? 0 : 1
         const nbPages = Math.floor(hitsLength / this.hitsPerPage) + adjust
         return {
@@ -76,7 +76,6 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     },
 
     parseMeiliSearchResponse: function (indexUid, meiliSearchResponse, params) {
-      this.hitsPerPage = params.hitsPerPage || this.hitsPerPage
       const {
         exhaustiveFacetsCount,
         exhaustiveNbHits,
@@ -106,8 +105,12 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
     },
 
     search: async function (requests) {
+      // Params got from InstantSearch
+      const params = requests[0].params
+      this.pagination = params.page !== undefined // If the pagination widget has been set
+      this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. It can be changed with `InsantSearch.configure`.
       // Gets information from IS and transforms it for MeiliSearch
-      const searchInput = this.transformToMeiliSearchParams(requests[0].params)
+      const searchInput = this.transformToMeiliSearchParams(params)
       const indexUid = requests[0].indexName
       // Executes the search with MeiliSearch
       const searchResponse = await this.client
