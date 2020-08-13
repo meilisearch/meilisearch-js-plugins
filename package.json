@@ -14,7 +14,8 @@
     "lint:fix": "eslint --ext .js,.ts,.tsx --fix .",
     "build": "rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js ",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
-    "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start"
+    "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
+    "playground:vanilla": "yarn build && open playgrounds/vanilla/index.html"
   },
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",
