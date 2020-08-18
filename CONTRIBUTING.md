@@ -68,12 +68,6 @@ Or the React playground:
 $ yarn playground:react
 ```
 
-Or the vanilla-JS playground:
-
-```bash
-$ yarn playground:vanilla
-```
-
 ### Release Process
 
 MeiliSearch tools follow the [Semantic Versioning Convention](https://semver.org/).
