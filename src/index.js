@@ -17,29 +17,62 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         facetsDistribution: params.facets.length ? params.facets : undefined,
         facetFilters: params.facetFilters,
         attributesToHighlight: this.attributesToHighlight,
+        attributesToCrop: params.attributesToSnippet,
         limit,
       }
       return removeUndefinedFromObject(searchInput)
     },
 
-    replaceHighlightTags: function (
+    replaceHighlightTags: function (value, highlightPreTag, highlightPostTag) {
+      let newHighlightValue = value || ''
+      // If the value of the attribute is a string,
+      // the highlight is applied by MeiliSearch (<em> tags)
+      // and we replace the <em> by the expected tag for InstantSearch
+      if (isString(value)) {
+        newHighlightValue = value
+          .replace(/<em>/g, highlightPreTag)
+          .replace(/<\/em>/g, highlightPostTag)
+      }
+      return newHighlightValue.toString()
+    },
+
+    createHighlighResult: function (
       formattedHit,
       highlightPreTag,
       highlightPostTag
     ) {
       // formattedHit is the `_formatted` object returned by MeiliSearch.
-      // It contains all the highlighted attributes
+      // It contains all the highlighted and croped attributes
       return Object.keys(formattedHit).reduce((result, key) => {
-        let newHighlightString = formattedHit[key] || ''
-        // If the value of the attribute is a string,
-        // the highlight is applied by MeiliSearch (<em> tags)
-        // and we replace the <em> by the expected tag for InstantSearch
-        if (isString(formattedHit[key])) {
-          newHighlightString = formattedHit[key]
-            .replace(/<em>/g, highlightPreTag)
-            .replace(/<\/em>/g, highlightPostTag)
+        result[key] = {
+          value: this.replaceHighlightTags(
+            formattedHit[key],
+            highlightPreTag,
+            highlightPostTag
+          ),
         }
-        result[key] = { value: newHighlightString.toString() }
+        return result
+      }, {})
+    },
+
+    createSnippetResult: function (
+      formattedHit,
+      attributesToSnippet,
+      highlightPreTag,
+      highlightPostTag
+    ) {
+      // formattedHit is the `_formatted` object returned by MeiliSearch.
+      // It contains all the highlighted and croped attributes
+      return Object.keys(formattedHit).reduce((result, key) => {
+        if (attributesToSnippet.includes(key)) {
+          result[key] = {
+            value: this.replaceHighlightTags(
+              formattedHit[key],
+              highlightPreTag,
+              highlightPostTag
+            ),
+          }
+        }
         return result
       }, {})
     },
@@ -50,13 +83,23 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         meiliSearchHits = meiliSearchHits.splice(start, this.hitsPerPage)
       }
 
+      const attributesToSnippet = params.attributesToSnippet.map(
+        (attribute) => attribute.split(':')[0]
+      )
+
       return meiliSearchHits.map((hit) => {
         const formattedHit = hit._formatted
         delete hit._formatted
         return {
           ...hit,
-          _highlightResult: this.replaceHighlightTags(
+          _highlightResult: this.createHighlighResult(
             formattedHit,
+            params.highlightPreTag,
+            params.highlightPostTag
+          ),
+          _snippetResult: this.createSnippetResult(
+            formattedHit,
+            attributesToSnippet,
             params.highlightPreTag,
             params.highlightPostTag
           ),
@@ -108,7 +151,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       // Params got from InstantSearch
       const params = requests[0].params
       this.pagination = params.page !== undefined // If the pagination widget has been set
-      this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. It can be changed with `InsantSearch.configure`.
+      this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
       // Gets information from IS and transforms it for MeiliSearch
       const searchInput = this.transformToMeiliSearchParams(params)
       const indexUid = requests[0].indexName

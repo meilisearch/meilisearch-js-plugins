@@ -34,6 +34,9 @@
                   <ais-highlight :hit="item" attribute="name"/>
                 </div>
                 <img :src="item.image" align="left" :alt="item.image">
+                <div class="hit-description">
+                  <ais-snippet :hit="item" attribute="description"/>...
+                </div>
                 <div class="hit-info">price: {{item.price}}</div>
                 <div class="hit-info">release date: {{item.releaseDate}}</div>
               </div>
@@ -44,6 +47,7 @@
 
           <ais-configure
             :hits-per-page.camel="6"
+            :attributesToSnippet="['description:50']"
           />
         </div>
       </ais-instant-search>
@@ -60,10 +64,7 @@ export default {
     return {
       searchClient: instantMeiliSearch(
         "https://demos.meilisearch.com",
-        "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
-        {
-          paginationTotalHits: 60
-        }
+        "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25"
       )
     };
   }
@@ -105,6 +106,12 @@ body {
 
 .hit-name {
   margin-bottom: 0.5em;
+}
+
+.hit-description {
+  font-size: 90%;
+  margin-bottom: 0.5em;
+  color: grey;
 }
 
 .hit-info {
