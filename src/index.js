@@ -13,12 +13,13 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
         ? this.paginationTotalHits
         : this.hitsPerPage
+      const { query, facets, facetFilters, attributesToSnippet } = params
       const searchInput = {
-        q: this.placeholderSearch && params.query === '' ? null : params.query,
-        facetsDistribution: params.facets.length ? params.facets : undefined,
-        facetFilters: params.facetFilters,
+        q: this.placeholderSearch && query === '' ? null : query,
+        facetsDistribution: facets.length ? facets : undefined,
+        facetFilters: facetFilters,
         attributesToHighlight: this.attributesToHighlight,
-        attributesToCrop: params.attributesToSnippet,
+        attributesToCrop: attributesToSnippet,
         limit,
       }
       return removeUndefinedFromObject(searchInput)
@@ -35,18 +36,8 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         delete hit._formatted
         return {
           ...hit,
-          _highlightResult: createHighlighResult(
-            formattedHit,
-            params.highlightPreTag,
-            params.highlightPostTag
-          ),
-          _snippetResult: createSnippetResult(
-            formattedHit,
-            params.attributesToSnippet,
-            params.snippetEllipsisText,
-            params.highlightPreTag,
-            params.highlightPostTag
-          ),
+          _highlightResult: createHighlighResult({ formattedHit, ...params }),
+          _snippetResult: createSnippetResult({ formattedHit, ...params }),
         }
       })
     },

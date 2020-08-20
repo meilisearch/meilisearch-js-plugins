@@ -13,7 +13,11 @@ function replaceHighlightTags(value, highlightPreTag, highlightPostTag) {
   return newHighlightValue.toString()
 }
 
-function createHighlighResult(formattedHit, highlightPreTag, highlightPostTag) {
+function createHighlighResult({
+  formattedHit,
+  highlightPreTag,
+  highlightPostTag,
+}) {
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return Object.keys(formattedHit).reduce((result, key) => {
@@ -52,13 +56,13 @@ function snippetFinalValue(
   return replaceHighlightTags(newValue, highlightPreTag, highlightPostTag)
 }
 
-function createSnippetResult(
+function createSnippetResult({
   formattedHit,
   attributesToSnippet,
   snippetEllipsisText,
   highlightPreTag,
-  highlightPostTag
-) {
+  highlightPostTag,
+}) {
   if (attributesToSnippet === undefined) {
     return null
   }
