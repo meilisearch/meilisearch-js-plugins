@@ -3735,10 +3735,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-meilisearch@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.12.0.tgz#051b728e2df07bdaf4321a98f6aa8dd7a89803e8"
-  integrity sha512-5bvw+zg8yh4ZXtXgz1VDAd0A/Ng1ZCagIiQyZKfyp7nyqOYafxIAU+wNigPcUdplyAunTXj2F6z/2GXeHge5VA==
+meilisearch@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.13.0.tgz#dea7ec939b9eae75efe10b54bd0955741bf7b18a"
+  integrity sha512-IupsRuzIW6ivwZ9DregRGdYSiZCfGUIoZDqh66iY2jv1I8nMf+cNNR381iaGjaS4ddIdxA3GN6sttCHYqNgZLw==
   dependencies:
     axios "^0.19.2"
 
