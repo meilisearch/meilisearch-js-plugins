@@ -1,5 +1,6 @@
 import MeiliSearch from 'meilisearch'
-import { isString, removeUndefinedFromObject } from './utils.js'
+import { removeUndefinedFromObject } from './utils.js'
+import { createHighlighResult, createSnippetResult } from './format.js'
 
 export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
   return {
@@ -12,36 +13,16 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
         ? this.paginationTotalHits
         : this.hitsPerPage
+      const { query, facets, facetFilters, attributesToSnippet } = params
       const searchInput = {
-        q: this.placeholderSearch && params.query === '' ? null : params.query,
-        facetsDistribution: params.facets.length ? params.facets : undefined,
-        facetFilters: params.facetFilters,
+        q: this.placeholderSearch && query === '' ? null : query,
+        facetsDistribution: facets.length ? facets : undefined,
+        facetFilters: facetFilters,
         attributesToHighlight: this.attributesToHighlight,
+        attributesToCrop: attributesToSnippet,
         limit,
       }
       return removeUndefinedFromObject(searchInput)
-    },
-
-    replaceHighlightTags: function (
-      formattedHit,
-      highlightPreTag,
-      highlightPostTag
-    ) {
-      // formattedHit is the `_formatted` object returned by MeiliSearch.
-      // It contains all the highlighted attributes
-      return Object.keys(formattedHit).reduce((result, key) => {
-        let newHighlightString = formattedHit[key] || ''
-        // If the value of the attribute is a string,
-        // the highlight is applied by MeiliSearch (<em> tags)
-        // and we replace the <em> by the expected tag for InstantSearch
-        if (isString(formattedHit[key])) {
-          newHighlightString = formattedHit[key]
-            .replace(/<em>/g, highlightPreTag)
-            .replace(/<\/em>/g, highlightPostTag)
-        }
-        result[key] = { value: newHighlightString.toString() }
-        return result
-      }, {})
     },
 
     parseHits: function (meiliSearchHits, params) {
@@ -55,11 +36,8 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         delete hit._formatted
         return {
           ...hit,
-          _highlightResult: this.replaceHighlightTags(
-            formattedHit,
-            params.highlightPreTag,
-            params.highlightPostTag
-          ),
+          _highlightResult: createHighlighResult({ formattedHit, ...params }),
+          _snippetResult: createSnippetResult({ formattedHit, ...params }),
         }
       })
     },
@@ -108,7 +86,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       // Params got from InstantSearch
       const params = requests[0].params
       this.pagination = params.page !== undefined // If the pagination widget has been set
-      this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. It can be changed with `InsantSearch.configure`.
+      this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
       // Gets information from IS and transforms it for MeiliSearch
       const searchInput = this.transformToMeiliSearchParams(params)
       const indexUid = requests[0].indexName
