@@ -35,7 +35,7 @@
                 </div>
                 <img :src="item.image" align="left" :alt="item.image">
                 <div class="hit-description">
-                  <ais-snippet :hit="item" attribute="description"/>...
+                  <ais-snippet :hit="item" attribute="description"/>
                 </div>
                 <div class="hit-info">price: {{item.price}}</div>
                 <div class="hit-info">release date: {{item.releaseDate}}</div>
@@ -48,6 +48,7 @@
           <ais-configure
             :hits-per-page.camel="6"
             :attributesToSnippet="['description:50']"
+            snippetEllipsisText="…"
           />
         </div>
       </ais-instant-search>
@@ -95,7 +96,7 @@ body {
   margin-bottom: 0.5em;
 }
 
-.ais-Highlight-highlighted {
+.ais-Highlight-highlighted, .ais-Snippet-highlighted {
   background: cyan;
   font-style: normal;
 }
