@@ -1,5 +1,6 @@
 import MeiliSearch from 'meilisearch'
-import { isString, removeUndefinedFromObject } from './utils.js'
+import { removeUndefinedFromObject } from './utils.js'
+import { createHighlighResult, createSnippetResult } from './format.js'
 
 export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
   return {
@@ -23,113 +24,25 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       return removeUndefinedFromObject(searchInput)
     },
 
-    replaceHighlightTags: function (value, highlightPreTag, highlightPostTag) {
-      let newHighlightValue = value || ''
-      // If the value of the attribute is a string,
-      // the highlight is applied by MeiliSearch (<em> tags)
-      // and we replace the <em> by the expected tag for InstantSearch
-      if (isString(value)) {
-        newHighlightValue = value
-          .replace(/<em>/g, highlightPreTag)
-          .replace(/<\/em>/g, highlightPostTag)
-      }
-      return newHighlightValue.toString()
-    },
-
-    createHighlighResult: function (
-      formattedHit,
-      highlightPreTag,
-      highlightPostTag
-    ) {
-      // formattedHit is the `_formatted` object returned by MeiliSearch.
-      // It contains all the highlighted and croped attributes
-      return Object.keys(formattedHit).reduce((result, key) => {
-        result[key] = {
-          value: this.replaceHighlightTags(
-            formattedHit[key],
-            highlightPreTag,
-            highlightPostTag
-          ),
-        }
-        return result
-      }, {})
-    },
-
-    snippetFinalValue: function (
-      value,
-      snippetEllipsisText,
-      highlightPreTag,
-      highlightPostTag
-    ) {
-      let newValue = value
-      // manage a kind of `...` for the crop until this issue is solved: https://github.com/meilisearch/MeiliSearch/issues/923
-      // `...` is put if we are at the middle of a sentence (instead at the middle of the document field)
-      if (snippetEllipsisText !== undefined && isString(newValue)) {
-        if (
-          newValue[0] === newValue[0].toLowerCase() && // beginning of a sentence
-          newValue.startsWith('<em>') === false // beginning of the document field, otherwise MeiliSearch would crop around the highligh
-        ) {
-          newValue = `${snippetEllipsisText}${newValue}`
-        }
-        if (!!newValue.match(/[.!?]$/) === false) {
-          // end of the sentence
-          newValue = `${newValue}${snippetEllipsisText}`
-        }
-      }
-      return this.replaceHighlightTags(
-        newValue,
-        highlightPreTag,
-        highlightPostTag
-      )
-    },
-
-    createSnippetResult: function (
-      formattedHit,
-      attributesToSnippet,
-      snippetEllipsisText,
-      highlightPreTag,
-      highlightPostTag
-    ) {
-      // formattedHit is the `_formatted` object returned by MeiliSearch.
-      // It contains all the highlighted and croped attributes
-      return Object.keys(formattedHit).reduce((result, key) => {
-        if (attributesToSnippet.includes(key)) {
-          result[key] = {
-            value: this.snippetFinalValue(
-              formattedHit[key],
-              snippetEllipsisText,
-              highlightPreTag,
-              highlightPostTag
-            ),
-          }
-        }
-        return result
-      }, {})
-    },
-
     parseHits: function (meiliSearchHits, params) {
       if (this.pagination) {
         const start = params.page * this.hitsPerPage
         meiliSearchHits = meiliSearchHits.splice(start, this.hitsPerPage)
       }
 
-      const attributesToSnippet = params.attributesToSnippet.map(
-        (attribute) => attribute.split(':')[0]
-      )
-
       return meiliSearchHits.map((hit) => {
         const formattedHit = hit._formatted
         delete hit._formatted
         return {
           ...hit,
-          _highlightResult: this.createHighlighResult(
+          _highlightResult: createHighlighResult(
             formattedHit,
             params.highlightPreTag,
             params.highlightPostTag
           ),
-          _snippetResult: this.createSnippetResult(
+          _snippetResult: createSnippetResult(
             formattedHit,
-            attributesToSnippet,
+            params.attributesToSnippet,
             params.snippetEllipsisText,
             params.highlightPreTag,
             params.highlightPostTag
