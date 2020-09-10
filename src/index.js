@@ -13,13 +13,20 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
         ? this.paginationTotalHits
         : this.hitsPerPage
-      const { query, facets, facetFilters, attributesToSnippet } = params
+      const {
+        query,
+        facets,
+        facetFilters,
+        attributesToSnippet,
+        filters,
+      } = params
       const searchInput = {
         q: this.placeholderSearch && query === '' ? null : query,
         facetsDistribution: facets.length ? facets : undefined,
         facetFilters: facetFilters,
         attributesToHighlight: this.attributesToHighlight,
         attributesToCrop: attributesToSnippet,
+        filters,
         limit,
       }
       return removeUndefinedFromObject(searchInput)
