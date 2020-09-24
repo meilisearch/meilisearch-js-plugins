@@ -5,6 +5,8 @@ function replaceHighlightTags(value, highlightPreTag, highlightPostTag) {
   // If the value of the attribute is a string,
   // the highlight is applied by MeiliSearch (<em> tags)
   // and we replace the <em> by the expected tag for InstantSearch
+  highlightPreTag = highlightPreTag || '__ais-highlight__'
+  highlightPostTag = highlightPostTag || '__/ais-highlight__'
   if (isString(value)) {
     newHighlightValue = value
       .replace(/<em>/g, highlightPreTag)
