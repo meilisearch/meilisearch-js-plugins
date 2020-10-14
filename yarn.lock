@@ -3915,9 +3915,9 @@ map-visit@^1.0.0:
     object-visit "^1.0.0"
 
 meilisearch@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.14.0.tgz#a8347981304d4f61896b1310ffcadc0ef16797b7"
-  integrity sha512-EfcD3qRtL3YX5rCNSHGIH7OpS4bMQJ9Tt8v3ncfTPcHZ/0aVqzmw2y/TGuwZJ0cExgED2Kw/XQY5a7RAh+6MRw==
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.14.1.tgz#faa057891fc5693d373474d18a7eba31c3db8cbb"
+  integrity sha512-NNUOlsGZmNXWHu1NrE5Eq6k4MG4KHEtvXYBHZ5WcLE64jKZ0mtk7c7ubhjX3eHnw437BlyX+hH0YnH9w30lfww==
   dependencies:
     cross-fetch "^3.0.5"
 
