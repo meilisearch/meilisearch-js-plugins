@@ -21,13 +21,13 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         filters,
       } = params
       const searchInput = {
-        q: this.placeholderSearch && query === '' ? null : query,
+        q: query,
         facetsDistribution: facets.length ? facets : undefined,
-        facetFilters: facetFilters,
+        facetFilters,
         attributesToHighlight: this.attributesToHighlight,
         attributesToCrop: attributesToSnippet,
         filters,
-        limit,
+        limit: this.placeholderSearch === false && query === '' ? 0 : limit,
       }
       return removeUndefinedFromObject(searchInput)
     },
