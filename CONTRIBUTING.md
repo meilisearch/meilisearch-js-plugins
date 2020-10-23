@@ -123,6 +123,6 @@ Some notes on GitHub PRs:
 - The branch related to the PR must be **up-to-date with `master`** before merging. You need to [rebase your branch](https://gist.github.com/curquiza/5f7ce615f85331f083cd467fc4e19398) if it is not.
 - All PRs must be reviewed and approved by at least one maintainer.
 - All PRs have to be **squashed and merged**.
-- The PR title should be accurate and descriptive of the changes. The title of the PR will be indeed automatically added to the next [release changlogs](https://github.com/meilisearch/instant-meilisearch/releases/).
+- The PR title should be accurate and descriptive of the changes. The title of the PR will be indeed automatically added to the next [release changelogs](https://github.com/meilisearch/instant-meilisearch/releases/).
 
 Thank you again for reading this through, we can not wait to begin to work with you if you made your way through this contributing guide ❤️
