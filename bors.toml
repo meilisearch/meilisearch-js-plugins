@@ -1,0 +1,3 @@
+status = ["instant-meilisearch-tests"]
+# 1 hour timeout
+timeout-sec = 3600
