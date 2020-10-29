@@ -6,10 +6,10 @@
 
 <h4 align="center">
   <a href="https://github.com/meilisearch/MeiliSearch">MeiliSearch</a> |
+  <a href="https://docs.meilisearch.com">Documentation</a> |
   <a href="https://www.meilisearch.com">Website</a> |
   <a href="https://blog.meilisearch.com">Blog</a> |
   <a href="https://twitter.com/meilisearch">Twitter</a> |
-  <a href="https://docs.meilisearch.com">Documentation</a> |
   <a href="https://docs.meilisearch.com/faq">FAQ</a>
 </h4>
 
@@ -19,11 +19,12 @@
   <a href="https://github.com/meilisearch/instant-meilisearch/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
   <a href="https://slack.meilisearch.com"><img src="https://img.shields.io/badge/slack-MeiliSearch-blue.svg?logo=slack" alt="Slack"></a>
   <a href="https://github.com/meilisearch/MeiliSearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
+  <a href="https://app.bors.tech/repositories/28908"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
 </p>
 
 <p align="center">⚡ How to integrate a front-end search bar in your website using MeiliSearch</p>
 
-**MeiliSearch** is a powerful, fast, open-source, easy to use and deploy search engine. Both searching and indexing are highly customizable. Features such as typo-tolerance, filters, and synonyms are provided out-of-the-box.
+**MeiliSearch** is a powerful, fast, open-source, easy to use and deploy search engine. Both searching and indexing are highly customizable. Features such as typo-tolerance, filters, facets, and synonyms are provided out-of-the-box.
 
 This library is a plugin to establish the communication between your [MeiliSearch](https://github.com/meilisearch/MeiliSearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
