@@ -32,7 +32,7 @@
   "author": "Clementine Urquizar",
   "license": "MIT",
   "dependencies": {
-    "meilisearch": "^0.14.0"
+    "meilisearch": "^0.15.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
