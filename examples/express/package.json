@@ -8,7 +8,7 @@
     "start": "node src/server.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
   },
