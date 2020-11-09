@@ -41,3 +41,16 @@ jobs:
         run: yarn install
       - name: Tests style
         run: yarn lint
+
+  builds:
+    name: instant-meilisearch-playground-builds
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests Vue Build
+        run: yarn test:playground:vue
+      - name: Run tests React Build
+        run: yarn test:playground:react

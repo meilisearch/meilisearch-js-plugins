@@ -60,7 +60,6 @@
 import "instantsearch.css/themes/algolia-min.css";
 import instantMeiliSearch from "../../../src/index.js";
 
-const i = 0;
 export default {
   data() {
     return {
