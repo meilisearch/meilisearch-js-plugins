@@ -62,7 +62,7 @@ const searchClient = instantMeiliSearch(
 
 - `placeholderSearch` (`true` by default). Displays documents even when the query is empty.
 
-- `paginationTotalHits` (`200` by default): The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/). If the pagination widget is not set, `paginationTotalHits` is ignored.<br>
+- `paginationTotalHits` (`200` by default): The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/). If the pagination widget is not used, `paginationTotalHits` is ignored.<br>
 Which means that, with a `paginationTotalHits` default value of 200, and `hitsPerPage` default value of 20, you can browse `paginationTotalHits / hitsPerPage` => `200 / 20 = 10` pages during pagination. Each of the 10 pages containing 20 results.<br>
 The default value of `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples).<br>
 ⚠️ MeiliSearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
