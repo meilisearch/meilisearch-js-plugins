@@ -30,3 +30,14 @@ jobs:
         run: yarn test:demo:nodejs
       - name: Run Browser demo
         run: yarn test:demo:browser
+
+  style:
+    name: instant-meilisearch-style-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install
+      - name: Tests style
+        run: yarn lint
