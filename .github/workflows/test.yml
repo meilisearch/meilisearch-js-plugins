@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: yarn install
-      - name: Run tests Vue Build
-        run: yarn test:playground:vue
-      - name: Run tests React Build
-        run: yarn test:playground:react
+      - name: Run Vue build
+        run: yarn build:playground:vue
+      - name: Run React build
+        run: yarn build:playground:react
