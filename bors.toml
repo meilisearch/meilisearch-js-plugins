@@ -1,3 +1,3 @@
-status = ["instant-meilisearch-tests", "instant-meilisearch-style-tests"]
+status = ['integration-tests', 'style-check', 'playground-builds']
 # 1 hour timeout
 timeout-sec = 3600
