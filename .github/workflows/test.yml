@@ -11,7 +11,7 @@ on:
 
 jobs:
   tests:
-    name: instant-meilisearch-tests
+    name: integration-tests
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +32,7 @@ jobs:
         run: yarn test:demo:browser
 
   style:
-    name: instant-meilisearch-style-tests
+    name: style-check
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,7 @@ jobs:
         run: yarn lint
 
   builds:
-    name: instant-meilisearch-playground-builds
+    name: playground-builds
     runs-on: ubuntu-latest
 
     steps:
