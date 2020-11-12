@@ -5,40 +5,43 @@
       <p class="header-subtitle">Search in Steam video games 🎮</p>
     </header>
     <p class="disclaimer">
-      This is not the official Steam dataset but only for demo purpose.
-      Enjoy searching with MeiliSearch!
+      This is not the official Steam dataset but only for demo purpose. Enjoy
+      searching with MeiliSearch!
     </p>
     <div class="container">
-      <ais-instant-search :search-client="searchClient" index-name="steam-video-games">
+      <ais-instant-search
+        :search-client="searchClient"
+        index-name="steam-video-games"
+      >
         <div class="search-panel__filters">
           <ais-clear-refinements>
             <span slot="resetLabel">Clear all filters</span>
           </ais-clear-refinements>
           <h2>Genres</h2>
-          <ais-refinement-list attribute="genres"/>
+          <ais-refinement-list attribute="genres" />
           <h2>Players</h2>
-          <ais-refinement-list attribute="players"/>
+          <ais-refinement-list attribute="players" />
           <h2>Platforms</h2>
-          <ais-refinement-list attribute="platforms"/>
+          <ais-refinement-list attribute="platforms" />
           <h2>Misc</h2>
-          <ais-refinement-list attribute="misc"/>
+          <ais-refinement-list attribute="misc" />
         </div>
 
         <div class="search-panel__results">
-          <ais-search-box placeholder="Search here…"/>
+          <ais-search-box placeholder="Search here…" />
 
           <ais-hits>
             <template slot="item" slot-scope="{ item }">
               <div>
                 <div class="hit-name">
-                  <ais-highlight :hit="item" attribute="name"/>
+                  <ais-highlight :hit="item" attribute="name" />
                 </div>
-                <img :src="item.image" align="left" :alt="item.image">
+                <img :src="item.image" align="left" :alt="item.image" />
                 <div class="hit-description">
-                  <ais-snippet :hit="item" attribute="description"/>
+                  <ais-snippet :hit="item" attribute="description" />
                 </div>
-                <div class="hit-info">price: {{item.price}}</div>
-                <div class="hit-info">release date: {{item.releaseDate}}</div>
+                <div class="hit-info">price: {{ item.price }}</div>
+                <div class="hit-info">release date: {{ item.releaseDate }}</div>
               </div>
             </template>
           </ais-hits>
@@ -57,19 +60,19 @@
 </template>
 
 <script>
-import "instantsearch.css/themes/algolia-min.css";
-import instantMeiliSearch from "../../../src/index.js";
+import 'instantsearch.css/themes/algolia-min.css'
+import instantMeiliSearch from '../../../dist/instant-meilisearch.esm.js'
 
 export default {
   data() {
     return {
       searchClient: instantMeiliSearch(
-        "https://demos.meilisearch.com",
-        "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25"
-      )
-    };
-  }
-};
+        'https://demos.meilisearch.com',
+        'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25'
+      ),
+    }
+  },
+}
 </script>
 
 <style>
@@ -80,8 +83,8 @@ h1 {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 .ais-Hits-item {
@@ -96,7 +99,8 @@ body {
   margin-bottom: 0.5em;
 }
 
-.ais-Highlight-highlighted, .ais-Snippet-highlighted {
+.ais-Highlight-highlighted,
+.ais-Snippet-highlighted {
   background: cyan;
   font-style: normal;
 }
@@ -135,7 +139,7 @@ body {
 }
 
 .header-title::after {
-  content: " ▸ ";
+  content: ' ▸ ';
   padding: 0 0.5rem;
 }
 
