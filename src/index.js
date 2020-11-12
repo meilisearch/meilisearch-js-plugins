@@ -18,6 +18,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         facets,
         facetFilters,
         attributesToSnippet,
+        attributesToRetrieve,
         filters,
       } = params
       const searchInput = {
@@ -26,6 +27,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
         facetFilters,
         attributesToHighlight: this.attributesToHighlight,
         attributesToCrop: attributesToSnippet,
+        attributesToRetrieve,
         filters,
         limit: this.placeholderSearch === false && query === '' ? 0 : limit,
       }
