@@ -1,4 +1,4 @@
-import MeiliSearch, { SearchResponse } from 'meilisearch'
+import MeiliSearch, { SearchParams, SearchResponse } from 'meilisearch'
 
 import { createHighlighResult, createSnippetResult } from './format'
 import { removeUndefinedFromObject } from './utils'
@@ -10,12 +10,9 @@ export type Params = {
   highlightPostTag?: string
   snippetEllipsisText?: string
   attributesToSnippet?: string[]
-  attributesToRetrieve?: string[]
   query: string
-  facets: string // TODO
-  filters: string // TODO
-  facetFilters: string // TODO
-}
+  facets: string[] // TODO: exclude key facetsDistribution because this one is used instead
+} & SearchParams<any>
 
 type Request = {
   params: Params
