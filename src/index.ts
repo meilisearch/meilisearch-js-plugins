@@ -10,6 +10,7 @@ export type Params = {
   highlightPostTag?: string
   snippetEllipsisText?: string
   attributesToSnippet?: string[]
+  attributesToRetrieve?: string[]
   query: string
   facets: string // TODO
   filters: string // TODO
