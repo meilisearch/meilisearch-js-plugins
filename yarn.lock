@@ -4183,7 +4183,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-meilisearch@^0.16.0:
+meilisearch@^0.16.1:
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.16.1.tgz#e54f8720b595b35195b7ce7a4947d5e5406032d7"
   integrity sha512-KrKDaX0gvsiIKGbmmUShrv4xLQ0BqUjhftQ4/2PM1lMHmhUyfTFzrUfK3CToRAlUxZ/sEpf8SeAlTkKP4QBGsw==
