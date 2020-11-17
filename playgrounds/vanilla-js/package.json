@@ -4,9 +4,9 @@
   "description": "Instant-meilisearch playground written with vanilla javascript",
   "main": "index.js",
   "scripts": {
-    "cleanup": "rm -rf .cache dist",
+    "cleanup": "ls -lah && pwd && ls -lah src/ && cat src/instant-meilisearch.umd.js && rm -rf .cache dist",
     "start": "npm run cleanup && parcel index.html --global instantMeiliSearch",
-    "build": "npm run cleanup && parcel build index.html --global instantMeiliSearch"
+    "build": "ls -lah && pwd && npm run cleanup && parcel build index.html --global instantMeiliSearch"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
