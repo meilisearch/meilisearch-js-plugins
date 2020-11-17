@@ -4,12 +4,19 @@
   "description": "Instant-meilisearch playground written with vanilla javascript",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "start": "parcel index.html --global instantMeiliSearch",
+    "build": "parcel build index.html --global instantMeiliSearch"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "parcel-bundler": "^1.12.4"
   },
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ],
   "license": "MIT"
 }
