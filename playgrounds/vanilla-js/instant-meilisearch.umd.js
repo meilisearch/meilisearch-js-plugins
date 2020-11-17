@@ -1,1 +1,0 @@
-../../dist/instant-meilisearch.umd.js
