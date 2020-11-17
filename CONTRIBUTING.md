@@ -68,7 +68,7 @@ Or the React playground:
 $ yarn playground:react
 ```
 
-Or the Vanilla Javascript playground:
+Or the Vanilla JavaScript playground:
 ```
 $ yarn playground:vanilla-js
 ```
