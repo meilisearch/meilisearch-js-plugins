@@ -4,8 +4,9 @@
   "description": "Instant-meilisearch playground written with vanilla javascript",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html --global instantMeiliSearch",
-    "build": "parcel build index.html --global instantMeiliSearch"
+    "cleanup": "rm -rf .cache dist",
+    "start": "npm run cleanup && parcel index.html --global instantMeiliSearch",
+    "build": "npm run cleanup && parcel build index.html --global instantMeiliSearch"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
