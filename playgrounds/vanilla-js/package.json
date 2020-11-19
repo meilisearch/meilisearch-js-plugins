@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "cleanup": "rm -rf .cache dist",
-    "start": "npm run cleanup && parcel serve index.html --global instantMeiliSearch",
-    "build": "npm run cleanup && parcel build index.html --global instantMeiliSearch"
+    "start": "npm run cleanup && parcel serve index.html",
+    "build": "npm run cleanup && parcel build index.html"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
