@@ -54,3 +54,5 @@ jobs:
         run: yarn build:playground:vue
       - name: Run React build
         run: yarn build:playground:react
+      - name: Run Vanilla JS build
+        run: yarn build:playground:vanilla-js
