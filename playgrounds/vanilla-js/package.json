@@ -12,6 +12,9 @@
     "@babel/core": "^7.12.3",
     "parcel-bundler": "^1.12.4"
   },
+  "resolutions": {
+    "node-forge": "^0.10.0"
+  },
   "browserslist": [
     "last 3 and_chr versions",
     "last 3 chrome versions",
