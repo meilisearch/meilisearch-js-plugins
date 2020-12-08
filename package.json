@@ -12,6 +12,7 @@
     "test:demo:esm": "yarn --cwd examples/esm && yarn --cwd examples/esm start",
     "build:playground:vue": "yarn build && yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue build",
     "build:playground:react": "yarn build && yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react build",
+    "build:playground:vanilla-js": "yarn build && yarn --cwd ./playgrounds/vanilla-js && yarn --cwd ./playgrounds/vanilla-js build",
     "test:all": "yarn test && yarn test:demo",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
     "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix .",
@@ -19,6 +20,7 @@
     "postbuild": "yarn typingsheader",
     "playground:vue": "yarn build && yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn build && yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
+    "playground:vanilla-js": "yarn build && yarn --cwd ./playgrounds/vanilla-js && yarn --cwd ./playgrounds/vanilla-js start"
     "typingsheader": "node scripts/build.js"
   },
   "main": "./dist/instant-meilisearch.umd.js",
@@ -74,7 +76,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.1.0",
     "jest": "^26.1.0",
     "jest-watch-typeahead": "^0.6.0",

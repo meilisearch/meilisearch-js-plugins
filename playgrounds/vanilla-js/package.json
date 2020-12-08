@@ -1,0 +1,26 @@
+{
+  "name": "js-playground",
+  "version": "0.1.0",
+  "description": "Instant-meilisearch playground written with vanilla javascript",
+  "main": "index.js",
+  "scripts": {
+    "cleanup": "rm -rf .cache dist",
+    "start": "npm run cleanup && parcel serve index.html",
+    "build": "npm run cleanup && parcel build index.html"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "parcel-bundler": "^1.12.4"
+  },
+  "resolutions": {
+    "node-forge": "^0.10.0"
+  },
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ],
+  "license": "MIT"
+}
