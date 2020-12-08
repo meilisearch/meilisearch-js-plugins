@@ -20,7 +20,7 @@
     "postbuild": "yarn typingsheader",
     "playground:vue": "yarn build && yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn build && yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
-    "playground:vanilla-js": "yarn build && yarn --cwd ./playgrounds/vanilla-js && yarn --cwd ./playgrounds/vanilla-js start"
+    "playground:vanilla-js": "yarn build && yarn --cwd ./playgrounds/vanilla-js && yarn --cwd ./playgrounds/vanilla-js start",
     "typingsheader": "node scripts/build.js"
   },
   "main": "./dist/instant-meilisearch.umd.js",
