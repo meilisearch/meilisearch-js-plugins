@@ -1,0 +1,13 @@
+{
+  // extend your base config so you don't have to redefine your compilerOptions
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false
+  },
+  "include": [
+    "tests/**/*.ts",
+    "jest.config.js",
+    "rollup.config.js",
+    ".eslintrc.js"
+  ]
+}

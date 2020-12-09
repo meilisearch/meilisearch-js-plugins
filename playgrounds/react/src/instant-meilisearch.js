@@ -1,1 +1,1 @@
-../../../src/index.js
+../../../dist/instant-meilisearch.esm.js

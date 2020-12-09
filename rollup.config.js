@@ -1,9 +1,11 @@
+import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import { resolve } from 'path'
-import commonjs from '@rollup/plugin-commonjs'
 import babel from 'rollup-plugin-babel'
-import pkg from './package.json'
 import { terser } from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript2'
+
+import pkg from './package.json'
 
 function getOutputFileName(fileName, isProd = false) {
   return isProd ? fileName.replace(/\.js$/, '.min.js') : fileName
@@ -13,10 +15,21 @@ const env = process.env.NODE_ENV || 'development'
 const LIB_NAME = 'instantMeiliSearch'
 const ROOT = resolve(__dirname, '.')
 
+const PLUGINS = [
+  typescript({
+    useTsconfigDeclarationDir: true,
+    tsconfigOverride: {
+      allowJs: false,
+      includes: ['src'],
+      exclude: ['tests', 'examples', '*.js', 'scripts'],
+      esModuleInterop: true,
+    },
+  }),
+]
 module.exports = [
   // browser-friendly IIFE build
   {
-    input: 'src/index.js', // directory to transpilation of typescript
+    input: 'src/index.ts', // directory to transpilation of typescript
     output: {
       name: LIB_NAME,
       file: getOutputFileName(
@@ -31,6 +44,7 @@ module.exports = [
       },
     },
     plugins: [
+      ...PLUGINS,
       nodeResolve({
         mainFields: ['jsnext', 'browser', 'main'],
         preferBuiltins: true,
@@ -43,7 +57,7 @@ module.exports = [
     ],
   },
   {
-    input: 'src/index.js',
+    input: 'src/index.ts',
     external: ['meilisearch'],
     output: [
       {
@@ -68,6 +82,7 @@ module.exports = [
     ],
     plugins: [
       env === 'production' ? terser() : {}, // will minify the file in production mode
+      ...PLUGINS,
     ],
   },
 ]
