@@ -101,7 +101,7 @@ export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
       const indexUid = requests[0].indexName
       // Executes the search with MeiliSearch
       const searchResponse = await this.client
-        .getIndex(indexUid)
+        .index(indexUid)
         .search(searchInput.q, searchInput)
       // Parses the MeiliSearch response and returns it for InstantSearch
       return this.parseMeiliSearchResponse(
