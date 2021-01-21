@@ -69,9 +69,14 @@ Or the React playground:
 $ yarn playground:react
 ```
 
-Or the Vanilla JavaScript playground:
+Or the JavaScript playground:
 ```
-$ yarn playground:vanilla-js
+$ yarn playground:javascript
+```
+
+Or the HTML playground:
+```
+$ yarn playground:html
 ```
 
 ## Git Guidelines

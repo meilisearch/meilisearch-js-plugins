@@ -9,16 +9,19 @@
     "test:env:browser": "yarn --cwd tests/env/express && yarn --cwd tests/env/express test",
     "test:env:nodejs": "node tests/env/node/index.js",
     "test:env:esm": "yarn --cwd tests/env/esm && yarn --cwd tests/env/esm start",
+    "test:playgrounds": "yarn build:playground:vue && yarn build:playground:react && yarn build:playground:javascript && yarn build:playground:html",
     "build:playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue build",
     "build:playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react build",
-    "build:playground:vanilla-js": "yarn --cwd ./playgrounds/vanilla-js && yarn --cwd ./playgrounds/vanilla-js build",
+    "build:playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript build",
+    "build:playground:html": "yarn --cwd ./playgrounds/html && yarn --cwd ./playgrounds/html build",
     "test:all": "yarn test && yarn test:demo",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
     "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix .",
     "build": "rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js ",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
-    "playground:vanilla-js": "yarn --cwd ./playgrounds/vanilla-js && yarn --cwd ./playgrounds/vanilla-js start"
+    "playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript start",
+    "playground:html": "yarn --cwd ./playgrounds/html && yarn --cwd ./playgrounds/html start"
   },
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",
@@ -26,7 +29,8 @@
   "cjs": "./dist/instant-meilisearch.cjs.js",
   "files": [
     "dist",
-    "src"
+    "src",
+    "templates"
   ],
   "keywords": [
     "search",
@@ -52,6 +56,7 @@
     "@typescript-eslint/parser": "^4.14.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
+    "cssnano": "^4.1.10",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-react-app": "^6.0.0",
