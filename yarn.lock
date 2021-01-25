@@ -4113,10 +4113,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-meilisearch@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.17.0.tgz#695914c929a57166a99e14549c22ab1216a62ed1"
-  integrity sha512-fKBNS1VtX8xl9WCK+3Uo60uLsJO6esoPXXOt6nq9lavWURmgRn7HC4em9S8N6P1kYCyb/BFMUOYZBm3rgq1zAw==
+meilisearch@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.17.1.tgz#45bda65900c9cf0072c9e847f3bca1751c2def93"
+  integrity sha512-BwS1f6hm0nIEeJeAIChrtxorYHYUC9FAXUo6+RRQN5is3lZF7xvO3zsmWXgL9oMaVm6ByB58kXZLN8Yyw5pcvA==
   dependencies:
     cross-fetch "^3.0.5"
 
