@@ -10,7 +10,6 @@ function getOutputFileName(fileName, isProd = false) {
 }
 
 const env = process.env.NODE_ENV || 'development'
-const LIB_NAME = 'instantMeiliSearch'
 const ROOT = resolve(__dirname, '.')
 
 module.exports = [
@@ -18,7 +17,8 @@ module.exports = [
   {
     input: 'src/index.js', // directory to transpilation of typescript
     output: {
-      name: LIB_NAME,
+      name: 'window',
+      extend: true,
       file: getOutputFileName(
         // will add .min. in filename if in production env
         resolve(ROOT, pkg.browser),
@@ -52,7 +52,7 @@ module.exports = [
           resolve(ROOT, pkg.cjs),
           env === 'production'
         ),
-        exports: 'default',
+        exports: 'named',
         format: 'cjs',
         sourcemap: env === 'production', // create sourcemap for error reporting in production mode
       },
@@ -61,7 +61,7 @@ module.exports = [
           resolve(ROOT, pkg.module),
           env === 'production'
         ),
-        exports: 'default',
+        exports: 'named',
         format: 'es',
         sourcemap: env === 'production', // create sourcemap for error reporting in production mode
       },
