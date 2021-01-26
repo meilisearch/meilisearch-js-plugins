@@ -35,11 +35,25 @@ If you use React or Vue, you might want to check out these repositories:
 
 NB: If you don't have any MeiliSearch instance running and containing your data, you should take a look at this [getting started page](https://docs.meilisearch.com/guides/introduction/quick_start_guide.html).
 
+## Installation
+
+Use `npm` or `yarn` to install `instant-meilisearch`:
+
+```bash
+npm install @meilisearch/instant-meilisearch
+```
+
+```bash
+yarn add @meilisearch/instant-meilisearch
+```
+
 ## Usage
 
 ### Basic
 
 ```js
+import instantMeiliSearch from "./instant-meilisearch.js";
+
 const searchClient = instantMeiliSearch(
   "https://demos.meilisearch.com",
   "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25"
@@ -49,6 +63,8 @@ const searchClient = instantMeiliSearch(
 ### Customization
 
 ```js
+import instantMeiliSearch from "./instant-meilisearch.js";
+
 const searchClient = instantMeiliSearch(
   "https://demos.meilisearch.com",
   "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
