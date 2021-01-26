@@ -20,38 +20,35 @@
     <script src="../../../src/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
     <script>
-      console.log(instantMeiliSearch)
-      instantMeiliSearch = instantMeiliSearch.default
-        const search = instantsearch({
-            indexName: "steam-video-games",
-            searchClient: instantMeiliSearch(
-              "https://demos.meilisearch.com",
-              "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
-            )
-            });
-            search.addWidgets([
-            instantsearch.widgets.searchBox({
-                container: "#searchbox",
-                placeholder: "Search..",
-            }),
-            instantsearch.widgets.configure({
-              hitsPerPage: 8,
-            }),
-            instantsearch.widgets.hits({
-                container: "#hits",
-                templates: {
-                item: `
-                    <div>
-                    <div class="hit-name">
-                        {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
-                    </div>
-                    </div>
-                `
-                }
-            })
-            ]);
-
-            search.start();
+      const search = instantsearch({
+          indexName: "steam-video-games",
+          searchClient: instantMeiliSearch(
+            "https://demos.meilisearch.com",
+            "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
+          )
+          });
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+            container: "#searchbox",
+            placeholder: "Search..",
+        }),
+        instantsearch.widgets.configure({
+          hitsPerPage: 8,
+        }),
+        instantsearch.widgets.hits({
+          container: "#hits",
+          templates: {
+          item: `
+              <div>
+              <div class="hit-name">
+                  {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
+              </div>
+              </div>
+          `
+          }
+        })
+      ]);
+      search.start();
     </script>
   </body>
 </html>
