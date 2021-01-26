@@ -2,7 +2,7 @@ import { MeiliSearch } from 'meilisearch'
 import { removeUndefinedFromObject } from './utils.js'
 import { createHighlighResult, createSnippetResult } from './format.js'
 
-export default function instantMeiliSearch(hostUrl, apiKey, options = {}) {
+export function instantMeiliSearch(hostUrl, apiKey, options = {}) {
   return {
     client: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     attributesToHighlight: ['*'],

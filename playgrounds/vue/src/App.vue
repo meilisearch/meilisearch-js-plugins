@@ -58,7 +58,7 @@
 
 <script>
 import "instantsearch.css/themes/algolia-min.css";
-import instantMeiliSearch from "../../../src/index.js";
+import { instantMeiliSearch } from "../../../src/index.js";
 
 export default {
   data() {
