@@ -1,4 +1,4 @@
-import MeiliSearch from 'meilisearch'
+import { MeiliSearch } from 'meilisearch'
 import { removeUndefinedFromObject } from './utils.js'
 import { createHighlighResult, createSnippetResult } from './format.js'
 
