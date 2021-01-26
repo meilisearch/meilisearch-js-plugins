@@ -1,7 +1,3 @@
-async function sleep(ms) {
-  return await new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 describe('Instant MeiliSearch Browser test', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:3000')
