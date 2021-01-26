@@ -21,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
     <script>
       // This is due to parcel not accepting globals on html files.
-      instantMeiliSearch = instantMeiliSearch.instantMeiliSearch
+      instantMeiliSearch = instantMeiliSearch.instantMeiliSearch;
       const search = instantsearch({
           indexName: "steam-video-games",
           searchClient: instantMeiliSearch(
@@ -54,4 +54,3 @@
     </script>
   </body>
 </html>
-
