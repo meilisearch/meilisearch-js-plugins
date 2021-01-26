@@ -19,18 +19,18 @@ The demo in this directory showcases a basic search that will let you search thr
 $ yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Compile and hot-reload for development
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Compile and minify for production
 ```
 yarn build
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 💡 If you have never used InstantSearch, we recommend reading this [getting started documentation](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/js/).
