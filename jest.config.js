@@ -1,4 +1,4 @@
 module.exports = {
   verbose: true,
-  modulePathIgnorePatterns: ['<rootDir>/examples'],
+  modulePathIgnorePatterns: ['<rootDir>/tests/env'],
 }

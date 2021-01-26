@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cleanup": "rm -rf .cache dist",
-    "start": "npm run cleanup && parcel serve index.html",
+    "start": "npm run cleanup && parcel serve index.html --open",
     "build": "npm run cleanup && parcel build index.html"
   },
   "devDependencies": {

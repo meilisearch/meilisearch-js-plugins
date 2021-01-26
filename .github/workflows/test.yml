@@ -24,12 +24,9 @@ jobs:
         run: yarn test
       - name: Build project
         run: yarn build
-      - name: Run ESM demo
-        run: yarn test:demo:esm
-      - name: Run Node.js demo
-        run: yarn test:demo:nodejs
-      - name: Run Browser demo
-        run: yarn test:demo:browser
+      - name: Run env tests
+        run: yarn test:env
+
 
   style:
     name: style-check
@@ -50,9 +47,5 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: yarn install
-      - name: Run Vue build
-        run: yarn build:playground:vue
-      - name: Run React build
-        run: yarn build:playground:react
-      - name: Run Vanilla JS build
-        run: yarn build:playground:vanilla-js
+      - name: Run Playgrounds Builds
+        run: yarn test:playgrounds
