@@ -132,6 +132,14 @@ Once the changes are merged on `master`, you can publish the current draft relea
 
 GitHub Actions will be triggered and push the package to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
 
+Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
+
+- [MeiliSearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
+- [MeiliSearch + Vue InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
+- [MeiliSearch + React InstantSearch](https://codesandbox.io/s/ms-react-is-sh9ud)
+
+If you don't have the access to do it, please request it internally.
+
 <hr>
 
 Thank you again for reading this through, we can not wait to begin to work with you if you made your way through this contributing guide ❤️
