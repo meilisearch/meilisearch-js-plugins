@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import 'instantsearch.css/themes/algolia-min.css'
-import instantMeiliSearch from '../../../dist/instant-meilisearch.cjs.js'
+import "instantsearch.css/themes/algolia-min.css";
+import { instantMeiliSearch } from "../../../src/index.js";
 
 export default {
   data() {

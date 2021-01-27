@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  modulePathIgnorePatterns: ['<rootDir>/examples'],
+  modulePathIgnorePatterns: ['<rootDir>/tests/env'],
   testMatch: ['<rootDir>/tests/**/*.ts?(x)'],
   preset: 'ts-jest',
 }

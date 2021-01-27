@@ -1,7 +1,9 @@
-import MeiliSearch, { SearchParams, SearchResponse } from 'meilisearch'
-
+import { MeiliSearch, SearchResponse, SearchParams } from 'meilisearch'
 import { createHighlighResult, createSnippetResult } from './format'
 import { removeUndefinedFromObject } from './utils'
+
+
+
 
 export type Params = {
   page?: number
@@ -180,23 +182,28 @@ export default function instantMeiliSearch(
     },
 
     search: async function (requests: Requests) {
-      // Params got from InstantSearch
-      const params = requests[0].params
-      this.pagination = params.page !== undefined // If the pagination widget has been set
-      this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
-      // Gets information from IS and transforms it for MeiliSearch
-      const searchInput = this.transformToMeiliSearchParams(params)
-      const indexUid = requests[0].indexName
-      // Executes the search with MeiliSearch
-      const searchResponse = await this.client
-        .getIndex(indexUid)
-        .search(searchInput.q, searchInput)
-      // Parses the MeiliSearch response and returns it for InstantSearch
-      return this.parseMeiliSearchResponse(
-        indexUid,
-        searchResponse,
-        requests[0].params
-      )
+      try {
+        // Params got from InstantSearch
+        const params = requests[0].params
+        this.pagination = params.page !== undefined // If the pagination widget has been set
+        this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
+        // Gets information from IS and transforms it for MeiliSearch
+        const searchInput = this.transformToMeiliSearchParams(params)
+        const indexUid = requests[0].indexName
+        // Executes the search with MeiliSearch
+        const searchResponse = await this.client
+          .index(indexUid)
+          .search(searchInput.q, searchInput)
+        // Parses the MeiliSearch response and returns it for InstantSearch
+        return this.parseMeiliSearchResponse(
+          indexUid,
+          searchResponse,
+          requests[0].params
+        )
+      } catch (e) {
+        console.error(e)
+        throw new Error(e)
+      }
     },
   }
 }
