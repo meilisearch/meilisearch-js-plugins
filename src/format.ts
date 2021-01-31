@@ -1,4 +1,4 @@
-import { Params } from '.'
+import { AISSearchParams } from './types'
 import { isString } from './utils'
 
 function replaceHighlightTags(
@@ -24,7 +24,7 @@ function createHighlighResult<T extends Record<string, any>>({
   formattedHit,
   highlightPreTag,
   highlightPostTag,
-}: { formattedHit: T } & Params) {
+}: { formattedHit: T } & AISSearchParams) {
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return Object.keys(formattedHit).reduce((result, key) => {
@@ -72,7 +72,7 @@ function createSnippetResult<
   snippetEllipsisText,
   highlightPreTag,
   highlightPostTag,
-}: { formattedHit: T } & Params) {
+}: { formattedHit: T } & AISSearchParams) {
   if (attributesToSnippet === undefined) {
     return null
   }

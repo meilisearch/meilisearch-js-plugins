@@ -12,8 +12,12 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "noImplicitAny": true,
-    "lib": ["ES2015", "ESNext", "dom"]
+    "lib": ["ES2015", "ESNext", "dom"],
+
+    // "noUnusedLocals": true,
+    // "strictNullChecks": true,
+    // "noImplicitAny": true,
+    // "noImplicitThis": true,
   },
   "include": ["src"] // files to include during transpilation
 }

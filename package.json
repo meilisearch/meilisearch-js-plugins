@@ -23,9 +23,9 @@
     "postbuild": "yarn typingsheader",
     "typingsheader": "node scripts/build.js",
     "build": "yarn cleanup && rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js ",
+    "dev": "rollup -c rollup.config.js --watch",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
-    "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix .",
-
+    "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix ."
   },
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",

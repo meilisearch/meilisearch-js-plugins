@@ -6,8 +6,6 @@
   },
   "include": [
     "tests/**/*.ts",
-    "jest.config.js",
-    "rollup.config.js",
-    ".eslintrc.js"
+    "tests/**/*.d.ts"
   ]
 }
