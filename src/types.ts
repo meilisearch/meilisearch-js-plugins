@@ -1,5 +1,5 @@
-import { MeiliSearch, SearchParams, SearchResponse, Hits } from 'meilisearch3'
-export * as MeiliSearchTypes from 'meilisearch3'
+import { MeiliSearch, SearchParams, SearchResponse } from 'meilisearch'
+export * as MeiliSearchTypes from 'meilisearch'
 
 export type AISSearchParams = {
   page?: number
@@ -13,7 +13,7 @@ export type AISSearchParams = {
 } & SearchParams<any>
 
 export type AISSearchRequest = {
-  instantSearchParams: AISSearchParams
+  params: AISSearchParams
   indexName: string
 }
 
@@ -24,16 +24,29 @@ export type InstantMeiliSearchOptions = {
   placeholderSearch?: boolean
 }
 
-export type IMResponse = {
+export type IMHits<T = Record<string, any>> = T & {
+  _highlightResult: Record<
+    keyof T,
+    {
+      value: string
+    }
+  >
+}
+
+export type IMResponse<T = Record<string, any>> = {
   results: [
     {
-      hits: Array<Record<string, Record<string, string>>>
+      hits: Array<IMHits<T>>
       index: string
       hitsPerPage: number
-      facets: object | undefined
+      facets?: Record<string, object | undefined>
       exhaustiveFacetsCount?: boolean
       processingTimeMs: number
       exhaustiveNbHits: boolean
+      nbPages?: number
+      page?: number | undefined
+      nbHits: number
+      query: string
     }
   ]
 }
@@ -41,35 +54,32 @@ export type IMResponse = {
 export type InstantMeiliSearchInstance = {
   pagination?: boolean
   paginationTotalHits: number
-  hitsPerPage?: number
+  hitsPerPage: number
   client: MeiliSearch
   attributesToHighlight: string[]
   placeholderSearch: boolean
+
   transformToIMResponse: (
     indexUid: string,
-    meiliSearchResponse: SearchResponse,
+    meiliSearchResponse: SearchResponse<any, any>,
     instantSearchParams: AISSearchParams
   ) => IMResponse
 
   transformToMeiliSearchParams: (
     instantSearchParams: AISSearchParams
-  ) => {
-    q: any
-    facetsDistribution: any
-    facetFilters: any
-    attributesToHighlight: string[]
-    attributesToCrop: string[] | undefined
-    filters: any
-    limit: number
-  }
+  ) => Record<string, any>
+
   transformToIMHits: (
-    meiliSearchHits: Hits,
+    meiliSearchHits: Array<Record<string, any>>,
     instantSearchParams: AISSearchParams
-  ) => Hits
+  ) => IMHits[]
   paginationParams: (
     hitsLength: number,
     instantSearchParams: AISSearchParams
   ) => { nbPages: number; page: number | undefined } | undefined
-  paginateIMHits: ({ page }: AISSearchParams, meiliSearchHits: Hits) => Hits
+  paginateIMHits: (
+    { page }: AISSearchParams,
+    meiliSearchHits: Array<Record<string, any>>
+  ) => Array<Record<string, any>>
   search: (requests: AISSearchRequests) => Promise<IMResponse>
 }
