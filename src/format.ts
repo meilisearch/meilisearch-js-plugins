@@ -5,7 +5,7 @@ function replaceHighlightTags(
   value: string,
   highlightPreTag?: string,
   highlightPostTag?: string
-) {
+): string {
   let newHighlightValue = value || ''
   // If the value of the attribute is a string,
   // the highlight is applied by MeiliSearch (<em> tags)

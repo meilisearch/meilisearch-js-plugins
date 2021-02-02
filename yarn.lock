@@ -4499,6 +4499,19 @@ mdn-data@2.0.4:
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.4.tgz#699b3c38ac6f1d728091a64650b65d388502fd5b"
   integrity sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==
 
+meilisearch2@./meilisearch2-0.18.0.tgz:
+  version "0.18.0"
+  resolved "./meilisearch2-0.18.0.tgz#4ff9c5ed97cd4fd2b71f3c6daffede14c5636dac"
+  dependencies:
+    cross-fetch "^3.0.5"
+
+meilisearch3@./meilisearch3-0.18.0.tgz:
+  version "0.18.0"
+  resolved "./meilisearch3-0.18.0.tgz#3a89f532cf6508651f4ca171d65763f02545f2c0"
+  dependencies:
+    cross-fetch "^3.0.5"
+    meilisearch2 "./meilisearch2-0.18.0.tgz"
+
 meilisearch@^0.18.0:
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.18.0.tgz#050ac22c00de10fda600b437a5b3d13725b2ebef"

@@ -1,5 +1,5 @@
-import { MeiliSearch, SearchParams, SearchResponse, Hit } from 'meilisearch'
-export * as MeiliSearchTypes from 'meilisearch'
+import { MeiliSearch, SearchParams, SearchResponse, Hits } from 'meilisearch3'
+export * as MeiliSearchTypes from 'meilisearch3'
 
 export type AISSearchParams = {
   page?: number
@@ -27,7 +27,7 @@ export type InstantMeiliSearchOptions = {
 export type IMResponse = {
   results: [
     {
-      hits: any
+      hits: Array<Record<string, Record<string, string>>>
       index: string
       hitsPerPage: number
       facets: object | undefined
@@ -45,9 +45,9 @@ export type InstantMeiliSearchInstance = {
   client: MeiliSearch
   attributesToHighlight: string[]
   placeholderSearch: boolean
-  parseMeiliSearchResponse: <T, P extends SearchParams<T>>(
+  transformToIMResponse: (
     indexUid: string,
-    meiliSearchResponse: SearchResponse<T, P>,
+    meiliSearchResponse: SearchResponse,
     instantSearchParams: AISSearchParams
   ) => IMResponse
 
@@ -62,11 +62,14 @@ export type InstantMeiliSearchInstance = {
     filters: any
     limit: number
   }
-  parseHits: (meiliSearchHits: any, params: AISSearchParams) => MeiliSearchTypes.Hits<T>
+  transformToIMHits: (
+    meiliSearchHits: Hits,
+    instantSearchParams: AISSearchParams
+  ) => Hits
   paginationParams: (
     hitsLength: number,
     instantSearchParams: AISSearchParams
   ) => { nbPages: number; page: number | undefined } | undefined
-
+  paginateIMHits: ({ page }: AISSearchParams, meiliSearchHits: Hits) => Hits
   search: (requests: AISSearchRequests) => Promise<IMResponse>
 }
