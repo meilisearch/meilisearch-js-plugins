@@ -21,5 +21,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "parcel-bundler": "^1.12.4"
+  },
+  "resolutions": {
+    "node-forge": "^0.10.0"
   }
 }
