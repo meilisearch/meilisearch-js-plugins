@@ -1,0 +1,31 @@
+{
+  "name": "react-playground",
+  "version": "0.1.0",
+  "description": "React playground for instant-meilisearch",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [
+    "react",
+    "instant-meilisearch"
+  ],
+  "author": "",
+  "license": "ISC",
+  "resolutions": {
+    "node-forge": "^0.10.0"
+  },
+  "dependencies": {
+    "instantsearch.css": "^7.4.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-instantsearch-dom": "^6.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-syntax-jsx": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "parcel-bundler": "^1.12.4"
+  }
+}

@@ -11,7 +11,7 @@ import {
   Configure
 } from "react-instantsearch-dom";
 import "./App.css";
-import { instantMeiliSearch } from "./instant-meilisearch.js";
+import { instantMeiliSearch } from "../../../src/index";
 
 const searchClient = instantMeiliSearch(
   "https://demos.meilisearch.com",
