@@ -1,7 +1,4 @@
 module.exports = {
-  // extends: [
-  //   ['standard', 'plugin:prettier/recommended'],
-  // ],
   overrides: [
     {
       env: {
@@ -23,6 +20,27 @@ module.exports = {
       },
       rules: {},
       files: ['*.js'],
+    },
+    {
+      env: {
+        es2020: true,
+        commonjs: true, // Needed to avoid import is reserved error
+        node: true,
+        browser: true,
+        jest: true,
+      },
+      parser: 'babel-eslint',
+      extends: ['eslint:recommended', 'plugin:react/recommended'],
+      plugins: ['react', 'import'],
+      parserOptions: {
+        ecmaVersion: 11,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      rules: {},
+      files: ['playgrounds/react-parcel/src/*'],
     },
     {
       files: ['*.ts'],
