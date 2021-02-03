@@ -33,7 +33,7 @@ If you use React or Vue, you might want to check out these repositories:
 - [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 
-NB: If you don't have any MeiliSearch instance running and containing your data, you should take a look at this [getting started page](https://docs.meilisearch.com/guides/introduction/quick_start_guide.html).
+NB: If you don't have any MeiliSearch instance running and containing your data, you should take a look at this [getting started page](https://docs.meilisearch.com/learn/tutorials/getting_started.html).
 
 ## Installation
 
