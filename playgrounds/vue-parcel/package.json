@@ -1,0 +1,30 @@
+{
+  "name": "vue-playground",
+  "version": "0.1.0",
+  "description": "Vue playground for instant-meilisearch",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [
+    "vue",
+    "instant-meilisearch"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "instantsearch.css": "^7.4.5",
+    "vue": "^2.6.12",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-instantsearch": "^3.4.3"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.2.0",
+    "parcel-bundler": "^1.12.4",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "resolutions": {
+    "node-forge": "^0.10.0"
+  }
+}
