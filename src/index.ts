@@ -68,6 +68,7 @@ export function instantMeiliSearch(
           page, // the current page, information sent by InstantSearch
         }
       }
+      return undefined
     },
     transformToIMResponse: function (
       indexUid: string,
@@ -95,7 +96,6 @@ export function instantMeiliSearch(
         ...(pagination && pagination),
         hits: this.transformToIMHits(hits, instantSearchParams), // Apply pagination + highlight
       }
-
       return {
         results: [parsedResponse],
       }
@@ -106,8 +106,8 @@ export function instantMeiliSearch(
       meiliSearchHits: Array<Record<string, any>>
     ): Array<Record<string, any>> {
       if (this.pagination) {
-        page ||= 0
-        const start = page * this.hitsPerPage!
+        const nbPage = page || 0
+        const start = nbPage * this.hitsPerPage!
         const slicedMeiliSearchHits = meiliSearchHits.slice(
           start,
           this.hitsPerPage
