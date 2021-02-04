@@ -1,27 +1,14 @@
 module.exports = {
+  root: true,
   overrides: [
     {
-      env: {
-        browser: true,
-        es2020: true,
-        'jest/globals': true,
-      },
-      globals: {
-        page: true, // for jest/puppeteer tests in examples/express
-        browser: true, // for jest/puppeteer tests in examples/express
-        context: true, // for jest/puppeteer tests in examples/express
-        jestPuppeteer: true, // for jest/puppeteer tests in examples/express
-      },
-      extends: ['standard', 'plugin:prettier/recommended'],
-      plugins: ['jest'],
-      parserOptions: {
-        ecmaVersion: 11,
-        sourceType: 'module',
-      },
-      rules: {},
-      files: ['*.js'],
-    },
-    {
+      /*
+       * REACT
+       */
+      files: [
+        'playgrounds/react-parcel/**/*.js',
+        'playgrounds/react-nat/**/*.js',
+      ],
       env: {
         es2020: true,
         commonjs: true, // Needed to avoid import is reserved error
@@ -31,18 +18,94 @@ module.exports = {
       },
       parser: 'babel-eslint',
       extends: ['eslint:recommended', 'plugin:react/recommended'],
-      plugins: ['react', 'import'],
+      plugins: ['react', 'import', 'react-hooks'],
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+        ecmaVersion: 2018,
+        sourceType: 'module',
+        projectFolderIgnoreList: ['dist', 'playgrounds/vue'],
+      },
+      rules: {
+        'react/prop-types': 0,
+      },
+      settings: {
+        react: {
+          version: 'latest',
+        },
+      },
+    },
+    {
+      /*
+       * JS
+       */
+      files: [
+        '**/*.js',
+        'scripts/**/*.js',
+        'playgrounds/**/*.js',
+        'tests/env/**/*.js',
+      ],
+      env: {
+        browser: true,
+        es2020: true,
+        'jest/globals': true,
+        node: true,
+      },
+      globals: {
+        instantsearch: true,
+        instantMeiliSearch: true,
+        page: true, // for jest/puppeteer tests in examples/express
+        browser: true, // for jest/puppeteer tests in examples/express
+        context: true, // for jest/puppeteer tests in examples/express
+        jestPuppeteer: true, // for jest/puppeteer tests in examples/express
+      },
+      extends: [
+        'standard',
+        'plugin:prettier/recommended',
+        'eslint:recommended',
+      ],
+      plugins: ['jest'],
       parserOptions: {
         ecmaVersion: 11,
+        // sourceType: 'module',
+      },
+      rules: {},
+    },
+    {
+      /*
+       * VUE FILES
+       */
+
+      files: ['playgrounds/vue/**/*.vue'],
+      env: {
+        browser: true,
+        commonjs: true,
+        es6: true,
+      },
+      extends: [
+        'plugin:prettier/recommended',
+        'prettier/vue',
+        'plugin:vue/essential',
+        'plugin:vue/base',
+      ],
+      // extends: ['plugin:vue/essential', 'prettier/vue'],
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        parser: 'babel-eslint',
+        ecmaVersion: 2020,
         sourceType: 'module',
         ecmaFeatures: {
           jsx: true,
         },
       },
+      plugins: ['vue', 'prettier', 'jsdoc'],
       rules: {},
-      files: ['playgrounds/react-parcel/src/*'],
     },
     {
+      /*
+       * TYPESCRIPT
+       */
       files: ['*.ts'],
       env: {
         browser: true,
@@ -67,10 +130,12 @@ module.exports = {
         ecmaVersion: 2020,
         sourceType: 'module',
         project: ['tsconfig.eslint.json'],
-        projectFolderIgnoreList: ['dist', 'playgrounds'],
+        projectFolderIgnoreList: ['dist'],
       },
+
       plugins: ['jsdoc', '@typescript-eslint', 'prettier', 'jest'],
       rules: {
+        '@typescript-eslint/no-empty-interface': 'off', // Due to vue-instantsearch not having typings
         'no-dupe-class-members': 'off', // Off due to conflict with typescript overload functions
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
         '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
