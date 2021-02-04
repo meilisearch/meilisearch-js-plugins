@@ -5,7 +5,11 @@
     "allowJs": false
   },
   "include": [
+    "src/**/*.ts",
     "tests/**/*.ts",
-    "tests/**/*.d.ts"
+    "tests/**/*.d.ts",
+    "playgrounds/vue/**/*.ts",
+    "playgrounds/vue/**/*.d.ts",
+    "playgrounds/vue/**/*.vue",
   ]
 }
