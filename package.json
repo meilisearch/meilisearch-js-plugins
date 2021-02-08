@@ -47,7 +47,7 @@
     "meilisearch": "^0.18.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
+    "@babel/cli": "^7.12.13",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.10.4",
     "@rollup/plugin-commonjs": "^17.1.0",
