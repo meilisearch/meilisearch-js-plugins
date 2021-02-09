@@ -946,9 +946,9 @@
     "@types/node" "*"
 
 "@types/googlemaps@^3.39.6":
-  version "3.40.4"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.40.4.tgz#3fe3d9d8eeb2b318679fabf0f540cab963c27dda"
-  integrity sha512-8dtcijQrU1vkvBHAfmtJZKfut2WXwLJH5EBRJfSISlv4xWptnCsiE9cVbw4FZWMRbweMMPxE6PzDV55NWiNlQQ==
+  version "3.43.2"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.43.2.tgz#87db9460337c935de6d78f359d8135b4bda0c1cf"
+  integrity sha512-qiu5rms7+bgLciKAXpRsxVB1P+Z6gbSxuO8tZfdyQV2k5e5L/7GjUI6Z69rMR+7YFmqU9vwOUglLQ6NJyP/K8g==
 
 "@types/json-schema@^7.0.4":
   version "7.0.7"
@@ -1496,7 +1496,7 @@ ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-algoliasearch-helper@^3.1.0, algoliasearch-helper@^3.3.3:
+algoliasearch-helper@^3.1.0, algoliasearch-helper@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.3.4.tgz#4a3c56d42a2a81589d5722b73653b2deaf3e7064"
   integrity sha512-1Ts2XcgGdjGlDrp3v6zbY8VW+X9+jJ5rBmtPBmXOQLd4b5t/LpJlaBdxoAnlMfVFjywP7KSAdmyFUNNYVHDyRQ==
@@ -4387,12 +4387,12 @@ instantsearch.css@^7.4.2:
   integrity sha512-iIGBYjCokU93DDB8kbeztKtlu4qVEyTg1xvS6iSO1YvqRwkIZgf0tmsl/GytsLdZhuw8j4wEaeYsCzNbeJ/zEQ==
 
 instantsearch.js@^4.7.0:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.9.1.tgz#7ddaa25da4fe6c6489fbca64b5aef06a3e54ed4e"
-  integrity sha512-A5pkpsBA3m/LtNNZKYTbJG60WlfhNx1l3uQJNlUpsgZ39S2BDh9u24RbW6ecHs2IL+9UltozPlyjlwaHkdNoEg==
+  version "4.13.2"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.13.2.tgz#bd523b3c86c71312c1e1a0679efc8c6a513dbee4"
+  integrity sha512-r9BHNn2p5cnLsJYwMmnjAYKtWjmXMUJA6Ysct01gfJzxhsl3+ys1F8AoGwCaFzzegPHpHSYNUuySu0x80YVEYQ==
   dependencies:
     "@types/googlemaps" "^3.39.6"
-    algoliasearch-helper "^3.3.3"
+    algoliasearch-helper "^3.3.4"
     classnames "^2.2.5"
     events "^1.1.0"
     hogan.js "^3.0.2"
@@ -6344,9 +6344,9 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.3
     supports-color "^6.1.0"
 
 preact@^10.0.0:
-  version "10.5.7"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.7.tgz#f1d84725539e18f7ccbea937cf3db5895661dbd3"
-  integrity sha512-4oEpz75t/0UNcwmcsjk+BIcDdk68oao+7kxcpc1hQPNs2Oo3ZL9xFz8UBf350mxk/VEdD41L5b4l2dE3Ug3RYg==
+  version "10.5.12"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.12.tgz#6a8ee8bf40a695c505df9abebacd924e4dd37704"
+  integrity sha512-r6siDkuD36oszwlCkcqDJCAKBQxGoeEGytw2DGMD5A/GGdu5Tymw+N2OBXwvOLxg6d1FeY8MgMV3cc5aVQo4Cg==
 
 prepend-http@^1.0.0:
   version "1.0.4"
@@ -6476,9 +6476,9 @@ qs@6.7.0:
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
 qs@^6.5.1:
-  version "6.9.4"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
-  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
+  version "6.9.6"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
+  integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -7934,10 +7934,10 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
-vue-instantsearch@^3.1.0:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/vue-instantsearch/-/vue-instantsearch-3.4.2.tgz#cbf057547ebd473e65f01daed6caf327c6732f3c"
-  integrity sha512-78Q9YUUPkcu5e+sWCeR8H8XeZvZbH54lbffD+2SfQkaOt8YCFRJbJiWofMO1NH+yfNBkASMkUOHzXWDPlIXxZw==
+vue-instantsearch@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/vue-instantsearch/-/vue-instantsearch-3.1.0.tgz#6e77b9522946e4cf3310e01f8c61af5b04aa8569"
+  integrity sha512-N5dMayDjsWBP7hNXY0OSapYHFtcoG42J0kiFfRYBWyRVrOB7fekOybKBp8iGjZicAeJbiqTbUQa/wRIMtJQBWQ==
   dependencies:
     algoliasearch-helper "^3.1.0"
     instantsearch.js "^4.7.0"
