@@ -57,7 +57,7 @@ export function instantMeiliSearch(
       RESPONSE CONSTRUCTION
     */
 
-    paginationParams: function (hitsLength, { page }) {
+    createISPaginationParams: function (hitsLength, { page }) {
       if (this.pagination) {
         const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
         const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
@@ -69,7 +69,7 @@ export function instantMeiliSearch(
       return undefined
     },
 
-    paginateIMHits: function ({ page }, meiliSearchHits) {
+    paginateISHits: function ({ page }, meiliSearchHits) {
       if (this.pagination) {
         const nbPage = page || 0
         const start = nbPage * this.hitsPerPage!
@@ -82,13 +82,12 @@ export function instantMeiliSearch(
       return meiliSearchHits
     },
 
-    transformToIMHits: function (meiliSearchHits, instantSearchParams) {
-      console.log('FIRST')
-      const paginatedHits = this.paginateIMHits(
+    transformToISHits: function (meiliSearchHits, instantSearchParams) {
+      const paginatedHits = this.paginateISHits(
         instantSearchParams,
         meiliSearchHits
       )
-      const test = paginatedHits.map((hit: Record<string, any>) => {
+      return paginatedHits.map((hit: Record<string, any>) => {
         const { _formatted: formattedHit, ...restOfHit } = hit
         const modifiedHit = {
           ...restOfHit,
@@ -103,10 +102,9 @@ export function instantMeiliSearch(
         }
         return modifiedHit
       })
-      return test
     },
 
-    transformToIMResponse: function (
+    transformToISResponse: function (
       indexUid,
       {
         exhaustiveFacetsCount,
@@ -119,9 +117,12 @@ export function instantMeiliSearch(
       },
       instantSearchParams
     ) {
-      const pagination = this.paginationParams(hits.length, instantSearchParams)
-      const IMhits = this.transformToIMHits(hits, instantSearchParams)
-      const parsedResponse = {
+      const pagination = this.createISPaginationParams(
+        hits.length,
+        instantSearchParams
+      )
+      const ISHits = this.transformToISHits(hits, instantSearchParams)
+      const ISResponse = {
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
         ...(facets && { facets }),
@@ -132,10 +133,10 @@ export function instantMeiliSearch(
         processingTimeMs,
         query,
         ...(pagination && pagination),
-        hits: IMhits, // Apply pagination + highlight
+        hits: ISHits, // Apply pagination + highlight
       }
       return {
-        results: [parsedResponse],
+        results: [ISResponse],
       }
     },
 
@@ -147,8 +148,6 @@ export function instantMeiliSearch(
     ]: InstantsearchTypes.SearchRequest[]) {
       try {
         // Params got from InstantSearch
-
-        console.log('MS !')
         const {
           params: instantSearchParams,
           indexName: indexUid,
@@ -166,15 +165,12 @@ export function instantMeiliSearch(
           .index(indexUid)
           .search(msSearchParams.q, msSearchParams)
 
-        console.log('MS 2')
         // Parses the MeiliSearch response and returns it for InstantSearch
-        const res = this.transformToIMResponse(
+        return this.transformToISResponse(
           indexUid,
           searchResponse,
           instantSearchParams
         )
-        console.log({ IMRES: res })
-        return res
       } catch (e) {
         console.error(e)
         throw new Error(e)

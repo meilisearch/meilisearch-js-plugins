@@ -11,7 +11,7 @@ export type InstantMeiliSearchOptions = {
   placeholderSearch?: boolean
 }
 
-export type IMHits<T = Record<string, any>> = T & {
+export type ISHits<T = Record<string, any>> = T & {
   _highlightResult: Record<
     keyof T,
     {
@@ -29,6 +29,8 @@ export type IMResponse = {
 
 export type SearchResponse = IStypes.SearchResponse & IMResponse
 
+export type instantSearchUtils = {}
+
 export type InstantMeiliSearchInstance = {
   pagination?: boolean
   paginationTotalHits: number
@@ -37,7 +39,7 @@ export type InstantMeiliSearchInstance = {
   attributesToHighlight: string[]
   placeholderSearch: boolean
 
-  transformToIMResponse: (
+  transformToISResponse: (
     indexUid: string,
     meiliSearchResponse: MStypes.SearchResponse<any, any>,
     instantSearchParams: AISSearchParams
@@ -47,15 +49,15 @@ export type InstantMeiliSearchInstance = {
     instantSearchParams: AISSearchParams
   ) => Record<string, any>
 
-  transformToIMHits: (
+  transformToISHits: (
     meiliSearchHits: Array<Record<string, any>>,
     instantSearchParams: AISSearchParams
-  ) => IMHits[]
-  paginationParams: (
+  ) => ISHits[]
+  createISPaginationParams: (
     hitsLength: number,
     instantSearchParams: AISSearchParams
   ) => { nbPages: number; page: number | undefined } | undefined
-  paginateIMHits: (
+  paginateISHits: (
     { page }: AISSearchParams,
     meiliSearchHits: Array<Record<string, any>>
   ) => Array<Record<string, any>>

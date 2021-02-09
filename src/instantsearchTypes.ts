@@ -112,6 +112,5 @@ export type SearchResponse = {
 }
 
 export type SearchClient = {
-  // addAlgoliaAgent?: (agent: string) => void
   search: (requests: SearchRequest[]) => Promise<{ results: SearchResponse[] }>
 }
