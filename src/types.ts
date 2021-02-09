@@ -1,23 +1,10 @@
-import { MeiliSearch, SearchParams, SearchResponse } from 'meilisearch'
+import * as MStypes from 'meilisearch'
+import * as IStypes from './instantsearchTypes'
+export * as InstantsearchTypes from './instantsearchTypes'
 export * as MeiliSearchTypes from 'meilisearch'
 
-export type AISSearchParams = {
-  page?: number
-  hitsPerPage?: number
-  highlightPreTag?: string
-  highlightPostTag?: string
-  snippetEllipsisText?: string
-  attributesToSnippet?: string[]
-  query: string
-  facets: string[] // TODO: exclude key facetsDistribution because this one is used instead
-} & SearchParams<any>
-
-export type AISSearchRequest = {
-  params: AISSearchParams
-  indexName: string
-}
-
-export type AISSearchRequests = [AISSearchRequest]
+export type AISSearchParams = IStypes.SearchRequestParameters &
+  MStypes.SearchParams<any>
 
 export type InstantMeiliSearchOptions = {
   paginationTotalHits?: number
@@ -33,37 +20,28 @@ export type IMHits<T = Record<string, any>> = T & {
   >
 }
 
-export type IMResponse<T = Record<string, any>> = {
-  results: [
-    {
-      hits: Array<IMHits<T>>
-      index: string
-      hitsPerPage: number
-      facets?: Record<string, object | undefined>
-      exhaustiveFacetsCount?: boolean
-      processingTimeMs: number
-      exhaustiveNbHits: boolean
-      nbPages?: number
-      page?: number | undefined
-      nbHits: number
-      query: string
-    }
-  ]
+export type IMResponse = {
+  facets?: Record<string, object | undefined>
+  exhaustiveFacetsCount?: boolean
+  exhaustiveNbHits: boolean
+  nbPages?: number
 }
+
+export type SearchResponse = IStypes.SearchResponse & IMResponse
 
 export type InstantMeiliSearchInstance = {
   pagination?: boolean
   paginationTotalHits: number
   hitsPerPage: number
-  client: MeiliSearch
+  client: MStypes.MeiliSearch
   attributesToHighlight: string[]
   placeholderSearch: boolean
 
   transformToIMResponse: (
     indexUid: string,
-    meiliSearchResponse: SearchResponse<any, any>,
+    meiliSearchResponse: MStypes.SearchResponse<any, any>,
     instantSearchParams: AISSearchParams
-  ) => IMResponse
+  ) => { results: SearchResponse[] }
 
   transformToMeiliSearchParams: (
     instantSearchParams: AISSearchParams
@@ -81,5 +59,7 @@ export type InstantMeiliSearchInstance = {
     { page }: AISSearchParams,
     meiliSearchHits: Array<Record<string, any>>
   ) => Array<Record<string, any>>
-  search: (requests: AISSearchRequests) => Promise<IMResponse>
+  search: (
+    requests: IStypes.SearchRequest[]
+  ) => Promise<{ results: SearchResponse[] }>
 }

@@ -3,9 +3,7 @@ import { createHighlighResult, createSnippetResult } from './format'
 import {
   InstantMeiliSearchOptions,
   InstantMeiliSearchInstance,
-  MeiliSearchTypes,
-  AISSearchParams,
-  AISSearchRequests,
+  InstantsearchTypes,
 } from './types'
 
 export function instantMeiliSearch(
@@ -30,14 +28,15 @@ export function instantMeiliSearch(
       attributesToSnippet,
       attributesToRetrieve,
       filters,
-    }: AISSearchParams) {
+    }) {
       const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
         ? this.paginationTotalHits
         : this.hitsPerPage
 
       return {
         q: query,
-        ...(facets.length && { facetsDistribution: facets }),
+        facets: facets || { facetsDistribution: [] },
+        ...(facets?.length && { facetsDistribution: facets }),
         ...(facetFilters && { facetFilters }),
         ...(this.attributesToHighlight && {
           attributesToHighlight: this.attributesToHighlight,
@@ -59,7 +58,7 @@ export function instantMeiliSearch(
       RESPONSE CONSTRUCTION
     */
 
-    paginationParams: function (hitsLength: number, { page }: AISSearchParams) {
+    paginationParams: function (hitsLength, { page }) {
       if (this.pagination) {
         const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
         const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
@@ -70,41 +69,8 @@ export function instantMeiliSearch(
       }
       return undefined
     },
-    transformToIMResponse: function (
-      indexUid: string,
-      {
-        exhaustiveFacetsCount,
-        exhaustiveNbHits,
-        facetsDistribution: facets,
-        nbHits,
-        processingTimeMs,
-        query,
-        hits,
-      }: MeiliSearchTypes.SearchResponse<any, any>,
-      instantSearchParams: AISSearchParams
-    ) {
-      const pagination = this.paginationParams(hits.length, instantSearchParams)
-      const parsedResponse = {
-        index: indexUid,
-        hitsPerPage: this.hitsPerPage,
-        ...(facets && { facets }),
-        ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
-        exhaustiveNbHits,
-        nbHits,
-        processingTimeMs,
-        query,
-        ...(pagination && pagination),
-        hits: this.transformToIMHits(hits, instantSearchParams), // Apply pagination + highlight
-      }
-      return {
-        results: [parsedResponse],
-      }
-    },
 
-    paginateIMHits: function (
-      { page }: AISSearchParams,
-      meiliSearchHits: Array<Record<string, any>>
-    ): Array<Record<string, any>> {
+    paginateIMHits: function ({ page }, meiliSearchHits) {
       if (this.pagination) {
         const nbPage = page || 0
         const start = nbPage * this.hitsPerPage!
@@ -117,19 +83,16 @@ export function instantMeiliSearch(
       return meiliSearchHits
     },
 
-    transformToIMHits: function (
-      meiliSearchHits: Array<Record<string, any>>,
-      instantSearchParams: AISSearchParams
-    ) {
+    transformToIMHits: function (meiliSearchHits, instantSearchParams) {
+      console.log('FIRST')
       const paginatedHits = this.paginateIMHits(
         instantSearchParams,
         meiliSearchHits
       )
-      return paginatedHits.map((hit: Record<string, any>) => {
-        const formattedHit = hit._formatted
-        delete hit._formatted
+      const test = paginatedHits.map((hit: Record<string, any>) => {
+        const { _formatted: formattedHit, ...restOfHit } = hit
         const modifiedHit = {
-          ...hit,
+          ...restOfHit,
           _highlightResult: createHighlighResult({
             formattedHit,
             ...instantSearchParams,
@@ -141,19 +104,58 @@ export function instantMeiliSearch(
         }
         return modifiedHit
       })
+      return test
+    },
+
+    transformToIMResponse: function (
+      indexUid,
+      {
+        exhaustiveFacetsCount,
+        exhaustiveNbHits,
+        facetsDistribution: facets,
+        nbHits,
+        processingTimeMs,
+        query,
+        hits,
+      },
+      instantSearchParams
+    ) {
+      const pagination = this.paginationParams(hits.length, instantSearchParams)
+      const IMhits = this.transformToIMHits(hits, instantSearchParams)
+      const parsedResponse = {
+        index: indexUid,
+        hitsPerPage: this.hitsPerPage,
+        ...(facets && { facets }),
+        disjunctiveFacets: [],
+        ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
+        exhaustiveNbHits,
+        nbHits,
+        processingTimeMs,
+        query,
+        ...(pagination && pagination),
+        hits: IMhits, // Apply pagination + highlight
+      }
+      return {
+        results: [parsedResponse],
+      }
     },
 
     /*
       SEARCH
     */
-    search: async function ([aisSearchRequest]: AISSearchRequests) {
+    search: async function ([
+      aisSearchRequest,
+    ]: InstantsearchTypes.SearchRequest[]) {
       try {
         // Params got from InstantSearch
+
+        console.log('MS !')
         const {
           params: instantSearchParams,
           indexName: indexUid,
         } = aisSearchRequest
         const { page, hitsPerPage } = instantSearchParams
+
         this.pagination = page !== undefined // If the pagination widget has been set
         this.hitsPerPage = hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
         // Gets information from IS and transforms it for MeiliSearch
@@ -164,12 +166,16 @@ export function instantMeiliSearch(
         const searchResponse = await this.client
           .index(indexUid)
           .search(msSearchParams.q, msSearchParams)
+
+        console.log('MS 2')
         // Parses the MeiliSearch response and returns it for InstantSearch
-        return this.transformToIMResponse(
+        const res = this.transformToIMResponse(
           indexUid,
           searchResponse,
           instantSearchParams
         )
+        console.log({ IMRES: res })
+        return res
       } catch (e) {
         console.error(e)
         throw new Error(e)
