@@ -5,7 +5,7 @@
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
     "cleanup": "shx rm -rf dist/",
-    "test": "jest",
+    "test": "yarn build && jest",
     "test:all": "yarn test && yarn test:env && test:playgrounds",
     "test:env": "yarn build && yarn test:env:browser && yarn test:env:nodejs && yarn test:env:esm",
     "test:env:browser": "yarn --cwd tests/env/express && yarn --cwd tests/env/express test",
