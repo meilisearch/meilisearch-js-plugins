@@ -17,7 +17,6 @@ export function instantMeiliSearch(
     paginationTotalHits: options.paginationTotalHits || 200,
     placeholderSearch: options.placeholderSearch !== false, // true by default
     hitsPerPage: 20,
-
     /*
       REQUEST CONSTRUCTION
     */
