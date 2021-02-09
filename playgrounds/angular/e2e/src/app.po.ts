@@ -6,7 +6,7 @@ export class AppPage {
   }
 
   async getFirstGame(): Promise<string> {
-    return element(by.css('.ais-Hits-item:first-child > .hit-name')).getText()
+    return element(by.css('.ais-Hits-item > .hit-name')).getText()
   }
 
   async getFirstFacetValueOfFirstFacet(): Promise<string> {
