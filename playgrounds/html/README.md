@@ -21,7 +21,7 @@ $ yarn install
 
 ### Compile and hot-reload for development
 ```
-yarn serve
+yarn start
 ```
 
 ### Compile and minify for production
