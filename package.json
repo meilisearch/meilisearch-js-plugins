@@ -6,7 +6,7 @@
   "scripts": {
     "cleanup": "shx rm -rf dist/",
     "test": "yarn build && jest",
-    "test:all": "yarn test && yarn test:env && test:playgrounds",
+    "test:all": "yarn test && yarn test:env && yarn test:playgrounds",
     "test:env": "yarn build && yarn test:env:browser && yarn test:env:nodejs && yarn test:env:esm && yarn test:env:ts",
     "test:env:browser": "yarn --cwd tests/env/express && yarn --cwd tests/env/express test",
     "test:env:nodejs": "node tests/env/node/index.js",
