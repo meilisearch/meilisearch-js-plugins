@@ -16,6 +16,5 @@ export class AppComponent {
   config = {
     indexName: 'steam-video-games',
     searchClient,
-    // searchFunction: (_) => {},
   }
 }
