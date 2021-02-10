@@ -22,4 +22,3 @@ yarn e2e
 ```
 
 Run `yarn e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
