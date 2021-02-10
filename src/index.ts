@@ -3,7 +3,7 @@ import { createHighlighResult, createSnippetResult } from './format'
 import {
   InstantMeiliSearchOptions,
   InstantMeiliSearchInstance,
-  InstantsearchTypes,
+  InstantSearchTypes,
 } from './types'
 
 export function instantMeiliSearch(
@@ -144,7 +144,7 @@ export function instantMeiliSearch(
     */
     search: async function ([
       isSearchRequest,
-    ]: InstantsearchTypes.SearchRequest[]) {
+    ]: InstantSearchTypes.SearchRequest[]) {
       try {
         // Params got from InstantSearch
         const {

@@ -1,6 +1,6 @@
 import * as MStypes from 'meilisearch'
 import * as IStypes from './instantsearchTypes'
-export * as InstantsearchTypes from './instantsearchTypes'
+export * as InstantSearchTypes from './instantsearchTypes'
 export * as MeiliSearchTypes from 'meilisearch'
 
 export type ISSearchParams = IStypes.SearchRequestParameters &
