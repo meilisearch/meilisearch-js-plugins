@@ -1,4 +1,4 @@
-# React Playground
+# Javascript Playground
 
 ## Project setup
 ```
@@ -14,4 +14,3 @@ yarn start
 ```
 yarn build
 ```
-

@@ -1,9 +1,5 @@
 node_modules
 dist
-examples
-scripts
-tests/env
 build
 
-# temporary fix
-playgrounds/vanilla-js
+.cache

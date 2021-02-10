@@ -1,5 +1,5 @@
-import "instantsearch.css/themes/algolia-min.css";
-import React, { Component } from "react";
+import 'instantsearch.css/themes/algolia-min.css'
+import React, { Component } from 'react'
 import {
   InstantSearch,
   Hits,
@@ -8,18 +8,18 @@ import {
   Highlight,
   ClearRefinements,
   RefinementList,
-  Configure
-} from "react-instantsearch-dom";
-import "./App.css";
-import { instantMeiliSearch } from "./instant-meilisearch.js";
+  Configure,
+} from 'react-instantsearch-dom'
+import './App.css'
+import { instantMeiliSearch } from '../../../src/index'
 
 const searchClient = instantMeiliSearch(
-  "https://demos.meilisearch.com",
-  "dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25",
+  'https://demos.meilisearch.com',
+  'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
   {
-    paginationTotalHits: 60
+    paginationTotalHits: 60,
   }
-);
+)
 
 class App extends Component {
   render() {
@@ -27,7 +27,7 @@ class App extends Component {
       <div className="ais-InstantSearch">
         <h1>MeiliSearch + React InstantSearch</h1>
         <h2>
-          Search in Steam video games{" "}
+          Search in Steam video games{' '}
           <span role="img" aria-label="emoji">
             🎮
           </span>
@@ -59,7 +59,7 @@ class App extends Component {
           </div>
         </InstantSearch>
       </div>
-    );
+    )
   }
 }
 
@@ -73,7 +73,7 @@ function Hit(props) {
       <div className="hit-info">price: {props.hit.price}</div>
       <div className="hit-info">release date: {props.hit.releaseDate}</div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

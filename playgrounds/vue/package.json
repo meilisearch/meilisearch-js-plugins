@@ -3,35 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "instantsearch.css": "^7.4.2",
     "vue": "^2.6.11",
-    "vue-instantsearch": "^3.1.0"
+    "vue-class-component": "^7.2.3",
+    "vue-instantsearch": "3.1.0",
+    "vue-property-decorator": "^9.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.4.0",
+    "typescript": "~3.9.3",
+    "vue-server-renderer": "^2.6.12",
     "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
   },
   "browserslist": [
     "> 1%",

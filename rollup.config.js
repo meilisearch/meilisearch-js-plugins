@@ -18,7 +18,6 @@ const PLUGINS = [
   typescript({
     useTsconfigDeclarationDir: true,
     tsconfigOverride: {
-      allowJs: false,
       includes: ['src'],
       exclude: ['tests', 'examples', '*.js', 'scripts'],
       esModuleInterop: true,

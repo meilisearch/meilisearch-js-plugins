@@ -1,89 +1,12 @@
-import { MeiliSearch, SearchResponse, SearchParams } from 'meilisearch'
+import { MeiliSearch } from 'meilisearch'
 import { createHighlighResult, createSnippetResult } from './format'
-import { removeUndefinedFromObject } from './utils'
+import {
+  InstantMeiliSearchOptions,
+  InstantMeiliSearchInstance,
+  InstantSearchTypes,
+} from './types'
 
-
-
-
-export type Params = {
-  page?: number
-  hitsPerPage?: number
-  highlightPreTag?: string
-  highlightPostTag?: string
-  snippetEllipsisText?: string
-  attributesToSnippet?: string[]
-  query: string
-  facets: string[] // TODO: exclude key facetsDistribution because this one is used instead
-} & SearchParams<any>
-
-type Request = {
-  params: Params
-  indexName: string
-}
-type Requests = {
-  0: Request
-}
-type InstantMeiliSearchOptions = {
-  paginationTotalHits?: number
-  placeholderSearch?: boolean
-}
-
-type InstantMeiliSearchInstance = {
-  pagination?: boolean
-  paginationTotalHits: number
-  hitsPerPage?: number
-  client: MeiliSearch
-  attributesToHighlight: string[]
-  placeholderSearch: boolean
-  parseMeiliSearchResponse: (
-    indexUid: string,
-    meiliSearchResponse: SearchResponse<any, any>,
-    params: Params
-  ) => {
-    results: Array<{
-      hits: any
-      index: string
-      hitsPerPage: number
-      facets: object | undefined
-      exhaustiveFacetsCount?: boolean
-      processingTimeMs: number
-      exhaustiveNbHits: boolean
-    }>
-  }
-
-  transformToMeiliSearchParams: (
-    params: Params
-  ) => {
-    q: any
-    facetsDistribution: any
-    facetFilters: any
-    attributesToHighlight: string[]
-    attributesToCrop: string[] | undefined
-    filters: any
-    limit: number
-  }
-  parseHits: (meiliSearchHits: any, params: Params) => any
-  paginationParams: (
-    hitsLength: number,
-    params: Params
-  ) => { nbPages: number; page: number | undefined } | undefined
-
-  search: (
-    requests: Requests
-  ) => Promise<{
-    results: Array<{
-      hits: any
-      index: string
-      hitsPerPage: number
-      facets: object | undefined
-      exhaustiveFacetsCount?: boolean | undefined
-      processingTimeMs: number
-      exhaustiveNbHits: boolean
-    }>
-  }>
-}
-
-export default function instantMeiliSearch(
+export function instantMeiliSearch(
   hostUrl: string,
   apiKey: string,
   options: InstantMeiliSearchOptions = {}
@@ -93,67 +16,97 @@ export default function instantMeiliSearch(
     attributesToHighlight: ['*'],
     paginationTotalHits: options.paginationTotalHits || 200,
     placeholderSearch: options.placeholderSearch !== false, // true by default
-
-    transformToMeiliSearchParams: function (params: Params) {
+    hitsPerPage: 20,
+    /*
+      REQUEST CONSTRUCTION
+    */
+    transformToMeiliSearchParams: function ({
+      query,
+      facets,
+      facetFilters,
+      attributesToSnippet,
+      attributesToRetrieve,
+      filters,
+    }) {
       const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
         ? this.paginationTotalHits
-        : this.hitsPerPage!
-      const {
-        query,
-        facets,
-        facetFilters,
-        attributesToSnippet,
-        attributesToRetrieve,
-        filters,
-      } = params
-      const searchInput = {
+        : this.hitsPerPage
+
+      return {
         q: query,
-        facetsDistribution: facets.length ? facets : undefined,
-        facetFilters,
-        attributesToHighlight: this.attributesToHighlight,
-        attributesToCrop: attributesToSnippet,
-        attributesToRetrieve,
-        filters,
-        limit: this.placeholderSearch === false && query === '' ? 0 : limit,
+        facets: facets || { facetsDistribution: [] },
+        ...(facets?.length && { facetsDistribution: facets }),
+        ...(facetFilters && { facetFilters }),
+        ...(this.attributesToHighlight && {
+          attributesToHighlight: this.attributesToHighlight,
+        }),
+        ...(attributesToSnippet && {
+          attributesToCrop: attributesToSnippet,
+        }),
+        ...(attributesToRetrieve && { attributesToRetrieve }),
+        ...(filters && { filters }),
+        limit:
+          (this.placeholderSearch === false && query === '') ||
+          limit === undefined
+            ? 0
+            : limit,
       }
-      return removeUndefinedFromObject(searchInput)
     },
 
-    parseHits: function (meiliSearchHits, params: Params) {
-      if (this.pagination) {
-        params.page ||= 0
-        const start = params.page * this.hitsPerPage!
-        meiliSearchHits = meiliSearchHits.splice(start, this.hitsPerPage)
-      }
+    /*
+      RESPONSE CONSTRUCTION
+    */
 
-      return meiliSearchHits.map((hit: any) => {
-        const formattedHit = hit._formatted
-        delete hit._formatted
-        return {
-          ...hit,
-          _highlightResult: createHighlighResult({ formattedHit, ...params }),
-          _snippetResult: createSnippetResult({ formattedHit, ...params }),
-        }
-      })
-    },
-
-    paginationParams: function (hitsLength: number, params: Params) {
+    createISPaginationParams: function (hitsLength, { page }) {
       if (this.pagination) {
         const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
         const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
         return {
-          nbPages: nbPages, // total number of pages
-          page: params.page, // the current page, information sent by InstantSearch
+          nbPages, // total number of pages
+          page, // the current page, information sent by InstantSearch
         }
       }
+      return undefined
     },
 
-    parseMeiliSearchResponse: function (
-      indexUid: string,
-      meiliSearchResponse: SearchResponse<any, any>,
-      params: Params
-    ) {
-      const {
+    paginateISHits: function ({ page }, meiliSearchHits) {
+      if (this.pagination) {
+        const nbPage = page || 0
+        const start = nbPage * this.hitsPerPage!
+        const slicedMeiliSearchHits = meiliSearchHits.slice(
+          start,
+          this.hitsPerPage
+        )
+        return slicedMeiliSearchHits
+      }
+      return meiliSearchHits
+    },
+
+    transformToISHits: function (meiliSearchHits, instantSearchParams) {
+      const paginatedHits = this.paginateISHits(
+        instantSearchParams,
+        meiliSearchHits
+      )
+      return paginatedHits.map((hit: Record<string, any>) => {
+        const { _formatted: formattedHit, ...restOfHit } = hit
+        const modifiedHit = {
+          ...restOfHit,
+          _highlightResult: createHighlighResult({
+            formattedHit,
+            ...instantSearchParams,
+          }),
+          _snippetResult: createSnippetResult({
+            formattedHit,
+            ...instantSearchParams,
+          }),
+        }
+        return modifiedHit
+      })
+    },
+
+    transformToISResponse: function (
+      indexUid,
+      {
         exhaustiveFacetsCount,
         exhaustiveNbHits,
         facetsDistribution: facets,
@@ -161,44 +114,61 @@ export default function instantMeiliSearch(
         processingTimeMs,
         query,
         hits,
-      } = meiliSearchResponse
-
-      const parsedResponse = {
+      },
+      instantSearchParams
+    ) {
+      const pagination = this.createISPaginationParams(
+        hits.length,
+        instantSearchParams
+      )
+      const ISHits = this.transformToISHits(hits, instantSearchParams)
+      const ISResponse = {
         index: indexUid,
-        hitsPerPage: this.hitsPerPage!,
-        facets,
-        exhaustiveFacetsCount,
+        hitsPerPage: this.hitsPerPage,
+        ...(facets && { facets }),
+        ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
         exhaustiveNbHits,
         nbHits,
         processingTimeMs,
         query,
-        ...this.paginationParams(hits.length, params),
-        hits: this.parseHits(hits, params), // Apply pagination + highlight
+        ...(pagination && pagination),
+        hits: ISHits, // Apply pagination + highlight
       }
-
       return {
-        results: [removeUndefinedFromObject(parsedResponse)],
+        results: [ISResponse],
       }
     },
 
-    search: async function (requests: Requests) {
+    /*
+      SEARCH
+    */
+    search: async function ([
+      isSearchRequest,
+    ]: InstantSearchTypes.SearchRequest[]) {
       try {
         // Params got from InstantSearch
-        const params = requests[0].params
-        this.pagination = params.page !== undefined // If the pagination widget has been set
-        this.hitsPerPage = params.hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
+        const {
+          params: instantSearchParams,
+          indexName: indexUid,
+        } = isSearchRequest
+        const { page, hitsPerPage } = instantSearchParams
+
+        this.pagination = page !== undefined // If the pagination widget has been set
+        this.hitsPerPage = hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
         // Gets information from IS and transforms it for MeiliSearch
-        const searchInput = this.transformToMeiliSearchParams(params)
-        const indexUid = requests[0].indexName
+        const msSearchParams = this.transformToMeiliSearchParams(
+          instantSearchParams
+        )
         // Executes the search with MeiliSearch
         const searchResponse = await this.client
           .index(indexUid)
-          .search(searchInput.q, searchInput)
+          .search(msSearchParams.q, msSearchParams)
+
         // Parses the MeiliSearch response and returns it for InstantSearch
-        return this.parseMeiliSearchResponse(
+        return this.transformToISResponse(
           indexUid,
           searchResponse,
-          requests[0].params
+          instantSearchParams
         )
       } catch (e) {
         console.error(e)

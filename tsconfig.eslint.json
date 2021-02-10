@@ -5,9 +5,13 @@
     "allowJs": false
   },
   "include": [
+    "src/**/*.ts",
     "tests/**/*.ts",
-    "jest.config.js",
-    "rollup.config.js",
-    ".eslintrc.js"
+    "tests/**/*.d.ts",
+    "playgrounds/vue/**/*.ts",
+    "playgrounds/vue/**/*.d.ts",
+    "playgrounds/angular/**/*.d.ts",
+    "playgrounds/angular/**/*.ts",
+    "playgrounds/vue/**/*.vue",
   ]
 }
