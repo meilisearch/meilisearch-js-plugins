@@ -20,9 +20,8 @@ module.exports = {
         ecmaFeatures: {
           jsx: true,
         },
-        ecmaVersion: 2018,
+        ecmaVersion: 2020,
         sourceType: 'module',
-        projectFolderIgnoreList: ['dist', 'playgrounds/vue'],
       },
       rules: {
         'react/prop-types': 0,
@@ -37,12 +36,7 @@ module.exports = {
       /*
        * JS
        */
-      files: [
-        '**/*.js',
-        'scripts/**/*.js',
-        'playgrounds/**/*.js',
-        'tests/env/**/*.js',
-      ],
+      files: ['**/*.js'],
       env: {
         browser: true,
         es2020: true,
@@ -64,8 +58,7 @@ module.exports = {
       ],
       plugins: ['jest'],
       parserOptions: {
-        ecmaVersion: 11,
-        // sourceType: 'module',
+        ecmaVersion: 2020,
       },
       rules: {},
     },
@@ -86,7 +79,6 @@ module.exports = {
         'plugin:vue/essential',
         'plugin:vue/base',
       ],
-      // extends: ['plugin:vue/essential', 'prettier/vue'],
       parser: 'vue-eslint-parser',
       parserOptions: {
         parser: 'babel-eslint',
