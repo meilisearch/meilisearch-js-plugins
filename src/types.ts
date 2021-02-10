@@ -3,7 +3,7 @@ import * as IStypes from './instantsearchTypes'
 export * as InstantsearchTypes from './instantsearchTypes'
 export * as MeiliSearchTypes from 'meilisearch'
 
-export type AISSearchParams = IStypes.SearchRequestParameters &
+export type ISSearchParams = IStypes.SearchRequestParameters &
   MStypes.SearchParams<any>
 
 export type InstantMeiliSearchOptions = {
@@ -42,23 +42,23 @@ export type InstantMeiliSearchInstance = {
   transformToISResponse: (
     indexUid: string,
     meiliSearchResponse: MStypes.SearchResponse<any, any>,
-    instantSearchParams: AISSearchParams
+    instantSearchParams: ISSearchParams
   ) => { results: SearchResponse[] }
 
   transformToMeiliSearchParams: (
-    instantSearchParams: AISSearchParams
+    instantSearchParams: ISSearchParams
   ) => Record<string, any>
 
   transformToISHits: (
     meiliSearchHits: Array<Record<string, any>>,
-    instantSearchParams: AISSearchParams
+    instantSearchParams: ISSearchParams
   ) => ISHits[]
   createISPaginationParams: (
     hitsLength: number,
-    instantSearchParams: AISSearchParams
+    instantSearchParams: ISSearchParams
   ) => { nbPages: number; page: number | undefined } | undefined
   paginateISHits: (
-    { page }: AISSearchParams,
+    { page }: ISSearchParams,
     meiliSearchHits: Array<Record<string, any>>
   ) => Array<Record<string, any>>
   search: (

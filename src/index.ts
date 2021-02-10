@@ -126,7 +126,6 @@ export function instantMeiliSearch(
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
         ...(facets && { facets }),
-        disjunctiveFacets: [],
         ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
         exhaustiveNbHits,
         nbHits,
@@ -144,14 +143,14 @@ export function instantMeiliSearch(
       SEARCH
     */
     search: async function ([
-      aisSearchRequest,
+      isSearchRequest,
     ]: InstantsearchTypes.SearchRequest[]) {
       try {
         // Params got from InstantSearch
         const {
           params: instantSearchParams,
           indexName: indexUid,
-        } = aisSearchRequest
+        } = isSearchRequest
         const { page, hitsPerPage } = instantSearchParams
 
         this.pagination = page !== undefined // If the pagination widget has been set
