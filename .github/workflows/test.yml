@@ -26,6 +26,8 @@ jobs:
         run: yarn build
       - name: Run env tests
         run: yarn test:env
+      - name: Run env tests
+        run: yarn test:env
 
 
   style:
