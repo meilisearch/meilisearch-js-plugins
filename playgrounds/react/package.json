@@ -1,32 +1,31 @@
 {
   "name": "react-playground",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "instantsearch.css": "^7.4.3",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-instantsearch-dom": "^6.7.0",
-    "react-scripts": "^4.0.1"
-  },
+  "description": "React playground for instant-meilisearch",
+  "main": "src/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "keywords": [
+    "react",
+    "instant-meilisearch"
+  ],
+  "author": "",
+  "license": "ISC",
+  "resolutions": {
+    "node-forge": "^0.10.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "instantsearch.css": "^7.4.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-instantsearch-dom": "^6.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-syntax-jsx": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "parcel-bundler": "^1.12.4"
   }
 }

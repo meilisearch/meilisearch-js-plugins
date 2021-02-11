@@ -1,0 +1,17 @@
+{
+  // extend your base config so you don't have to redefine your compilerOptions
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "tests/**/*.d.ts",
+    "playgrounds/vue/**/*.ts",
+    "playgrounds/vue/**/*.d.ts",
+    "playgrounds/angular/**/*.d.ts",
+    "playgrounds/angular/**/*.ts",
+    "playgrounds/vue/**/*.vue",
+  ]
+}

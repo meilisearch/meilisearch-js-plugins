@@ -13,6 +13,7 @@
 </html>
 <script src="./instant-meilisearch.umd.js"></script>
 <script>
+  console.log(window.instantMeiliSearch);
   console.log(instantMeiliSearch);
   const client = instantMeiliSearch(
         "http://localhost:7700",
@@ -20,5 +21,4 @@
       )
   console.log({ client });
   document.querySelector('#instant-meilisearch').innerHTML = JSON.stringify(client)
-
 </script>
