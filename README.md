@@ -52,7 +52,7 @@ $ yarn add @meilisearch/instant-meilisearch
 ### Basic
 
 ```js
-import instantMeiliSearch from "@meilisearch/instant-meilisearch";
+import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const searchClient = instantMeiliSearch(
   "https://demos.meilisearch.com",
@@ -63,7 +63,7 @@ const searchClient = instantMeiliSearch(
 ### Customization
 
 ```js
-import instantMeiliSearch from "@meilisearch/instant-meilisearch";
+import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const searchClient = instantMeiliSearch(
   "https://demos.meilisearch.com",
