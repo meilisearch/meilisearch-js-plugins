@@ -73,7 +73,7 @@ export function instantMeiliSearch(
       if (this.pagination) {
         const nbPage = page || 0
         const start = nbPage * this.hitsPerPage!
-        const slicedMeiliSearchHits = meiliSearchHits.slice(
+        const slicedMeiliSearchHits = meiliSearchHits.splice(
           start,
           this.hitsPerPage
         )
