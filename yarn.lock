@@ -3806,10 +3806,10 @@ inherits@2, inherits@^2.0.3, inherits@~2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-instantsearch.js@^4.14.0:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.14.0.tgz#b3d1fd68f75e4b7e3074724ced63bb62d80f27c0"
-  integrity sha512-WbWsz9h77Y9/t+g3ijnU9LFVb+IoukY/EJBhXa1E8XjjkKdeDbc0QFyenBYGwc69ZlXMyT5Vp3puXxjf5ZnV4A==
+instantsearch.js@^4.14.2:
+  version "4.14.2"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.14.2.tgz#2d3aac2a28c4956dccbbff16e704a62d3cfc810f"
+  integrity sha512-2Ft0GVv1dz2lMossC942ZFzPVqbzRyNjQZiasRFxNbEq7I9NsKdLUAcqlTUkVOIRz6avpYHUka6aYh86R/7fNw==
   dependencies:
     "@types/googlemaps" "^3.39.6"
     algoliasearch-helper "^3.3.4"
