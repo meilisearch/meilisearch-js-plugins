@@ -7934,10 +7934,10 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
-vue-instantsearch@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/vue-instantsearch/-/vue-instantsearch-3.1.0.tgz#6e77b9522946e4cf3310e01f8c61af5b04aa8569"
-  integrity sha512-N5dMayDjsWBP7hNXY0OSapYHFtcoG42J0kiFfRYBWyRVrOB7fekOybKBp8iGjZicAeJbiqTbUQa/wRIMtJQBWQ==
+vue-instantsearch@3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/vue-instantsearch/-/vue-instantsearch-3.4.3.tgz#7b029d604c42d9992a024d709a9555a0869e4cc2"
+  integrity sha512-N4WqG39GN4P+bVpFkA3plq4zMw7m+tdczZ8vNfbyx5oIFNhDG7Ig71cyLAP1bLKaULq1dpLTsO2LHc6h1RYq6w==
   dependencies:
     algoliasearch-helper "^3.1.0"
     instantsearch.js "^4.7.0"
