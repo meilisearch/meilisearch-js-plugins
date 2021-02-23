@@ -1,4 +1,6 @@
-import { browser, by, element } from 'protractor'
+import { browser, by, element, ExpectedConditions } from 'protractor'
+
+const timeOutError = 'Element taking too long to appear in the DOM'
 
 export class AppPage {
   async navigateTo(): Promise<unknown> {
@@ -6,14 +8,20 @@ export class AppPage {
   }
 
   async getFirstGame(): Promise<string> {
-    return await element(by.css('.ais-Hits-item > .hit-name')).getText()
+    const elem = element(by.css('.ais-Hits-item > .hit-name'))
+    await browser.wait(ExpectedConditions.presenceOf(elem), 5000, timeOutError)
+    return await elem.getText()
   }
 
   async getFirstFacetValueOfFirstFacet(): Promise<string> {
-    return await element(by.css('.ais-RefinementList-labelText')).getText()
+    const elem = element(by.css('.ais-RefinementList-labelText'))
+    await browser.wait(ExpectedConditions.presenceOf(elem), 5000, timeOutError)
+    return await elem.getText()
   }
 
   async getClearRefinementText(): Promise<string> {
-    return await element(by.css('.ais-ClearRefinements-button')).getText()
+    const elem = element(by.css('.ais-ClearRefinements-button'))
+    await browser.wait(ExpectedConditions.presenceOf(elem), 5000, timeOutError)
+    return await elem.getText()
   }
 }
