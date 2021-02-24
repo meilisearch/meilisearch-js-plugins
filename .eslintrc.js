@@ -14,8 +14,12 @@ module.exports = {
         jest: true,
       },
       parser: 'babel-eslint',
-      extends: ['eslint:recommended', 'plugin:react/recommended'],
-      plugins: ['react', 'import', 'react-hooks'],
+      extends: [
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:prettier/recommended',
+      ],
+      plugins: ['react', 'import'],
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -77,7 +81,6 @@ module.exports = {
       },
       extends: [
         'plugin:prettier/recommended',
-        'prettier/vue',
         'plugin:vue/essential',
         'plugin:vue/base',
       ],
@@ -90,7 +93,7 @@ module.exports = {
           jsx: true,
         },
       },
-      plugins: ['vue', 'prettier', 'jsdoc'],
+      plugins: ['vue', 'jsdoc'],
       rules: {},
     },
     {
@@ -116,7 +119,6 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:prettier/recommended',
-        'prettier/@typescript-eslint',
       ],
       parser: '@typescript-eslint/parser',
       parserOptions: {
@@ -126,11 +128,10 @@ module.exports = {
         projectFolderIgnoreList: ['dist'],
       },
 
-      plugins: ['jsdoc', '@typescript-eslint', 'prettier', 'jest'],
+      plugins: ['jsdoc', '@typescript-eslint', 'jest'],
       rules: {
         '@typescript-eslint/no-empty-interface': 'off', // Due to vue-instantsearch not having typings
         'no-dupe-class-members': 'off', // Off due to conflict with typescript overload functions
-        'prettier/prettier': ['error', {}, { usePrettierrc: true }],
         '@typescript-eslint/array-type': ['warn', { default: 'array-simple' }],
         '@typescript-eslint/return-await': 'off',
         'jsdoc/check-alignment': 'error',

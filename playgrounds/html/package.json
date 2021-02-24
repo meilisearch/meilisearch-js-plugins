@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.13.1",
     "parcel-bundler": "^1.12.4"
   },
   "resolutions": {
