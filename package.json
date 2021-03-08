@@ -68,7 +68,7 @@
     "@babel/preset-env": "^7.13.8",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/eslint-plugin": "^4.2.0",
