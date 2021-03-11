@@ -129,7 +129,7 @@ export function instantMeiliSearch(
         ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
         exhaustiveNbHits,
         nbHits,
-        processingTimeMs,
+        processingTimeMS: processingTimeMs,
         query,
         ...(pagination && pagination),
         hits: ISHits, // Apply pagination + highlight
