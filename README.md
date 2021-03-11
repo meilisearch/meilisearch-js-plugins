@@ -71,6 +71,7 @@ const searchClient = instantMeiliSearch(
   {
     paginationTotalHits: 30, // default: 200.
     placeholderSearch: false // default: true.
+    primaryKey: 'id' // default: undefined
   }
 );
 ```
@@ -82,6 +83,7 @@ Which means that, with a `paginationTotalHits` default value of 200, and `hitsPe
 The default value of `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples).<br>
 ⚠️ MeiliSearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
 More information about MeiliSearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
+- `primaryKey` (`undefined` by default): Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particulary, this option removes the `Each child in a list should have a unique "key" prop` error.
 
 ## Example with InstantSearch
 
