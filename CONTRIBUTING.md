@@ -29,7 +29,7 @@ First of all, thank you for contributing to MeiliSearch! The goal of this docume
 ### Setup <!-- omit in TOC -->
 
 ```bash
-$ yarn --dev
+yarn --dev
 ```
 
 ### Tests and Linter <!-- omit in TOC -->
@@ -38,17 +38,17 @@ Each PR should pass the tests and the linter to be accepted.
 
 ```bash
 # Tests with Jest
-$ docker pull getmeili/meilisearch:latest # Fetch the latest version of MeiliSearch image from Docker Hub
-$ docker run -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --master-key=masterKey --no-analytics=true
-$ yarn test
+docker pull getmeili/meilisearch:latest # Fetch the latest version of MeiliSearch image from Docker Hub
+docker run -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --master-key=masterKey --no-analytics=true
+yarn test
 # Tests with demos
-$ yarn test:demo
+yarn test:demo
 # Linter
-$ yarn lint
+yarn lint
 # Linter with fixing
-$ yarn lint:fix
+yarn lint:fix
 # Build the project
-$ yarn build
+yarn build
 ```
 
 ### Playgrounds <!-- omit in TOC -->
@@ -56,23 +56,23 @@ $ yarn build
 To test directly your changes in `instant-meilisearch`, you can run the Vue playground:
 
 ```bash
-$ yarn playground:vue
+yarn playground:vue
 ```
 
 Or the React playground:
 
 ```bash
-$ yarn playground:react
+yarn playground:react
 ```
 
 Or the JavaScript playground:
 ```
-$ yarn playground:javascript
+yarn playground:javascript
 ```
 
 Or the HTML playground:
 ```
-$ yarn playground:html
+yarn playground:html
 ```
 
 ## Git Guidelines
