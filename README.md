@@ -40,11 +40,11 @@ NB: If you don't have any MeiliSearch instance running and containing your data,
 Use `npm` or `yarn` to install `instant-meilisearch`:
 
 ```bash
-$ npm install @meilisearch/instant-meilisearch
+npm install @meilisearch/instant-meilisearch
 ```
 
 ```bash
-$ yarn add @meilisearch/instant-meilisearch
+yarn add @meilisearch/instant-meilisearch
 ```
 
 ## Usage
