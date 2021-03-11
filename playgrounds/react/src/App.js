@@ -9,6 +9,7 @@ import {
   ClearRefinements,
   RefinementList,
   Configure,
+  Stats,
 } from 'react-instantsearch-dom'
 import './App.css'
 import { instantMeiliSearch } from '../../../src/index'
@@ -41,6 +42,7 @@ class App extends Component {
           indexName="steam-video-games"
           searchClient={searchClient}
         >
+          <Stats />
           <div className="left-panel">
             <ClearRefinements />
             <h2>Genres</h2>
