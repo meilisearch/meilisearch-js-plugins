@@ -9,6 +9,7 @@ export type ISSearchParams = IStypes.SearchRequestParameters &
 export type InstantMeiliSearchOptions = {
   paginationTotalHits?: number
   placeholderSearch?: boolean
+  primaryKey?: string
 }
 
 export type ISHits<T = Record<string, any>> = T & {
@@ -35,6 +36,7 @@ export type InstantMeiliSearchInstance = {
   pagination?: boolean
   paginationTotalHits: number
   hitsPerPage: number
+  primaryKey: string | undefined
   client: MStypes.MeiliSearch
   attributesToHighlight: string[]
   placeholderSearch: boolean

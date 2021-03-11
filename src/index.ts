@@ -15,6 +15,7 @@ export function instantMeiliSearch(
     client: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     attributesToHighlight: ['*'],
     paginationTotalHits: options.paginationTotalHits || 200,
+    primaryKey: options.primaryKey || undefined,
     placeholderSearch: options.placeholderSearch !== false, // true by default
     hitsPerPage: 20,
     /*
@@ -99,6 +100,7 @@ export function instantMeiliSearch(
             formattedHit,
             ...instantSearchParams,
           }),
+          ...(this.primaryKey && { objectID: hit[this.primaryKey] }),
         }
         return modifiedHit
       })
