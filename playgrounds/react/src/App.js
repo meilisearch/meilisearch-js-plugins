@@ -2,9 +2,8 @@ import 'instantsearch.css/themes/algolia-min.css'
 import React, { Component } from 'react'
 import {
   InstantSearch,
-  Hits,
+  InfiniteHits,
   SearchBox,
-  Pagination,
   Stats,
   Highlight,
   ClearRefinements,
@@ -57,8 +56,7 @@ class App extends Component {
           </div>
           <div className="right-panel">
             <SearchBox />
-            <Hits hitComponent={Hit} />
-            <Pagination showLast={true} />
+            <InfiniteHits hitComponent={Hit} />
           </div>
         </InstantSearch>
       </div>
