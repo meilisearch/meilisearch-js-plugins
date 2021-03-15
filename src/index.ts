@@ -29,9 +29,7 @@ export function instantMeiliSearch(
       attributesToRetrieve,
       filters,
     }) {
-      const limit = this.pagination // if pagination widget is set, use paginationTotalHits as limit
-        ? this.paginationTotalHits
-        : this.hitsPerPage
+      const limit = this.paginationTotalHits
 
       return {
         q: query,
@@ -59,28 +57,22 @@ export function instantMeiliSearch(
     */
 
     createISPaginationParams: function (hitsLength, { page }) {
-      if (this.pagination) {
-        const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
-        const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
-        return {
-          nbPages, // total number of pages
-          page, // the current page, information sent by InstantSearch
-        }
+      const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
+      const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
+      return {
+        nbPages, // total number of pages
+        page: page || 0, // the current page, information sent by InstantSearch
       }
-      return undefined
     },
 
     paginateISHits: function ({ page }, meiliSearchHits) {
-      if (this.pagination) {
-        const nbPage = page || 0
-        const start = nbPage * this.hitsPerPage!
-        const slicedMeiliSearchHits = meiliSearchHits.splice(
-          start,
-          this.hitsPerPage
-        )
-        return slicedMeiliSearchHits
-      }
-      return meiliSearchHits
+      const nbPage = page || 0
+      const start = nbPage * this.hitsPerPage!
+      const slicedMeiliSearchHits = meiliSearchHits.splice(
+        start,
+        this.hitsPerPage
+      )
+      return slicedMeiliSearchHits
     },
 
     transformToISHits: function (meiliSearchHits, instantSearchParams) {
@@ -88,6 +80,7 @@ export function instantMeiliSearch(
         instantSearchParams,
         meiliSearchHits
       )
+
       return paginatedHits.map((hit: Record<string, any>) => {
         const { _formatted: formattedHit, ...restOfHit } = hit
         const modifiedHit = {
@@ -155,7 +148,7 @@ export function instantMeiliSearch(
         } = isSearchRequest
         const { page, hitsPerPage } = instantSearchParams
 
-        this.pagination = page !== undefined // If the pagination widget has been set
+        this.page = page || 0 // default page is 0 if none is provided
         this.hitsPerPage = hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
         // Gets information from IS and transforms it for MeiliSearch
         const msSearchParams = this.transformToMeiliSearchParams(
@@ -167,11 +160,13 @@ export function instantMeiliSearch(
           .search(msSearchParams.q, msSearchParams)
 
         // Parses the MeiliSearch response and returns it for InstantSearch
-        return this.transformToISResponse(
+        const res = this.transformToISResponse(
           indexUid,
           searchResponse,
           instantSearchParams
         )
+        console.log(res)
+        return res
       } catch (e) {
         console.error(e)
         throw new Error(e)

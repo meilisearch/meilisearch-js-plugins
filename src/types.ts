@@ -33,7 +33,7 @@ export type SearchResponse = IStypes.SearchResponse & IMResponse
 export type instantSearchUtils = {}
 
 export type InstantMeiliSearchInstance = {
-  pagination?: boolean
+  page?: number
   paginationTotalHits: number
   hitsPerPage: number
   primaryKey: string | undefined
