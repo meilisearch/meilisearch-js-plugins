@@ -160,13 +160,11 @@ export function instantMeiliSearch(
           .search(msSearchParams.q, msSearchParams)
 
         // Parses the MeiliSearch response and returns it for InstantSearch
-        const res = this.transformToISResponse(
+        return this.transformToISResponse(
           indexUid,
           searchResponse,
           instantSearchParams
         )
-        console.log(res)
-        return res
       } catch (e) {
         console.error(e)
         throw new Error(e)

@@ -108,3 +108,5 @@ dist
 
 # parcel
 .parcel_cache/
+
+tests/env/express/public/

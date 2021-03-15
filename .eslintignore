@@ -3,3 +3,5 @@ dist
 build
 
 .cache
+
+tests/env/express/public/
