@@ -18,6 +18,7 @@ export function instantMeiliSearch(
     primaryKey: options.primaryKey || undefined,
     placeholderSearch: options.placeholderSearch !== false, // true by default
     hitsPerPage: 20,
+    page: 0,
     /*
       REQUEST CONSTRUCTION
     */
@@ -56,12 +57,12 @@ export function instantMeiliSearch(
       RESPONSE CONSTRUCTION
     */
 
-    createISPaginationParams: function (hitsLength, { page }) {
+    createISPaginationParams: function (hitsLength) {
       const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
       const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
       return {
         nbPages, // total number of pages
-        page: page || 0, // the current page, information sent by InstantSearch
+        page: this.page, // the current page, information sent by InstantSearch
       }
     },
 
@@ -112,21 +113,18 @@ export function instantMeiliSearch(
       },
       instantSearchParams
     ) {
-      const pagination = this.createISPaginationParams(
-        hits.length,
-        instantSearchParams
-      )
+      const pagination = this.createISPaginationParams(hits.length)
       const ISHits = this.transformToISHits(hits, instantSearchParams)
       const ISResponse = {
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
         ...(facets && { facets }),
         ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
+        ...pagination,
         exhaustiveNbHits,
         nbHits,
         processingTimeMS: processingTimeMs,
         query,
-        ...(pagination && pagination),
         hits: ISHits, // Apply pagination + highlight
       }
       return {

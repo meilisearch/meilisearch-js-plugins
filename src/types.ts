@@ -56,8 +56,7 @@ export type InstantMeiliSearchInstance = {
     instantSearchParams: ISSearchParams
   ) => ISHits[]
   createISPaginationParams: (
-    hitsLength: number,
-    instantSearchParams: ISSearchParams
+    hitsLength: number
   ) => { nbPages: number; page: number | undefined } | undefined
   paginateISHits: (
     { page }: ISSearchParams,
