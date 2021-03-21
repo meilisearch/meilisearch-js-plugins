@@ -18,65 +18,58 @@ export function instantMeiliSearch(
     placeholderSearch: options.placeholderSearch !== false, // true by default
     hitsPerPage: 20,
     page: 0,
+
     /*
-      REQUEST CONSTRUCTION
+      REQUEST
     */
+
     transformToMeiliSearchParams: function ({
       query,
       facets,
       facetFilters,
       attributesToSnippet,
       attributesToRetrieve,
+      attributesToHighlight,
       filters,
     }) {
       const limit = this.paginationTotalHits
       const attributesToCrop = attributesToSnippet
 
-      // transform to meilisearch-js search params
+      // transform to meilisearch-js search param
       return {
         q: query,
-        attributesToHighlight: ['*'],
         ...(facets && { facetsDistribution: facets }),
         ...(facetFilters && { facetFilters }),
         ...(attributesToCrop && { attributesToCrop }),
         ...(attributesToRetrieve && { attributesToRetrieve }),
         ...(filters && { filters }),
+        attributesToHighlight: attributesToHighlight || ['*'],
         limit: (!this.placeholderSearch && query === '') || !limit ? 0 : limit,
       }
     },
 
     /*
-      RESPONSE CONSTRUCTION
+      RESPONSE
     */
 
-    createISPaginationParams: function (hitsLength) {
+    getNumberPages: function (hitsLength) {
       const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
-      const nbPages = Math.floor(hitsLength / this.hitsPerPage!) + adjust
-      return {
-        nbPages, // total number of pages
-        page: this.page, // the current page, information sent by InstantSearch
-      }
+      const page = Math.floor(hitsLength / this.hitsPerPage!) + adjust
+      return page // total number of pages
     },
 
-    paginateISHits: function ({ page }, meiliSearchHits) {
-      const nbPage = page || 0
-      const start = nbPage * this.hitsPerPage!
-      const slicedMeiliSearchHits = meiliSearchHits.splice(
-        start,
-        this.hitsPerPage
-      )
-      return slicedMeiliSearchHits
+    paginateHits: function (hits) {
+      const start = this.page * this.hitsPerPage!
+      return hits.splice(start, this.hitsPerPage)
     },
 
     transformToISHits: function (meiliSearchHits, instantSearchParams) {
-      const paginatedHits = this.paginateISHits(
-        instantSearchParams,
-        meiliSearchHits
-      )
+      const paginatedHits = this.paginateHits(meiliSearchHits)
 
       return paginatedHits.map((hit: Record<string, any>) => {
         const { _formatted: formattedHit, ...restOfHit } = hit
-        const modifiedHit = {
+        // create Hit object that matches instantSearch requirements
+        return {
           ...restOfHit,
           _highlightResult: createHighlighResult({
             formattedHit,
@@ -88,7 +81,6 @@ export function instantMeiliSearch(
           }),
           ...(this.primaryKey && { objectID: hit[this.primaryKey] }),
         }
-        return modifiedHit
       })
     },
 
@@ -105,19 +97,19 @@ export function instantMeiliSearch(
       },
       instantSearchParams
     ) {
-      const pagination = this.createISPaginationParams(hits.length)
-      const ISHits = this.transformToISHits(hits, instantSearchParams)
+      // transform to InstantSearch search response requirements
       const ISResponse = {
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
         ...(facets && { facets }),
         ...(exhaustiveFacetsCount && { exhaustiveFacetsCount }),
-        ...pagination,
+        page: this.page,
+        nbPages: this.getNumberPages(hits.length),
         exhaustiveNbHits,
         nbHits,
         processingTimeMS: processingTimeMs,
         query,
-        hits: ISHits, // Apply pagination + highlight
+        hits: this.transformToISHits(hits, instantSearchParams), // Apply pagination + highlight
       }
       return {
         results: [ISResponse],
@@ -140,7 +132,8 @@ export function instantMeiliSearch(
 
         this.page = page || 0 // default page is 0 if none is provided
         this.hitsPerPage = hitsPerPage || 20 // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
-        // Gets information from IS and transforms it for MeiliSearch
+
+        // Transform IS params to MeiliSearch params
         const msSearchParams = this.transformToMeiliSearchParams(
           instantSearchParams
         )
