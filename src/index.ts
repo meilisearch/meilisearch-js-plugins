@@ -54,8 +54,7 @@ export function instantMeiliSearch(
 
     getNumberPages: function (hitsLength) {
       const adjust = hitsLength % this.hitsPerPage! === 0 ? 0 : 1
-      const page = Math.floor(hitsLength / this.hitsPerPage!) + adjust
-      return page // total number of pages
+      return Math.floor(hitsLength / this.hitsPerPage!) + adjust // total number of pages
     },
 
     paginateHits: function (hits) {
