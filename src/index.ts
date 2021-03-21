@@ -13,7 +13,6 @@ export function instantMeiliSearch(
 ): InstantMeiliSearchInstance {
   return {
     client: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
-    attributesToHighlight: ['*'],
     paginationTotalHits: options.paginationTotalHits || 200,
     primaryKey: options.primaryKey || undefined,
     placeholderSearch: options.placeholderSearch !== false, // true by default
@@ -31,25 +30,18 @@ export function instantMeiliSearch(
       filters,
     }) {
       const limit = this.paginationTotalHits
+      const attributesToCrop = attributesToSnippet
 
+      // transform to meilisearch-js search params
       return {
         q: query,
-        facets: facets || { facetsDistribution: [] },
-        ...(facets?.length && { facetsDistribution: facets }),
+        attributesToHighlight: ['*'],
+        ...(facets && { facetsDistribution: facets }),
         ...(facetFilters && { facetFilters }),
-        ...(this.attributesToHighlight && {
-          attributesToHighlight: this.attributesToHighlight,
-        }),
-        ...(attributesToSnippet && {
-          attributesToCrop: attributesToSnippet,
-        }),
+        ...(attributesToCrop && { attributesToCrop }),
         ...(attributesToRetrieve && { attributesToRetrieve }),
         ...(filters && { filters }),
-        limit:
-          (this.placeholderSearch === false && query === '') ||
-          limit === undefined
-            ? 0
-            : limit,
+        limit: (!this.placeholderSearch && query === '') || !limit ? 0 : limit,
       }
     },
 
