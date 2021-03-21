@@ -97,7 +97,6 @@ export function instantMeiliSearch(
       },
       instantSearchParams
     ) {
-
       // Create response object compliant with InstantSearch
       const ISResponse = {
         index: indexUid,
