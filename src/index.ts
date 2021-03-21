@@ -35,7 +35,7 @@ export function instantMeiliSearch(
       const limit = this.paginationTotalHits
       const attributesToCrop = attributesToSnippet
 
-      // transform to meilisearch-js search param
+      // Creates search params object compliant with MeiliSearch
       return {
         q: query,
         ...(facets && { facetsDistribution: facets }),
@@ -67,7 +67,8 @@ export function instantMeiliSearch(
 
       return paginatedHits.map((hit: Record<string, any>) => {
         const { _formatted: formattedHit, ...restOfHit } = hit
-        // create Hit object that matches instantSearch requirements
+
+        // Creates Hit object compliant with InstantSearch
         return {
           ...restOfHit,
           _highlightResult: createHighlighResult({
@@ -96,7 +97,8 @@ export function instantMeiliSearch(
       },
       instantSearchParams
     ) {
-      // transform to InstantSearch search response requirements
+
+      // Create response object compliant with InstantSearch
       const ISResponse = {
         index: indexUid,
         hitsPerPage: this.hitsPerPage,
@@ -108,7 +110,7 @@ export function instantMeiliSearch(
         nbHits,
         processingTimeMS: processingTimeMs,
         query,
-        hits: this.transformToISHits(hits, instantSearchParams), // Apply pagination + highlight
+        hits: this.transformToISHits(hits, instantSearchParams),
       }
       return {
         results: [ISResponse],
