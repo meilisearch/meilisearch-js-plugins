@@ -6,7 +6,7 @@ function replaceHighlightTags(
   highlightPreTag?: string,
   highlightPostTag?: string
 ): string {
-  let newHighlightValue = value || ''
+  let newHighlightValue = JSON.stringify(value) || ''
   // If the value of the attribute is a string,
   // the highlight is applied by MeiliSearch (<em> tags)
   // and we replace the <em> by the expected tag for InstantSearch
