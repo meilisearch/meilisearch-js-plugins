@@ -6,18 +6,17 @@ function replaceHighlightTags(
   highlightPreTag?: string,
   highlightPostTag?: string
 ): string {
-  let newHighlightValue = JSON.stringify(value) || ''
   // If the value of the attribute is a string,
   // the highlight is applied by MeiliSearch (<em> tags)
   // and we replace the <em> by the expected tag for InstantSearch
-  highlightPreTag = highlightPreTag || '__ais-highlight__'
-  highlightPostTag = highlightPostTag || '__/ais-highlight__'
   if (isString(value)) {
-    newHighlightValue = value
+    highlightPreTag = highlightPreTag || '__ais-highlight__'
+    highlightPostTag = highlightPostTag || '__/ais-highlight__'
+    return value
       .replace(/<em>/g, highlightPreTag)
       .replace(/<\/em>/g, highlightPostTag)
   }
-  return newHighlightValue.toString()
+  return value
 }
 
 function createHighlighResult<T extends Record<string, any>>({
