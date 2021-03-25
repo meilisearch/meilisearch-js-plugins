@@ -3,3 +3,6 @@ dist
 build
 
 .cache
+
+# Avoid symbolic link linting
+tests/env/express/public/

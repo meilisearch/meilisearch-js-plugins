@@ -5,11 +5,11 @@ import {
   Hits,
   SearchBox,
   Pagination,
+  Stats,
   Highlight,
   ClearRefinements,
   RefinementList,
   Configure,
-  Stats,
 } from 'react-instantsearch-dom'
 import './App.css'
 import { instantMeiliSearch } from '../../../src/index'

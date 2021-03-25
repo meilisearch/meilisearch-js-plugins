@@ -33,12 +33,11 @@ export type SearchResponse = IStypes.SearchResponse & IMResponse
 export type instantSearchUtils = {}
 
 export type InstantMeiliSearchInstance = {
-  pagination?: boolean
+  page: number
   paginationTotalHits: number
   hitsPerPage: number
   primaryKey: string | undefined
   client: MStypes.MeiliSearch
-  attributesToHighlight: string[]
   placeholderSearch: boolean
 
   transformToISResponse: (
@@ -55,12 +54,8 @@ export type InstantMeiliSearchInstance = {
     meiliSearchHits: Array<Record<string, any>>,
     instantSearchParams: ISSearchParams
   ) => ISHits[]
-  createISPaginationParams: (
-    hitsLength: number,
-    instantSearchParams: ISSearchParams
-  ) => { nbPages: number; page: number | undefined } | undefined
-  paginateISHits: (
-    { page }: ISSearchParams,
+  getNumberPages: (hitsLength: number) => number
+  paginateHits: (
     meiliSearchHits: Array<Record<string, any>>
   ) => Array<Record<string, any>>
   search: (
