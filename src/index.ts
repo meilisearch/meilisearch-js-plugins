@@ -27,13 +27,12 @@ export function instantMeiliSearch(
       query,
       facets,
       facetFilters,
-      attributesToSnippet,
+      attributesToSnippet: attributesToCrop,
       attributesToRetrieve,
       attributesToHighlight,
       filters,
     }) {
       const limit = this.paginationTotalHits
-      const attributesToCrop = attributesToSnippet
 
       // Creates search params object compliant with MeiliSearch
       return {
