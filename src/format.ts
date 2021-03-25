@@ -6,17 +6,14 @@ function replaceHighlightTags(
   highlightPreTag?: string,
   highlightPostTag?: string
 ): string {
-  // If the value of the attribute is a string,
-  // the highlight is applied by MeiliSearch (<em> tags)
-  // and we replace the <em> by the expected tag for InstantSearch
-  if (isString(value)) {
-    highlightPreTag = highlightPreTag || '__ais-highlight__'
-    highlightPostTag = highlightPostTag || '__/ais-highlight__'
-    return value
-      .replace(/<em>/g, highlightPreTag)
-      .replace(/<\/em>/g, highlightPostTag)
-  }
-  return value
+  // Value has to be a string.
+  // Some field may have highlight applied by MeiliSearch (<em> tags)
+  // We replace the <em> by the expected tag for InstantSearch
+  highlightPreTag = highlightPreTag || '__ais-highlight__'
+  highlightPostTag = highlightPostTag || '__/ais-highlight__'
+  return JSON.stringify(value)
+    .replace(/<em>/g, highlightPreTag)
+    .replace(/<\/em>/g, highlightPostTag)
 }
 
 function createHighlighResult<T extends Record<string, any>>({
