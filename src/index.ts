@@ -37,7 +37,7 @@ export function instantMeiliSearch(
       // Creates search params object compliant with MeiliSearch
       return {
         q: query,
-        ...(facets && { facetsDistribution: facets }),
+        ...(facets?.length && { facetsDistribution: facets }),
         ...(facetFilters && { facetFilters }),
         ...(attributesToCrop && { attributesToCrop }),
         ...(attributesToRetrieve && { attributesToRetrieve }),
