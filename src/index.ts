@@ -30,9 +30,15 @@ export function instantMeiliSearch(
       attributesToSnippet: attributesToCrop,
       attributesToRetrieve,
       attributesToHighlight,
-      filters,
+      filters = '',
+      numericFilters = [],
     }) {
       const limit = this.paginationTotalHits
+
+      const filter = [numericFilters.join(' AND '), filters.trim()]
+        .filter((x) => x)
+        .join(' AND ')
+        .trim()
 
       // Creates search params object compliant with MeiliSearch
       return {
@@ -41,7 +47,7 @@ export function instantMeiliSearch(
         ...(facetFilters && { facetFilters }),
         ...(attributesToCrop && { attributesToCrop }),
         ...(attributesToRetrieve && { attributesToRetrieve }),
-        ...(filters && { filters }),
+        ...(filter && { filters: filter }),
         attributesToHighlight: attributesToHighlight || ['*'],
         limit: (!this.placeholderSearch && query === '') || !limit ? 0 : limit,
       }
