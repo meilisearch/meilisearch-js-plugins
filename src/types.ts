@@ -32,6 +32,16 @@ export type SearchResponse = IStypes.SearchResponse & IMResponse
 
 export type instantSearchUtils = {}
 
+export type ContextParameters = {
+  paginationTotalHits: number
+  placeholderSearch: boolean
+}
+
+export type TransformToMeiliSearchParams = (
+  instantSearchParams: ISSearchParams,
+  context: ContextParameters
+) => Record<string, any>
+
 export type InstantMeiliSearchInstance = {
   page: number
   paginationTotalHits: number
