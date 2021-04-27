@@ -1,6 +1,6 @@
-import { TransformToMeiliSearchParams } from './types'
+import { TransformToMeiliSearchParams } from '../types/types'
 
-export function transformToMeiliSearchParams(
+export const transformToMeiliSearchParams: TransformToMeiliSearchParams = function (
   {
     query,
     facets,
@@ -12,7 +12,7 @@ export function transformToMeiliSearchParams(
     numericFilters = [],
   },
   { paginationTotalHits, placeholderSearch }
-): TransformToMeiliSearchParams {
+) {
   const limit = paginationTotalHits
 
   const filter = [numericFilters.join(' AND '), filters.trim()]

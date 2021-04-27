@@ -27,7 +27,7 @@ const PLUGINS = [
 module.exports = [
   // browser-friendly IIFE build
   {
-    input: 'src/index.ts', // directory to transpilation of typescript
+    input: 'src/client/index.ts', // directory to transpilation of typescript
     output: {
       name: 'window',
       extend: true,
