@@ -1,7 +1,7 @@
 import * as MStypes from 'meilisearch'
 import * as IStypes from './instantsearch-types'
-export * as InstantSearchTypes from './instantsearch-types'
 export * as MeiliSearchTypes from 'meilisearch'
+export * as InstantSearchTypes from './instantsearch-types'
 
 export type ISSearchParams = IStypes.SearchRequestParameters &
   MStypes.SearchParams<any>
@@ -104,6 +104,7 @@ export type PaginateHits = (
 ) => Array<Record<string, any>>
 
 export type InstantMeiliSearchInstance = {
+  MeiliSearchClient: MStypes.MeiliSearch
   search: (
     requests: IStypes.SearchRequest[]
   ) => Promise<{ results: SearchResponse[] }>

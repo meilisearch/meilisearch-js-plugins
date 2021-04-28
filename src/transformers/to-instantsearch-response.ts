@@ -1,4 +1,4 @@
-import { TransformToISResponse } from '../types/types'
+import { TransformToISResponse } from '../types'
 import { getNumberPages } from './pagination'
 import { transformToISHits } from './to-instantsearch-hits'
 

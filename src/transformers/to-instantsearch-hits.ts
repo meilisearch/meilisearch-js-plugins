@@ -1,4 +1,4 @@
-import { TransformToISHitsm } from '../types/types'
+import { TransformToISHitsm } from '../types'
 import { paginateHits } from './pagination'
 import {
   createHighlighResult,

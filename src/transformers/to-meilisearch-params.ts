@@ -1,4 +1,4 @@
-import { TransformToMeiliSearchParams } from '../types/types'
+import { TransformToMeiliSearchParams } from '../types'
 
 export const transformToMeiliSearchParams: TransformToMeiliSearchParams = function (
   {

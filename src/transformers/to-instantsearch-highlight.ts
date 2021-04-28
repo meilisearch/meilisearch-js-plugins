@@ -1,11 +1,10 @@
-import { isString } from '../utils'
 import {
   CreateHighlighResult,
-  ISSearchParams,
   ReplaceHighlightTags,
   SnippetValue,
-  CreateSnippetResult
-} from '../types/types'
+  CreateSnippetResult,
+  isString,
+} from '../types'
 
 export const replaceHighlightTags: ReplaceHighlightTags = (
   value: string,
@@ -75,7 +74,7 @@ export const createSnippetResult: CreateSnippetResult = ({
   snippetEllipsisText,
   highlightPreTag,
   highlightPostTag,
-} => {
+}) => {
   if (attributesToSnippet === undefined) {
     return null
   }

@@ -1,4 +1,4 @@
-import { PaginateHits, GetNumberPages } from '../types/types'
+import { PaginateHits, GetNumberPages } from '../types'
 
 export const getNumberPages: GetNumberPages = function (
   hitsLength,

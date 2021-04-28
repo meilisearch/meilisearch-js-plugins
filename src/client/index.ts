@@ -3,7 +3,7 @@ import {
   InstantMeiliSearchOptions,
   InstantMeiliSearchInstance,
   InstantSearchTypes,
-} from '../types/types'
+} from '../types'
 
 import {
   transformToMeiliSearchParams,
@@ -16,6 +16,7 @@ export function instantMeiliSearch(
   options: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
   return {
+    MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     search: async function ([
       isSearchRequest,
     ]: InstantSearchTypes.SearchRequest[]) {
@@ -28,8 +29,7 @@ export function instantMeiliSearch(
 
         const { paginationTotalHits, primaryKey, placeholderSearch } = options
         const { page, hitsPerPage } = instantSearchParams
-        const client = new MeiliSearch({ host: hostUrl, apiKey: apiKey })
-
+        const client = this.MeiliSearchClient
         const context = {
           client,
           paginationTotalHits: paginationTotalHits || 200,
