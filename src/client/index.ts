@@ -1,9 +1,5 @@
 import { MeiliSearch } from 'meilisearch'
-import {
-  InstantMeiliSearchOptions,
-  InstantMeiliSearchInstance,
-  InstantSearchTypes,
-} from '../types'
+import { InstantMeiliSearchOptions, InstantMeiliSearchInstance } from '../types'
 
 import {
   transformToMeiliSearchParams,
@@ -17,9 +13,7 @@ export function instantMeiliSearch(
 ): InstantMeiliSearchInstance {
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
-    search: async function ([
-      isSearchRequest,
-    ]: InstantSearchTypes.SearchRequest[]) {
+    search: async function ([isSearchRequest]) {
       try {
         // Params got from InstantSearch
         const {

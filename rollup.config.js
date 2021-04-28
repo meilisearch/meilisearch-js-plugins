@@ -13,7 +13,7 @@ function getOutputFileName(fileName, isProd = false) {
 
 const env = process.env.NODE_ENV || 'development'
 const ROOT = resolve(__dirname, '.')
-const INPUT = 'src/client/index.ts'
+const INPUT = 'src/index.ts'
 
 const PLUGINS = [
   typescript({
