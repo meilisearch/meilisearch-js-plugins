@@ -1,11 +1,16 @@
-import { ISSearchParams } from './types'
-import { isString } from './utils'
+import {
+  CreateHighlighResult,
+  ReplaceHighlightTags,
+  SnippetValue,
+  CreateSnippetResult,
+  isString,
+} from '../types'
 
-function replaceHighlightTags(
+export const replaceHighlightTags: ReplaceHighlightTags = (
   value: string,
   highlightPreTag?: string,
   highlightPostTag?: string
-): string {
+): string => {
   // Value has to be a string to have highlight.
   // Highlight is applied by MeiliSearch (<em> tags)
   // We replace the <em> by the expected tag for InstantSearch
@@ -20,11 +25,11 @@ function replaceHighlightTags(
   return JSON.stringify(value)
 }
 
-function createHighlighResult<T extends Record<string, any>>({
+export const createHighlighResult: CreateHighlighResult = ({
   formattedHit,
   highlightPreTag,
   highlightPostTag,
-}: { formattedHit: T } & ISSearchParams) {
+}) => {
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return Object.keys(formattedHit).reduce((result, key) => {
@@ -36,15 +41,15 @@ function createHighlighResult<T extends Record<string, any>>({
       ),
     }
     return result
-  }, {} as T)
+  }, {} as any)
 }
 
-function snippetFinalValue(
+export const snippetValue: SnippetValue = (
   value: string,
   snippetEllipsisText?: string,
   highlightPreTag?: string,
   highlightPostTag?: string
-) {
+) => {
   let newValue = value
   // manage a kind of `...` for the crop until this issue is solved: https://github.com/meilisearch/MeiliSearch/issues/923
   // `...` is put if we are at the middle of a sentence (instead at the middle of the document field)
@@ -63,28 +68,25 @@ function snippetFinalValue(
   return replaceHighlightTags(newValue, highlightPreTag, highlightPostTag)
 }
 
-function createSnippetResult<
-  T extends Record<string, any>,
-  K extends keyof T & string
->({
+export const createSnippetResult: CreateSnippetResult = ({
   formattedHit,
   attributesToSnippet,
   snippetEllipsisText,
   highlightPreTag,
   highlightPostTag,
-}: { formattedHit: T } & ISSearchParams) {
+}) => {
   if (attributesToSnippet === undefined) {
     return null
   }
   attributesToSnippet = attributesToSnippet.map(
     (attribute) => attribute.split(':')[0]
-  ) as K[]
+  ) as any[]
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
-  return (Object.keys(formattedHit) as K[]).reduce((result, key) => {
+  return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
     if (attributesToSnippet!.includes(key)) {
       ;(result[key] as any) = {
-        value: snippetFinalValue(
+        value: snippetValue(
           formattedHit[key],
           snippetEllipsisText,
           highlightPreTag,
@@ -93,7 +95,5 @@ function createSnippetResult<
       }
     }
     return result
-  }, {} as T)
+  }, {} as any)
 }
-
-export { createHighlighResult, createSnippetResult }

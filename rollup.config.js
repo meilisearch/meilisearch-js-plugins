@@ -13,6 +13,7 @@ function getOutputFileName(fileName, isProd = false) {
 
 const env = process.env.NODE_ENV || 'development'
 const ROOT = resolve(__dirname, '.')
+const INPUT = 'src/index.ts'
 
 const PLUGINS = [
   typescript({
@@ -27,7 +28,7 @@ const PLUGINS = [
 module.exports = [
   // browser-friendly IIFE build
   {
-    input: 'src/index.ts', // directory to transpilation of typescript
+    input: INPUT, // directory to transpilation of typescript
     output: {
       name: 'window',
       extend: true,
@@ -56,7 +57,7 @@ module.exports = [
     ],
   },
   {
-    input: 'src/index.ts',
+    input: INPUT,
     external: ['meilisearch'],
     output: [
       {
