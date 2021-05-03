@@ -52,7 +52,8 @@ class App extends Component {
             <RefinementList attribute="platforms" />
             <h2>Misc</h2>
             <RefinementList attribute="misc" />
-            <Configure hitsPerPage={6} />
+            {/* should not crash */}
+            <Configure hitsPerPage={11} attributesToRetrieve={['title']} />
           </div>
           <div className="right-panel">
             <SearchBox />
