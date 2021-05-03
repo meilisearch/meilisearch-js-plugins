@@ -130,7 +130,7 @@ const algoliaPaginateHitsBehavior = [
     returnedHits: [],
   },
   // Wrong types
-  // Not an Algolia behavior. Algolia return an error:
+  // Not an Algolia behavior. Algolia returns an error:
   // "Value too small for \"hitsPerPage\" parameter, expected integer between 0 and 9223372036854775807",
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
