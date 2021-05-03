@@ -12,12 +12,14 @@ module.exports = {
       // jest-environment-jsdom 25 uses jsdom 15 which still supports node 10
       testEnvironment: 'jest-environment-jsdom',
       testPathIgnorePatterns: ['<rootDir>/tests/env', '<rootDir>/playgrounds'],
+      testMatch: ['**/*.tests.ts'],
     },
     {
       preset: 'ts-jest',
       displayName: 'node',
       testEnvironment: 'node',
       testPathIgnorePatterns: ['<rootDir>/tests/env', '<rootDir>/playgrounds'],
+      testMatch: ['**/*.tests.ts'],
     },
   ],
 }

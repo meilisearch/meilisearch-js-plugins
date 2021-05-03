@@ -4,14 +4,17 @@ export const getNumberPages: GetNumberPages = function (
   hitsLength,
   { hitsPerPage }
 ) {
-  const adjust = hitsLength % hitsPerPage! === 0 ? 0 : 1
-  return Math.floor(hitsLength / hitsPerPage!) + adjust // total number of pages
+  if (hitsPerPage > 0) {
+    const NumberPages = Math.ceil(hitsLength / hitsPerPage) // total number of pages rounded up to the next largest integer.
+    return NumberPages
+  }
+  return 0
 }
 
 export const paginateHits: PaginateHits = function (
   hits,
   { page, hitsPerPage }
 ) {
-  const start = page * hitsPerPage!
+  const start = page * hitsPerPage
   return hits.splice(start, hitsPerPage)
 }
