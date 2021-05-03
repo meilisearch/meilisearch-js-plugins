@@ -20,7 +20,7 @@ const PLUGINS = [
     useTsconfigDeclarationDir: true,
     tsconfigOverride: {
       includes: ['src'],
-      exclude: ['tests', 'examples', '*.js', 'scripts'],
+      exclude: ['tests', '*.js', 'scripts', '**/__tests__/*.ts'],
       esModuleInterop: true,
     },
   }),
