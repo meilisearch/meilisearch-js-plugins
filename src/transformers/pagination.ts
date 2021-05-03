@@ -12,6 +12,6 @@ export const paginateHits: PaginateHits = function (
   hits,
   { page, hitsPerPage }
 ) {
-  const start = page * hitsPerPage!
+  const start = page * hitsPerPage
   return hits.splice(start, hitsPerPage)
 }
