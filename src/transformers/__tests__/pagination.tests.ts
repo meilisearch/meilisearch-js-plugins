@@ -1,7 +1,7 @@
 import { getNumberPages, paginateHits } from '../'
 import { defaultContext } from './utils'
 
-const algoliaNumberPagesBehavior = [
+const numberPagesTestParameters = [
   {
     hitsPerPage: 0,
     hitsLength: 100,
@@ -43,7 +43,7 @@ const algoliaNumberPagesBehavior = [
   },
 ]
 
-const algoliaPaginateHitsBehavior = [
+const paginateHitsTestsParameters = [
   // Empty hits
   {
     hits: [],
@@ -140,7 +140,7 @@ const algoliaPaginateHitsBehavior = [
   },
 ]
 
-describe.each(algoliaNumberPagesBehavior)(
+describe.each(numberPagesTestParameters)(
   'Get Number Pages tests',
   ({ hitsPerPage, hitsLength, numberPages }) => {
     it(`Should return ${numberPages} pages when hitsPerPage is ${hitsPerPage} and hits length is ${hitsLength}`, () => {
@@ -153,7 +153,7 @@ describe.each(algoliaNumberPagesBehavior)(
   }
 )
 
-describe.each(algoliaPaginateHitsBehavior)(
+describe.each(paginateHitsTestsParameters)(
   'Paginate hits tests',
   ({ hits, page, hitsPerPage, returnedHits }) => {
     it(`Should return ${JSON.stringify(
