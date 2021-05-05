@@ -94,7 +94,8 @@ export type SearchRequest = {
   params: SearchRequestParameters
 }
 
-export type Hit = {
+export type Hit<T = {}> = T & {
+  [key: string]: any
   _highlightResult?: object
 }
 

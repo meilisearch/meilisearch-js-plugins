@@ -14,20 +14,22 @@ export const transformToISHits: TransformToISHitsm = function (
   const paginatedHits = paginateHits(meiliSearchHits, instantMeiliSearchContext)
 
   return paginatedHits.map((hit: any) => {
-    const { _formatted: formattedHit, ...restOfHit } = hit
-
     // Creates Hit object compliant with InstantSearch
-    return {
-      ...restOfHit,
-      _highlightResult: createHighlighResult({
-        formattedHit,
-        ...instantSearchParams,
-      }),
-      _snippetResult: createSnippetResult({
-        formattedHit,
-        ...instantSearchParams,
-      }),
-      ...(primaryKey && { objectID: hit[primaryKey] }),
+    if (Object.keys(hit).length > 0) {
+      const { _formatted: formattedHit, _matchesInfo, ...restOfHit } = hit
+      return {
+        ...restOfHit,
+        _highlightResult: createHighlighResult({
+          formattedHit,
+          ...instantSearchParams,
+        }),
+        _snippetResult: createSnippetResult({
+          formattedHit,
+          ...instantSearchParams,
+        }),
+        ...(primaryKey && { objectID: hit[primaryKey] }),
+      }
     }
+    return hit
   })
 }
