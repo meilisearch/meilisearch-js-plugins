@@ -2,7 +2,11 @@ import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Instant MeiliSearch Browser test', () => {
   beforeAll(async () => {
-    await searchClient.MeiliSearchClient.deleteIndex('movies')
+    try {
+      await searchClient.MeiliSearchClient.deleteIndex('movies')
+    } catch (e) {
+      // movies does not exist
+    }
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
