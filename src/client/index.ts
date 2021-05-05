@@ -16,10 +16,6 @@ export function instantMeiliSearch(
     search: async function ([isSearchRequest]) {
       try {
         // Params got from InstantSearch
-        console.log({
-          // options,
-          isSearchRequest,
-        })
         const {
           params: instantSearchParams,
           indexName: indexUid,
@@ -48,14 +44,14 @@ export function instantMeiliSearch(
           .index(indexUid)
           .search(msSearchParams.q, msSearchParams)
 
-        console.log({ searchResponse })
         // Parses the MeiliSearch response and returns it for InstantSearch
-        return transformToISResponse(
+        const ISresponse = transformToISResponse(
           indexUid,
           searchResponse,
           instantSearchParams,
           context
         )
+        return ISresponse
       } catch (e) {
         console.error(e)
         throw new Error(e)
