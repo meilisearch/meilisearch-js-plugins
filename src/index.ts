@@ -1,3 +1,3 @@
 export * from './client'
-export * from './transformers'
+export * from './adapter'
 export * from './types'

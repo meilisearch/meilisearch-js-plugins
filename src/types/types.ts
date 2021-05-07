@@ -87,19 +87,19 @@ export type SnippetValue = (
   highlightPostTag?: string
 ) => string
 
-export type TransformToMeiliSearchParams = (
+export type AdaptToMeiliSearchParams = (
   instantSearchParams: IMSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext
 ) => Record<string, any>
 
-export type TransformToISResponse = (
+export type AdaptToISResponse = (
   indexUid: string,
   meiliSearchResponse: MStypes.SearchResponse<any, any>,
   instantSearchParams: IMSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext
 ) => { results: SearchResponse[] }
 
-export type TransformToISHitsm = (
+export type AdaptToISHitsm = (
   meiliSearchHits: Array<Record<string, any>>,
   instantSearchParams: IMSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext

@@ -1,8 +1,8 @@
-import { TransformToISResponse } from '../types'
+import { AdaptToISResponse } from '../types'
 import { getNumberPages } from './pagination'
-import { transformToISHits } from './to-instantsearch-hits'
+import { adaptToISHits } from './to-instantsearch-hits'
 
-export const transformToISResponse: TransformToISResponse = function (
+export const adaptToISResponse: AdaptToISResponse = function (
   indexUid,
   {
     exhaustiveFacetsCount,
@@ -29,11 +29,7 @@ export const transformToISResponse: TransformToISResponse = function (
     nbHits,
     processingTimeMS: processingTimeMs,
     query,
-    hits: transformToISHits(
-      hits,
-      instantSearchParams,
-      instantMeiliSearchContext
-    ),
+    hits: adaptToISHits(hits, instantSearchParams, instantMeiliSearchContext),
   }
   return {
     results: [ISResponse],

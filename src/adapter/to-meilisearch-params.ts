@@ -1,7 +1,7 @@
-import { TransformToMeiliSearchParams } from '../types'
+import { AdaptToMeiliSearchParams } from '../types'
 import { mergeFiltersAndNumericFilters } from './to-meilisearch-filters'
 
-export const transformToMeiliSearchParams: TransformToMeiliSearchParams = function (
+export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
   {
     query,
     facets,

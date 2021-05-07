@@ -1,10 +1,7 @@
 import { MeiliSearch } from 'meilisearch'
 import { InstantMeiliSearchOptions, InstantMeiliSearchInstance } from '../types'
 
-import {
-  transformToMeiliSearchParams,
-  transformToISResponse,
-} from '../transformers'
+import { adaptToMeiliSearchParams, adaptToISResponse } from '../adapter'
 
 export function instantMeiliSearch(
   hostUrl: string,
@@ -32,8 +29,9 @@ export function instantMeiliSearch(
           hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
           page: page || 0, // default page is 0 if none is provided
         }
-        // Transform IS params to MeiliSearch params
-        const msSearchParams = transformToMeiliSearchParams(
+
+        // Adapt IS params to MeiliSearch params
+        const msSearchParams = adaptToMeiliSearchParams(
           instantSearchParams,
           context
         )
@@ -44,7 +42,7 @@ export function instantMeiliSearch(
           .search(msSearchParams.q, msSearchParams)
 
         // Parses the MeiliSearch response and returns it for InstantSearch
-        const ISresponse = transformToISResponse(
+        const ISresponse = adaptToISResponse(
           indexUid,
           searchResponse,
           instantSearchParams,

@@ -1,11 +1,11 @@
-import { TransformToISHitsm } from '../types'
+import { AdaptToISHitsm } from '../types'
 import { paginateHits } from './pagination'
 import {
   createHighlighResult,
   createSnippetResult,
 } from './to-instantsearch-highlight'
 
-export const transformToISHits: TransformToISHitsm = function (
+export const adaptToISHits: AdaptToISHitsm = function (
   meiliSearchHits,
   instantSearchParams,
   instantMeiliSearchContext
