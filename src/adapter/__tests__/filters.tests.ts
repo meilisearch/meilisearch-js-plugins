@@ -1,4 +1,4 @@
-import { mergeFiltersAndNumericFilters } from '../'
+import { mergeFiltersAndNumericFilters } from '..'
 
 const filtersTestsParameters = [
   {
