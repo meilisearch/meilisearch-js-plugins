@@ -62,6 +62,11 @@ export type ReplaceHighlightTags = (
   highlightPostTag?: string
 ) => string
 
+export type MergeFiltersAndNumericFilters = (
+  filters?: string,
+  numericFilters?: string[]
+) => string
+
 export type CreateSnippetResult = (
   snippetsParams: HighLightParams & SnippetsParams & FormattedHit
 ) => { formattedHit: any } & ISSearchParams

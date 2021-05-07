@@ -1,4 +1,5 @@
 export * from './to-meilisearch-params'
+export * from './to-meilisearch-filters'
 export * from './to-instantsearch-response'
 export * from './to-instantsearch-hits'
 export * from './to-instantsearch-highlight'

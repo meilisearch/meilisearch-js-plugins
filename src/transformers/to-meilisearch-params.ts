@@ -1,4 +1,5 @@
 import { TransformToMeiliSearchParams } from '../types'
+import { mergeFiltersAndNumericFilters } from './to-meilisearch-filters'
 
 export const transformToMeiliSearchParams: TransformToMeiliSearchParams = function (
   {
@@ -14,11 +15,7 @@ export const transformToMeiliSearchParams: TransformToMeiliSearchParams = functi
   { paginationTotalHits, placeholderSearch }
 ) {
   const limit = paginationTotalHits
-
-  const filter = [numericFilters.join(' AND '), filters.trim()]
-    .filter((x) => x)
-    .join(' AND ')
-    .trim()
+  const filter = mergeFiltersAndNumericFilters(filters, numericFilters)
 
   // Creates search params object compliant with MeiliSearch
   return {
