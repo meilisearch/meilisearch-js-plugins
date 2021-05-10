@@ -21,6 +21,11 @@ export function instantMeiliSearch(
           indexName: indexUid,
         } = isSearchRequest
 
+        // console.log({
+        //   params: instantSearchParams,
+        //   indexName: indexUid,
+        // })
+
         const { paginationTotalHits, primaryKey, placeholderSearch } = options
         const { page, hitsPerPage } = instantSearchParams
         const client = this.MeiliSearchClient
@@ -32,6 +37,8 @@ export function instantMeiliSearch(
           hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
           page: page || 0, // default page is 0 if none is provided
         }
+
+        // console.log({instantSearchParams, context})
 
         // Transform IS params to MeiliSearch params
         const msSearchParams = transformToMeiliSearchParams(
@@ -51,6 +58,8 @@ export function instantMeiliSearch(
           instantSearchParams,
           context
         )
+        // console.log({ ISresponse })
+
         return ISresponse
       } catch (e) {
         console.error(e)
