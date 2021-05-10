@@ -18,46 +18,42 @@ describe('Instant MeiliSearch Browser test', () => {
     )
   })
 
-  test('Test one facet on facetsFilters', async () => {
+  test('Test empty array on facetsDistribution', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
         params: {
           query: '',
-          facetFilters: ['genres:Adventure'],
+          facets: [],
         },
       },
     ])
-    const hits = response.results[0].hits
-    expect(hits.length).toEqual(1)
-    expect(hits[0].title).toEqual('Star Wars')
+    expect(response.results[0].facets?.genres).toEqual(undefined)
   })
 
-  test('Test multiple on facetsFilters', async () => {
+  test('Test one facet on facetsDistribution', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
         params: {
           query: '',
-          facetFilters: ['genres:Comedy', 'genres:Crime'],
+          facets: ['genres'],
         },
       },
     ])
-    const hits = response.results[0].hits
-    expect(hits.length).toEqual(2)
-    expect(hits[0].title).toEqual('Ariel')
+    expect(response.results[0].facets?.genres?.Action).toEqual(2)
   })
 
-  test('Test multiple nested on facetsFilters', async () => {
-    const params = {
-      indexName: 'movies',
-      params: {
-        query: '',
-        facetFilters: [['genres:action', 'genres:Thriller'], 'genres:crime'],
+  test('Test non-existent facets on facetsDistribution', async () => {
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          facets: ['genres', 'notKnown'],
+        },
       },
-    }
-    const response = await searchClient.search([params])
-    const hits = response.results[0].hits
-    expect(hits[0].title).toEqual('Judgment Night')
+    ])
+    expect(response.results[0].facets?.genres?.Action).toEqual(2)
   })
 })

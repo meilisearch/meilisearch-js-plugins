@@ -1,8 +1,17 @@
 import * as MStypes from 'meilisearch'
 import * as IStypes from './instantsearch-types'
 
-export type ISSearchParams = IStypes.SearchRequestParameters &
-  MStypes.SearchParams<any>
+export type FacetFilter = Array<string | string[]>
+
+export type IMSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
+  query?: string
+  facetFilters?: FacetFilter | FacetFilter[]
+}
+
+export type IMSearchRequest = {
+  indexName: string
+  params: IMSearchParams
+}
 
 export type InstantMeiliSearchOptions = {
   paginationTotalHits?: number
@@ -20,7 +29,7 @@ export type ISHits<T = Record<string, any>> = T & {
 }
 
 export type IMResponse = {
-  facets?: Record<string, object | undefined>
+  facets?: Record<string, Record<string, number> | undefined>
   exhaustiveFacetsCount?: boolean
   exhaustiveNbHits: boolean
   nbPages?: number
@@ -54,7 +63,7 @@ export type SnippetsParams = {
 
 export type CreateHighlighResult = (
   highLightParams: HighLightParams & FormattedHit
-) => { formattedHit: any } & ISSearchParams
+) => { formattedHit: any } & IMSearchParams
 
 export type ReplaceHighlightTags = (
   value: string,
@@ -64,7 +73,7 @@ export type ReplaceHighlightTags = (
 
 export type CreateSnippetResult = (
   snippetsParams: HighLightParams & SnippetsParams & FormattedHit
-) => { formattedHit: any } & ISSearchParams
+) => { formattedHit: any } & IMSearchParams
 
 export type SnippetValue = (
   value: string,
@@ -74,20 +83,20 @@ export type SnippetValue = (
 ) => string
 
 export type TransformToMeiliSearchParams = (
-  instantSearchParams: ISSearchParams,
+  instantSearchParams: IMSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext
 ) => Record<string, any>
 
 export type TransformToISResponse = (
   indexUid: string,
   meiliSearchResponse: MStypes.SearchResponse<any, any>,
-  instantSearchParams: ISSearchParams,
+  instantSearchParams: IMSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext
 ) => { results: SearchResponse[] }
 
 export type TransformToISHitsm = (
   meiliSearchHits: Array<Record<string, any>>,
-  instantSearchParams: ISSearchParams,
+  instantSearchParams: IMSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext
 ) => ISHits[]
 
@@ -104,7 +113,7 @@ export type PaginateHits = (
 export type InstantMeiliSearchInstance = {
   MeiliSearchClient: MStypes.MeiliSearch
   search: (
-    requests: IStypes.SearchRequest[]
+    requests: IMSearchRequest[]
   ) => Promise<{ results: SearchResponse[] }>
 }
 
