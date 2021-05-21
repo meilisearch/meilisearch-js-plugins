@@ -53,7 +53,7 @@ export const snippetValue: SnippetValue = (
   let newValue = value
   // manage a kind of `...` for the crop until this issue is solved: https://github.com/meilisearch/MeiliSearch/issues/923
   // `...` is put if we are at the middle of a sentence (instead at the middle of the document field)
-  if (snippetEllipsisText !== undefined && isString(newValue)) {
+  if (snippetEllipsisText !== undefined && isString(newValue) && newValue) {
     if (
       newValue[0] === newValue[0].toLowerCase() && // beginning of a sentence
       newValue.startsWith('<em>') === false // beginning of the document field, otherwise MeiliSearch would crop around the highligh
