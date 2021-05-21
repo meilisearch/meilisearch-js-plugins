@@ -1,4 +1,4 @@
-import { getNumberPages, paginateHits } from '../'
+import { getNumberPages, paginateHits } from '..'
 import { defaultContext } from './utils'
 
 const numberPagesTestParameters = [
