@@ -61,6 +61,7 @@ module.exports = {
         'standard',
         'plugin:prettier/recommended',
         'eslint:recommended',
+        'plugin:cypress/recommended',
       ],
       plugins: ['jest'],
       parserOptions: {
