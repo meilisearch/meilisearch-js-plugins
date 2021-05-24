@@ -45,6 +45,7 @@ describe('Strapi Login flow', () => {
 
   it('Search', () => {
     cy.get('input[type="search"]').type('orwell')
+    cy.wait(1000)
     cy.get('.ais-InfiniteHits-item').eq(0).contains('Orwell')
     cy.get('.ais-InfiniteHits-item').eq(0).contains('Big Brother has arrived')
     cy.get('.ais-InfiniteHits-item').eq(0).contains('Late 2016')
@@ -58,6 +59,7 @@ describe('Strapi Login flow', () => {
 
   it('Placeholder Search', () => {
     cy.get('input[type="search"]').clear()
+    cy.wait(1000)
     cy.get('.ais-InfiniteHits-item').eq(0).contains('Counter-Strike')
   })
 
