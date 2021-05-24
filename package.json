@@ -7,6 +7,7 @@
     "cleanup": "shx rm -rf dist/",
     "test:watch": "yarn test --watch",
     "test": "jest --runInBand",
+    "start-server": "start-server-and-test",
     "test:all": "yarn test && yarn test:playgrounds && yarn test:e2e",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
