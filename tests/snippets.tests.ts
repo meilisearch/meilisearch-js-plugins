@@ -86,7 +86,7 @@ describe('Snippet Browser test', () => {
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
-  test('Test snippet on a null attribute', async () => {
+  test('Test attributesToSnippet on a null attribute', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -164,7 +164,7 @@ describe('Snippet Browser test', () => {
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
-  test('Test snippet on a null attribute w/ snippetEllipsisText', async () => {
+  test('Test attributesToSnippet on a null attribute w/ snippetEllipsisText', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
