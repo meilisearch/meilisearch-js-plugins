@@ -62,14 +62,3 @@ jobs:
         run: yarn install
       - name: Tests style
         run: yarn lint
-
-  builds:
-    name: playground-builds
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: yarn install
-      - name: Run Playgrounds Builds
-        run: yarn test:playgrounds
