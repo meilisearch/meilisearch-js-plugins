@@ -107,7 +107,6 @@ describe('Highlight Browser test', () => {
     expect(highlightedResults.overview?.value).toEqual(
       expect.not.stringMatching('__ais-highlight__Magnetic__/ais-highlight__')
     )
-    // console.log(response.results[0].hits[0]._highlightResult)
   })
 
   test('Test two attributesToHighlight on specific query with null value', async () => {
@@ -120,7 +119,6 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    // console.log(response.results[0].hits[0]._highlightResult)
     const highlightedResults = response.results[0].hits[0]._highlightResult
     const resKeys = Object.keys(highlightedResults)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
@@ -142,7 +140,6 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    console.log(response.results[0].hits[0]._highlightResult)
     const highlightedResults = response.results[0].hits[0]._highlightResult
     const resKeys = Object.keys(highlightedResults)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
