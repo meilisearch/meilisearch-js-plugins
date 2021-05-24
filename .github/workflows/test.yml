@@ -25,8 +25,8 @@ jobs:
       - name: Test develop no-reload
         uses: cypress-io/github-action@v2
         with:
-          build: build:playground:react
-          start: build:playground:start
+          build: yarn build:playground:react
+          start: yarn build:playground:start
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
