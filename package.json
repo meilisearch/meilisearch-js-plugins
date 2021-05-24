@@ -8,7 +8,6 @@
     "test:watch": "yarn test --watch",
     "test": "jest --runInBand",
     "test:all": "yarn test && yarn test:playgrounds && yarn test:e2e",
-    "start-server": "start-server-and-test",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
     "playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript start",
