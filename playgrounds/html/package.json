@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel serve ./public/index.html --global instantMeiliSearch --open",
+    "start": "parcel serve ./public/index.html --global instantMeiliSearch --open --port 3333",
     "build": "parcel build ./public/index.html --global instantMeiliSearch"
   },
   "browserslist": [

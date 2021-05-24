@@ -4,9 +4,8 @@
   "description": "Instant-meilisearch playground written with vanilla javascript",
   "main": "index.js",
   "scripts": {
-    "cleanup": "rm -rf .cache dist",
-    "start": "npm run cleanup && parcel serve index.html --open",
-    "build": "npm run cleanup && parcel build index.html"
+    "start": "parcel serve index.html --open --port 2222",
+    "build": "parcel build index.html"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",

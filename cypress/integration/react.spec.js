@@ -1,70 +1,84 @@
-describe('Strapi Login flow', () => {
+const {
+  playground,
+  [playground]: { host },
+} = Cypress.env()
+
+const HIT_ITEM_CLASS =
+  playground === 'react' ? '.ais-InfiniteHits-item' : '.ais-Hits-item'
+
+describe(`${playground} playground test`, () => {
   before(() => {
     cy.clearCookies()
-    cy.visit('http://localhost:1234')
+    cy.visit(host)
   })
 
   it('Should visit the dashboard', () => {
-    cy.url().should('match', /http:\/\/localhost:1234/)
+    cy.url().should('match', /http:\/\/localhost:/)
   })
 
   it('Contains stats', () => {
-    cy.contains('12,546 results')
+    if (playground === 'react') cy.contains('12,546 results')
+    if (playground === 'angular') cy.contains('12546 results')
   })
 
   it('Contains filter clear', () => {
-    cy.contains('Clear all filters')
+    if (playground === 'react') cy.contains('Clear all filters')
+    if (playground === 'angular') cy.contains('Clear refinements')
   })
 
   it('Contains Genres', () => {
     cy.contains('Genres')
     cy.contains('Action')
-    cy.contains('5,554')
+    if (playground === 'react') cy.contains('5,554')
+    if (playground === 'angular') cy.contains('5554')
   })
 
   it('Contains searchBar', () => {
-    cy.get('input[type="search"]').should('have.value', '')
+    cy.get('.ais-SearchBox-input').should('have.value', '')
   })
 
   it('Contains Hits', () => {
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Counter-Strike')
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Play the worlds number 1 ')
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('9.99 $')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('9.99 $')
   })
 
   it('click on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(`${checkbox}`).eq(1).click()
-    cy.contains('1,939')
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Portal 2')
-    cy.get('.ais-InfiniteHits-item')
-      .eq(0)
-      .contains('Portal 2 draws from the award-winning')
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('19.99 $')
+    if (playground === 'react') cy.contains('1,939')
+    if (playground === 'angular') cy.contains('1939')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Portal 2')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('19.99 $')
   })
 
   it('Search', () => {
-    cy.get('input[type="search"]').type('orwell')
+    cy.get('.ais-SearchBox-input').type('orwell')
     cy.wait(1000)
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Orwell')
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Big Brother has arrived')
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Late 2016')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Orwell')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Late 2016')
   })
 
   it('Unclick on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(`${checkbox}`).eq(0).click()
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Orwell')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Orwell')
   })
 
   it('Placeholder Search', () => {
-    cy.get('input[type="search"]').clear()
+    cy.get('.ais-SearchBox-input').clear()
     cy.wait(1000)
-    cy.get('.ais-InfiniteHits-item').eq(0).contains('Counter-Strike')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
   })
 
   it('Paginate Search', () => {
-    cy.get('.ais-InfiniteHits-loadMore').click()
-    cy.get('.ais-InfiniteHits-item').should('have.length', 12)
+    if (playground === 'react') {
+      cy.get('.ais-InfiniteHits-loadMore').click()
+      cy.get(HIT_ITEM_CLASS).should('have.length', 12)
+    } else {
+      if (playground === 'vue') cy.get('.ais-Pagination-item').eq(3).click()
+      else cy.get('.ais-Pagination-item--page').eq(1).click()
+      cy.wait(500)
+      cy.get(HIT_ITEM_CLASS).eq(0).contains('Half-Life')
+    }
   })
 })

@@ -8,12 +8,7 @@
     "test:watch": "yarn test --watch",
     "test": "jest --runInBand",
     "test:all": "yarn test && yarn test:playgrounds && yarn test:e2e",
-    "test:playgrounds": "yarn build:playground:vue && yarn build:playground:react && yarn build:playground:javascript && yarn build:playground:html && yarn build:playground:angular",
-    "build:playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue build",
-    "build:playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react build",
-    "build:playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript build",
-    "build:playground:html": "yarn --cwd ./playgrounds/html && yarn --cwd ./playgrounds/html build",
-    "build:playground:angular": "yarn --cwd ./playgrounds/angular && yarn --cwd ./playgrounds/angular build",
+    "start-server": "start-server-and-test",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
     "playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript start",
@@ -98,6 +93,7 @@
     "rollup-plugin-terser": "^7.0.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "shx": "^0.3.3",
+    "start-server-and-test": "^1.12.3",
     "ts-jest": "^26.5.2",
     "typescript": "^4.2.3"
   }

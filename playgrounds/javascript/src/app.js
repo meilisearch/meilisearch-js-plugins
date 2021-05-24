@@ -46,6 +46,9 @@ search.addWidgets([
             {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
           </div>
           <img src="{{image}}" align="left" />
+          <div class="hit-name">
+            {{#helpers.highlight}}{ "attribute": "description" }{{/helpers.highlight}}
+          </div>
           <div class="hit-info">price: {{price}}</div>
           <div class="hit-info">release date: {{releaseDate}}</div>
         </div>

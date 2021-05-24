@@ -67,7 +67,9 @@ module.exports = {
       parserOptions: {
         ecmaVersion: 2020,
       },
-      rules: {},
+      rules: {
+        'cypress/no-unnecessary-waiting': 'off',
+      },
     },
     {
       /*
