@@ -41,7 +41,7 @@ describe('Instant MeiliSearch Browser test', () => {
         },
       },
     ])
-    expect(response.results[0].facets?.genres?.Action).toEqual(2)
+    expect(response.results[0].facets?.genres?.Action).toEqual(3)
   })
 
   test('Test non-existent facets on facetsDistribution', async () => {
@@ -54,6 +54,6 @@ describe('Instant MeiliSearch Browser test', () => {
         },
       },
     ])
-    expect(response.results[0].facets?.genres?.Action).toEqual(2)
+    expect(response.results[0].facets?.genres?.Action).toEqual(3)
   })
 })
