@@ -22,7 +22,7 @@ jobs:
           node-version: '12.x'
       - name: Install dependencies
         run: yarn --dev && yarn --cwd ./playgrounds/react
-      - name: Test develop no-reload
+      - name: Run Browser tests
         uses: cypress-io/github-action@v2
         with:
           start: yarn playground:react
