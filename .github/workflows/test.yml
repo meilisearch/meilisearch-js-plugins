@@ -25,6 +25,7 @@ jobs:
       - name: Run Browser tests
         uses: cypress-io/github-action@v2
         with:
+        # Tests are only done on one playground to avoid long testing time
           start: yarn playground:react
           env: playground=react
       - uses: actions/upload-artifact@v1
