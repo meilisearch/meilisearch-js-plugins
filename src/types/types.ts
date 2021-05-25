@@ -35,7 +35,11 @@ export type IMResponse = {
   nbPages?: number
 }
 
-export type SearchResponse = IStypes.SearchResponse & IMResponse
+export type SearchResponse = Omit<IStypes.SearchResponse, 'hits'> &
+  IStypes.SearchResponse &
+  IMResponse & {
+    hits: ISHits[]
+  }
 
 export type InstantMeiliSearchContext = {
   page: number

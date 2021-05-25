@@ -37,6 +37,22 @@ const dataset = [
     poster: 'https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg',
     release_date: 233366400,
   },
+  {
+    id: 30,
+    title: 'Magnetic Rose',
+    overview: '',
+    genres: ['Animation', 'Science Fiction'],
+    poster: 'https://image.tmdb.org/t/p/w500/gSuHDeWemA1menrwfMRChnSmMVN.jpg',
+    release_date: 819676800,
+  },
+  {
+    id: 24,
+    title: 'Kill Bill: Vol. 1',
+    overview: null,
+    genres: ['Action', 'Crime'],
+    poster: 'https://image.tmdb.org/t/p/w500/v7TaX8kXMXs5yFFGR41guUDNcnB.jpg',
+    release_date: 1065744000,
+  },
 ]
 
 export type Movies = {
