@@ -108,3 +108,13 @@ dist
 
 # parcel
 .parcel_cache/
+
+############################
+# CYPRESS
+############################
+cypress/screenshots
+cypress/videos
+cypress/support
+cypress/plugins
+cypress/fixtures
+

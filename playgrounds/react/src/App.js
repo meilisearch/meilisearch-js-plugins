@@ -63,6 +63,9 @@ const Hit = ({ hit }) => (
       <Highlight attribute="name" hit={hit} />
     </div>
     <img src={hit.image} align="left" alt={hit.name} />
+    <div className="hit-name">
+      <Highlight attribute="description" hit={hit} />
+    </div>
     <div className="hit-info">price: {hit.price}</div>
     <div className="hit-info">release date: {hit.releaseDate}</div>
   </div>

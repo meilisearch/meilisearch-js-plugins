@@ -6,10 +6,11 @@
 
 <div class="container">
   <ais-instantsearch [config]="config">
+    <ais-stats></ais-stats>
     <div class="search-panel">
       <div class="search-panel__filters">
         <ais-clear-refinements></ais-clear-refinements>
-        <ais-configure [searchParameters]="{ hitsPerPage: 8 }"></ais-configure>
+        <ais-configure [searchParameters]="{ hitsPerPage: 6 }"></ais-configure>
         <h2>Genres</h2>
         <ais-refinement-list attribute="genres" ></ais-refinement-list>
         <h2>Players</h2>
@@ -39,7 +40,8 @@
                 <div class="hit-description">
                   <ais-highlight attribute="description" [hit]="hit"></ais-highlight>
                 </div>
-                <div class="hit-price">${{hit.price}}</div>
+                <div class="hit-info">${{hit.price}}</div>
+                <div class="hit-info">{{hit.releaseDate}}</div>
               </li>
             </ol>
           </ng-template>
