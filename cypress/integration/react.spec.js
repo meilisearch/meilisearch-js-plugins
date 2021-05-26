@@ -44,7 +44,7 @@ describe(`${playground} playground test`, () => {
 
   it('click on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
-    cy.get(`${checkbox}`).eq(1).click()
+    cy.get(checkbox).eq(1).click()
     if (playground === 'react') cy.contains('1,939')
     if (playground === 'angular') cy.contains('1939')
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Portal 2')
@@ -60,7 +60,7 @@ describe(`${playground} playground test`, () => {
 
   it('Unclick on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
-    cy.get(`${checkbox}`).eq(0).click()
+    cy.get(checkbox).eq(0).click()
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Orwell')
   })
 
