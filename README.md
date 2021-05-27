@@ -346,10 +346,9 @@ No compatibility because MeiliSearch does not support this feature.
 
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
-- ✅ attribute: The Facet to display,
-- ✅ // Optional parameters
-- ✅ operator: string,
-- ✅ limit: number,
+- ✅ attribute: The facet to display _required_
+- ✅ operator:
+<!-- - ✅ limit: number,
 - ✅ showMore: boolean,
 - ✅ showMoreLimit: number,
 - ✅ searchable: boolean,
@@ -359,4 +358,4 @@ No compatibility because MeiliSearch does not support this feature.
 - ✅ sortBy: string[]|function,
 - ✅ templates: object,
 - ✅ cssClasses: object,
-- ✅ transformItems: function,
+- ✅ transformItems: function, -->
