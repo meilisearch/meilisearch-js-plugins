@@ -40,6 +40,8 @@ const search = instantsearch({
 search.addWidgets([
   instantsearch.widgets.searchBox({
     container: '#searchbox',
+    showLoadingIndicator: false,
+
   }),
   instantsearch.widgets.clearRefinements({
     container: '#clear-refinements',
