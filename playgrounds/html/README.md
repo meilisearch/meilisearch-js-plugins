@@ -11,7 +11,7 @@ The main purpose of this example is to showcase that instant-meilisearch can be 
 
 The demo in this directory showcases a basic search that will let you search through games names.
 
-[![Nobel prices demo](asset/stardew.gif)](https://nobel.meilisearch.com)
+[![Nobel prices demo](asset/stardew.gif)](https://codesandbox.io/s/nobel-prizes-and-meilisearch-zdy1r?file=/src/main.js:0-23)
 
 ## Project setup
 
