@@ -26,4 +26,3 @@ If applicable, add screenshots or logs to help explain your problem.
 - MeiliSearch version: [e.g. v.0.20.0]
 - instant-meilisearch version: [e.g. v0.5.0]
 - instantsearch.js version: [e.g. v4.23.0]
-- Angular version: [e.g. 12.0.2]
