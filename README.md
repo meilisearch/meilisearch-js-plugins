@@ -35,6 +35,15 @@ If you use React or Vue, you might want to check out these repositories:
 
 NB: If you don't have any MeiliSearch instance running and containing your data, you should take a look at this [getting started page](https://docs.meilisearch.com/learn/tutorials/getting_started.html).
 
+## Table of Contents <!-- omit in toc -->
+
+- [🔧 Installation](#-installation)
+- [🎬 Usage](#-usage)
+- [⚡️ Example with InstantSearch](#-example-with-instantSearch)
+- [📜 API Resources](#-api-resources)
+- [🤖 Compatibilities](#-compatibility-with-meilisearch-and-instantsearch)
+- [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
+
 ## Installation
 
 Use `npm` or `yarn` to install `instant-meilisearch`:
@@ -157,23 +166,9 @@ search.start()
 - If you use Vue, check out [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 - If you use Angular, check out [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
 
-## Compatibility with MeiliSearch
+## API resources
 
-This package only guarantees compatibility with the [version v0.20.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
-
-## Development Workflow and Contributing
-
-Any new contribution is more than welcome in this project!
-
-If you want to know more about the development workflow or want to contribute, please visit our [contributing guidelines](/CONTRIBUTING.md) for detailed instructions!
-
-<hr>
-
-**MeiliSearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.
-
-## Component References
-
-All the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibilty with MeiliSearch and InstantMeiliSearch.
+List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibilty with [MeiliSearch](https://github.com/meilisearch/meilisearch-react/).
 
 ### ✅ InstantSearch
 
@@ -758,13 +753,19 @@ Virtual indices allow you to use Relevant sort, a sorting mechanism that favors 
 
 Routing is configured inside `instantSearch` component. Please refer [to the documentation](https://www.algolia.com/doc/api-reference/widgets/simple-state-mapping/js/) for further implementation information.
 
-## Going further
-
-If some information are not documented please feel free to create an issue about it!
-
 ## 🤖 Compatibility with MeiliSearch and InstantSearch
 
 This package only guarantees: compatibility with:
 
 - The version v0.20.0 of [MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
 - The version v4 of [InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.23.0)
+
+## Development Workflow and Contributing
+
+Any new contribution is more than welcome in this project!
+
+If you want to know more about the development workflow or want to contribute, please visit our [contributing guidelines](/CONTRIBUTING.md) for detailed instructions!
+
+<hr>
+
+**MeiliSearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.
