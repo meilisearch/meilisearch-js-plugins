@@ -761,3 +761,10 @@ Routing is configured inside `instantSearch` component. Please refer [to the doc
 ## Going further
 
 If some information are not documented please feel free to create an issue about it!
+
+## 🤖 Compatibility with MeiliSearch and InstantSearch
+
+This package only guarantees: compatibility with:
+
+- The version v0.20.0 of [MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
+- The version v4 of [InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.23.0)
