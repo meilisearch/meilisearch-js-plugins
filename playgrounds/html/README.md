@@ -1,7 +1,8 @@
 # MeiliSearch Simple Game Search
 
 This repository is a **playground**, all the following files are hot-reloading:
-- _ROOT_/src/*
+
+- _ROOT_/src/\*
 - _ROOT_/template/basic_search.css
 - ./public/index.html
 
@@ -11,8 +12,6 @@ The main purpose of this example is to showcase that instant-meilisearch can be 
 
 The demo in this directory showcases a basic search that will let you search through games names.
 
-[![Nobel prices demo](asset/stardew.gif)](https://nobel.meilisearch.com)
-
 ## Project setup
 
 ```bash
@@ -20,11 +19,13 @@ $ yarn install
 ```
 
 ### Compile and hot-reload for development
+
 ```
 yarn start
 ```
 
 ### Compile and minify for production
+
 ```
 yarn build
 ```
