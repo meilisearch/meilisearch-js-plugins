@@ -48,7 +48,6 @@ export function instantMeiliSearch(
           instantSearchParams,
           context
         )
-        console.log({ ISresponse })
         return ISresponse
       } catch (e) {
         console.error(e)

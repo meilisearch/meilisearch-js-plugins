@@ -1,7 +1,6 @@
 import { instantMeiliSearch } from '../../../src/index'
 
 const search = instantsearch({
-  routing: true,
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
     'https://demos.meilisearch.com',
@@ -15,7 +14,6 @@ const search = instantsearch({
 search.addWidgets([
   instantsearch.widgets.searchBox({
     container: '#searchbox',
-    showLoadingIndicator: false,
   }),
   instantsearch.widgets.clearRefinements({
     container: '#clear-refinements',
@@ -41,12 +39,11 @@ search.addWidgets([
   }),
   instantsearch.widgets.hits({
     container: '#hits',
-    showPrevious: true,
     templates: {
       item: `
         <div>
           <div class="hit-name">
-            {{#helpers.highlight}}{ "attribute": "name", "highlightedTagName": "p" }{{/helpers.highlight}}
+            {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
           </div>
           <img src="{{image}}" align="left" />
           <div class="hit-name">
