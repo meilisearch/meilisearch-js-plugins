@@ -28,8 +28,9 @@
 This library is a plugin to establish the communication between your [MeiliSearch](https://github.com/meilisearch/MeiliSearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
-If you use React or Vue, you might want to check out these repositories:
+If you use Angular, React, or Vue, you might want to check out these repositories:
 
+- [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
 - [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 
