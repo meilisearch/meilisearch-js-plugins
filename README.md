@@ -178,7 +178,7 @@ List of all the components that are available in [instantSearch](https://github.
 
 - ✅ IndexName: Name of your index. _required_
 - ✅ SearchClient: Search client, in our case instantMeiliSearch. See [customization](#customization) for details on options. _required_
-- ❌ numberLocale: Did not work with both algoliasearch and instantMeiliSearch.
+- ❌ numberLocale: Does not work with both Algoliasearch and InstantMeiliSearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
 - ✅ initialUiState: Determine the search state on app start.
 - ✅ onStateChange: Change search state on change (see option above).
@@ -216,10 +216,10 @@ The `searchBox` widget is used to let the user perform a text-based query.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ placeholder: Placeholder of the search box.
-- ✅ autofocus: Wether the search box is focused on arrival.
-- ✅ searchAsYouType: Whether result appear as you type or after pressing enter.
-- ❌ showReset: Did not work with both algoliaSearch and instantMeiliSearche
-- ❌ showSubmit: Did not work with both algoliaSearch and instantMeiliSearch
+- ✅ autofocus: Whether the search box is focused on arrival.
+- ✅ searchAsYouType: Whether result appears as you type or after pressing enter.
+- ❌ showReset: Does not work with both algoliaSearch and instantMeiliSearche
+- ❌ showSubmit: Does not work with both algoliaSearch and instantMeiliSearch
 - ✅ showLoadingIndicator: Whether to show the spinning loader.
 - ✅ queryHook: A function that is called just before the search is triggered.
 - ✅ templates: The templates to use for the widget.
@@ -239,8 +239,8 @@ instantsearch.widgets.searchBox({
 
 The `configure` widget lets you provide raw search parameters to the Algolia API without rendering anything.
 
-Because these are the search parameters of AlgoliaSearch and not the InstantSearch parameters, some of them are ignored by InstantSearch.
-Since we do not act as AlgoliaSearch on search parameters detailed compatibility can be found in [this issue](https://github.com/meilisearch/instant-meilisearch/issues/389).
+Because these are the search parameters of AlgoliaSearch and not the InstantSearch parameters, some of them are ignored by InstantSearch.<br>
+Since we do not act as AlgoliaSearch on search parameters, detailed compatibility can be found in [this issue](https://github.com/meilisearch/instant-meilisearch/issues/389).<br>
 This component should only be used if no other component provides the same configuration.
 
 We also suggest looking at [MeiliSearch's search parameters](https://docs.meilisearch.com/reference/features/search_parameters.html) to determine how they act.
@@ -291,9 +291,9 @@ Search Insights lets you report click, conversion and view metrics.
 
 More details about the subject are [given in this issue](https://github.com/meilisearch/instant-meilisearch/issues/410).
 
-Require InstantSearch v4.8.3 or later
+Requires InstantSearch v4.8.3 or later.
 
-- ✅ insightsClient: Insight Client uses [search-insight.js](https://github.com/algolia/search-insights.js).
+- ✅ insightsClient: Insight client uses [search-insight.js](https://github.com/algolia/search-insights.js).
 - ✅ insightsInitParams: Insight params.
 - ✅ onEvent?: function triggered on events.
 
@@ -349,7 +349,7 @@ The `infiniteHits` widget is used to display a list of results with a “Show mo
 - ✅ transformItems: Function that maps over every hit the provided logic.
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
-- ❌ showPrevious: Did not work with both Algoliasearch and InstantMeiliSearch.
+- ❌ showPrevious: Does not work with both Algoliasearch and InstantMeiliSearch.
 - ❌ cache: Not added in InstantMeiliSearch.
 
 ```js
@@ -379,7 +379,7 @@ See [Hits](#hits) for an example.
 
 ### ✅ Snippet
 
-[Snippet references](https://www.algolia.com/doc/api-reference/widgets/snippet/react/)
+[Snippet references](https://www.algolia.com/doc/api-reference/widgets/snippet/js/)
 
 The `snippet` function returns an attribute from a hit into its snippet form, when relevant.
 
@@ -424,7 +424,7 @@ No compatibility because MeiliSearch does not support this experimental feature.
 
 [Refinement list references](https://www.algolia.com/doc/api-reference/widgets/refinement-list/js/)
 
-The `refinementList` widget is one of the most common widget you can find in a search UI. With this widget, the user can filter the dataset based on facets.
+The `refinementList` widget is one of the most common widgets you can find in a search UI. With this widget, the user can filter the dataset based on facets.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The facet to display _required_
@@ -433,9 +433,9 @@ The `refinementList` widget is one of the most common widget you can find in a s
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
 - ❌ searchable: Whether to add a search input to let the user search for more facet values. Not supported by MeiliSearch. If you'd like to see it implemented [please vote](https://roadmap.meilisearch.com/c/64-search-for-facet-values?utm_medium=social&utm_source=portal_share).
-- ❌ searchablePlaceholder: The value of the search input’s placeholder, not supported, see `searchable`.
-- ❌ searchableIsAlwaysActive: When false, disables the facet search input, not supported, see `searchable`.
-- ❌ searchableEscapeFacetValues: When true, escapes the facet values, not supported, see `searchable`.
+- ❌ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
+- ❌ searchableIsAlwaysActive: When false, disables the facet search input. Not supported, see `searchable`.
+- ❌ searchableEscapeFacetValues: When true, escapes the facet values. Not supported, see `searchable`.
 - ❌ sortBy: Not supported natively but can be implemented manually using `transformItems` options.
 - ✅ transformItems: A function to transform the items passed to the templates.
 - ✅ templates: The templates to use for the widget.
@@ -517,7 +517,7 @@ Throws the following error.
 }
 ```
 
-To avoid this error, the facet should be removed from the query parameter before it is send to MeiliSearch.
+To avoid this error, the facet should be removed from the query parameter before it is sent to MeiliSearch.
 
 The [InstantSearch](#instantsearch) component provides an option called `searchFunction` that is called before instantMeiliSearch search function. By using this component it is possible to remove the attribute from the list.
 
@@ -741,7 +741,7 @@ The sortBy widget displays a list of indices, allowing a user to change the way 
 
 No compatibility because MeiliSearch does not support hierarchical facets.
 
-If you'd like to get the sort by features, please vote for it in the [roadmap]https://roadmap.meilisearch.com/c/32-sort-by?utm_medium=social&utm_source=portal_share).
+If you'd like to get the "SortBy" feature, please vote for it in the [roadmap]https://roadmap.meilisearch.com/c/32-sort-by?utm_medium=social&utm_source=portal_share).
 
 ### ❌ RelevantSort
 
