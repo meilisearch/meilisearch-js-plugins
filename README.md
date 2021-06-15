@@ -98,6 +98,8 @@ const searchClient = instantMeiliSearch(
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
 
+InstantSearch requires that you provide an indexName. The indexName corresponds to the [index `uid`](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes) in which your document are stored in MeiliSearch.
+
 In `index.html`:
 
 ```html
@@ -176,7 +178,7 @@ List of all the components that are available in [instantSearch](https://github.
 
 `instantSearch` is the main component. It manages the widget and lets you add new ones.
 
-- ✅ IndexName: Name of your index. _required_
+- ✅ IndexName: [`uid` of your index](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes). _required_
 - ✅ SearchClient: Search client, in our case instantMeiliSearch. See [customization](#customization) for details on options. _required_
 - ❌ numberLocale: Does not work with both Algoliasearch and InstantMeiliSearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
