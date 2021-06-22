@@ -481,13 +481,13 @@ The `rangeSlider` widget provides a user-friendly way to filter the results, bas
 - ✅ tooltips: Whether to show tooltips. The default tooltips show the raw value.
 - ✅ cssClasses: The CSS classes to override.
 
-⚠️ The component is compatible but requires the following workaround:https://www.algolia.com/doc/api-reference/widgets/js/
+#### ⚠️ The component is compatible but only by applying the following requirements:
 
-#### Only integers
+#### 1. Only integers
 
 Only attributes with integers values are compatible.
 
-#### Manual Min Max
+#### 2. Manual Min Max
 
 Min and max of attributes are not returned from MeiliSearch and thus **must be set manually**.
 
@@ -499,7 +499,7 @@ Min and max of attributes are not returned from MeiliSearch and thus **must be s
   }),
 ```
 
-#### Remove attributes from facet list
+#### 3. emove attributes from facet list
 
 If the attribute is not in the [`attributesForFacetting`](https://docs.meilisearch.com/reference/features/settings.html#attributes-for-faceting) setting list, an error is thrown.
 The error comes from InstantSearch adding the attribute in the facets list and MeiliSearch throwing an error when a non-existent facet is queried on search.
