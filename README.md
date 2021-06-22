@@ -394,6 +394,8 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 
 Note that the attribute has to be added to `attributesToSnippet` in [configuration](#configuration). Highlight is applied on snippeted fields.
 
+Snippet is called `cropping` in MeiliSearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting
+
 ```js
 instantsearch.widgets.configure({
   attributesToSnippet: ['description'],
