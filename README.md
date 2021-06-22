@@ -730,15 +730,15 @@ Deprecated. See [Insight](#Insight).
 
 You may want to use this widget to display banners or recommendations returned by [Rules](https://www.algolia.com/doc/api-client/methods/rules/), and that match search parameters.
 
-No compatibility because MeiliSearch does not support [rules](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/).
+No compatibility because MeiliSearch does not support Rules.
 
 ### ❌ QueryRuleContext
 
 [Query rule context references](https://www.algolia.com/doc/api-reference/widgets/query-rule-context/js/)
 
-The queryRuleContext widget lets you apply ruleContexts based on filters to trigger context-dependent Rules.
+The queryRuleContext widget lets you apply ruleContexts based on filters to trigger context-dependent [Rules](https://www.algolia.com/doc/api-client/methods/rules/).
 
-No compatibility because MeiliSearch does not support [rules](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/).
+No compatibility because MeiliSearch does not support Rules.
 
 ### ❌ SortBy
 
