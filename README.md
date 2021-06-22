@@ -40,8 +40,8 @@ NB: If you don't have any MeiliSearch instance running and containing your data,
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [⚡️ Example with InstantSearch](#-example-with-instantSearch)
-- [📜 API Resources](#-api-resources)
 - [🤖 Compatibilities](#-compatibility-with-meilisearch-and-instantsearch)
+- [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
 
 ## Installation
@@ -167,6 +167,14 @@ search.start()
 - If you use React, check out [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - If you use Vue, check out [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 - If you use Angular, check out [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
+
+
+## 🤖 Compatibility with MeiliSearch and InstantSearch
+
+This package only guarantees: compatibility with:
+
+- The version v0.20.0 of [MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
+- The version v4 of [InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.23.0)
 
 ## API resources
 
@@ -760,12 +768,6 @@ Virtual indices allow you to use Relevant sort, a sorting mechanism that favors 
 
 Routing is configured inside `instantSearch` component. Please refer [to the documentation](https://www.algolia.com/doc/api-reference/widgets/simple-state-mapping/js/) for further implementation information.
 
-## 🤖 Compatibility with MeiliSearch and InstantSearch
-
-This package only guarantees: compatibility with:
-
-- The version v0.20.0 of [MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
-- The version v4 of [InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.23.0)
 
 ## Development Workflow and Contributing
 
