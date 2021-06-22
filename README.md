@@ -394,7 +394,7 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 
 Note that the attribute has to be added to `attributesToSnippet` in [configuration](#configuration). Highlight is applied on snippeted fields.
 
-Snippet is called `cropping` in MeiliSearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting
+Snippet is called `cropping` in MeiliSearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its size in the attributesToSnippet. For example: `"description:40"`.
 
 ```js
 instantsearch.widgets.configure({
@@ -728,7 +728,7 @@ Deprecated. See [Insight](#Insight).
 
 [QueryRuleCustomData references](https://www.algolia.com/doc/api-reference/widgets/query-rule-custom-data/js/)
 
-You may want to use this widget to display banners or recommendations returned by Rules, and that match search parameters.
+You may want to use this widget to display banners or recommendations returned by [Rules](https://www.algolia.com/doc/api-client/methods/rules/), and that match search parameters.
 
 No compatibility because MeiliSearch does not support [rules](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/).
 
