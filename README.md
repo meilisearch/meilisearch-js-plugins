@@ -186,7 +186,7 @@ This package only guarantees the compatibility with the [version v0.20.0 of Meil
 
 ## API resources
 
-List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibilty with [MeiliSearch](https://github.com/meilisearch/meilisearch-react/).
+List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibilty with [MeiliSearch](https://github.com/meilisearch/meilisearch/).
 
 ### ✅ InstantSearch
 
