@@ -40,7 +40,7 @@ NB: If you don't have any MeiliSearch instance running and containing your data,
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [⚡️ Example with InstantSearch](#-example-with-instantSearch)
-- [🤖 Compatibilities](#-compatibility-with-meilisearch-and-instantsearch)
+- [🤖 Compatibility with MeiliSearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
 
