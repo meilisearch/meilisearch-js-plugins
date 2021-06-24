@@ -171,10 +171,18 @@ search.start()
 
 ## 🤖 Compatibility with MeiliSearch and InstantSearch
 
-This package only guarantees: compatibility with:
+**Supported InstantSearch.js versions**:
 
-- The version v0.20.0 of [MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
-- The version v4 of [InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.23.0)
+This package only guarantees the compatibility with the [version v4 of InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.24.1). It may work with older or newer InstantSearch versions, but these are not tested nor officially supported at this time.
+
+**Supported MeiliSearch versions**:
+
+This package only guarantees the compatibility with the [version v0.20.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
+
+**Node / NPM versions**:
+
+- NodeJS >= 12.10 <= 14
+- NPM >= 6.x
 
 ## API resources
 
