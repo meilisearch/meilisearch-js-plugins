@@ -410,14 +410,14 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 
 Note that the attribute has to be added to `attributesToSnippet` in [configuration](#configuration). Highlight is applied on snippeted fields.
 
-Snippet is called `cropping` in MeiliSearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its size in the attributesToSnippet parameter. <br>
+Snippeting is called `cropping` in MeiliSearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
 For example: `"description:40"`.
 
-Note that `snippeting` works differently with the `algoliasearch-client-javascript` client than with `instant-meilisearch` client. Precise comparison is [given in this issue](https://github.com/meilisearch/instant-meilisearch/issues/389).
+The `40` value represents the number of characters (rounded down to always have full words) and not the number of words. Thus, the snippet string size is always equal to or lower than `40` characters.
 
 ```js
 instantsearch.widgets.configure({
-  attributesToSnippet: ['description'],
+  attributesToSnippet: ['description:40'],
 })
 ```
 
