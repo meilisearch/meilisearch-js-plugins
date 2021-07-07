@@ -2560,10 +2560,10 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-cross-fetch@^3.0.5:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
-  integrity sha512-KBPUbqgFjzWlVcURG+Svp9TlhA5uliYtiNx/0r8nv0pdypeQCRJ9IaSIc3q/x3q8t3F75cHuwxVql1HFGHCNJQ==
+cross-fetch@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.4.tgz#9723f3a3a247bf8b89039f3a380a9244e8fa2f39"
+  integrity sha512-1eAtFWdIubi6T4XPy6ei9iUFoKpUkIF971QLN8lIvvvwueI65+Nw5haMNKUwfJxabqlIIDODJKGrQ66gxC0PbQ==
   dependencies:
     node-fetch "2.6.1"
 
@@ -5488,12 +5488,12 @@ mdn-data@2.0.4:
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.4.tgz#699b3c38ac6f1d728091a64650b65d388502fd5b"
   integrity sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==
 
-meilisearch@^0.18.1:
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.18.1.tgz#6b12da60628ec5d6438ba677a8295971e1035938"
-  integrity sha512-eGdcx5/0ktj5I2vC/bNbHg3ORuq9nh++fA39t03nG31J1SoFJmnx3Z0r83Q/yrfA+hAP/qhCI/6B8dHMEcCQJg==
+meilisearch@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.19.0.tgz#b94b97b30a4e62270e53860c3a6b2e25765b00f3"
+  integrity sha512-o1rKT65q09i0W/vigpGEXVTX44A8IBscNQhZ+JkAlEgpk2+mYZMQxHXcoBtWjZI/CYKoswVnUxBVB4HEJ8tJQw==
   dependencies:
-    cross-fetch "^3.0.5"
+    cross-fetch "^3.1.4"
 
 merge-stream@^2.0.0:
   version "2.0.0"
