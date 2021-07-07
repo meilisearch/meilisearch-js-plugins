@@ -17,6 +17,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -26,7 +32,7 @@ jobs:
       - name: Run Browser tests
         uses: cypress-io/github-action@v2
         with:
-        # Tests are only done on one playground to avoid long testing time
+          # Tests are only done on one playground to avoid long testing time
           start: yarn playground:react
           env: playground=react
       - uses: actions/upload-artifact@v1
@@ -39,12 +45,19 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
   tests:
     name: integration-tests
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
       - name: Docker setup
         run: docker run -d -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --no-analytics=true --master-key='masterKey'
       - name: Install dependencies
@@ -54,14 +67,23 @@ jobs:
       - name: Build project
         run: yarn build
 
-
   style:
     name: style-check
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
         run: yarn install
       - name: Tests style
         run: yarn lint
+      - name: Yaml Style
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml
