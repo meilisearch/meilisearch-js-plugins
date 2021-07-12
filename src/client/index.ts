@@ -1,6 +1,5 @@
 import { MeiliSearch } from 'meilisearch'
 import { InstantMeiliSearchOptions, InstantMeiliSearchInstance } from '../types'
-
 import { adaptToMeiliSearchParams, adaptToISResponse } from '../adapter'
 
 export function instantMeiliSearch(
@@ -36,10 +35,17 @@ export function instantMeiliSearch(
           context
         )
 
+        const cachedFacet = facetCache(msSearchParams.filter)
+
         // Executes the search with MeiliSearch
         const searchResponse = await client
           .index(indexUid)
           .search(msSearchParams.q, msSearchParams)
+
+        searchResponse.facetsDistribution = compareFilters(
+          cachedFacet,
+          searchResponse.facetsDistribution
+        )
 
         // Parses the MeiliSearch response and returns it for InstantSearch
         const ISresponse = adaptToISResponse(
@@ -48,6 +54,7 @@ export function instantMeiliSearch(
           instantSearchParams,
           context
         )
+
         return ISresponse
       } catch (e) {
         console.error(e)
