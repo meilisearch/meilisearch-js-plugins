@@ -1,6 +1,7 @@
 import { MeiliSearch } from 'meilisearch'
 import { InstantMeiliSearchOptions, InstantMeiliSearchInstance } from '../types'
 import { adaptToMeiliSearchParams, adaptToISResponse } from '../adapter'
+import { compareFilters, facetCache } from '../cache'
 
 export function instantMeiliSearch(
   hostUrl: string,
