@@ -9,7 +9,7 @@ describe('Pagination browser test', () => {
     }
     await searchClient.MeiliSearchClient.index(
       'movies'
-    ).updateAttributesForFaceting(['genres'])
+    ).updateFilterableAttributes(['genres'])
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
