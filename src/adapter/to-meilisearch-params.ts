@@ -1,4 +1,40 @@
-import { AdaptToMeiliSearchParams } from '../types'
+import { AdaptToMeiliSearchParams, SubFilter, Filter } from '../types'
+
+/*
+ * Adapt InstantSearch filters to MeiliSearch filters
+ * changes equal comparison sign from `:` to `=` in nested filter object
+ * example: [`genres:comedy`] becomes [`genres=comedy`]
+ */
+const adaptFacetFilters = (
+  deepness: number,
+  facetFilters?: Filter | SubFilter
+): Filter => {
+  if (!facetFilters) return []
+  if (typeof facetFilters === 'string') {
+    // will only change first occurence of `:`
+    return facetFilters.replace(/:(.*)/i, '="$1"')
+  } else if (Array.isArray(facetFilters))
+    return facetFilters.map((facet) => {
+      return adaptFacetFilters(deepness + 1, facet)
+    })
+  return []
+}
+
+const parseFilter = (
+  facetFilters: Filter,
+  filters: string,
+  numericFilters: string[]
+) => {
+  const mergedFilters = [numericFilters.join(' AND '), filters.trim()]
+    .filter((x) => x)
+    .join(' AND ')
+    .trim()
+  if (Array.isArray(facetFilters) && mergedFilters)
+    return [...facetFilters, [mergedFilters]]
+  if (typeof facetFilters === 'string' && mergedFilters)
+    return [facetFilters, [mergedFilters]]
+  return facetFilters
+}
 
 export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
   {
@@ -14,19 +50,16 @@ export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
   { paginationTotalHits, placeholderSearch }
 ) {
   const limit = paginationTotalHits
-  const filter = [numericFilters.join(' AND '), filters.trim()]
-    .filter((x) => x)
-    .join(' AND ')
-    .trim()
+  facetFilters = adaptFacetFilters(0, facetFilters)
+  const filter = parseFilter(facetFilters, filters, numericFilters)
 
   // Creates search params object compliant with MeiliSearch
   return {
     q: query,
     ...(facets?.length && { facetsDistribution: facets }),
-    ...(facetFilters && { facetFilters }),
     ...(attributesToCrop && { attributesToCrop }),
     ...(attributesToRetrieve && { attributesToRetrieve }),
-    ...(filter && { filters: filter }),
+    ...(filter && { filter: filter }),
     attributesToHighlight: attributesToHighlight || ['*'],
     limit: (!placeholderSearch && query === '') || !limit ? 0 : limit,
   }
