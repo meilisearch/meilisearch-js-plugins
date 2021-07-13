@@ -43,17 +43,4 @@ describe('Instant MeiliSearch Browser test', () => {
     ])
     expect(response.results[0].facets?.genres?.Action).toEqual(3)
   })
-
-  test('Test non-existent facets on facetsDistribution', async () => {
-    const response = await searchClient.search([
-      {
-        indexName: 'movies',
-        params: {
-          query: '',
-          facets: ['genres', 'notKnown'],
-        },
-      },
-    ])
-    expect(response.results[0].facets?.genres?.Action).toEqual(3)
-  })
 })

@@ -14,7 +14,7 @@ export type ISSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
   facetFilters?: Filter
 }
 
-export type IMSearchRequest = {
+export type ISSearchRequest = {
   indexName: string
   params: ISSearchParams
 }
@@ -123,7 +123,7 @@ export type PaginateHits = (
 export type InstantMeiliSearchInstance = {
   MeiliSearchClient: MStypes.MeiliSearch
   search: (
-    requests: IMSearchRequest[]
+    requests: ISSearchRequest[]
   ) => Promise<{ results: SearchResponse[] }>
 }
 
