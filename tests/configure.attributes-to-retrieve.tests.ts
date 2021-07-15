@@ -32,8 +32,8 @@ describe('Instant MeiliSearch Browser test', () => {
       'poster',
       'release_date',
       'title',
-      '_highlightResult',
     ]
+
     const hit = <Movies>response.results[0].hits[0]
     notRetrieved.map((attribute: string) =>
       expect(hit[<any>attribute]).not.toBeDefined()
@@ -57,7 +57,6 @@ describe('Instant MeiliSearch Browser test', () => {
       'poster',
       'release_date',
       'title',
-      '_highlightResult',
     ]
     const hit = <Movies>response.results[0].hits[0]
     notRetrieved.map((attribute: string) =>
@@ -82,7 +81,6 @@ describe('Instant MeiliSearch Browser test', () => {
       'poster',
       'release_date',
       'title',
-      '_highlightResult',
     ]
     const hit = <Movies>response.results[0].hits[0]
     notRetrieved.map(
@@ -107,11 +105,6 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hit.title).toEqual('Ariel')
     notRetrieved.map((attribute: string) =>
       expect(hit[attribute]).not.toBeDefined()
-    )
-    notRetrieved.map(
-      (attribute: string) =>
-        hit._highlightResult &&
-        expect(hit._highlightResult[attribute]).not.toBeDefined()
     )
   })
 
