@@ -9,8 +9,6 @@ const parseFormatting = (
   formattedHit: any,
   instantSearchParams: IMSearchParams
 ) => {
-  // console.log({ formattedHit });
-
   if (!formattedHit || formattedHit.length) return {}
   return {
     _highlightResult: createHighlighResult({
