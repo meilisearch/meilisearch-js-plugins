@@ -1,4 +1,4 @@
-import { AdaptToISHitsm, FormattedHit, IMSearchParams } from '../types'
+import { AdaptToISHitsm, IMSearchParams } from '../types'
 import { paginateHits } from './pagination'
 import {
   createHighlighResult,

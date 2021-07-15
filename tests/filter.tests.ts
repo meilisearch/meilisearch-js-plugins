@@ -48,8 +48,6 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hits[0].title).toEqual('Four Rooms')
   })
 
-
-
   test('Test one string facet on filter without a query', async () => {
     const response = await searchClient.search([
       {
