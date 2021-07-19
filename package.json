@@ -81,7 +81,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.7.0",
-    "instantsearch.js": "^4.16.1",
+    "instantsearch.js": "^4.25.1",
     "jest": "^26.6.3",
     "jest-environment-jsdom": "25.5",
     "jest-watch-typeahead": "^0.6.3",
