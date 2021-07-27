@@ -9,7 +9,7 @@ describe('Instant MeiliSearch Browser test', () => {
     }
     await searchClient.MeiliSearchClient.index(
       'movies'
-    ).updateAttributesForFaceting(['genres'])
+    ).updateFilterableAttributes(['genres'])
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
@@ -38,19 +38,6 @@ describe('Instant MeiliSearch Browser test', () => {
         params: {
           query: '',
           facets: ['genres'],
-        },
-      },
-    ])
-    expect(response.results[0].facets?.genres?.Action).toEqual(3)
-  })
-
-  test('Test non-existent facets on facetsDistribution', async () => {
-    const response = await searchClient.search([
-      {
-        indexName: 'movies',
-        params: {
-          query: '',
-          facets: ['genres', 'notKnown'],
         },
       },
     ])

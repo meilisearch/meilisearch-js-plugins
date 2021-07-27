@@ -1,16 +1,22 @@
 import * as MStypes from 'meilisearch'
 import * as IStypes from './instantsearch-types'
 
-export type FacetFilter = Array<string | string[]>
+export type FacetsDistribution = MStypes.FacetsDistribution
+export type SubFilter = string | string[] | undefined | [] | MStypes.Filter
+export type Filter = SubFilter | Array<Filter | Filter[]>
 
 export type IMSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
   query?: string
-  facetFilters?: FacetFilter | FacetFilter[]
+  facetFilters?: Filter
+}
+export type ISSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
+  query?: string
+  facetFilters?: Filter
 }
 
-export type IMSearchRequest = {
+export type ISSearchRequest = {
   indexName: string
-  params: IMSearchParams
+  params: ISSearchParams
 }
 
 export type InstantMeiliSearchOptions = {
@@ -87,7 +93,7 @@ export type SnippetValue = (
 ) => string
 
 export type AdaptToMeiliSearchParams = (
-  instantSearchParams: IMSearchParams,
+  instantSearchParams: ISSearchParams,
   instantMeiliSearchContext: InstantMeiliSearchContext
 ) => Record<string, any>
 
@@ -117,7 +123,7 @@ export type PaginateHits = (
 export type InstantMeiliSearchInstance = {
   MeiliSearchClient: MStypes.MeiliSearch
   search: (
-    requests: IMSearchRequest[]
+    requests: ISSearchRequest[]
   ) => Promise<{ results: SearchResponse[] }>
 }
 

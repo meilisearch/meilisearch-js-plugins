@@ -9,7 +9,7 @@ describe('Snippet Browser test', () => {
     }
     await searchClient.MeiliSearchClient.index(
       'movies'
-    ).updateAttributesForFaceting(['genres'])
+    ).updateFilterableAttributes(['genres'])
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
@@ -29,7 +29,7 @@ describe('Snippet Browser test', () => {
       },
     ])
     const snippeted = response.results[0].hits[0]._highlightResult
-    expect(snippeted.overview.value).toEqual('Taisto')
+    expect(snippeted.overview.value).toEqual('Princess')
     const resKeys = Object.keys(snippeted)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
@@ -115,7 +115,7 @@ describe('Snippet Browser test', () => {
       },
     ])
     const snippeted = response.results[0].hits[0]._highlightResult
-    expect(snippeted.overview.value).toEqual('Taisto')
+    expect(snippeted.overview.value).toEqual('Princess')
     const resKeys = Object.keys(snippeted)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })

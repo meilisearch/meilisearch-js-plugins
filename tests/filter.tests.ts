@@ -9,7 +9,7 @@ describe('Instant MeiliSearch Browser test', () => {
     }
     await searchClient.MeiliSearchClient.index(
       'movies'
-    ).updateAttributesForFaceting(['genres'])
+    ).updateFilterableAttributes(['genres', 'title'])
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
@@ -18,7 +18,37 @@ describe('Instant MeiliSearch Browser test', () => {
     )
   })
 
-  test('Test one facet on facetsFilters without a query', async () => {
+  test('Test one string facet on filter without a query', async () => {
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          facetFilters: 'genres:Adventure',
+        },
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toEqual(1)
+    expect(hits[0].title).toEqual('Star Wars')
+  })
+
+  test('Test one facet on filter with a query', async () => {
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          query: 'four',
+          facetFilters: 'genres:Crime',
+        },
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toEqual(2)
+    expect(hits[0].title).toEqual('Four Rooms')
+  })
+
+  test('Test one string facet on filter without a query', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -33,7 +63,7 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hits[0].title).toEqual('Star Wars')
   })
 
-  test('Test one facet on facetsFilters with a query', async () => {
+  test('Test one facet on filter with a query', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -48,7 +78,7 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hits[0].title).toEqual('Four Rooms')
   })
 
-  test('Test multiple on facetsFilters without a query', async () => {
+  test('Test multiple on filter without a query', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -63,7 +93,7 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hits[0].title).toEqual('Ariel')
   })
 
-  test('Test multiple on facetsFilters with a query', async () => {
+  test('Test multiple on filter with a query', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -78,7 +108,7 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hits[0].title).toEqual('Ariel')
   })
 
-  test('Test multiple nested on facetsFilters without a query', async () => {
+  test('Test multiple nested on filter with a query', async () => {
     const params = {
       indexName: 'movies',
       params: {
@@ -91,7 +121,7 @@ describe('Instant MeiliSearch Browser test', () => {
     expect(hits[0].title).toEqual('Judgment Night')
   })
 
-  test('Test multiple nested on facetsFilters with a query', async () => {
+  test('Test multiple nested on filter without a query', async () => {
     const params = {
       indexName: 'movies',
       params: {
@@ -101,6 +131,34 @@ describe('Instant MeiliSearch Browser test', () => {
     }
     const response = await searchClient.search([params])
     const hits = response.results[0].hits
-    expect(hits[0].title).toEqual('Judgment Night')
+    expect(hits[0].title).toEqual('Kill Bill: Vol. 1')
+  })
+
+  test('Test multiple nested arrays on filter with a query', async () => {
+    const params = {
+      indexName: 'movies',
+      params: {
+        query: 'ar',
+        facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
+      },
+    }
+    const response = await searchClient.search([params])
+    const hits = response.results[0].hits
+    expect(hits[0].title).toEqual('Ariel')
+  })
+
+  test('Test multiple nested arrays on filter without a query', async () => {
+    const params = {
+      indexName: 'movies',
+      params: {
+        query: '',
+        facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
+      },
+    }
+
+    const response = await searchClient.search([params])
+
+    const hits = response.results[0].hits
+    expect(hits[0].title).toEqual('Ariel')
   })
 })
