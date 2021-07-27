@@ -10,16 +10,17 @@ export const facetCache = (facets?: string[][]) => {
     for (const facet of facetArray) {
       const re = facet.match(/(.*)="(.*)"/)
       if (re) {
-        const category = re[1]
-        const prevCache = cache[category] ? cache[category] : []
+        const category = re[1] // first matching group of regex ex: `genre`
+        const field = re[2] // second matching group ex: `comedy`
+        const prevFields = cache[category] ? cache[category] : []
         cache = {
           ...cache,
-          [category]: [...prevCache, re[2]],
+          [category]: [...prevFields, field],
         }
       }
     }
     return cache
-  }, {} as Cache) // will only change first occurence of `:`
+  }, {} as Cache) // will only change first occurence of `=`
 }
 
 export const compareFilters = (
