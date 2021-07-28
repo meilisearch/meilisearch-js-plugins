@@ -1,7 +1,7 @@
 import { FacetsDistribution, Filter, Cache, ParsedFilter } from '../types'
 import { removeUndefined } from '../utils'
 
-const parseFilter = (filter: String) => {
+const parseFilter = (filter: string) => {
   const matches = filter.match(/([^=]*)="?([^\\"]*)"?$/)
   if (matches) {
     const [_, filterName, value] = matches

@@ -11,7 +11,7 @@ export type ParsedFilter = {
 }
 
 export type FacetsDistribution = MStypes.FacetsDistribution
-export type Filter = String | Array<String | String[]>
+export type Filter = string | Array<string | string[]>
 
 export type IMSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
   query?: string
