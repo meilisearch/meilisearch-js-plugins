@@ -1,7 +1,7 @@
 import { MeiliSearch } from 'meilisearch'
 import { InstantMeiliSearchOptions, InstantMeiliSearchInstance } from '../types'
 import { adaptToMeiliSearchParams, adaptToISResponse } from '../adapter'
-import { compareFilters, facetCache } from '../cache'
+import { addMissingFacetZeroFields, cacheFilters } from '../cache'
 
 export function instantMeiliSearch(
   hostUrl: string,
@@ -10,9 +10,9 @@ export function instantMeiliSearch(
 ): InstantMeiliSearchInstance {
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
-    search: async function ([isSearchRequest]) {
+    search: async function (instantSearchRequests) {
       try {
-        // Params got from InstantSearch
+        const isSearchRequest = instantSearchRequests[0]
         const {
           params: instantSearchParams,
           indexName: indexUid,
@@ -36,14 +36,14 @@ export function instantMeiliSearch(
           context
         )
 
-        const cachedFacet = facetCache(msSearchParams.filter)
+        const cachedFacet = cacheFilters(msSearchParams.filter)
 
         // Executes the search with MeiliSearch
         const searchResponse = await client
           .index(indexUid)
           .search(msSearchParams.q, msSearchParams)
 
-        searchResponse.facetsDistribution = compareFilters(
+        searchResponse.facetsDistribution = addMissingFacetZeroFields(
           cachedFacet,
           searchResponse.facetsDistribution
         )

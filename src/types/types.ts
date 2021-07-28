@@ -1,9 +1,17 @@
 import * as MStypes from 'meilisearch'
 import * as IStypes from './instantsearch-types'
 
+export type Cache = {
+  [category: string]: string[]
+}
+
+export type ParsedFilter = {
+  filterName: string
+  value: string
+}
+
 export type FacetsDistribution = MStypes.FacetsDistribution
-export type SubFilter = string | string[] | undefined | [] | MStypes.Filter
-export type Filter = SubFilter | Array<Filter | Filter[]>
+export type Filter = String | Array<String | String[]>
 
 export type IMSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
   query?: string

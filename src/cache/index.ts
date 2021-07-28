@@ -1,1 +1,1 @@
-export * from './facets-distribution-cache'
+export * from './filters'
