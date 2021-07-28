@@ -8,6 +8,7 @@
     "test:watch": "yarn test --watch",
     "test": "jest --runInBand",
     "test:e2e": "sh scripts/e2e.sh",
+    "test:e2e:watch": "concurrently --kill-others -s first \"yarn playground:react\" \"cypress open --env playground=react\"",
     "test:all": "yarn test && yarn test:e2e",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
@@ -50,7 +51,7 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "^0.18.1"
+    "meilisearch": "../meilisearch-js"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
@@ -64,6 +65,7 @@
     "@vue/eslint-plugin": "^4.2.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
+    "concurrently": "^6.2.0",
     "cssnano": "^4.1.10",
     "cypress": "^7.3.0",
     "eslint": "^7.21.0",
