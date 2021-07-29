@@ -94,9 +94,9 @@ export type SearchRequest = {
   params: SearchRequestParameters
 }
 
-export type Hit<T = {}> = T & {
+export type Hit<T = Record<string, any>> = T & {
   [key: string]: any
-  _highlightResult?: object
+  _highlightResult?: Record<string, any>
 }
 
 // Documentation: https://www.algolia.com/doc/rest-api/search/?language=javascript#search-multiple-indexes
