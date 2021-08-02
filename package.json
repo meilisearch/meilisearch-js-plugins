@@ -67,7 +67,7 @@
     "babel-jest": "^26.1.0",
     "concurrently": "^6.2.0",
     "cssnano": "^4.1.10",
-    "cypress": "^7.3.0",
+    "cypress": "^8.1.0",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-standard": "^16.0.0",
