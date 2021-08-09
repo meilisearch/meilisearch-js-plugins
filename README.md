@@ -521,7 +521,7 @@ Min and max of attributes are not returned from MeiliSearch and thus **must be s
   }),
 ```
 
-#### 3. emove attributes from facet list
+#### 3. Remove attributes from facet list
 
 If the attribute is not in the [`attributesForFacetting`](https://docs.meilisearch.com/reference/features/settings.html#attributes-for-faceting) setting list, an error is thrown.
 The error comes from InstantSearch adding the attribute in the facets list and MeiliSearch throwing an error when a non-existent facet is queried on search.
