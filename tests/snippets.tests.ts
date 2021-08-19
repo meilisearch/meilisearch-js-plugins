@@ -70,17 +70,19 @@ describe('Snippet Browser test', () => {
     const firstHitHighlight = response.results[0].hits[0]._highlightResult
     const firstHitSnippet = response.results[0].hits[0]._snippetResult
 
-    expect(firstHitHighlight.title.value).toEqual('<p>R</p>ooms')
-    expect(firstHitHighlight.overview.value).toEqual('s <p>r</p>oom')
-    expect(firstHitSnippet.title.value).toEqual('<p>R</p>ooms...')
-    expect(firstHitSnippet.overview.value).toEqual('...s <p>r</p>oom...')
+    expect(firstHitHighlight.title.value).toEqual('Magnetic <p>R</p>ose')
+    expect(firstHitHighlight.overview.value).toEqual('')
+    expect(firstHitSnippet.title.value).toEqual('Magnetic <p>R</p>ose...')
+    expect(firstHitSnippet.overview.value).toEqual('')
 
     const secondHitHighlight = response.results[0].hits[1]._highlightResult
     const secondHitSnippet = response.results[0].hits[1]._snippetResult
-    expect(secondHitHighlight.title.value).toEqual('<p>R</p>ose')
-    expect(secondHitHighlight.overview.value).toEqual('')
-    expect(secondHitSnippet.title.value).toEqual('<p>R</p>ose...')
-    expect(secondHitSnippet.overview.value).toEqual('')
+    expect(secondHitHighlight.title.value).toEqual('Four <p>R</p>ooms')
+    expect(secondHitHighlight.overview.value).toEqual('s <p>r</p>oom service')
+    expect(secondHitSnippet.title.value).toEqual('Four <p>R</p>ooms...')
+    expect(secondHitSnippet.overview.value).toEqual(
+      '...s <p>r</p>oom service...'
+    )
 
     const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
@@ -149,16 +151,16 @@ describe('Snippet Browser test', () => {
     const firstHit = response.results[0].hits[0]._highlightResult
 
     expect(firstHit.title.value).toEqual(
-      '__ais-highlight__R__/ais-highlight__ooms'
+      'Magnetic __ais-highlight__R__/ais-highlight__ose'
     )
-    expect(firstHit.overview.value).toEqual(
-      's __ais-highlight__r__/ais-highlight__oom'
-    )
+    expect(firstHit.overview.value).toEqual('')
     const secondHit = response.results[0].hits[1]._highlightResult
     expect(secondHit.title.value).toEqual(
-      '__ais-highlight__R__/ais-highlight__ose'
+      'Four __ais-highlight__R__/ais-highlight__ooms'
     )
-    expect(secondHit.overview.value).toEqual('')
+    expect(secondHit.overview.value).toEqual(
+      's __ais-highlight__r__/ais-highlight__oom service'
+    )
 
     const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
