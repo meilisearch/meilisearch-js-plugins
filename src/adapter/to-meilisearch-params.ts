@@ -1,26 +1,30 @@
-import { AdaptToMeiliSearchParams, SubFilter, Filter } from '../types'
+import { AdaptToMeiliSearchParams, Filter } from '../types'
+
+const replaceFilterSyntax = (filter: string) => {
+  return filter.replace(/:(.*)/i, '="$1"')
+}
 
 /*
  * Adapt InstantSearch filters to MeiliSearch filters
  * changes equal comparison sign from `:` to `=` in nested filter object
  * example: [`genres:comedy`] becomes [`genres=comedy`]
  */
-const adaptFacetFilters = (
-  deepness: number,
-  facetFilters?: Filter | SubFilter
-): Filter => {
-  if (!facetFilters) return []
-  if (typeof facetFilters === 'string') {
+const facetFiltersToMeiliSearchFilter = (filters?: Filter): Filter => {
+  if (typeof filters === 'string') {
     // will only change first occurence of `:`
-    return facetFilters.replace(/:(.*)/i, '="$1"')
-  } else if (Array.isArray(facetFilters))
-    return facetFilters.map((facet) => {
-      return adaptFacetFilters(deepness + 1, facet)
+    return replaceFilterSyntax(filters)
+  } else if (Array.isArray(filters))
+    return filters.map((filter) => {
+      if (Array.isArray(filter))
+        return filter.map((nestedFilter) => replaceFilterSyntax(nestedFilter))
+      else {
+        return replaceFilterSyntax(filter)
+      }
     })
   return []
 }
 
-const parseFilter = (
+const mergeFilters = (
   facetFilters: Filter,
   filters: string,
   numericFilters: string[]
@@ -50,8 +54,8 @@ export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
   { paginationTotalHits, placeholderSearch }
 ) {
   const limit = paginationTotalHits
-  facetFilters = adaptFacetFilters(0, facetFilters)
-  const filter = parseFilter(facetFilters, filters, numericFilters)
+  const meilisearchFilters = facetFiltersToMeiliSearchFilter(facetFilters)
+  const filter = mergeFilters(meilisearchFilters, filters, numericFilters)
 
   // Creates search params object compliant with MeiliSearch
   return {

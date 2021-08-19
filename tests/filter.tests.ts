@@ -24,7 +24,7 @@ describe('Instant MeiliSearch Browser test', () => {
         indexName: 'movies',
         params: {
           query: '',
-          facetFilters: 'genres:Adventure',
+          facetFilters: ['genres:Adventure'],
         },
       },
     ])
@@ -39,7 +39,7 @@ describe('Instant MeiliSearch Browser test', () => {
         indexName: 'movies',
         params: {
           query: 'four',
-          facetFilters: 'genres:Crime',
+          facetFilters: ['genres:Crime'],
         },
       },
     ])
@@ -157,7 +157,6 @@ describe('Instant MeiliSearch Browser test', () => {
     }
 
     const response = await searchClient.search([params])
-
     const hits = response.results[0].hits
     expect(hits[0].title).toEqual('Ariel')
   })
