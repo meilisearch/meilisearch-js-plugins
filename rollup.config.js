@@ -3,7 +3,7 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import { resolve } from 'path'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
-import typescript from 'rollup-plugin-typescript2'
+import typescript from '@rollup/plugin-typescript'
 
 import pkg from './package.json'
 
@@ -17,12 +17,8 @@ const INPUT = 'src/index.ts'
 
 const PLUGINS = [
   typescript({
-    useTsconfigDeclarationDir: true,
-    tsconfigOverride: {
-      includes: ['src'],
-      exclude: ['tests', '*.js', 'scripts', '**/__tests__/*.ts'],
-      esModuleInterop: true,
-    },
+    tsconfig: 'tsconfig.json',
+    exclude: ['tests', '*.js', 'scripts', '**/__tests__/*.ts'],
   }),
 ]
 module.exports = [
