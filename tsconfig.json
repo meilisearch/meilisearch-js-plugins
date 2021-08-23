@@ -28,6 +28,6 @@
     "noUnusedLocals": false,
     "noUnusedParameters": true,
   },
-  "include": ["src"], // files to include during transpilation
+  "include": ["src"], // files to include during compilation
   "exclude": ["tests", "*.js", "scripts", "**/__tests__/*.ts"],
 }
