@@ -67,8 +67,8 @@ export default {
   data() {
     return {
       searchClient: instantMeiliSearch(
-        'https://demos.meilisearch.com',
-        'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25'
+        'https://ms-4ff25e74c78d-106.saas.meili.dev',
+        '31a66e0c590fdaa72b5fc78ee835644140c32b5e'
       ),
     }
   },
