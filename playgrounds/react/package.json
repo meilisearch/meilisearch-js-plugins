@@ -4,7 +4,7 @@
   "description": "React playground for instant-meilisearch",
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel index.html --open --port 1111",
+    "start": "parcel serve index.html --open --port 1111",
     "build": "parcel build index.html"
   },
   "keywords": [

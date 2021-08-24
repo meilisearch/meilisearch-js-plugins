@@ -47,7 +47,7 @@ describe(`${playground} playground test`, () => {
     cy.get(checkbox).eq(1).click()
     if (playground === 'react') cy.contains('1,939')
     if (playground === 'angular') cy.contains('1939')
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Portal 2')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Kings Quest Collection')
     cy.get(HIT_ITEM_CLASS).eq(0).contains('19.99 $')
   })
 
@@ -78,7 +78,7 @@ describe(`${playground} playground test`, () => {
       if (playground === 'vue') cy.get('.ais-Pagination-item').eq(3).click()
       else cy.get('.ais-Pagination-item--page').eq(1).click()
       cy.wait(500)
-      cy.get(HIT_ITEM_CLASS).eq(0).contains('Half-Life')
+      cy.get(HIT_ITEM_CLASS).eq(0).contains('Kings Quest Collection')
     }
   })
 })
