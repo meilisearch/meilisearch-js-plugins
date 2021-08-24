@@ -42,7 +42,7 @@ export function instantMeiliSearch(
         const searchResponse = await client
           .index(indexUid)
           .search(msSearchParams.q, msSearchParams)
-        
+
         // Add the checked facet attributes in facetsDistribution and give them a value of 0
         searchResponse.facetsDistribution = addMissingFacetZeroFields(
           cachedFacet,
