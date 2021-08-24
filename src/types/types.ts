@@ -20,7 +20,7 @@ export type IMSearchParams = Omit<
   query?: string
   filter?: Filter
 }
-export type ISSearchParams = IStypes.SearchParameters & {
+export type ISSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
   query?: string
   facetFilters?: Filter
 }
