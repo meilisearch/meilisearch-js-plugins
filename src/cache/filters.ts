@@ -49,7 +49,6 @@ export const addMissingFacetZeroFields = (
     for (const cachedFacet in cache) {
       for (const cachedField of cache[cachedFacet]) {
         // if cached field is not present in the returned distribution
-        // console.log({ distribution })
 
         if (
           !distribution[cachedFacet] ||
