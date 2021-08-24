@@ -519,9 +519,10 @@ Min and max of attributes are not returned from MeiliSearch and thus **must be s
 
 #### 2. Attribute must be in `filterableAttributes`
 
-If the attribute is not in the [`filterableAttributes`](https://docs.meilisearch.com/reference/features/settings.html#filterable-attributes) setting list, filtering on this attribute is not possible.
+If the attribute is not in the [`filterableAttributes`](https://docs.meilisearch.com/reference/features/filtering_and_faceted_search.html#configuring-filters) setting list, filtering on this attribute is not possible.
 
-Given `id` an attribute that is not present in `filterableAttributes`:
+Example: 
+Given the attribute `id` that has not been added in `filterableAttributes`:
 
 ```js
   instantsearch.widgets.rangeSlider({
@@ -541,7 +542,7 @@ The widget throws the following error:
 }
 ```
 
-To avoid this error, the attribute must be added to the `filterableAttributes` setting.
+To avoid this error, the attribute must be added to the [`filterableAttributes` setting](https://docs.meilisearch.com/reference/api/filterable_attributes.html#get-filterable-attributes).
 
 After these steps, `rangeSlider` becomes compatible.
 
