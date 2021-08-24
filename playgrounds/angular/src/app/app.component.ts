@@ -2,8 +2,8 @@ import { Component } from '@angular/core'
 import { instantMeiliSearch } from '../../../../src'
 
 const searchClient = instantMeiliSearch(
-  'https://ms-4ff25e74c78d-106.saas.meili.dev',
-  '31a66e0c590fdaa72b5fc78ee835644140c32b5e'
+  'https://ms-9060336c1f95-106.saas.meili.dev',
+  '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66'
 )
 
 @Component({
