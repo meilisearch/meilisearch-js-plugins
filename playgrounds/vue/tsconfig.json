@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es2020",
+    "module": "es2020",
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
@@ -21,7 +21,7 @@
       ]
     },
     "lib": [
-      "esnext",
+      "ES2019", "ESNext",
       "dom",
       "dom.iterable",
       "scripthost"
@@ -39,7 +39,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
   },
   "include": [

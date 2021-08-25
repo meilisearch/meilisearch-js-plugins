@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-yarn start-server playground:react http://localhost:1111 'cypress run --env playground=react'
-yarn start-server playground:angular http://localhost:4200 'cypress run --env playground=angular'
-yarn start-server playground:vue http://localhost:8080 'cypress run --env playground=vue'
-yarn start-server playground:javascript http://localhost:2222 'cypress run --env playground=javascript'
+npx concurrently --kill-others -s first "yarn playground:vue" "cypress run --env playground=vue"
+npx concurrently --kill-others -s first "NODE_ENV=test yarn playground:angular" "cypress run --env playground=angular"
+npx concurrently --kill-others -s first "NODE_ENV=test yarn playground:react" "cypress run --env playground=react"
+npx concurrently --kill-others -s first "NODE_ENV=test yarn playground:javascript" "cypress run --env playground=javascript"

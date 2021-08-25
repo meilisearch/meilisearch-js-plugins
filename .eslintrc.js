@@ -141,9 +141,6 @@ module.exports = {
         'jsdoc/check-indentation': 'error',
         '@typescript-eslint/space-before-function-paren': 0,
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/no-throw-literal': 'off',
-        '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
@@ -152,7 +149,6 @@ module.exports = {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-unnecessary-type-assertion': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
-        '@typescript-eslint/ban-types': 'off',
         '@typescript-eslint/member-delimiter-style': [
           'error',
           {

@@ -7,18 +7,22 @@ describe('Highlight Browser test', () => {
     } catch (e) {
       // movies does not exist
     }
-    await searchClient.MeiliSearchClient.index(
-      'movies'
-    ).updateAttributesForFaceting(['genres'])
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
+    const settingsUpdate = await searchClient.MeiliSearchClient.index(
+      'movies'
+    ).updateFilterableAttributes(['genres']) // if settings update is put before document addition relevancy is impacted
+
     await searchClient.MeiliSearchClient.index('movies').waitForPendingUpdate(
       moviesUpdate.updateId
     )
+    await searchClient.MeiliSearchClient.index('movies').waitForPendingUpdate(
+      settingsUpdate.updateId
+    )
   })
 
-  test('Test one attributesToHighlight on placeholder', async () => {
+  test('Test one attributesToHighlight on wrong attribute placeholder', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -28,7 +32,22 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = response.results[0]?.hits[0]?._highlightResult
+    expect(resKeys).toEqual(undefined)
+  })
+
+  test('Test one attributesToHighlight on placeholder search', async () => {
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          attributesToHighlight: ['title'],
+        },
+      },
+    ])
+
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
@@ -42,8 +61,8 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
+    const resKeys = response.results[0]?.hits[0]?._highlightResult
+    expect(resKeys).toEqual(undefined)
   })
 
   test('Test one attributesToHighlight on specific query', async () => {
@@ -56,7 +75,7 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    //
+
     const highlightedResults = response.results[0].hits[0]._highlightResult
     const resKeys = Object.keys(highlightedResults)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))

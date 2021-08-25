@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "noEmit": true,
     "allowJs": false,
     "removeComments": false,
     "declaration": true,
@@ -11,6 +10,9 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "lib": ["ES2019", "ESNext", "dom"],
+    "importHelpers": true,
+
+    // Enforced typing rules
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -23,8 +25,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
   },
-  "include": ["src"] // files to include during transpilation
+  "include": ["src"], // files to include during compilation
+  "exclude": ["tests", "*.js", "scripts", "**/__tests__/*.ts"],
 }

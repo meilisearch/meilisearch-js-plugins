@@ -178,7 +178,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported MeiliSearch versions**:
 
-This package only guarantees the compatibility with the [version v0.20.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.20.0).
+This package only guarantees the compatibility with the [version v0.21.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.21.0).
 
 **Node / NPM versions**:
 
@@ -505,11 +505,7 @@ The `rangeSlider` widget provides a user-friendly way to filter the results, bas
 
 #### ⚠️ The component is compatible but only by applying the following requirements:
 
-#### 1. Only integers
-
-Only attributes with integers values are compatible.
-
-#### 2. Manual Min Max
+#### 1. Manual Min Max
 
 Min and max of attributes are not returned from MeiliSearch and thus **must be set manually**.
 
@@ -521,50 +517,32 @@ Min and max of attributes are not returned from MeiliSearch and thus **must be s
   }),
 ```
 
-#### 3. Remove attributes from facet list
+#### 2. Attribute must be in `filterableAttributes`
 
-If the attribute is not in the [`attributesForFacetting`](https://docs.meilisearch.com/reference/features/settings.html#attributes-for-faceting) setting list, an error is thrown.
-The error comes from InstantSearch adding the attribute in the facets list and MeiliSearch throwing an error when a non-existent facet is queried on search.
+If the attribute is not in the [`filterableAttributes`](https://docs.meilisearch.com/reference/features/filtering_and_faceted_search.html#configuring-filters) setting list, filtering on this attribute is not possible.
+
+Example: 
+Given the attribute `id` that has not been added in `filterableAttributes`:
 
 ```js
   instantsearch.widgets.rangeSlider({
-    attribute: 'recommendationCount',
+    attribute: 'id',
     // ...
   }),
 ```
 
-Throws the following error.
+The widget throws the following error:
 
 ```json
 {
-  "message": "Attribute recommendationCount is not set as facet",
+  "message": "  .. attribute `id` is not filterable, available filterable attributes are: author, price, genres",
   "errorCode": "bad_request",
   "errorType": "invalid_request_error",
   "errorLink": "https://docs.meilisearch.com/errors#bad_request"
 }
 ```
 
-To avoid this error, the facet should be removed from the query parameter before it is sent to MeiliSearch.
-
-The [InstantSearch](#instantsearch) component provides an option called `searchFunction` that is called before instantMeiliSearch search function. By using this component it is possible to remove the attribute from the list.
-
-```js
-const search = instantsearch({
-  // ...
-  searchFunction(helper) {
-    const excludeFacets = ['recommendationCount']
-    Object.assign(helper.state, {
-      disjunctiveFacets: helper.state.disjunctiveFacets.filter(
-        (facet) => !excludeFacets.includes(facet)
-      ),
-      facets: helper.state.facets.filter(
-        (facet) => !excludeFacets.includes(facet)
-      ),
-    })
-    helper.search()
-  },
-})
-```
+To avoid this error, the attribute must be added to the [`filterableAttributes` setting](https://docs.meilisearch.com/reference/api/filterable_attributes.html#get-filterable-attributes).
 
 After these steps, `rangeSlider` becomes compatible.
 
@@ -610,7 +588,7 @@ The `rangeInput` widget allows a user to select a numeric range using a minimum 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-⚠️ Not compatible with MeiliSearch by default, needs a workaround. See same workaround as [RangeSlider](#rangeslider).
+⚠️ Not compatible with MeiliSearch by default, needs a workaround. See workaround in [RangeSlider](#rangeslider) section.
 
 ### ✅ MenuSelect
 

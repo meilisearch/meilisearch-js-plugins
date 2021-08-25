@@ -9,7 +9,7 @@ describe('Pagination browser test', () => {
     }
     await searchClient.MeiliSearchClient.index(
       'movies'
-    ).updateAttributesForFaceting(['genres'])
+    ).updateFilterableAttributes(['genres'])
     const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
@@ -30,7 +30,7 @@ describe('Pagination browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toBe(1)
-    expect(hits[0].title).toBe('Ariel')
+    expect(hits[0].title).toBe('Star Wars')
   })
 
   test('Test 1 hitsPerPage w/ page 0 ', async () => {
@@ -46,7 +46,7 @@ describe('Pagination browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toBe(1)
-    expect(hits[0].title).toBe('Ariel')
+    expect(hits[0].title).toBe('Star Wars')
   })
 
   test('Test 1 hitsPerPage w/ page 1 ', async () => {
@@ -62,7 +62,7 @@ describe('Pagination browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toBe(1)
-    expect(hits[0].title).toBe('Four Rooms')
+    expect(hits[0].title).toBe('Ariel')
   })
 
   test('Test 100 hitsPerPage w/ page 1 ', async () => {
