@@ -28,13 +28,13 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn --dev && yarn --cwd ./playgrounds/angular
+        run: yarn --dev && yarn --cwd ./playgrounds/react
       - name: Run Browser tests
         uses: cypress-io/github-action@v2
         with:
           # Tests are only done on one playground to avoid long testing time
-          start: yarn playground:angular
-          env: playground=angular
+          start: yarn playground:react
+          env: playground=react
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
