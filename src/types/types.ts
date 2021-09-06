@@ -23,6 +23,7 @@ export type IMSearchParams = Omit<
 export type ISSearchParams = Omit<IStypes.SearchParameters, 'facetFilters'> & {
   query?: string
   facetFilters?: Filter
+  sort?: string
 }
 
 export type ISSearchRequest = {
@@ -65,6 +66,7 @@ export type InstantMeiliSearchContext = {
   primaryKey: string | undefined
   client: MStypes.MeiliSearch
   placeholderSearch: boolean
+  sort?: string
 }
 
 export type FormattedHit = {
