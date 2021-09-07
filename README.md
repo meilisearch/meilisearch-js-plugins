@@ -795,9 +795,7 @@ The usage of the `SortBy` widget differs from the one found in Algolia's documen
 - Sort using different indexes.
 - Different `sort` rules on the same index.
 
-The items list is composed of objects containing every sort possibilities you want to provide to your used.
-
-The items attribute is an array of objects containing two attributes:
+The items list is composed of objects containing every sort possibilities you want to provide to your user. Each objects must contain two fields:
   - `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
   - `value`: The sort formula.
 
