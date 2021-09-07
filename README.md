@@ -801,7 +801,7 @@ The items list is composed of objects containing every sort possibilities you wa
 
 #### Sort formula
 
-The sort formula is synthaxed like this: `index:attribute:order`.
+A sort formula is expressed like this: `index:attribute:order`.
 
 `index` is mandatory, and when adding `attribute:order`, they must always be added together.
 
