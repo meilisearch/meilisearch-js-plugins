@@ -805,7 +805,7 @@ A sort formula is expressed like this: `index:attribute:order`.
 
 `index` is mandatory, and when adding `attribute:order`, they must always be added together.
 
-When sorting on an attribute, the attribute has to be added in the [`SortableAttribute`](#link-to-doc) setting on your index.
+When sorting on an attribute, the attribute has to be added in the [`SortableAttributes`](#link-to-doc) setting on your index.
 
 Example:
 ```js
