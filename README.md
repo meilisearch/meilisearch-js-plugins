@@ -818,7 +818,9 @@ In this scenario, in the `clothes` index, we want the price to be sorted in an a
 
 #### Relevancy
 
-The importance of the sort value is determined by the [`ranking-rules`](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#ranking-rules) of each index. It is possible to change the ranking-rules in the index settings. Or make multiple indexes with different ranking-rules order. See [relevancy guide](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#relevancy).
+The impact sorting has on the returned hits is determined by the [`ranking-rules`](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#ranking-rules) ordered list of each index. The `sort` ranking-rule position in the list makes sorting documents more or less important than other rules. If you want to change the sort impact on the relevancy, it is possible to change it in the [ranking-rule setting](https://docs.meilisearch.com/reference/api/ranking_rules.html#update-ranking-rules). For example, to favor exhaustivity over relevancy.
+
+See [relevancy guide](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#relevancy).
 
 #### Example
 
