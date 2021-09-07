@@ -9,13 +9,18 @@ import {
   ClearRefinements,
   RefinementList,
   Configure,
+  SortBy,
+  Snippet,
 } from 'react-instantsearch-dom'
+
 import './App.css'
 import { instantMeiliSearch } from '../../../src/index'
 
 const searchClient = instantMeiliSearch(
-  'https://ms-9060336c1f95-106.saas.meili.dev',
-  '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66',
+  // 'https://ms-9060336c1f95-106.saas.meili.dev',
+  // '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66',
+  'http://localhost:7700',
+  'masterKey',
   {
     paginationTotalHits: 60,
     primaryKey: 'id',
@@ -39,6 +44,28 @@ const App = () => (
       <Stats />
       <div className="left-panel">
         <ClearRefinements />
+        <SortBy
+          defaultRefinement="steam-video-games"
+          items={[
+            { value: 'steam-video-games', label: 'Relevant' },
+            {
+              value: 'steam-video-games:recommendationCount:desc',
+              label: 'Most Recommended',
+            },
+            {
+              value: 'steam-video-games:recommendationCount:asc',
+              label: 'Least Recommended',
+            },
+            {
+              value: 'steam-video-games-sort:recommendationCount:asc',
+              label: 'Relevant Least Recommended ',
+            },
+            {
+              value: 'steam-video-games-sort:recommendationCount:desc',
+              label: 'Relevant Most Recommended',
+            },
+          ]}
+        />
         <h2>Genres</h2>
         <RefinementList attribute="genres" />
         <h2>Players</h2>
@@ -47,7 +74,11 @@ const App = () => (
         <RefinementList attribute="platforms" />
         <h2>Misc</h2>
         <RefinementList attribute="misc" />
-        <Configure hitsPerPage={6} />
+        <Configure
+          hitsPerPage={6}
+          attributesToSnippet={['description:50']}
+          snippetEllipsisText={'...'}
+        />
       </div>
       <div className="right-panel">
         <SearchBox />
@@ -57,18 +88,27 @@ const App = () => (
   </div>
 )
 
-const Hit = ({ hit }) => (
-  <div key={hit.id}>
-    <div className="hit-name">
-      <Highlight attribute="name" hit={hit} />
+const Hit = ({ hit }) => {
+  return (
+    <div key={hit.id}>
+      <div className="hit-name">
+        <Highlight attribute="name" hit={hit} />
+      </div>
+      <img src={hit.image} align="left" alt={hit.name} />
+      <div className="hit-name">
+        <Snippet attribute="description" hit={hit} />
+      </div>
+      <div className="hit-info">
+        <b>price:</b> {hit.price}
+      </div>
+      <div className="hit-info">
+        <b>release date:</b> {hit.releaseDate}
+      </div>
+      <div className="hit-info">
+        <b>Recommended:</b> {hit.recommendationCount}
+      </div>
     </div>
-    <img src={hit.image} align="left" alt={hit.name} />
-    <div className="hit-name">
-      <Highlight attribute="description" hit={hit} />
-    </div>
-    <div className="hit-info">price: {hit.price}</div>
-    <div className="hit-info">release date: {hit.releaseDate}</div>
-  </div>
-)
+  )
+}
 
 export default App

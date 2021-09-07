@@ -3,8 +3,10 @@ import { instantMeiliSearch } from '../../../src/index'
 const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
-    'https://ms-9060336c1f95-106.saas.meili.dev',
-    '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66',
+    // 'https://ms-9060336c1f95-106.saas.meili.dev',
+    // '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66',
+    'http://localhost:7700',
+    'masterKey',
     {
       limitPerRequest: 30,
     }
@@ -12,6 +14,29 @@ const search = instantsearch({
 })
 
 search.addWidgets([
+
+  instantsearch.widgets.sortBy({
+    container: '#sort-by',
+    items: [
+      { value: 'steam-video-games', label: 'Relevant' },
+      {
+        value: 'steam-video-games:recommendationCount:desc',
+        label: 'Most Recommended',
+      },
+      {
+        value: 'steam-video-games:recommendationCount:asc',
+        label: 'Least Recommended',
+      },
+      {
+        value: 'steam-video-games-sort:recommendationCount:asc',
+        label: 'Relevant Least Recommended ',
+      },
+      {
+        value: 'steam-video-games-sort:recommendationCount:desc',
+        label: 'Relevant Most Recommended',
+      },
+    ],
+  }),
   instantsearch.widgets.searchBox({
     container: '#searchbox',
   }),

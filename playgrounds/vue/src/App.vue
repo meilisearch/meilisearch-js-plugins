@@ -17,6 +17,27 @@
           <ais-clear-refinements>
             <span slot="resetLabel">Clear all filters</span>
           </ais-clear-refinements>
+          <ais-sort-by
+            :items="[
+              { value: 'steam-video-games', label: 'Relevant' },
+              {
+                value: 'steam-video-games:recommendationCount:desc',
+                label: 'Most Recommended',
+              },
+              {
+                value: 'steam-video-games:recommendationCount:asc',
+                label: 'Least Recommended',
+              },
+              {
+                value: 'steam-video-games-sort:recommendationCount:asc',
+                label: 'Relevant Least Recommended ',
+              },
+              {
+                value: 'steam-video-games-sort:recommendationCount:desc',
+                label: 'Relevant Most Recommended',
+              },
+            ]"
+          />
           <h2>Genres</h2>
           <ais-refinement-list attribute="genres" />
           <h2>Players</h2>
@@ -66,11 +87,17 @@ import { instantMeiliSearch } from '../../../src/index'
 export default {
   data() {
     return {
-      searchClient: instantMeiliSearch(
-        'https://ms-9060336c1f95-106.saas.meili.dev',
-        '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66'
-      ),
+      recommendation: '',
+      searchClient: instantMeiliSearch('http://localhost:7700', 'masterKey'),
     }
+  },
+  methods: {
+    order: function (event, searchParameters, refine) {
+      refine({
+        ...searchParameters,
+        sort: this.recommendation,
+      })
+    },
   },
 }
 </script>
