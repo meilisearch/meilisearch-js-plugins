@@ -36,7 +36,6 @@ export function instantMeiliSearch(
           instantSearchParams,
           context
         )
-
         const cachedFacet = cacheFilters(msSearchParams.filter)
 
         // Executes the search with MeiliSearch

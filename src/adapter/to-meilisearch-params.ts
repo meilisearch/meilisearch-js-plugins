@@ -63,9 +63,9 @@ export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
     ...(facets?.length && { facetsDistribution: facets }),
     ...(attributesToCrop && { attributesToCrop }),
     ...(attributesToRetrieve && { attributesToRetrieve }),
-    ...(filter && { filter: filter }),
+    ...(filter.length && { filter: filter }),
     attributesToHighlight: attributesToHighlight || ['*'],
     limit: (!placeholderSearch && query === '') || !limit ? 0 : limit,
-    ...(sort && { sort: [sort] }),
+    ...(sort?.length && { sort: [sort] }),
   }
 }
