@@ -10,6 +10,19 @@
     <div class="search-panel">
       <div class="search-panel__filters">
         <ais-clear-refinements></ais-clear-refinements>
+        <ais-sort-by
+          [items]="[
+          { value: 'steam-video-games', label: 'Relevant' },
+          {
+            value: 'steam-video-games:recommendationCount:desc',
+            label: 'Most Recommended'
+          },
+          {
+            value: 'steam-video-games:recommendationCount:asc',
+            label: 'Least Recommended'
+          }
+          ]"
+        ></ais-sort-by>
         <ais-configure [searchParameters]="{ hitsPerPage: 6 }"></ais-configure>
         <h2>Genres</h2>
         <ais-refinement-list attribute="genres" ></ais-refinement-list>

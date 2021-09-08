@@ -14,7 +14,6 @@ const search = instantsearch({
 })
 
 search.addWidgets([
-
   instantsearch.widgets.sortBy({
     container: '#sort-by',
     items: [
@@ -26,14 +25,6 @@ search.addWidgets([
       {
         value: 'steam-video-games:recommendationCount:asc',
         label: 'Least Recommended',
-      },
-      {
-        value: 'steam-video-games-sort:recommendationCount:asc',
-        label: 'Relevant Least Recommended ',
-      },
-      {
-        value: 'steam-video-games-sort:recommendationCount:desc',
-        label: 'Relevant Most Recommended',
       },
     ],
   }),
@@ -57,6 +48,7 @@ search.addWidgets([
   }),
   instantsearch.widgets.configure({
     hitsPerPage: 6,
+    attributesToSnippet: ['description:150'],
   }),
   instantsearch.widgets.refinementList({
     container: '#misc-list',

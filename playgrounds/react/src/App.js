@@ -56,14 +56,6 @@ const App = () => (
               value: 'steam-video-games:recommendationCount:asc',
               label: 'Least Recommended',
             },
-            {
-              value: 'steam-video-games-sort:recommendationCount:asc',
-              label: 'Relevant Least Recommended ',
-            },
-            {
-              value: 'steam-video-games-sort:recommendationCount:desc',
-              label: 'Relevant Most Recommended',
-            },
           ]}
         />
         <h2>Genres</h2>
