@@ -178,7 +178,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported MeiliSearch versions**:
 
-This package only guarantees the compatibility with the [version v0.21.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.21.0).
+This package only guarantees the compatibility with the [version v0.22.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.22.0).
 
 **Node / NPM versions**:
 
@@ -188,6 +188,47 @@ This package only guarantees the compatibility with the [version v0.21.0 of Meil
 ## API resources
 
 List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibilty with [MeiliSearch](https://github.com/meilisearch/meilisearch/).
+
+### Table Of Widgets
+
+- ✅ [InstantSearch](#-instantsearch)
+- ❌[index](#-index)
+- ✅ [SearchBox](#-searchbox)
+- ✅ [Configure](#-configure)
+- ❌[ConfigureRelatedItems](#-configure-related-items)
+- ❌[Autocomplete](#-autocomplete)
+- ✅ [Voice Search](#-voice-search)
+- ✅ [Insight](#-insight)
+- ✅ [Middleware](#-middleware)
+- ✅ [RenderState](#-renderstate)
+- ✅ [Hits](#-hits)
+- ✅ [InfiniteHits](#-infinitehits)
+- ✅ [Highlight](#-highlight)
+- ✅ [Snippet](#-snippet)
+- ❌[Geo Search](#-geo-search)
+- ❌[Answers](#-answers)
+- ✅ [RefinementList](#-refinementlist)
+- ❌[HierarchicalMenu](#-hierarchicalmenu)
+- ✅ [RangeSlider](#-rangeslider)
+- ✅ [Menu](#-menu)
+- ✅ [currentRefinements](#-currentrefinements)
+- ✅ [RangeInput](#-rangeinput)
+- ✅ [MenuSelect](#-menuselect)
+- ✅ [ToggleRefinement](#-togglerefinement)
+- ✅ [NumericMenu](#-numericmenu)
+- ❌[RatingMenu](#-ratingmenu)
+- ✅ [ClearRefinements](#-clearrefinements)
+- ✅ [Pagination](#-pagination)
+- ✅ [HitsPerPage](#-hitsperpage)
+- ❌[Breadcrumb](#-breadcrumb)
+- ✅ [Stats](#-stats)
+- ❌[Analytics](#-analytics)
+- ❌[QueryRuleCustomData](#-queryrulecustomdata)
+- ❌[QueryRuleContext](#-queryrulecontext)
+- ✅ [SortBy](#-sortby)
+- ❌[RelevantSort](#-relevantsort)
+- ✅ [Routing](#-routing)
+
 
 ### ✅ InstantSearch
 
@@ -521,7 +562,7 @@ Min and max of attributes are not returned from MeiliSearch and thus **must be s
 
 If the attribute is not in the [`filterableAttributes`](https://docs.meilisearch.com/reference/features/filtering_and_faceted_search.html#configuring-filters) setting list, filtering on this attribute is not possible.
 
-Example: 
+Example:
 Given the attribute `id` that has not been added in `filterableAttributes`:
 
 ```js
@@ -738,15 +779,71 @@ The queryRuleContext widget lets you apply ruleContexts based on filters to trig
 
 No compatibility because MeiliSearch does not support Rules.
 
-### ❌ SortBy
+### ✅ SortBy
 
 [Sort by references](https://www.algolia.com/doc/api-reference/widgets/sort-by/js/)
 
-The sortBy widget displays a list of indices, allowing a user to change the way hits are sorted (with replica indices). Another common use case is to let the user switch between different indices.
+The `SortBy` widget is used to create multiple sort formulas. Allowing a user to change the way hits are sorted.
 
-No compatibility because MeiliSearch does not support hierarchical facets.
+- ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
+- ✅ items: The list of different sorting possibilities. _required_
+- ✅ cssClasses: The CSS classes to override.
+- ✅ transformItems: function receiving the items, called before displaying them.
 
-If you'd like to get the "SortBy" feature, please vote for it in the [roadmap]https://roadmap.meilisearch.com/c/32-sort-by?utm_medium=social&utm_source=portal_share).
+The usage of the `SortBy` widget differs from the one found in Algolia's documentation. In instant-meilisearch the following is possible:
+
+- Sort using different indexes.
+- Different `sort` rules on the same index.
+
+The items list is composed of objects containing every sort possibility you want to provide to your user. Each object must contain two fields:
+  - `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
+  - `value`: The sort formula.
+
+#### Sort formula
+
+A sort formula is expressed like this: `index:attribute:order`.
+
+`index` is mandatory, and when adding `attribute:order`, they must always be added together.
+
+When sorting on an attribute, the attribute has to be added to the [`sortableAttributes`](https://docs.meilisearch.com/reference/api/sortable_attributes.html) setting on your index.
+
+Example:
+```js
+[
+  { label: 'Sort By Price', value: 'clothes:price:asc' }
+]
+```
+
+In this scenario, in the `clothes` index, we want the price to be sorted in an ascending way. For this formula to be valid, `price` must be added to the `sortableAttributes` settings of the `clothes` index.
+
+#### Relevancy
+
+The impact sorting has on the returned hits is determined by the [`ranking-rules`](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#ranking-rules) ordered list of each index. The `sort` ranking-rule position in the list makes sorting documents more or less important than other rules. If you want to change the sort impact on the relevancy, it is possible to change it in the [ranking-rule setting](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#relevancy). For example, to favor exhaustivity over relevancy.
+
+See [relevancy guide](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#relevancy).
+
+#### Example
+
+```js
+  instantsearch.widgets.sortBy({
+    container: '#sort-by',
+    items: [
+      { value: 'clothes', label: 'Relevant' }, // default index
+      {
+        value: 'clothes:price:asc', // Sort on descending price
+        label: 'Ascending price using query time sort',
+      },
+      {
+        value: 'clothes:price:asc', // Sort on ascending price
+        label: 'Descending price using query time sort',
+      },
+      {
+        value: 'clothes-sorted', // different index with different ranking rules.
+        label: 'Custom sort using a different index',
+      },
+    ],
+  }),
+```
 
 ### ❌ RelevantSort
 

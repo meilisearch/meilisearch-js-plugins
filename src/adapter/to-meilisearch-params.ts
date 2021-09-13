@@ -51,7 +51,7 @@ export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
     filters = '',
     numericFilters = [],
   },
-  { paginationTotalHits, placeholderSearch }
+  { paginationTotalHits, placeholderSearch, sort }
 ) {
   const limit = paginationTotalHits
   const meilisearchFilters = facetFiltersToMeiliSearchFilter(facetFilters)
@@ -63,8 +63,9 @@ export const adaptToMeiliSearchParams: AdaptToMeiliSearchParams = function (
     ...(facets?.length && { facetsDistribution: facets }),
     ...(attributesToCrop && { attributesToCrop }),
     ...(attributesToRetrieve && { attributesToRetrieve }),
-    ...(filter && { filter: filter }),
+    ...(filter.length && { filter: filter }),
     attributesToHighlight: attributesToHighlight || ['*'],
     limit: (!placeholderSearch && query === '') || !limit ? 0 : limit,
+    ...(sort?.length && { sort: [sort] }),
   }
 }

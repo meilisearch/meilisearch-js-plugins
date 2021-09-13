@@ -12,6 +12,7 @@
     "test:e2e:all": "sh scripts/e2e.sh",
     "test:e2e:watch": "concurrently --kill-others -s first \"NODE_ENV=test yarn playground:javascript\" \"cypress open --env playground=javascript\"",
     "test:all": "yarn test:e2e:all && yarn test && test:build",
+    "cy:open": "cypress open",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
     "playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript start",
@@ -52,7 +53,7 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "^0.20.0"
+    "meilisearch": "^0.20.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",

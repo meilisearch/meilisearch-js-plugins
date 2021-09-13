@@ -10,6 +10,19 @@
     <div class="search-panel">
       <div class="search-panel__filters">
         <ais-clear-refinements></ais-clear-refinements>
+        <ais-sort-by
+          [items]="[
+          { value: 'steam-video-games', label: 'Relevant' },
+          {
+            value: 'steam-video-games:recommendationCount:desc',
+            label: 'Most Recommended'
+          },
+          {
+            value: 'steam-video-games:recommendationCount:asc',
+            label: 'Least Recommended'
+          }
+          ]"
+        ></ais-sort-by>
         <ais-configure [searchParameters]="{ hitsPerPage: 6 }"></ais-configure>
         <h2>Genres</h2>
         <ais-refinement-list attribute="genres" ></ais-refinement-list>
@@ -40,8 +53,9 @@
                 <div class="hit-description">
                   <ais-highlight attribute="description" [hit]="hit"></ais-highlight>
                 </div>
-                <div class="hit-info">${{hit.price}}</div>
-                <div class="hit-info">{{hit.releaseDate}}</div>
+                <div class="hit-info">price: ${{hit.price}}</div>
+                <div class="hit-info">Release date: {{hit.releaseDate}}</div>
+                <div class="hit-info">Recommendation: {{hit.recommendationCount}}</div>
               </li>
             </ol>
           </ng-template>
