@@ -13,10 +13,10 @@ export function instantMeiliSearch(
     search: async function (instantSearchRequests) {
       try {
         const isSearchRequest = instantSearchRequests[0]
-        const {
-          params: instantSearchParams,
-          indexName: indexUid,
-        } = isSearchRequest
+        const { params: instantSearchParams, indexName } = isSearchRequest
+
+        // Split index name and possible sorting rules
+        const [indexUid, ...sortByArray] = indexName.split(':')
 
         const { paginationTotalHits, primaryKey, placeholderSearch } = options
         const { page, hitsPerPage } = instantSearchParams
@@ -28,6 +28,7 @@ export function instantMeiliSearch(
           placeholderSearch: placeholderSearch !== false, // true by default
           hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
           page: page || 0, // default page is 0 if none is provided
+          sort: sortByArray.join(':') || '',
         }
 
         // Adapt IS params to MeiliSearch params
@@ -35,7 +36,6 @@ export function instantMeiliSearch(
           instantSearchParams,
           context
         )
-
         const cachedFacet = cacheFilters(msSearchParams.filter)
 
         // Executes the search with MeiliSearch
