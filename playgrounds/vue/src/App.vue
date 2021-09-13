@@ -17,6 +17,19 @@
           <ais-clear-refinements>
             <span slot="resetLabel">Clear all filters</span>
           </ais-clear-refinements>
+          <ais-sort-by
+            :items="[
+              { value: 'steam-video-games', label: 'Relevant' },
+              {
+                value: 'steam-video-games:recommendationCount:desc',
+                label: 'Most Recommended',
+              },
+              {
+                value: 'steam-video-games:recommendationCount:asc',
+                label: 'Least Recommended',
+              },
+            ]"
+          />
           <h2>Genres</h2>
           <ais-refinement-list attribute="genres" />
           <h2>Players</h2>
@@ -40,8 +53,11 @@
                 <div class="hit-description">
                   <ais-snippet :hit="item" attribute="description" />
                 </div>
-                <div class="hit-info">price: {{ item.price }}</div>
-                <div class="hit-info">release date: {{ item.releaseDate }}</div>
+                <div class="hit-info">Price: {{ item.price }}</div>
+                <div class="hit-info">Release date: {{ item.releaseDate }}</div>
+                <div class="hit-info">
+                  Recommended: {{ item.recommendationCount }}
+                </div>
               </div>
             </template>
           </ais-hits>
@@ -66,11 +82,20 @@ import { instantMeiliSearch } from '../../../src/index'
 export default {
   data() {
     return {
+      recommendation: '',
       searchClient: instantMeiliSearch(
-        'https://ms-9060336c1f95-106.saas.meili.dev',
-        '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66'
+        'https://demo-steam.meilisearch.com',
+        '90b03f9c47d0f321afae5ae4c4e4f184f53372a2953ab77bca679ff447ecc15c'
       ),
     }
+  },
+  methods: {
+    order: function (event, searchParameters, refine) {
+      refine({
+        ...searchParameters,
+        sort: this.recommendation,
+      })
+    },
   },
 }
 </script>

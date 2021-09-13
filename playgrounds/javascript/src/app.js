@@ -3,8 +3,8 @@ import { instantMeiliSearch } from '../../../src/index'
 const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
-    'https://ms-9060336c1f95-106.saas.meili.dev',
-    '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66',
+    'https://demo-steam.meilisearch.com',
+    '90b03f9c47d0f321afae5ae4c4e4f184f53372a2953ab77bca679ff447ecc15c',
     {
       limitPerRequest: 30,
     }
@@ -12,6 +12,20 @@ const search = instantsearch({
 })
 
 search.addWidgets([
+  instantsearch.widgets.sortBy({
+    container: '#sort-by',
+    items: [
+      { value: 'steam-video-games', label: 'Relevant' },
+      {
+        value: 'steam-video-games:recommendationCount:desc',
+        label: 'Most Recommended',
+      },
+      {
+        value: 'steam-video-games:recommendationCount:asc',
+        label: 'Least Recommended',
+      },
+    ],
+  }),
   instantsearch.widgets.searchBox({
     container: '#searchbox',
   }),
@@ -32,6 +46,7 @@ search.addWidgets([
   }),
   instantsearch.widgets.configure({
     hitsPerPage: 6,
+    attributesToSnippet: ['description:150'],
   }),
   instantsearch.widgets.refinementList({
     container: '#misc-list',
@@ -51,6 +66,7 @@ search.addWidgets([
           </div>
           <div class="hit-info">price: {{price}}</div>
           <div class="hit-info">release date: {{releaseDate}}</div>
+          <div class="hit-info">Recommendation: {{recommendationCount}}</div>
         </div>
       `,
     },

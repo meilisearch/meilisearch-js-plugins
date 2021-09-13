@@ -42,6 +42,20 @@ describe(`${playground} playground test`, () => {
     cy.get(HIT_ITEM_CLASS).eq(0).contains('9.99 $')
   })
 
+  it('Sort by recommendationCound ascending', () => {
+    const select = `.ais-SortBy-select`
+    cy.get(select).select('steam-video-games:recommendationCount:asc')
+    cy.wait(1000)
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Rag Doll Kung Fu')
+  })
+
+  it('Sort by default relevancy', () => {
+    const select = `.ais-SortBy-select`
+    cy.get(select).select('steam-video-games')
+    cy.wait(1000)
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
+  })
+
   it('click on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(checkbox).eq(1).click()
