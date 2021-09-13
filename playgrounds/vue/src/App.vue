@@ -28,14 +28,6 @@
                 value: 'steam-video-games:recommendationCount:asc',
                 label: 'Least Recommended',
               },
-              {
-                value: 'steam-video-games-sort:recommendationCount:asc',
-                label: 'Relevant Least Recommended ',
-              },
-              {
-                value: 'steam-video-games-sort:recommendationCount:desc',
-                label: 'Relevant Most Recommended',
-              },
             ]"
           />
           <h2>Genres</h2>
@@ -88,7 +80,10 @@ export default {
   data() {
     return {
       recommendation: '',
-      searchClient: instantMeiliSearch('http://localhost:7700', 'masterKey'),
+      searchClient: instantMeiliSearch(
+        'https://demo-steam.meilisearch.com',
+        '90b03f9c47d0f321afae5ae4c4e4f184f53372a2953ab77bca679ff447ecc15c'
+      ),
     }
   },
   methods: {

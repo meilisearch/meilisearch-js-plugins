@@ -17,10 +17,8 @@ import './App.css'
 import { instantMeiliSearch } from '../../../src/index'
 
 const searchClient = instantMeiliSearch(
-  // 'https://ms-9060336c1f95-106.saas.meili.dev',
-  // '5d7e1929728417466fd5a82da5a28beb540d3e5bbaf4e01f742e1fb5fd72bb66',
-  'http://localhost:7700',
-  'masterKey',
+  'https://demo-steam.meilisearch.com/',
+  '90b03f9c47d0f321afae5ae4c4e4f184f53372a2953ab77bca679ff447ecc15c',
   {
     paginationTotalHits: 60,
     primaryKey: 'id',
