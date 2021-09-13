@@ -783,7 +783,7 @@ No compatibility because MeiliSearch does not support Rules.
 
 [Sort by references](https://www.algolia.com/doc/api-reference/widgets/sort-by/js/)
 
-The `sortBy` widget is used to create multiple sort formulas. Allowing a user to change the way hits are sorted.
+The `SortBy` widget is used to create multiple sort formulas. Allowing a user to change the way hits are sorted.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ items: The list of different sorting possibilities. _required_
@@ -795,7 +795,7 @@ The usage of the `SortBy` widget differs from the one found in Algolia's documen
 - Sort using different indexes.
 - Different `sort` rules on the same index.
 
-The items list is composed of objects containing every sort possibilities you want to provide to your user. Each objects must contain two fields:
+The items list is composed of objects containing every sort possibility you want to provide to your user. Each object must contain two fields:
   - `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
   - `value`: The sort formula.
 
@@ -805,7 +805,7 @@ A sort formula is expressed like this: `index:attribute:order`.
 
 `index` is mandatory, and when adding `attribute:order`, they must always be added together.
 
-When sorting on an attribute, the attribute has to be added in the [`SortableAttributes`](#link-to-doc) setting on your index.
+When sorting on an attribute, the attribute has to be added to the [`sortableAttributes`](https://docs.meilisearch.com/reference/api/sortable_attributes.html) setting on your index.
 
 Example:
 ```js
@@ -814,7 +814,7 @@ Example:
 ]
 ```
 
-In this scenario, in the `clothes` index, we want the price to be sorted in an ascending way. For this formula to be valid, `price` must be added in the `sortableAttributes` settings of the `clothes` index.
+In this scenario, in the `clothes` index, we want the price to be sorted in an ascending way. For this formula to be valid, `price` must be added to the `sortableAttributes` settings of the `clothes` index.
 
 #### Relevancy
 
