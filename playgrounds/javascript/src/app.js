@@ -66,6 +66,7 @@ search.addWidgets([
           </div>
           <div class="hit-info">price: {{price}}</div>
           <div class="hit-info">release date: {{releaseDate}}</div>
+          <div class="hit-info">Recommendation: {{recommendationCount}}</div>
         </div>
       `,
     },

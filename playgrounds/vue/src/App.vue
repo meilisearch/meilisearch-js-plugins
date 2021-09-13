@@ -53,8 +53,11 @@
                 <div class="hit-description">
                   <ais-snippet :hit="item" attribute="description" />
                 </div>
-                <div class="hit-info">price: {{ item.price }}</div>
-                <div class="hit-info">release date: {{ item.releaseDate }}</div>
+                <div class="hit-info">Price: {{ item.price }}</div>
+                <div class="hit-info">Release date: {{ item.releaseDate }}</div>
+                <div class="hit-info">
+                  Recommended: {{ item.recommendationCount }}
+                </div>
               </div>
             </template>
           </ais-hits>

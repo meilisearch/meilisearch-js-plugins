@@ -53,8 +53,9 @@
                 <div class="hit-description">
                   <ais-highlight attribute="description" [hit]="hit"></ais-highlight>
                 </div>
-                <div class="hit-info">${{hit.price}}</div>
-                <div class="hit-info">{{hit.releaseDate}}</div>
+                <div class="hit-info">price: ${{hit.price}}</div>
+                <div class="hit-info">Release date: {{hit.releaseDate}}</div>
+                <div class="hit-info">Recommendation: {{hit.recommendationCount}}</div>
               </li>
             </ol>
           </ng-template>
