@@ -4115,10 +4115,10 @@ ini@2.0.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-2.0.0.tgz#e5fd556ecdd5726be978fa1001862eacb0a94bc5"
   integrity sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==
 
-instantsearch.js@^4.30.0:
-  version "4.30.0"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.30.0.tgz#84d45f28ea1735fce14da94dc6a2128a7140e748"
-  integrity sha512-UTtDbAqaw9l0Zs+L/veYwtllqeeqc8WyPcXWrQxnLa+zAgS+9wj+kjKsLHlQF13EBuSp5szPoOQWugKE6Yoe2w==
+instantsearch.js@^4.30.1:
+  version "4.30.1"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.30.1.tgz#57b9cb2a3c9fc64ce3b12f38d4a81f641e212941"
+  integrity sha512-msdTQsavHhqGir+dzwdsocm5cCuRVIDNdXCMHAJuy023bRby7SYJADWpSlQnkE6tCehxYeT5GbkomtKkyanU1g==
   dependencies:
     "@types/google.maps" "^3.45.3"
     "@types/hogan.js" "^3.0.0"
