@@ -1,15 +1,20 @@
-import {
-  CreateHighlighResult,
-  ReplaceHighlightTags,
-  SnippetValue,
-  isString,
-} from '../types'
+import { isString } from '../utils'
+import { InstantSearchParams } from '../types'
 
-export const replaceHighlightTags: ReplaceHighlightTags = (
+/**
+ * Replace `em` tags in highlighted MeiliSearch hits to
+ * provided tags by instantsearch.js.
+ *
+ * @param  {string} value
+ * @param  {string} highlightPreTag?
+ * @param  {string} highlightPostTag?
+ * @returns string
+ */
+function replaceHighlightTags(
   value: string,
   highlightPreTag?: string,
   highlightPostTag?: string
-): string => {
+): string {
   // Value has to be a string to have highlight.
   // Highlight is applied by MeiliSearch (<em> tags)
   // We replace the <em> by the expected tag for InstantSearch
@@ -24,11 +29,17 @@ export const replaceHighlightTags: ReplaceHighlightTags = (
   return JSON.stringify(value)
 }
 
-export const createHighlighResult: CreateHighlighResult = ({
-  formattedHit,
-  highlightPreTag,
-  highlightPostTag,
-}) => {
+/**
+ * @param  {Record<string} formattedHit
+ * @param  {string} highlightPreTag?
+ * @param  {string} highlightPostTag?
+ * @returns Record
+ */
+function adaptHighlight(
+  formattedHit: Record<string, any>,
+  highlightPreTag?: string,
+  highlightPostTag?: string
+): Record<string, any> {
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return Object.keys(formattedHit).reduce((result, key) => {
@@ -43,14 +54,21 @@ export const createHighlighResult: CreateHighlighResult = ({
   }, {} as any)
 }
 
-export const snippetValue: SnippetValue = (
+/**
+ * @param  {string} value
+ * @param  {string} snippetEllipsisText?
+ * @param  {string} highlightPreTag?
+ * @param  {string} highlightPostTag?
+ * @returns string
+ */
+function snippetValue(
   value: string,
   snippetEllipsisText?: string,
   highlightPreTag?: string,
   highlightPostTag?: string
-) => {
+): string {
   let newValue = value
-  // manage a kind of `...` for the crop until this issue is solved: https://github.com/meilisearch/MeiliSearch/issues/923
+  // manage a kind of `...` for the crop until this feature is implemented https://roadmap.meilisearch.com/c/69-policy-for-cropped-values?utm_medium=social&utm_source=portal_share
   // `...` is put if we are at the middle of a sentence (instead at the middle of the document field)
   if (snippetEllipsisText !== undefined && isString(newValue) && newValue) {
     if (
@@ -67,7 +85,14 @@ export const snippetValue: SnippetValue = (
   return replaceHighlightTags(newValue, highlightPreTag, highlightPostTag)
 }
 
-export function createSnippetResult(
+/**
+ * @param  {Record<string} formattedHit
+ * @param  {readonlystring[]|undefined} attributesToSnippet
+ * @param  {string|undefined} snippetEllipsisText
+ * @param  {string|undefined} highlightPreTag
+ * @param  {string|undefined} highlightPostTag
+ */
+function adaptSnippet(
   formattedHit: Record<string, any>,
   attributesToSnippet: readonly string[] | undefined,
   snippetEllipsisText: string | undefined,
@@ -95,4 +120,37 @@ export function createSnippetResult(
     }
     return result
   }, {} as any)
+}
+
+/**
+ * Adapt MeiliSearch formating to formating compliant with instantsearch.js.
+ *
+ * @param  {Record<string} formattedHit
+ * @param  {InstantSearchParams} instantSearchParams
+ * @returns Record
+ */
+export function adaptFormating(
+  formattedHit: Record<string, any>,
+  instantSearchParams: InstantSearchParams
+): Record<string, any> {
+  const attributesToSnippet = instantSearchParams?.attributesToSnippet
+  const snippetEllipsisText = instantSearchParams?.snippetEllipsisText
+  const highlightPreTag = instantSearchParams?.highlightPreTag
+  const highlightPostTag = instantSearchParams?.highlightPostTag
+
+  if (!formattedHit || formattedHit.length) return {}
+  return {
+    _highlightResult: adaptHighlight(
+      formattedHit,
+      highlightPreTag,
+      highlightPostTag
+    ),
+    _snippetResult: adaptSnippet(
+      formattedHit,
+      attributesToSnippet,
+      snippetEllipsisText,
+      highlightPreTag,
+      highlightPostTag
+    ),
+  }
 }

@@ -27,6 +27,7 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
+    "isolatedModules": true
   },
   "include": ["src"], // files to include during compilation
   "exclude": ["tests", "*.js", "scripts", "**/__tests__/*.ts"],

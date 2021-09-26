@@ -1,14 +1,28 @@
-import { InstantMeiliSearchContext, InstantSearchParams } from '../types'
-import { SearchResponse } from 'meilisearch'
-import { getNumberPages } from './pagination'
-import { adaptToISHits } from './to-instantsearch-hits'
+import type {
+  SearchContext,
+  InstantSearchParams,
+  MeiliSearchResponse,
+  AlgoliaSearchResponse,
+} from '../types'
+import { ceiledDivision } from '../utils'
+import { adaptHits } from './hits-adapter'
 
-export function adaptToISResponse(
+/**
+ * Adapt search response from MeiliSearch
+ * to search response compliant with instantsearch.js
+ *
+ * @param  {string} indexUid
+ * @param  {MeiliSearchResponse<Record<string} searchResponse
+ * @param  {InstantSearchParams} instantSearchParams
+ * @param  {SearchContext} instantMeiliSearchContext
+ * @returns Array
+ */
+export function adaptSearchResponse<T>(
   indexUid: string,
-  searchResponse: SearchResponse<Record<string, any>>,
+  searchResponse: MeiliSearchResponse<Record<string, any>>,
   instantSearchParams: InstantSearchParams,
-  instantMeiliSearchContext: InstantMeiliSearchContext
-) {
+  instantMeiliSearchContext: SearchContext
+): { results: Array<AlgoliaSearchResponse<T>> } {
   const searchResponseOptionals: Record<string, any> = {}
 
   const facets = searchResponse.facetsDistribution
@@ -18,26 +32,25 @@ export function adaptToISResponse(
     searchResponseOptionals.exhaustiveFacetsCount = exhaustiveFacetsCount
   }
 
-  const hits = adaptToISHits(
+  const hits = adaptHits(
     searchResponse.hits,
     instantSearchParams,
     instantMeiliSearchContext
   )
 
-  const nbPages = getNumberPages(
+  const nbPages = ceiledDivision(
     hits.length,
     instantMeiliSearchContext.hitsPerPage
   )
 
   const exhaustiveNbHits = searchResponse.exhaustiveNbHits
-
   const nbHits = searchResponse.nbHits
   const processingTimeMs = searchResponse.processingTimeMs
   const query = searchResponse.query
 
-  // Create response object compliant with InstantSearch
   const { hitsPerPage, page } = instantMeiliSearchContext
 
+  // Create response object compliant with InstantSearch
   const adaptedSearchResponse = {
     index: indexUid,
     hitsPerPage,
@@ -49,7 +62,7 @@ export function adaptToISResponse(
     processingTimeMS: processingTimeMs,
     query,
     hits,
-    params: 'blabla',
+    params: '',
     ...searchResponseOptionals,
   }
   return {

@@ -2,27 +2,15 @@ import { MeiliSearch } from 'meilisearch'
 import {
   InstantMeiliSearchOptions,
   InstantMeiliSearchInstance,
-  RequestOptions,
+  AlgoliaSearchResponse,
+  AlgoliaMultipleQueriesQuery,
 } from '../types'
-import { adaptToMeiliSearchParams, adaptToISResponse } from '../adapter'
-import { addMissingFacetZeroFields, cacheFilters } from '../cache'
 import {
-  SearchResponse,
-  SearchOptions,
-  MultipleQueriesQuery,
-  MultipleQueriesResponse,
-  MultipleQueriesOptions,
-} from '@algolia/client-search'
-import { SearchForFacetValuesResponse } from 'instantsearch.js'
-
-/*
-
-readonly type?: "default" | "facet" | undefined;
-    readonly indexName: string;
-    readonly params?: SearchOptions | undefined;
-    readonly query?: string | undefined;
-*/
-type merde = Record<string, any>;
+  adaptSearchRequest,
+  adaptSearchResponse,
+  facetsDistributionAdapter,
+} from '../adapter'
+import { cacheFilters } from '../cache'
 
 export function instantMeiliSearch(
   hostUrl: string,
@@ -32,9 +20,9 @@ export function instantMeiliSearch(
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     search: async function <T = Record<string, any>>(
-      instantSearchRequests: readonly MultipleQueriesQuery[],
-      _?: RequestOptions & MultipleQueriesOptions
-    ): Promise<{ results: Array<SearchResponse<T>> }> {
+      instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
+      // options?: RequestOptions & MultipleQueriesOptions - When is this used ?
+    ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
         const isSearchRequest = instantSearchRequests[0]
         const { params: instantSearchParams, indexName } = isSearchRequest
@@ -44,9 +32,8 @@ export function instantMeiliSearch(
           primaryKey,
           placeholderSearch,
         } = meiliSearchOptions
-        // const { page, hitsPerPage } = instantSearchParams
-        const page = instantSearchParams?.page
 
+        const page = instantSearchParams?.page
         const hitsPerPage = instantSearchParams?.hitsPerPage
         const client = this.MeiliSearchClient
 
@@ -66,11 +53,14 @@ export function instantMeiliSearch(
         }
 
         // Adapt IS params to MeiliSearch params
-        const msSearchParams = adaptToMeiliSearchParams(
+        const msSearchParams = adaptSearchRequest(
           instantSearchParams,
-          context
+          context.paginationTotalHits,
+          context.placeholderSearch,
+          context.sort,
+          context.query
         )
-        const cachedFacet = cacheFilters(msSearchParams.filter)
+        const cachedFacet = cacheFilters(msSearchParams?.filter)
 
         // Executes the search with MeiliSearch
         const searchResponse = await client
@@ -78,22 +68,18 @@ export function instantMeiliSearch(
           .search(query, msSearchParams)
 
         // Add the checked facet attributes in facetsDistribution and give them a value of 0
-        searchResponse.facetsDistribution = addMissingFacetZeroFields(
+        searchResponse.facetsDistribution = facetsDistributionAdapter(
           cachedFacet,
           searchResponse.facetsDistribution
         )
 
         // Parses the MeiliSearch response and returns it for InstantSearch
-        const ISresponse = adaptToISResponse(
+        const ISresponse = adaptSearchResponse<T>(
           indexUid,
           searchResponse,
           instantSearchParams,
           context
         )
-
-        // Argument of type 'SearchOptions | (SearchOptions & { readonly facetQuery?: string | undefined; }) | undefined' is not assignable to parameter of type 'IMSearchParams'.
-        // Type 'undefined' is not assignable to type 'IMSearchParams'.
-        //   Type 'undefined' is not assignable to type 'Omit<SearchParameters, "facetFilters" | "filters">'.ts(2345)
         return ISresponse
       } catch (e) {
         console.error(e)

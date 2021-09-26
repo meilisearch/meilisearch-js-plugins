@@ -1,6 +1,9 @@
-import { FacetsDistribution, Filter, Cache, ParsedFilter } from '../types'
+import { Filter, Cache, ParsedFilter } from '../types'
 import { removeUndefined } from '../utils'
 
+/**
+ * @param  {string} filter
+ */
 const adaptFilterSyntax = (filter: string) => {
   const matches = filter.match(/([^=]*)="?([^\\"]*)"?$/)
   if (matches) {
@@ -10,9 +13,11 @@ const adaptFilterSyntax = (filter: string) => {
   return [undefined]
 }
 
-const adaptToMeiliSearchFilters = (
-  filters?: Filter
-): Array<ParsedFilter | undefined> => {
+/**
+ * @param  {Filter} filters?
+ * @returns Array
+ */
+function extractFilters(filters?: Filter): Array<ParsedFilter | undefined> {
   if (typeof filters === 'string') {
     return adaptFilterSyntax(filters)
   } else if (Array.isArray(filters)) {
@@ -28,9 +33,13 @@ const adaptToMeiliSearchFilters = (
   return [undefined]
 }
 
-export const cacheFilters = (filters?: Filter): Cache => {
-  const parsedFilters = adaptToMeiliSearchFilters(filters)
-  const cleanFilters = removeUndefined(parsedFilters)
+/**
+ * @param  {Filter} filters?
+ * @returns Cache
+ */
+export function cacheFilters(filters?: Filter): Cache {
+  const extractedFilters = extractFilters(filters)
+  const cleanFilters = removeUndefined(extractedFilters)
   return cleanFilters.reduce<Cache>((cache, parsedFilter: ParsedFilter) => {
     const { filterName, value } = parsedFilter
     const prevFields = cache[filterName] || []
@@ -40,28 +49,4 @@ export const cacheFilters = (filters?: Filter): Cache => {
     }
     return cache
   }, {} as Cache)
-}
-
-export const addMissingFacetZeroFields = (
-  cache?: Cache,
-  distribution?: FacetsDistribution
-) => {
-  distribution = distribution || {}
-  if (cache && Object.keys(cache).length > 0) {
-    for (const cachedFacet in cache) {
-      for (const cachedField of cache[cachedFacet]) {
-        // if cached field is not present in the returned distribution
-
-        if (
-          !distribution[cachedFacet] ||
-          !Object.keys(distribution[cachedFacet]).includes(cachedField)
-        ) {
-          // add 0 value
-          distribution[cachedFacet] = distribution[cachedFacet] || {}
-          distribution[cachedFacet][cachedField] = 0
-        }
-      }
-    }
-  }
-  return distribution
 }
