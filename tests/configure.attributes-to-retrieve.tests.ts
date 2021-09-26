@@ -25,19 +25,12 @@ describe('Instant MeiliSearch Browser test', () => {
         },
       },
     ])
-    const notRetrieved = [
-      'id',
-      'overview',
-      'genres',
-      'poster',
-      'release_date',
-      'title',
-    ]
-
     const hit = <Movies>response.results[0].hits[0]
-    notRetrieved.map((attribute: string) =>
-      expect(hit[<any>attribute]).not.toBeDefined()
-    )
+    expect(hit.id).not.toBeDefined()
+    expect(hit.overview).not.toBeDefined()
+    expect(hit.genres).not.toBeDefined()
+    expect(hit.release_date).not.toBeDefined()
+    expect(hit.title).not.toBeDefined()
   })
 
   test('Test attributesToRetrieve on null', async () => {

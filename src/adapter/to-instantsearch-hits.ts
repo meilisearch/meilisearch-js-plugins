@@ -1,34 +1,43 @@
-import { AdaptToISHitsm, IMSearchParams } from '../types'
+import { InstantSearchParams, InstantMeiliSearchContext } from '../types'
 import { paginateHits } from './pagination'
 import {
   createHighlighResult,
   createSnippetResult,
 } from './to-instantsearch-highlight'
 
-const parseFormatting = (
+function parseFormatting(
   formattedHit: any,
-  instantSearchParams: IMSearchParams
-) => {
+  instantSearchParams: InstantSearchParams
+) {
+  const attributesToSnippet = instantSearchParams?.attributesToSnippet
+  const snippetEllipsisText = instantSearchParams?.snippetEllipsisText
+  const highlightPreTag = instantSearchParams?.highlightPreTag
+  const highlightPostTag = instantSearchParams?.highlightPostTag
+
   if (!formattedHit || formattedHit.length) return {}
   return {
     _highlightResult: createHighlighResult({
       formattedHit,
       ...instantSearchParams,
     }),
-    _snippetResult: createSnippetResult({
+    _snippetResult: createSnippetResult(
       formattedHit,
-      ...instantSearchParams,
-    }),
+      attributesToSnippet,
+      snippetEllipsisText,
+      highlightPreTag,
+      highlightPostTag
+    ),
   }
 }
 
-export const adaptToISHits: AdaptToISHitsm = function (
-  meiliSearchHits,
-  instantSearchParams,
-  instantMeiliSearchContext
+export function adaptToISHits(
+  meiliSearchHits: Array<Record<string, any>>,
+  instantSearchParams: InstantSearchParams,
+  instantMeiliSearchContext: InstantMeiliSearchContext
 ) {
   const { primaryKey } = instantMeiliSearchContext
-  const paginatedHits = paginateHits(meiliSearchHits, instantMeiliSearchContext)
+  const { page, hitsPerPage } = instantMeiliSearchContext
+  const paginatedHits = paginateHits(meiliSearchHits, page, hitsPerPage)
 
   return paginatedHits.map((hit: any) => {
     // Creates Hit object compliant with InstantSearch

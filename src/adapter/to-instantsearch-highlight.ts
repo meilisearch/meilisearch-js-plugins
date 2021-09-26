@@ -2,7 +2,6 @@ import {
   CreateHighlighResult,
   ReplaceHighlightTags,
   SnippetValue,
-  CreateSnippetResult,
   isString,
 } from '../types'
 
@@ -68,13 +67,13 @@ export const snippetValue: SnippetValue = (
   return replaceHighlightTags(newValue, highlightPreTag, highlightPostTag)
 }
 
-export const createSnippetResult: CreateSnippetResult = ({
-  formattedHit,
-  attributesToSnippet,
-  snippetEllipsisText,
-  highlightPreTag,
-  highlightPostTag,
-}) => {
+export function createSnippetResult(
+  formattedHit: Record<string, any>,
+  attributesToSnippet: readonly string[] | undefined,
+  snippetEllipsisText: string | undefined,
+  highlightPreTag: string | undefined,
+  highlightPostTag: string | undefined
+) {
   if (attributesToSnippet === undefined) {
     return null
   }
@@ -84,7 +83,7 @@ export const createSnippetResult: CreateSnippetResult = ({
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
-    if (attributesToSnippet!.includes(key)) {
+    if (attributesToSnippet?.includes(key)) {
       ;(result[key] as any) = {
         value: snippetValue(
           formattedHit[key],

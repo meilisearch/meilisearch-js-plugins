@@ -144,10 +144,7 @@ describe.each(numberPagesTestParameters)(
   'Get Number Pages tests',
   ({ hitsPerPage, hitsLength, numberPages }) => {
     it(`Should return ${numberPages} pages when hitsPerPage is ${hitsPerPage} and hits length is ${hitsLength}`, () => {
-      const response = getNumberPages(hitsLength, {
-        ...defaultContext,
-        hitsPerPage: hitsPerPage,
-      })
+      const response = getNumberPages(hitsLength, hitsPerPage)
       expect(response).toBe(numberPages)
     })
   }
@@ -161,11 +158,7 @@ describe.each(paginateHitsTestsParameters)(
     )} when hitsPerPage is ${hitsPerPage}, number of page is ${page} and when hits is ${JSON.stringify(
       hits
     )}`, () => {
-      const response = paginateHits(hits, {
-        ...defaultContext,
-        page,
-        hitsPerPage,
-      })
+      const response = paginateHits(hits, page, hitsPerPage)
       expect(response).toEqual(returnedHits)
     })
   }

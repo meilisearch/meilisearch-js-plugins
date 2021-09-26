@@ -1,7 +1,7 @@
 import { FacetsDistribution, Filter, Cache, ParsedFilter } from '../types'
 import { removeUndefined } from '../utils'
 
-const parseFilter = (filter: string) => {
+const adaptFilterSyntax = (filter: string) => {
   const matches = filter.match(/([^=]*)="?([^\\"]*)"?$/)
   if (matches) {
     const [_, filterName, value] = matches
@@ -10,16 +10,18 @@ const parseFilter = (filter: string) => {
   return [undefined]
 }
 
-const parseFilters = (filters?: Filter): Array<ParsedFilter | undefined> => {
+const adaptToMeiliSearchFilters = (
+  filters?: Filter
+): Array<ParsedFilter | undefined> => {
   if (typeof filters === 'string') {
-    return parseFilter(filters)
+    return adaptFilterSyntax(filters)
   } else if (Array.isArray(filters)) {
     return filters
       .map((nestedFilter) => {
         if (Array.isArray(nestedFilter)) {
-          return nestedFilter.map((filter) => parseFilter(filter))
+          return nestedFilter.map((filter) => adaptFilterSyntax(filter))
         }
-        return parseFilter(nestedFilter)
+        return adaptFilterSyntax(nestedFilter)
       })
       .flat(2)
   }
@@ -27,7 +29,7 @@ const parseFilters = (filters?: Filter): Array<ParsedFilter | undefined> => {
 }
 
 export const cacheFilters = (filters?: Filter): Cache => {
-  const parsedFilters = parseFilters(filters)
+  const parsedFilters = adaptToMeiliSearchFilters(filters)
   const cleanFilters = removeUndefined(parsedFilters)
   return cleanFilters.reduce<Cache>((cache, parsedFilter: ParsedFilter) => {
     const { filterName, value } = parsedFilter
