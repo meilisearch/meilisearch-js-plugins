@@ -4,6 +4,7 @@ import {
   InstantMeiliSearchInstance,
   AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
+  InstantSearchParams,
 } from '../types'
 import {
   adaptSearchRequest,
@@ -11,6 +12,39 @@ import {
   facetsDistributionAdapter,
 } from '../adapter'
 import { cacheFilters } from '../cache'
+
+function createContext(
+  indexName: string,
+  params: InstantSearchParams,
+  meiliSearchOptions: InstantMeiliSearchOptions = {},
+  MeiliSearchClient: MeiliSearch
+) {
+  const {
+    paginationTotalHits,
+    primaryKey,
+    placeholderSearch,
+  } = meiliSearchOptions
+
+  const page = params?.page
+  const hitsPerPage = params?.hitsPerPage
+
+  const query = params?.query
+  // Split index name and possible sorting rules
+  const [indexUid, ...sortByArray] = indexName.split(':')
+
+  const context = {
+    client: MeiliSearchClient,
+    indexUid: indexUid,
+    paginationTotalHits: paginationTotalHits || 200,
+    primaryKey: primaryKey || undefined,
+    placeholderSearch: placeholderSearch !== false, // true by default
+    hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
+    page: page || 0, // default page is 0 if none is provided
+    sort: sortByArray.join(':') || '',
+    query,
+  }
+  return context
+}
 
 export function instantMeiliSearch(
   hostUrl: string,
@@ -24,48 +58,32 @@ export function instantMeiliSearch(
       // options?: RequestOptions & MultipleQueriesOptions - When is this used ?
     ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
-        const isSearchRequest = instantSearchRequests[0]
-        const { params: instantSearchParams, indexName } = isSearchRequest
+        const searchRequest = instantSearchRequests[0]
+        const { params: instantSearchParams } = searchRequest
 
-        const {
-          paginationTotalHits,
-          primaryKey,
-          placeholderSearch,
-        } = meiliSearchOptions
+        const context = createContext(
+          searchRequest.indexName,
+          instantSearchParams,
+          meiliSearchOptions,
+          this.MeiliSearchClient
+        )
 
-        const page = instantSearchParams?.page
-        const hitsPerPage = instantSearchParams?.hitsPerPage
-        const client = this.MeiliSearchClient
-
-        const query = instantSearchParams?.query
-        // Split index name and possible sorting rules
-        const [indexUid, ...sortByArray] = indexName.split(':')
-
-        const context = {
-          client,
-          paginationTotalHits: paginationTotalHits || 200,
-          primaryKey: primaryKey || undefined,
-          placeholderSearch: placeholderSearch !== false, // true by default
-          hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
-          page: page || 0, // default page is 0 if none is provided
-          sort: sortByArray.join(':') || '',
-          query,
-        }
-
-        // Adapt IS params to MeiliSearch params
-        const msSearchParams = adaptSearchRequest(
+        // Adapt search request to MeiliSearch compliant search request
+        const adaptedSearchRequest = adaptSearchRequest(
           instantSearchParams,
           context.paginationTotalHits,
           context.placeholderSearch,
           context.sort,
           context.query
         )
-        const cachedFacet = cacheFilters(msSearchParams?.filter)
+
+        // Cache filters
+        const cachedFacet = cacheFilters(adaptedSearchRequest?.filter)
 
         // Executes the search with MeiliSearch
-        const searchResponse = await client
-          .index(indexUid)
-          .search(query, msSearchParams)
+        const searchResponse = await context.client
+          .index(context.indexUid)
+          .search(context.query, adaptedSearchRequest)
 
         // Add the checked facet attributes in facetsDistribution and give them a value of 0
         searchResponse.facetsDistribution = facetsDistributionAdapter(
@@ -73,47 +91,25 @@ export function instantMeiliSearch(
           searchResponse.facetsDistribution
         )
 
-        // Parses the MeiliSearch response and returns it for InstantSearch
-        const ISresponse = adaptSearchResponse<T>(
-          indexUid,
+        // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
+        const adaptedSearchResponse = adaptSearchResponse<T>(
+          context.indexUid,
           searchResponse,
           instantSearchParams,
           context
         )
-        return ISresponse
-      } catch (e) {
+        return adaptedSearchResponse
+      } catch (e: any) {
         console.error(e)
-        return e
-        // throw new Error(e)
+        throw new Error(e)
       }
     },
-    //   type SearchForFacetValuesResponse = {
-    //     facetHits: FacetHit[];
-    //     exhaustiveFacetsCount: boolean;
-    //     processingTimeMS?: number | undefined;
-    // }
-
-    //   type FacetHit = {
-    //     readonly value: string;
-    //     readonly highlighted: string;
-    //     readonly count: number;
-    // }
-
     searchForFacetValues: async function (_) {
       return await new Promise((resolve, reject) => {
-        resolve([
-          {
-            exhaustiveFacetsCount: false,
-            facetHits: [
-              {
-                value: 'Not compatible with MeiliSearch',
-                highlighted: 'Not compatible with MeiliSearch',
-                count: 0,
-              },
-            ],
-          },
-        ])
-        reject(new Error('ahhh'))
+        reject(
+          new Error('SearchForFacetValues is not compatible with MeiliSearch')
+        )
+        resolve([]) // added here to avoid compilation error
       })
     },
   }
