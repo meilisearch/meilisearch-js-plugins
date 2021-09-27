@@ -5300,10 +5300,10 @@ mdn-data@2.0.4:
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.4.tgz#699b3c38ac6f1d728091a64650b65d388502fd5b"
   integrity sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==
 
-meilisearch@^0.20.1:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.20.1.tgz#db46aee790483e55a0f2ef1f9efc24532067ba48"
-  integrity sha512-5IGTiM3Bbc9gHUxqzsLBJdQgi2NVZxbEfwnc95tKIpkbFWr6fZpKL+jp747u/eQkvbAo3JtOPnMikCAwTQ3uhw==
+meilisearch@^0.20.2:
+  version "0.20.2"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.20.2.tgz#9461219064ec9bba8ea01ca160f82fa54ba99637"
+  integrity sha512-h40DJXx/yen3juPLB2uskH95jw4ETKSBM3fv87aYPSpWOfZci0aTR5YZ515KHGCfEExQeoeFoUxEfGyhaYWHUA==
   dependencies:
     cross-fetch "^3.1.4"
 
