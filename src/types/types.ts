@@ -1,4 +1,7 @@
-import type { MeiliSearch } from 'meilisearch'
+import type {
+  MeiliSearch,
+  SearchResponse as MeiliSearchResponse,
+} from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
 import type {
   SearchOptions as AlgoliaSearchOptions,
@@ -12,11 +15,12 @@ export type {
   FacetsDistribution,
   SearchResponse as MeiliSearchResponse,
   SearchParams as MeiliSearchParams,
+  MeiliSearch,
 } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
 
-export type Cache = {
+export type FilterCache = {
   [category: string]: string[]
 }
 
@@ -31,12 +35,17 @@ export type InstantMeiliSearchOptions = {
   primaryKey?: string
 }
 
+export type ResponseCacher = {
+  getCachedValue: (key: string) => MeiliSearchResponse | undefined
+  createKey: (components: any[]) => string
+  populate: (searchResponse: MeiliSearchResponse, key: string) => void
+}
+
 export type SearchContext = {
   page: number
   paginationTotalHits: number
   hitsPerPage: number
   primaryKey?: string
-  client: MeiliSearch
   placeholderSearch: boolean
   sort?: string
   query?: string

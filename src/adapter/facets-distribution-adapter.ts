@@ -1,4 +1,4 @@
-import { FacetsDistribution, Cache } from '../types'
+import { FacetsDistribution, FilterCache } from '../types'
 
 /**
  * Adapt MeiliSearch facetsDistribution to instantsearch.js facetsDistribution
@@ -6,12 +6,12 @@ import { FacetsDistribution, Cache } from '../types'
  *
  * To be aware of which field are checked a cache is provided that was made prior of the search request.
  *
- * @param  {Cache} cache?
+ * @param  {FilterCache} cache?
  * @param  {FacetsDistribution} distribution?
- * @returns FacetsDistribution
+ * @returns {FacetsDistribution}
  */
-export function facetsDistributionAdapter(
-  cache?: Cache,
+export function adaptFacetsDistribution(
+  cache?: FilterCache,
   distribution?: FacetsDistribution
 ): FacetsDistribution {
   distribution = distribution || {}

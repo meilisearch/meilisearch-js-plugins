@@ -1,4 +1,4 @@
-import { Filter, Cache, ParsedFilter } from '../types'
+import { Filter, FilterCache, ParsedFilter } from '../types'
 import { removeUndefined } from '../utils'
 
 /**
@@ -15,7 +15,7 @@ const adaptFilterSyntax = (filter: string) => {
 
 /**
  * @param  {Filter} filters?
- * @returns Array
+ * @returns {Array}
  */
 function extractFilters(filters?: Filter): Array<ParsedFilter | undefined> {
   if (typeof filters === 'string') {
@@ -35,18 +35,21 @@ function extractFilters(filters?: Filter): Array<ParsedFilter | undefined> {
 
 /**
  * @param  {Filter} filters?
- * @returns Cache
+ * @returns {FilterCache}
  */
-export function cacheFilters(filters?: Filter): Cache {
+export function cacheFilters(filters?: Filter): FilterCache {
   const extractedFilters = extractFilters(filters)
   const cleanFilters = removeUndefined(extractedFilters)
-  return cleanFilters.reduce<Cache>((cache, parsedFilter: ParsedFilter) => {
-    const { filterName, value } = parsedFilter
-    const prevFields = cache[filterName] || []
-    cache = {
-      ...cache,
-      [filterName]: [...prevFields, value],
-    }
-    return cache
-  }, {} as Cache)
+  return cleanFilters.reduce<FilterCache>(
+    (cache, parsedFilter: ParsedFilter) => {
+      const { filterName, value } = parsedFilter
+      const prevFields = cache[filterName] || []
+      cache = {
+        ...cache,
+        [filterName]: [...prevFields, value],
+      }
+      return cache
+    },
+    {} as FilterCache
+  )
 }

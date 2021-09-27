@@ -1,7 +1,7 @@
-import { facetsDistributionAdapter } from '../'
+import { adaptFacetsDistribution } from '../'
 
 test('One field in cache present in distribution', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     { genre: ['comedy'] },
     { genre: { comedy: 1 } }
   )
@@ -9,7 +9,7 @@ test('One field in cache present in distribution', () => {
 })
 
 test('One field in cache not present in distribution', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     { genre: ['comedy'] },
     {}
   )
@@ -17,7 +17,7 @@ test('One field in cache not present in distribution', () => {
 })
 
 test('two field in cache only one present in distribution', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     { genre: ['comedy'], title: ['hamlet'] },
     { genre: { comedy: 12 } }
   )
@@ -28,7 +28,7 @@ test('two field in cache only one present in distribution', () => {
 })
 
 test('two field in cache w/ different facet name none present in distribution', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     { genre: ['comedy'], title: ['hamlet'] },
     {}
   )
@@ -39,7 +39,7 @@ test('two field in cache w/ different facet name none present in distribution', 
 })
 
 test('two field in cache w/ different facet name both present in distribution', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     { genre: ['comedy'], title: ['hamlet'] },
     { genre: { comedy: 12 }, title: { hamlet: 1 } }
   )
@@ -50,7 +50,7 @@ test('two field in cache w/ different facet name both present in distribution', 
 })
 
 test('Three field in cache w/ different facet name two present in distribution', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     { genre: ['comedy', 'horror'], title: ['hamlet'] },
     { genre: { comedy: 12 }, title: { hamlet: 1 } }
   )
@@ -61,14 +61,14 @@ test('Three field in cache w/ different facet name two present in distribution',
 })
 
 test('Cache is undefined and facets distribution is not', () => {
-  const returnedDistribution = facetsDistributionAdapter(undefined, {
+  const returnedDistribution = adaptFacetsDistribution(undefined, {
     genre: { comedy: 12 },
   })
   expect(returnedDistribution).toMatchObject({ genre: { comedy: 12 } })
 })
 
 test('Cache is empty object and facets distribution is not', () => {
-  const returnedDistribution = facetsDistributionAdapter(
+  const returnedDistribution = adaptFacetsDistribution(
     {},
     { genre: { comedy: 12 } }
   )
@@ -76,16 +76,16 @@ test('Cache is empty object and facets distribution is not', () => {
 })
 
 test('Cache is empty object and facets distribution empty object', () => {
-  const returnedDistribution = facetsDistributionAdapter({}, {})
+  const returnedDistribution = adaptFacetsDistribution({}, {})
   expect(returnedDistribution).toMatchObject({})
 })
 
 test('Cache is undefined and facets distribution empty object', () => {
-  const returnedDistribution = facetsDistributionAdapter(undefined, {})
+  const returnedDistribution = adaptFacetsDistribution(undefined, {})
   expect(returnedDistribution).toMatchObject({})
 })
 
 test('Cache is undefined and facets distribution is undefined', () => {
-  const returnedDistribution = facetsDistributionAdapter(undefined, undefined)
+  const returnedDistribution = adaptFacetsDistribution(undefined, undefined)
   expect(returnedDistribution).toMatchObject({})
 })
