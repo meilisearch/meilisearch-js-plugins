@@ -28,7 +28,7 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const snippeted = response.results[0].hits[0]._highlightResult
+    const snippeted = response.results[0]?.hits[0]?._highlightResult
     expect(snippeted.overview.value).toEqual('Princess')
     const resKeys = Object.keys(snippeted)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
@@ -45,11 +45,11 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const highlighted = response.results[0].hits[0]._highlightResult
+    const highlighted = response.results[0]?.hits[0]?._highlightResult
     const snippeted = response.results[0].hits[0]._snippetResult
     expect(highlighted.overview.value).toEqual('While')
     expect(snippeted.overview.value).toEqual('While...')
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
 
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
@@ -68,7 +68,7 @@ describe('Snippet Browser test', () => {
       },
     ])
 
-    const firstHitHighlight = response.results[0].hits[0]._highlightResult
+    const firstHitHighlight = response.results[0]?.hits[0]?._highlightResult
     const firstHitSnippet = response.results[0].hits[0]._snippetResult
 
     expect(firstHitHighlight.title.value).toEqual('<p>S</p>tar Wars')
@@ -80,14 +80,14 @@ describe('Snippet Browser test', () => {
       'Luke <p>S</p>kywalker and...'
     )
 
-    const secondHitHighlight = response.results[0].hits[1]._highlightResult
-    const secondHitSnippet = response.results[0].hits[1]._snippetResult
+    const secondHitHighlight = response.results[0]?.hits[1]?._highlightResult
+    const secondHitSnippet = response.results[0]?.hits[1]?._snippetResult
     expect(secondHitHighlight.title.value).toEqual('Four')
     expect(secondHitHighlight.overview.value).toEqual("It'<p>s</p> Ted")
     expect(secondHitSnippet.title.value).toEqual('Four...')
     expect(secondHitSnippet.overview.value).toEqual("It'<p>s</p> Ted...")
 
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
@@ -102,10 +102,10 @@ describe('Snippet Browser test', () => {
       },
     ])
 
-    const firstHit = response.results[0].hits[0]._highlightResult
+    const firstHit = response.results[0]?.hits[0]?._highlightResult
     expect(firstHit.overview.value).toEqual('null')
 
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
@@ -119,7 +119,7 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const snippeted = response.results[0].hits[0]._highlightResult
+    const snippeted = response.results[0]?.hits[0]?._highlightResult
     expect(snippeted.overview.value).toEqual('Princess')
     const resKeys = Object.keys(snippeted)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
@@ -135,9 +135,9 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const snippeted = response.results[0].hits[0]._highlightResult?.overview
+    const snippeted = response.results[0]?.hits[0]?._highlightResult?.overview
     expect(snippeted.value).toEqual('While')
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
@@ -151,7 +151,7 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const firstHit = response.results[0].hits[0]._highlightResult
+    const firstHit = response.results[0]?.hits[0]?._highlightResult
 
     expect(firstHit.title.value).toEqual(
       '__ais-highlight__S__/ais-highlight__tar Wars'
@@ -165,7 +165,7 @@ describe('Snippet Browser test', () => {
       "It'__ais-highlight__s__/ais-highlight__ Ted"
     )
 
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 
@@ -180,9 +180,9 @@ describe('Snippet Browser test', () => {
       },
     ])
 
-    const firstHit = response.results[0].hits[0]._highlightResult
+    const firstHit = response.results[0]?.hits[0]?._highlightResult
     expect(firstHit.overview.value).toEqual('null')
-    const resKeys = Object.keys(response.results[0].hits[0]._highlightResult)
+    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
     expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
 })
