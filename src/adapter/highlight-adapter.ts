@@ -11,22 +11,21 @@ import { InstantSearchParams } from '../types'
  * @returns string
  */
 function replaceHighlightTags(
-  value: string,
+  value: any,
   highlightPreTag?: string,
   highlightPostTag?: string
 ): string {
-  // Value has to be a string to have highlight.
-  // Highlight is applied by MeiliSearch (<em> tags)
-  // We replace the <em> by the expected tag for InstantSearch
   highlightPreTag = highlightPreTag || '__ais-highlight__'
   highlightPostTag = highlightPostTag || '__/ais-highlight__'
-  if (isString(value)) {
-    return value
-      .replace(/<em>/g, highlightPreTag)
-      .replace(/<\/em>/g, highlightPostTag)
-  }
-  // We JSON stringify to avoid loss of nested information
-  return JSON.stringify(value)
+  // Highlight is applied by MeiliSearch (<em> tags)
+  // We replace the <em> by the expected tag for InstantSearch
+  const stringifiedValue = isString(value)
+    ? value
+    : JSON.stringify(value, null, 2)
+
+  return stringifiedValue
+    .replace(/<em>/g, highlightPreTag)
+    .replace(/<\/em>/g, highlightPostTag)
 }
 
 /**
@@ -43,7 +42,7 @@ function adaptHighlight(
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return Object.keys(formattedHit).reduce((result, key) => {
-    ;(result[key] as any) = {
+    ; (result[key] as any) = {
       value: replaceHighlightTags(
         formattedHit[key],
         highlightPreTag,
@@ -109,7 +108,7 @@ function adaptSnippet(
   // It contains all the highlighted and croped attributes
   return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
     if (attributesToSnippet?.includes(key)) {
-      ;(result[key] as any) = {
+      ; (result[key] as any) = {
         value: snippetValue(
           formattedHit[key],
           snippetEllipsisText,
