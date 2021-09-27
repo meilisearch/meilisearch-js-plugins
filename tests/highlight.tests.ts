@@ -1,4 +1,4 @@
-import { searchClient, dataset } from './assets/utils'
+import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Highlight Browser test', () => {
   beforeAll(async () => {
@@ -23,7 +23,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test one attributesToHighlight on wrong attribute placeholder', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -37,7 +37,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test one attributesToHighlight on placeholder search', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -52,7 +52,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test no attributesToHighlight on placeholder', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -66,7 +66,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test one attributesToHighlight on specific query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -85,7 +85,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test two attributesToHighlight on specific query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -107,7 +107,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test two attributesToHighlight on specific query with empty string value', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -129,7 +129,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test two attributesToHighlight on specific query with null value', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -150,7 +150,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test two attributesToHighlight on specific query with null value', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -171,7 +171,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test two attributesToHighlight on wild card', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -193,7 +193,7 @@ describe('Highlight Browser test', () => {
   })
 
   test('Test two attributesToHighlight with different tags', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {

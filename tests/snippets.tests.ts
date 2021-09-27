@@ -1,4 +1,4 @@
-import { searchClient, dataset } from './assets/utils'
+import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Snippet Browser test', () => {
   beforeAll(async () => {
@@ -19,7 +19,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test one attributesToSnippet on placeholder', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -35,7 +35,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test one attributesToSnippet on specific query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -55,7 +55,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test two attributesToSnippet on specific query with one hit empty string', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -92,7 +92,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test attributesToSnippet on a null attribute', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -110,7 +110,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test one attributesToSnippet on placeholder w/ snippetEllipsisText', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -126,7 +126,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test one attributesToSnippet on specific query w/ snippetEllipsisText', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -142,7 +142,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test two attributesToSnippet on specific query with one hit empty string w/ snippetEllipsisText', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -170,7 +170,7 @@ describe('Snippet Browser test', () => {
   })
 
   test('Test attributesToSnippet on a null attribute w/ snippetEllipsisText', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {

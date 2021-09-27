@@ -19,7 +19,7 @@ describe('Pagination browser test', () => {
   })
 
   test('Test 1 hitsPerPage', async () => {
-    const response = await searchClient.search<Record<string, any>>([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -51,7 +51,7 @@ describe('Pagination browser test', () => {
   })
 
   test('Test 1 hitsPerPage w/ page 1 ', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -67,7 +67,7 @@ describe('Pagination browser test', () => {
   })
 
   test('Test 100 hitsPerPage w/ page 1 ', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -83,7 +83,7 @@ describe('Pagination browser test', () => {
   })
 
   test('Test 0 hitsPerPage w/ page 0 ', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
