@@ -5,6 +5,7 @@ import {
   AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
   InstantSearchParams,
+  SearchContext,
 } from '../types'
 import {
   adaptSearchRequest,
@@ -13,12 +14,21 @@ import {
 } from '../adapter'
 import { cacheFilters } from '../cache'
 
+/**
+ * Create search context.
+ *
+ * @param  {string} indexName
+ * @param  {InstantSearchParams} params
+ * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
+ * @param  {MeiliSearch} MeiliSearchClient
+ * @returns SearchContext
+ */
 function createContext(
   indexName: string,
   params: InstantSearchParams,
   meiliSearchOptions: InstantMeiliSearchOptions = {},
   MeiliSearchClient: MeiliSearch
-) {
+): SearchContext {
   const {
     paginationTotalHits,
     primaryKey,
@@ -46,6 +56,14 @@ function createContext(
   return context
 }
 
+/**
+ * Instanciate SearchClient required by instantsearch.js.
+ *
+ * @param  {string} hostUrl
+ * @param  {string} apiKey
+ * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
+ * @returns InstantMeiliSearchInstance
+ */
 export function instantMeiliSearch(
   hostUrl: string,
   apiKey: string,
