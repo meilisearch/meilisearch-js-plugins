@@ -113,7 +113,7 @@ describe('Instant MeiliSearch Browser test', () => {
       indexName: 'movies',
       params: {
         query: 'night',
-        facetFilters: [['genres:action', 'genres:Thriller'], 'genres:crime'],
+        facetFilters: [['genres:action', 'genres:Thriller'], ['genres:crime']],
       },
     }
     const response = await searchClient.search<Movies>([params])
@@ -126,7 +126,7 @@ describe('Instant MeiliSearch Browser test', () => {
       indexName: 'movies',
       params: {
         query: '',
-        facetFilters: [['genres:action', 'genres:Thriller'], 'genres:crime'],
+        facetFilters: [['genres:action', 'genres:Thriller'], ['genres:crime']],
       },
     }
     const response = await searchClient.search<Movies>([params])

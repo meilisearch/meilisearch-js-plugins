@@ -47,8 +47,22 @@ describe('Highlight Browser test', () => {
       },
     ])
 
-    const resKeys = Object.keys(response.results[0]?.hits[0]?._highlightResult)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
+    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty('id')
+    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
+      'title'
+    )
+    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
+      'overview'
+    )
+    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
+      'genres'
+    )
+    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
+      'poster'
+    )
+    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
+      'release_date'
+    )
   })
 
   test('Test no attributesToHighlight on placeholder', async () => {
@@ -61,8 +75,7 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    const resKeys = response.results[0]?.hits[0]?._highlightResult
-    expect(resKeys).toEqual(undefined)
+    expect(response.results[0]?.hits[0]).not.toHaveProperty('_highlightResult')
   })
 
   test('Test one attributesToHighlight on specific query', async () => {
@@ -77,9 +90,7 @@ describe('Highlight Browser test', () => {
     ])
 
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual(
       '__ais-highlight__Ar__/ais-highlight__iel'
     )
   })
@@ -96,12 +107,10 @@ describe('Highlight Browser test', () => {
     ])
 
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual(
       '__ais-highlight__S__/ais-highlight__tar Wars'
     )
-    expect(highlightedResults.overview?.value).toEqual(
+    expect(highlightedResults?.overview?.value).toEqual(
       expect.stringMatching('__ais-highlight__S__/ais-highlight__kywalker')
     )
   })
@@ -118,12 +127,10 @@ describe('Highlight Browser test', () => {
     ])
 
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual(
       '__ais-highlight__Magnetic__/ais-highlight__ Rose'
     )
-    expect(highlightedResults.overview?.value).toEqual(
+    expect(highlightedResults?.overview?.value).toEqual(
       expect.not.stringMatching('__ais-highlight__Magnetic__/ais-highlight__')
     )
   })
@@ -139,12 +146,10 @@ describe('Highlight Browser test', () => {
       },
     ])
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual(
       '__ais-highlight__Magnetic__/ais-highlight__ Rose'
     )
-    expect(highlightedResults.overview?.value).toEqual(
+    expect(highlightedResults?.overview?.value).toEqual(
       expect.not.stringMatching('__ais-highlight__Magnetic__/ais-highlight__')
     )
   })
@@ -160,12 +165,10 @@ describe('Highlight Browser test', () => {
       },
     ])
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual(
       '__ais-highlight__Magnetic__/ais-highlight__ Rose'
     )
-    expect(highlightedResults.overview?.value).toEqual(
+    expect(highlightedResults?.overview?.value).toEqual(
       expect.not.stringMatching('__ais-highlight__Magnetic__/ais-highlight__')
     )
   })
@@ -182,12 +185,10 @@ describe('Highlight Browser test', () => {
     ])
 
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual(
       '__ais-highlight__S__/ais-highlight__tar Wars'
     )
-    expect(highlightedResults.overview?.value).toEqual(
+    expect(highlightedResults?.overview?.value).toEqual(
       expect.stringMatching('__ais-highlight__S__/ais-highlight__kywalker')
     )
   })
@@ -206,10 +207,8 @@ describe('Highlight Browser test', () => {
     ])
 
     const highlightedResults = response.results[0].hits[0]._highlightResult
-    const resKeys = Object.keys(highlightedResults)
-    expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
-    expect(highlightedResults.title?.value).toEqual('<p>S</p>tar Wars')
-    expect(highlightedResults.overview?.value).toEqual(
+    expect(highlightedResults?.title?.value).toEqual('<p>S</p>tar Wars')
+    expect(highlightedResults?.overview?.value).toEqual(
       expect.stringMatching('<p>S</p>olo')
     )
   })

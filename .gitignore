@@ -118,3 +118,4 @@ cypress/support
 cypress/plugins
 cypress/fixtures
 
+.vscode

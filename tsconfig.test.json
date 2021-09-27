@@ -3,5 +3,8 @@
   "compilerOptions": {
     "suppressImplicitAnyIndexErrors": true,
   },
+  "include": [
+    "./**/*"
+  ],
   "exclude": []
 }

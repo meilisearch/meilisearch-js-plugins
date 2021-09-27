@@ -9,9 +9,12 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "lib": ["ES2019", "ESNext", "dom"],
+    "lib": [
+      "ES2019",
+      "ESNext",
+      "dom"
+    ],
     "importHelpers": true,
-
     // Enforced typing rules
     "strict": true,
     "noImplicitAny": true,
@@ -29,6 +32,13 @@
     "noUnusedParameters": true,
     "isolatedModules": true
   },
-  "include": ["src"], // files to include during compilation
-  "exclude": ["tests", "*.js", "scripts", "**/__tests__/*.ts"],
+  "include": [
+    "src"
+  ], // files to include during compilation
+  "exclude": [
+    "tests",
+    "*.js",
+    "scripts",
+    "**/__tests__/*.ts"
+  ],
 }
