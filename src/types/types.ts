@@ -40,6 +40,7 @@ export type SearchContext = {
   placeholderSearch: boolean
   sort?: string
   query?: string
+  indexUid: string
 }
 
 export type AdaptToMeiliSearchParams = (
