@@ -9,14 +9,14 @@ export function ResponseCache(
 ): ResponseCacher {
   const searchCache = cache
   return {
-    getCachedValue: function (key: string) {
+    getEntry: function (key: string) {
       if (searchCache[key]) return JSON.parse(searchCache[key])
       return undefined
     },
-    createKey: function (components: any[]) {
+    formatKey: function (components: any[]) {
       return stringifyArray(components)
     },
-    populate: function (searchResponse: MeiliSearchResponse, key: string) {
+    setEntry: function (searchResponse: MeiliSearchResponse, key: string) {
       searchCache[key] = JSON.stringify(searchResponse)
     },
   }

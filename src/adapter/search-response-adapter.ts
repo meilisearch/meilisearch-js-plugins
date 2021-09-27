@@ -48,7 +48,8 @@ export function adaptSearchResponse<T>(
   const processingTimeMs = searchResponse.processingTimeMs
   const query = searchResponse.query
 
-  const { hitsPerPage, page } = instantMeiliSearchContext
+  const { hitsPerPage } = instantMeiliSearchContext
+  const page = instantSearchParams?.page || 0
 
   // Create response object compliant with InstantSearch
   const adaptedSearchResponse = {

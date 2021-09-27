@@ -36,13 +36,12 @@ export type InstantMeiliSearchOptions = {
 }
 
 export type ResponseCacher = {
-  getCachedValue: (key: string) => MeiliSearchResponse | undefined
-  createKey: (components: any[]) => string
-  populate: (searchResponse: MeiliSearchResponse, key: string) => void
+  getEntry: (key: string) => MeiliSearchResponse | undefined
+  formatKey: (components: any[]) => string
+  setEntry: (searchResponse: MeiliSearchResponse, key: string) => void
 }
 
 export type SearchContext = {
-  page: number
   paginationTotalHits: number
   hitsPerPage: number
   primaryKey?: string

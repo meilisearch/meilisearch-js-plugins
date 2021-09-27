@@ -13,8 +13,8 @@ export function adaptHits(
   instantSearchParams: InstantSearchParams,
   instantMeiliSearchContext: SearchContext
 ): any {
-  const { primaryKey } = instantMeiliSearchContext
-  const { page, hitsPerPage } = instantMeiliSearchContext
+  const { hitsPerPage, primaryKey } = instantMeiliSearchContext
+  const page = instantSearchParams?.page || 0
   const paginatedHits = adaptPagination(meiliSearchHits, page, hitsPerPage)
 
   return paginatedHits.map((hit: any) => {

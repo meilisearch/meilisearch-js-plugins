@@ -8,7 +8,7 @@ import {
   SearchContext,
 } from '../types'
 import { adaptSearchResponse } from '../adapter'
-import { SearchResolver } from '.'
+import { SearchResolver } from './search-resolver'
 import { ResponseCache } from '../cache'
 
 /**

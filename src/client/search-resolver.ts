@@ -1,4 +1,4 @@
-import { adaptSearchRequest, adaptFacetsDistribution } from '..'
+import { adaptSearchRequest, adaptFacetsDistribution } from '../adapter'
 import {
   SearchContext,
   InstantSearchParams,
@@ -13,7 +13,6 @@ import { cacheFilters } from '../cache'
  */
 export function SearchResolver(cache: ResponseCacher) {
   return {
-    cache,
     /**
      * @param  {SearchContext} searchContext
      * @param  {InstantSearchParams} instantsearchParams
@@ -25,10 +24,6 @@ export function SearchResolver(cache: ResponseCacher) {
       instantsearchParams: InstantSearchParams,
       client: MeiliSearch
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
-      const key = cache.createKey([searchContext, instantsearchParams])
-      const response = cache.getCachedValue(key)
-      if (response) return response
-
       // Adapt search request to MeiliSearch compliant search request
       const adaptedSearchRequest = adaptSearchRequest(
         instantsearchParams,
@@ -38,7 +33,18 @@ export function SearchResolver(cache: ResponseCacher) {
         searchContext.query
       )
 
-      // Cache filters
+      // Create key with relevant informations
+      const key = cache.formatKey([
+        adaptedSearchRequest,
+        searchContext.indexUid,
+        searchContext.query,
+      ])
+      const entry = cache.getEntry(key)
+
+      // Request is cached.
+      if (entry) return entry
+
+      // Cache filters: todo components
       const filterCache = cacheFilters(adaptedSearchRequest?.filter)
 
       // Make search request
@@ -53,7 +59,7 @@ export function SearchResolver(cache: ResponseCacher) {
       )
 
       // Cache response
-      cache.populate(searchResponse, key)
+      cache.setEntry(searchResponse, key)
       return searchResponse
     },
   }
