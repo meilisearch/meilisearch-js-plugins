@@ -1,67 +1,134 @@
 import { MeiliSearch } from 'meilisearch'
-import { InstantMeiliSearchOptions, InstantMeiliSearchInstance } from '../types'
-import { adaptToMeiliSearchParams, adaptToISResponse } from '../adapter'
-import { addMissingFacetZeroFields, cacheFilters } from '../cache'
+import {
+  InstantMeiliSearchOptions,
+  InstantMeiliSearchInstance,
+  AlgoliaSearchResponse,
+  AlgoliaMultipleQueriesQuery,
+  InstantSearchParams,
+  SearchContext,
+} from '../types'
+import {
+  adaptSearchRequest,
+  adaptSearchResponse,
+  facetsDistributionAdapter,
+} from '../adapter'
+import { cacheFilters } from '../cache'
 
+/**
+ * Create search context.
+ *
+ * @param  {string} indexName
+ * @param  {InstantSearchParams} params
+ * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
+ * @param  {MeiliSearch} MeiliSearchClient
+ * @returns SearchContext
+ */
+function createContext(
+  indexName: string,
+  params: InstantSearchParams,
+  meiliSearchOptions: InstantMeiliSearchOptions = {},
+  MeiliSearchClient: MeiliSearch
+): SearchContext {
+  const {
+    paginationTotalHits,
+    primaryKey,
+    placeholderSearch,
+  } = meiliSearchOptions
+
+  const page = params?.page
+  const hitsPerPage = params?.hitsPerPage
+
+  const query = params?.query
+  // Split index name and possible sorting rules
+  const [indexUid, ...sortByArray] = indexName.split(':')
+
+  const context = {
+    client: MeiliSearchClient,
+    indexUid: indexUid,
+    paginationTotalHits: paginationTotalHits || 200,
+    primaryKey: primaryKey || undefined,
+    placeholderSearch: placeholderSearch !== false, // true by default
+    hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
+    page: page || 0, // default page is 0 if none is provided
+    sort: sortByArray.join(':') || '',
+    query,
+  }
+  return context
+}
+
+/**
+ * Instanciate SearchClient required by instantsearch.js.
+ *
+ * @param  {string} hostUrl
+ * @param  {string} apiKey
+ * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
+ * @returns InstantMeiliSearchInstance
+ */
 export function instantMeiliSearch(
   hostUrl: string,
   apiKey: string,
-  options: InstantMeiliSearchOptions = {}
+  meiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
-    search: async function (instantSearchRequests) {
+    search: async function <T = Record<string, any>>(
+      instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
+      // options?: RequestOptions & MultipleQueriesOptions - When is this used ?
+    ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
-        const isSearchRequest = instantSearchRequests[0]
-        const { params: instantSearchParams, indexName } = isSearchRequest
+        const searchRequest = instantSearchRequests[0]
+        const { params: instantSearchParams } = searchRequest
 
-        // Split index name and possible sorting rules
-        const [indexUid, ...sortByArray] = indexName.split(':')
-
-        const { paginationTotalHits, primaryKey, placeholderSearch } = options
-        const { page, hitsPerPage } = instantSearchParams
-        const client = this.MeiliSearchClient
-        const context = {
-          client,
-          paginationTotalHits: paginationTotalHits || 200,
-          primaryKey: primaryKey || undefined,
-          placeholderSearch: placeholderSearch !== false, // true by default
-          hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
-          page: page || 0, // default page is 0 if none is provided
-          sort: sortByArray.join(':') || '',
-        }
-
-        // Adapt IS params to MeiliSearch params
-        const msSearchParams = adaptToMeiliSearchParams(
+        const context = createContext(
+          searchRequest.indexName,
           instantSearchParams,
-          context
+          meiliSearchOptions,
+          this.MeiliSearchClient
         )
-        const cachedFacet = cacheFilters(msSearchParams.filter)
+
+        // Adapt search request to MeiliSearch compliant search request
+        const adaptedSearchRequest = adaptSearchRequest(
+          instantSearchParams,
+          context.paginationTotalHits,
+          context.placeholderSearch,
+          context.sort,
+          context.query
+        )
+
+        // Cache filters
+        const cachedFacet = cacheFilters(adaptedSearchRequest?.filter)
 
         // Executes the search with MeiliSearch
-        const searchResponse = await client
-          .index(indexUid)
-          .search(msSearchParams.q, msSearchParams)
+        const searchResponse = await context.client
+          .index(context.indexUid)
+          .search(context.query, adaptedSearchRequest)
 
         // Add the checked facet attributes in facetsDistribution and give them a value of 0
-        searchResponse.facetsDistribution = addMissingFacetZeroFields(
+        searchResponse.facetsDistribution = facetsDistributionAdapter(
           cachedFacet,
           searchResponse.facetsDistribution
         )
 
-        // Parses the MeiliSearch response and returns it for InstantSearch
-        const ISresponse = adaptToISResponse(
-          indexUid,
+        // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
+        const adaptedSearchResponse = adaptSearchResponse<T>(
+          context.indexUid,
           searchResponse,
           instantSearchParams,
           context
         )
-
-        return ISresponse
-      } catch (e) {
+        return adaptedSearchResponse
+      } catch (e: any) {
         console.error(e)
         throw new Error(e)
       }
+    },
+    searchForFacetValues: async function (_) {
+      return await new Promise((resolve, reject) => {
+        reject(
+          new Error('SearchForFacetValues is not compatible with MeiliSearch')
+        )
+        resolve([]) // added here to avoid compilation error
+      })
     },
   }
 }

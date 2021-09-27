@@ -1,4 +1,4 @@
-import { searchClient, dataset } from './assets/utils'
+import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Instant MeiliSearch Browser test', () => {
   beforeAll(async () => {
@@ -19,7 +19,7 @@ describe('Instant MeiliSearch Browser test', () => {
   })
 
   test('Test one string facet on filter without a query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -34,7 +34,7 @@ describe('Instant MeiliSearch Browser test', () => {
   })
 
   test('Test one facet on filter with a query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -49,7 +49,7 @@ describe('Instant MeiliSearch Browser test', () => {
   })
 
   test('Test one string facet on filter without a query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -64,7 +64,7 @@ describe('Instant MeiliSearch Browser test', () => {
   })
 
   test('Test one facet on filter with a query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -79,7 +79,7 @@ describe('Instant MeiliSearch Browser test', () => {
   })
 
   test('Test multiple on filter without a query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -94,7 +94,7 @@ describe('Instant MeiliSearch Browser test', () => {
   })
 
   test('Test multiple on filter with a query', async () => {
-    const response = await searchClient.search([
+    const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
         params: {
@@ -113,10 +113,10 @@ describe('Instant MeiliSearch Browser test', () => {
       indexName: 'movies',
       params: {
         query: 'night',
-        facetFilters: [['genres:action', 'genres:Thriller'], 'genres:crime'],
+        facetFilters: [['genres:action', 'genres:Thriller'], ['genres:crime']],
       },
     }
-    const response = await searchClient.search([params])
+    const response = await searchClient.search<Movies>([params])
     const hits = response.results[0].hits
     expect(hits[0].title).toEqual('Judgment Night')
   })
@@ -126,10 +126,10 @@ describe('Instant MeiliSearch Browser test', () => {
       indexName: 'movies',
       params: {
         query: '',
-        facetFilters: [['genres:action', 'genres:Thriller'], 'genres:crime'],
+        facetFilters: [['genres:action', 'genres:Thriller'], ['genres:crime']],
       },
     }
-    const response = await searchClient.search([params])
+    const response = await searchClient.search<Movies>([params])
     const hits = response.results[0].hits
     expect(hits[0].title).toEqual('Kill Bill: Vol. 1')
   })
@@ -142,7 +142,7 @@ describe('Instant MeiliSearch Browser test', () => {
         facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
       },
     }
-    const response = await searchClient.search([params])
+    const response = await searchClient.search<Movies>([params])
     const hits = response.results[0].hits
     expect(hits[0].title).toEqual('Ariel')
   })
@@ -156,7 +156,7 @@ describe('Instant MeiliSearch Browser test', () => {
       },
     }
 
-    const response = await searchClient.search([params])
+    const response = await searchClient.search<Movies>([params])
     const hits = response.results[0].hits
     expect(hits[0].title).toEqual('Ariel')
   })
