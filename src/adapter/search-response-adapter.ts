@@ -39,7 +39,7 @@ export function adaptSearchResponse<T>(
   )
 
   const nbPages = ceiledDivision(
-    hits.length,
+    searchResponse.hits.length,
     instantMeiliSearchContext.hitsPerPage
   )
 
