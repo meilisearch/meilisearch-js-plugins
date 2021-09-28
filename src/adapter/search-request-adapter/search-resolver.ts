@@ -49,7 +49,7 @@ export function SearchResolver(cache: SearchCacheInterface) {
       )
 
       // Cache response
-      cache.setEntry(searchResponse, key)
+      cache.setEntry(key, searchResponse)
       return searchResponse
     },
   }

@@ -38,7 +38,7 @@ export type InstantMeiliSearchOptions = {
 export type SearchCacheInterface = {
   getEntry: (key: string) => MeiliSearchResponse | undefined
   formatKey: (components: any[]) => string
-  setEntry: (searchResponse: MeiliSearchResponse, key: string) => void
+  setEntry: (key: string, searchResponse: MeiliSearchResponse) => void
 }
 
 export type SearchContext = {

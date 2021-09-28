@@ -21,6 +21,6 @@ export function replaceColonByEqualSign(filter: string): string {
  */
 export function stringifyArray(arr: any[]): string {
   return arr.reduce((acc: string, curr: any) => {
-    return (acc += ` ${JSON.stringify(curr)}`)
+    return (acc += JSON.stringify(curr))
   }, '')
 }

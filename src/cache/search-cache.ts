@@ -10,13 +10,19 @@ export function SearchCache(
   const searchCache = cache
   return {
     getEntry: function (key: string) {
-      if (searchCache[key]) return JSON.parse(searchCache[key])
+      if (searchCache[key]) {
+        try {
+          return JSON.parse(searchCache[key])
+        } catch (_) {
+          return searchCache[key]
+        }
+      }
       return undefined
     },
     formatKey: function (components: any[]) {
       return stringifyArray(components)
     },
-    setEntry: function (searchResponse: MeiliSearchResponse, key: string) {
+    setEntry: function (key: string, searchResponse: MeiliSearchResponse) {
       searchCache[key] = JSON.stringify(searchResponse)
     },
   }
