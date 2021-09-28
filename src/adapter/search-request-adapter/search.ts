@@ -1,5 +1,9 @@
-import { MeiliSearch } from 'meilisearch'
-import { SearchContext, MeiliSearchParams, MeiliSearchResponse } from '../types'
+import {
+  SearchContext,
+  MeiliSearchParams,
+  MeiliSearchResponse,
+  MeiliSearch,
+} from '../../types'
 /**
  * @param  {MeiliSearch} client
  * @param  {SearchContext} context

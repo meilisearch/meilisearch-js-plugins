@@ -1,5 +1,5 @@
-import { Filter, FilterCache, ParsedFilter } from '../types'
-import { removeUndefined } from '../utils'
+import { Filter, ParsedFilter, FacetsDistribution, FilterCache } from '../../types'
+import { removeUndefined } from '../../utils'
 
 /**
  * @param  {string} filter
@@ -52,4 +52,39 @@ export function cacheFilters(filters?: Filter): FilterCache {
     },
     {} as FilterCache
   )
+}
+
+
+/**
+ * Assign missing filters to facetsDistribution.
+ * All facet passed as filter should appear in the facetsDistribution.
+ * If not present, the facet is added with 0 as value.
+ *
+ *
+ * @param  {FilterCache} cache?
+ * @param  {FacetsDistribution} distribution?
+ * @returns {FacetsDistribution}
+ */
+export function assignMissingFilters(
+  cache?: FilterCache,
+  distribution?: FacetsDistribution
+): FacetsDistribution {
+  distribution = distribution || {}
+  if (cache && Object.keys(cache).length > 0) {
+    for (const cachedFacet in cache) {
+      for (const cachedField of cache[cachedFacet]) {
+        // if cached field is not present in the returned distribution
+
+        if (
+          !distribution[cachedFacet] ||
+          !Object.keys(distribution[cachedFacet]).includes(cachedField)
+        ) {
+          // add 0 value
+          distribution[cachedFacet] = distribution[cachedFacet] || {}
+          distribution[cachedFacet][cachedField] = 0
+        }
+      }
+    }
+  }
+  return distribution
 }

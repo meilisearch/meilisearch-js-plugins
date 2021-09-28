@@ -1,5 +1,5 @@
-import { isString } from '../utils'
-import { InstantSearchParams } from '../types'
+import { isString } from '../../utils'
+import { InstantSearchParams } from '../../types'
 
 /**
  * Replace `em` tags in highlighted MeiliSearch hits to
@@ -42,7 +42,7 @@ function adaptHighlight(
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return Object.keys(formattedHit).reduce((result, key) => {
-    ;(result[key] as any) = {
+    ; (result[key] as any) = {
       value: replaceHighlightTags(
         formattedHit[key],
         highlightPreTag,
@@ -108,7 +108,7 @@ function adaptSnippet(
   // It contains all the highlighted and croped attributes
   return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
     if (attributesToSnippet?.includes(key)) {
-      ;(result[key] as any) = {
+      ; (result[key] as any) = {
         value: snippetValue(
           formattedHit[key],
           snippetEllipsisText,

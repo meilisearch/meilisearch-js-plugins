@@ -7,9 +7,12 @@ import {
   InstantSearchParams,
   SearchContext,
 } from '../types'
-import { adaptSearchResponse } from '../adapter'
-import { SearchResolver } from './search-resolver'
-import { ResponseCache } from '../cache'
+import {
+  adaptSearchResponse,
+  adaptSearchParams,
+  SearchResolver,
+} from '../adapter'
+import { SearchCache } from '../cache/search-cache'
 
 /**
  * Create search context.
@@ -64,7 +67,7 @@ export function instantMeiliSearch(
   apiKey: string,
   meiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
-  const searchResolver = SearchResolver(ResponseCache())
+  const searchResolver = SearchResolver(SearchCache())
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     search: async function <T = Record<string, any>>(
@@ -75,24 +78,32 @@ export function instantMeiliSearch(
         const searchRequest = instantSearchRequests[0]
         const { params: instantSearchParams } = searchRequest
 
-        const context = createContext(
+        const searchContext = createContext(
           searchRequest.indexName,
           instantSearchParams,
           meiliSearchOptions
         )
 
-        const searchResponse = await searchResolver.searchResponse(
-          context,
+        // Adapt search request to MeiliSearch compliant search request
+        const adaptedSearchRequest = adaptSearchParams(
           instantSearchParams,
+          searchContext.paginationTotalHits,
+          searchContext.placeholderSearch,
+          searchContext.sort,
+          searchContext.query
+        )
+
+        const searchResponse = await searchResolver.searchResponse(
+          searchContext,
+          adaptedSearchRequest,
           this.MeiliSearchClient
         )
 
         // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
         const adaptedSearchResponse = adaptSearchResponse<T>(
-          context.indexUid,
           searchResponse,
           instantSearchParams,
-          context
+          searchContext
         )
         return adaptedSearchResponse
       } catch (e: any) {

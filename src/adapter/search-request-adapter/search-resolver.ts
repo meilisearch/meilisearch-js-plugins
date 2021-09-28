@@ -1,17 +1,16 @@
-import { adaptSearchRequest, adaptFacetsDistribution } from '../adapter'
 import {
   SearchContext,
-  InstantSearchParams,
   MeiliSearch,
   MeiliSearchResponse,
-  ResponseCacher,
-} from '../types'
-import { cacheFilters } from '../cache'
+  SearchCacheInterface,
+  MeiliSearchParams,
+} from '../../types'
+import { cacheFilters, assignMissingFilters } from './filters'
 
 /**
  * @param  {ResponseCacher} cache
  */
-export function SearchResolver(cache: ResponseCacher) {
+export function SearchResolver(cache: SearchCacheInterface) {
   return {
     /**
      * @param  {SearchContext} searchContext
@@ -21,21 +20,12 @@ export function SearchResolver(cache: ResponseCacher) {
      */
     searchResponse: async function (
       searchContext: SearchContext,
-      instantsearchParams: InstantSearchParams,
+      searchParams: MeiliSearchParams,
       client: MeiliSearch
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
-      // Adapt search request to MeiliSearch compliant search request
-      const adaptedSearchRequest = adaptSearchRequest(
-        instantsearchParams,
-        searchContext.paginationTotalHits,
-        searchContext.placeholderSearch,
-        searchContext.sort,
-        searchContext.query
-      )
-
       // Create key with relevant informations
       const key = cache.formatKey([
-        adaptedSearchRequest,
+        searchParams,
         searchContext.indexUid,
         searchContext.query,
       ])
@@ -45,15 +35,15 @@ export function SearchResolver(cache: ResponseCacher) {
       if (entry) return entry
 
       // Cache filters: todo components
-      const filterCache = cacheFilters(adaptedSearchRequest?.filter)
+      const filterCache = cacheFilters(searchParams?.filter)
 
       // Make search request
       const searchResponse = await client
         .index(searchContext.indexUid)
-        .search(searchContext.query, adaptedSearchRequest)
+        .search(searchContext.query, searchParams)
 
       // Add facets back into facetsDistribution
-      searchResponse.facetsDistribution = adaptFacetsDistribution(
+      searchResponse.facetsDistribution = assignMissingFilters(
         filterCache,
         searchResponse.facetsDistribution
       )

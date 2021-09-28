@@ -1,4 +1,4 @@
-import type { InstantSearchParams, MeiliSearchParams } from '../types'
+import type { InstantSearchParams, MeiliSearchParams } from '../../types'
 
 import { adaptFilters } from './filter-adapter'
 
@@ -13,7 +13,7 @@ import { adaptFilters } from './filter-adapter'
  * @param  {string} query?
  * @returns MeiliSearchParams
  */
-export function adaptSearchRequest(
+export function adaptSearchParams(
   instantSearchParams: InstantSearchParams,
   paginationTotalHits: number,
   placeholderSearch: boolean,

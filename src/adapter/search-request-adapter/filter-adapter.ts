@@ -1,5 +1,5 @@
-import type { Filter, AlgoliaSearchOptions } from '../types'
-import { replaceColonByEqualSign } from '../utils'
+import type { Filter, AlgoliaSearchOptions } from '../../types'
+import { replaceColonByEqualSign } from '../../utils'
 
 /**
  * Transform InstantSearch filter to MeiliSearch filter.

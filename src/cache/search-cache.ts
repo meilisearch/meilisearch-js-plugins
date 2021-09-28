@@ -1,12 +1,12 @@
-import { ResponseCacher, MeiliSearchResponse } from '../types'
+import { SearchCacheInterface, MeiliSearchResponse } from '../types'
 import { stringifyArray } from '../utils'
 /**
  * @param  {Record<string} cache
- * @returns {ResponseCacher}
+ * @returns {SearchCache}
  */
-export function ResponseCache(
+export function SearchCache(
   cache: Record<string, string> = {}
-): ResponseCacher {
+): SearchCacheInterface {
   const searchCache = cache
   return {
     getEntry: function (key: string) {

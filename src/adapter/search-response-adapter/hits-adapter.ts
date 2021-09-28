@@ -1,4 +1,4 @@
-import type { InstantSearchParams, SearchContext } from '../types'
+import type { InstantSearchParams, SearchContext } from '../../types'
 import { adaptPagination } from './pagination-adapter'
 import { adaptFormating } from './highlight-adapter'
 
@@ -13,8 +13,7 @@ export function adaptHits(
   instantSearchParams: InstantSearchParams,
   instantMeiliSearchContext: SearchContext
 ): any {
-  const { hitsPerPage, primaryKey } = instantMeiliSearchContext
-  const page = instantSearchParams?.page || 0
+  const { hitsPerPage, primaryKey, page } = instantMeiliSearchContext
   const paginatedHits = adaptPagination(meiliSearchHits, page, hitsPerPage)
 
   return paginatedHits.map((hit: any) => {

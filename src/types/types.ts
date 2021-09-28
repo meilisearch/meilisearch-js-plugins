@@ -35,7 +35,7 @@ export type InstantMeiliSearchOptions = {
   primaryKey?: string
 }
 
-export type ResponseCacher = {
+export type SearchCacheInterface = {
   getEntry: (key: string) => MeiliSearchResponse | undefined
   formatKey: (components: any[]) => string
   setEntry: (searchResponse: MeiliSearchResponse, key: string) => void
@@ -44,6 +44,7 @@ export type ResponseCacher = {
 export type SearchContext = {
   paginationTotalHits: number
   hitsPerPage: number
+  page: number
   primaryKey?: string
   placeholderSearch: boolean
   sort?: string
