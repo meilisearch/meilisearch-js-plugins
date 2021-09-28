@@ -1,4 +1,4 @@
-import { SearchCacheInterface, MeiliSearchResponse } from '../types'
+import { SearchCacheInterface } from '../types'
 import { stringifyArray } from '../utils'
 /**
  * @param  {Record<string} cache
@@ -22,7 +22,7 @@ export function SearchCache(
     formatKey: function (components: any[]) {
       return stringifyArray(components)
     },
-    setEntry: function (key: string, searchResponse: MeiliSearchResponse) {
+    setEntry: function <T>(key: string, searchResponse: T) {
       searchCache[key] = JSON.stringify(searchResponse)
     },
   }

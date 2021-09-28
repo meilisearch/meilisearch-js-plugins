@@ -64,10 +64,12 @@ function createContext(
  */
 export function instantMeiliSearch(
   hostUrl: string,
-  apiKey: string,
+  apiKey = '',
   meiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
+  // create search resolver with included cache
   const searchResolver = SearchResolver(SearchCache())
+
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
     search: async function <T = Record<string, any>>(
