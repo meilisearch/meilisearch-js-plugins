@@ -1,4 +1,9 @@
-import { Filter, ParsedFilter, FacetsDistribution, FilterCache } from '../../types'
+import {
+  Filter,
+  ParsedFilter,
+  FacetsDistribution,
+  FilterCache,
+} from '../../types'
 import { removeUndefined } from '../../utils'
 
 /**
@@ -53,7 +58,6 @@ export function cacheFilters(filters?: Filter): FilterCache {
     {} as FilterCache
   )
 }
-
 
 /**
  * Assign missing filters to facetsDistribution.
