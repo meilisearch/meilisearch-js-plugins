@@ -1,4 +1,4 @@
-import type { Filter, AlgoliaSearchOptions } from '../../types'
+import type { Filter, SearchContext } from '../../types'
 import { replaceColonByEqualSign } from '../../utils'
 
 /**
@@ -6,12 +6,10 @@ import { replaceColonByEqualSign } from '../../utils'
  * Change sign from `:` to `=` in nested filter object.
  * example: [`genres:comedy`] becomes [`genres=comedy`]
  *
- * @param  {AlgoliaSearchOptions['facetFilters']} filters?
- * @returns Filter
+ * @param  {SearchContext['facetFilters']} filters?
+ * @returns {Filter}
  */
-function transformFilter(
-  filters?: AlgoliaSearchOptions['facetFilters']
-): Filter {
+function transformFilter(filters?: SearchContext['facetFilters']): Filter {
   if (typeof filters === 'string') {
     return replaceColonByEqualSign(filters)
   } else if (Array.isArray(filters))
@@ -34,7 +32,7 @@ function transformFilter(
  * If filter is array, return without change.
  *
  * @param  {Filter} filter
- * @returns Array
+ * @returns {Array}
  */
 function filterToArray(filter: Filter): Array<string | string[]> {
   // Filter is a string
@@ -51,7 +49,7 @@ function filterToArray(filter: Filter): Array<string | string[]> {
  * @param  {Filter} facetFilters
  * @param  {Filter} numericFilters
  * @param  {string} filters
- * @returns Filter
+ * @returns {Filter}
  */
 function mergeFilters(
   facetFilters: Filter,
@@ -82,14 +80,14 @@ function mergeFilters(
  * combining and transforming all provided filters.
  *
  * @param  {string|undefined} filters
- * @param  {AlgoliaSearchOptions['numericFilters']} numericFilters
- * @param  {AlgoliaSearchOptions['facetFilters']} facetFilters
- * @returns Filter
+ * @param  {SearchContext['numericFilters']} numericFilters
+ * @param  {SearchContext['facetFilters']} facetFilters
+ * @returns {Filter}
  */
 export function adaptFilters(
   filters: string | undefined,
-  numericFilters: AlgoliaSearchOptions['numericFilters'],
-  facetFilters: AlgoliaSearchOptions['facetFilters']
+  numericFilters: SearchContext['numericFilters'],
+  facetFilters: SearchContext['facetFilters']
 ): Filter {
   const transformedFilter = transformFilter(facetFilters || [])
   const transformedNumericFilter = transformFilter(numericFilters || [])

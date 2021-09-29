@@ -3,13 +3,11 @@ import type {
   SearchResponse as MeiliSearchResponse,
 } from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
-import type {
-  SearchOptions as AlgoliaSearchOptions,
-  MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
-} from '@algolia/client-search'
+import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
-export type { AlgoliaMultipleQueriesQuery, AlgoliaSearchOptions }
+export type { AlgoliaMultipleQueriesQuery }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
+
 export type {
   Filter,
   FacetsDistribution,
@@ -35,27 +33,31 @@ export type InstantMeiliSearchOptions = {
   primaryKey?: string
 }
 
+export type Context = {
+  paginationTotalHits: number
+  placeholderSearch: boolean
+  primaryKey?: string
+}
+
 export type SearchCacheInterface = {
   getEntry: (key: string) => MeiliSearchResponse | undefined
   formatKey: (components: any[]) => string
   setEntry: <T>(key: string, searchResponse: T) => void
 }
 
-export type SearchContext = {
+export type SearchContext = InstantSearchParams & {
+  primaryKey?: string
+  placeholderSearch?: boolean
+  sort?: string
+  indexUid: string
+  paginationTotalHits: number
+}
+
+export type PaginationContext = {
   paginationTotalHits: number
   hitsPerPage: number
   page: number
-  primaryKey?: string
-  placeholderSearch: boolean
-  sort?: string
-  query?: string
-  indexUid: string
 }
-
-export type AdaptToMeiliSearchParams = (
-  instantSearchParams: InstantSearchParams,
-  instantMeiliSearchContext: SearchContext
-) => Record<string, any>
 
 export type InstantMeiliSearchInstance = SearchClient & {
   MeiliSearchClient: MeiliSearch

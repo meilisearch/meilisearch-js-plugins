@@ -1,20 +1,21 @@
-import type { InstantSearchParams, SearchContext } from '../../types'
+import type { PaginationContext, SearchContext } from '../../types'
 import { adaptPagination } from './pagination-adapter'
 import { adaptFormating } from './highlight-adapter'
 
 /**
- * @param  {Array<Record<string} meiliSearchHits
- * @param  {InstantSearchParams} instantSearchParams
- * @param  {SearchContext} instantMeiliSearchContext
- * @returns any
+ * @param  {Array<Record<string} hits
+ * @param  {SearchContext} searchContext
+ * @param  {PaginationContext} paginationContext
+ * @returns {any}
  */
 export function adaptHits(
-  meiliSearchHits: Array<Record<string, any>>,
-  instantSearchParams: InstantSearchParams,
-  instantMeiliSearchContext: SearchContext
+  hits: Array<Record<string, any>>,
+  searchContext: SearchContext,
+  paginationContext: PaginationContext
 ): any {
-  const { hitsPerPage, primaryKey, page } = instantMeiliSearchContext
-  const paginatedHits = adaptPagination(meiliSearchHits, page, hitsPerPage)
+  const { primaryKey } = searchContext
+  const { hitsPerPage, page } = paginationContext
+  const paginatedHits = adaptPagination(hits, page, hitsPerPage)
 
   return paginatedHits.map((hit: any) => {
     // Creates Hit object compliant with InstantSearch
@@ -22,7 +23,7 @@ export function adaptHits(
       const { _formatted: formattedHit, _matchesInfo, ...restOfHit } = hit
       return {
         ...restOfHit,
-        ...adaptFormating(formattedHit, instantSearchParams),
+        ...adaptFormating(formattedHit, searchContext),
         ...(primaryKey && { objectID: hit[primaryKey] }),
       }
     }

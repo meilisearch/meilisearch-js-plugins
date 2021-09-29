@@ -4,7 +4,7 @@
  * @param  {Record<string} hits
  * @param  {number} page
  * @param  {number} hitsPerPage
- * @returns Array
+ * @returns {Array}
  */
 export function adaptPagination(
   hits: Record<string, any>,

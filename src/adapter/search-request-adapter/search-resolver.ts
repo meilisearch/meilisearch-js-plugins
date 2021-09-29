@@ -14,9 +14,9 @@ export function SearchResolver(cache: SearchCacheInterface) {
   return {
     /**
      * @param  {SearchContext} searchContext
-     * @param  {InstantSearchParams} instantsearchParams
+     * @param  {MeiliSearchParams} searchParams
      * @param  {MeiliSearch} client
-     * @returns {Promise<MeiliSearchResponse<Record<string, any>>>}
+     * @returns Promise
      */
     searchResponse: async function (
       searchContext: SearchContext,

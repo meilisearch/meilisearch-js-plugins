@@ -1,5 +1,5 @@
 import { isString } from '../../utils'
-import { InstantSearchParams } from '../../types'
+import { SearchContext } from '../../types'
 
 /**
  * Replace `em` tags in highlighted MeiliSearch hits to
@@ -8,7 +8,7 @@ import { InstantSearchParams } from '../../types'
  * @param  {string} value
  * @param  {string} highlightPreTag?
  * @param  {string} highlightPostTag?
- * @returns string
+ * @returns {string}
  */
 function replaceHighlightTags(
   value: any,
@@ -32,7 +32,7 @@ function replaceHighlightTags(
  * @param  {Record<string} formattedHit
  * @param  {string} highlightPreTag?
  * @param  {string} highlightPostTag?
- * @returns Record
+ * @returns {Record}
  */
 function adaptHighlight(
   formattedHit: Record<string, any>,
@@ -58,7 +58,7 @@ function adaptHighlight(
  * @param  {string} snippetEllipsisText?
  * @param  {string} highlightPreTag?
  * @param  {string} highlightPostTag?
- * @returns string
+ * @returns {string}
  */
 function snippetValue(
   value: string,
@@ -125,17 +125,17 @@ function adaptSnippet(
  * Adapt MeiliSearch formating to formating compliant with instantsearch.js.
  *
  * @param  {Record<string} formattedHit
- * @param  {InstantSearchParams} instantSearchParams
- * @returns Record
+ * @param  {SearchContext} searchContext
+ * @returns {Record}
  */
 export function adaptFormating(
   formattedHit: Record<string, any>,
-  instantSearchParams: InstantSearchParams
+  searchContext: SearchContext
 ): Record<string, any> {
-  const attributesToSnippet = instantSearchParams?.attributesToSnippet
-  const snippetEllipsisText = instantSearchParams?.snippetEllipsisText
-  const highlightPreTag = instantSearchParams?.highlightPreTag
-  const highlightPostTag = instantSearchParams?.highlightPostTag
+  const attributesToSnippet = searchContext?.attributesToSnippet
+  const snippetEllipsisText = searchContext?.snippetEllipsisText
+  const highlightPreTag = searchContext?.highlightPreTag
+  const highlightPostTag = searchContext?.highlightPostTag
 
   if (!formattedHit || formattedHit.length) return {}
   return {

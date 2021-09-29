@@ -5,7 +5,9 @@ import {
   AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
   InstantSearchParams,
+  Context,
   SearchContext,
+  PaginationContext,
 } from '../types'
 import {
   adaptSearchResponse,
@@ -13,46 +15,6 @@ import {
   SearchResolver,
 } from '../adapter'
 import { SearchCache } from '../cache/search-cache'
-
-/**
- * Create search context.
- *
- * @param  {string} indexName
- * @param  {InstantSearchParams} params
- * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
- * @param  {MeiliSearch} MeiliSearchClient
- * @returns {SearchContext}
- */
-function createContext(
-  indexName: string,
-  params: InstantSearchParams,
-  meiliSearchOptions: InstantMeiliSearchOptions = {}
-): SearchContext {
-  const {
-    paginationTotalHits,
-    primaryKey,
-    placeholderSearch,
-  } = meiliSearchOptions
-
-  const page = params?.page
-  const hitsPerPage = params?.hitsPerPage
-
-  const query = params?.query
-  // Split index name and possible sorting rules
-  const [indexUid, ...sortByArray] = indexName.split(':')
-
-  const context = {
-    indexUid: indexUid,
-    paginationTotalHits: paginationTotalHits || 200,
-    primaryKey: primaryKey || undefined,
-    placeholderSearch: placeholderSearch !== false, // true by default
-    hitsPerPage: hitsPerPage === undefined ? 20 : hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
-    page: page || 0, // default page is 0 if none is provided
-    sort: sortByArray.join(':') || '',
-    query,
-  }
-  return context
-}
 
 /**
  * Instanciate SearchClient required by instantsearch.js.
@@ -65,35 +27,44 @@ function createContext(
 export function instantMeiliSearch(
   hostUrl: string,
   apiKey = '',
-  meiliSearchOptions: InstantMeiliSearchOptions = {}
+  options: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
   // create search resolver with included cache
   const searchResolver = SearchResolver(SearchCache())
 
+  const context: Context = {
+    primaryKey: options.primaryKey || undefined,
+    placeholderSearch: options.placeholderSearch !== false, // true by default
+    paginationTotalHits: options.paginationTotalHits || 200,
+  }
+
   return {
     MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
+
+    /**
+     * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
+     * @returns {Array}
+     */
     search: async function <T = Record<string, any>>(
       instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
-      // options?: RequestOptions & MultipleQueriesOptions - When is this used ?
     ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
         const searchRequest = instantSearchRequests[0]
         const { params: instantSearchParams } = searchRequest
 
-        const searchContext = createContext(
-          searchRequest.indexName,
-          instantSearchParams,
-          meiliSearchOptions
+        const searchContext: SearchContext = createSearchContext(
+          searchRequest,
+          context
+        )
+        console.log(searchContext)
+
+        const paginationContext = createPaginationContext(
+          searchContext,
+          instantSearchParams
         )
 
         // Adapt search request to MeiliSearch compliant search request
-        const adaptedSearchRequest = adaptSearchParams(
-          instantSearchParams,
-          searchContext.paginationTotalHits,
-          searchContext.placeholderSearch,
-          searchContext.sort,
-          searchContext.query
-        )
+        const adaptedSearchRequest = adaptSearchParams(searchContext)
 
         const searchResponse = await searchResolver.searchResponse(
           searchContext,
@@ -104,8 +75,8 @@ export function instantMeiliSearch(
         // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
         const adaptedSearchResponse = adaptSearchResponse<T>(
           searchResponse,
-          instantSearchParams,
-          searchContext
+          searchContext,
+          paginationContext
         )
         return adaptedSearchResponse
       } catch (e: any) {
@@ -121,5 +92,47 @@ export function instantMeiliSearch(
         resolve([]) // added here to avoid compilation error
       })
     },
+  }
+}
+
+/**
+ * @param  {AlgoliaMultipleQueriesQuery} searchRequest
+ * @param  {Context} options
+ * @returns {SearchContext}
+ */
+function createSearchContext(
+  searchRequest: AlgoliaMultipleQueriesQuery,
+  options: Context
+): SearchContext {
+  console.log(searchRequest)
+
+  // Split index name and possible sorting rules
+  const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
+  const { params: instantSearchParams } = searchRequest
+  console.log({ indexUid, sortByArray })
+
+  const searchContext: SearchContext = {
+    ...options,
+    ...instantSearchParams,
+    sort: sortByArray.join(':') || '',
+    indexUid,
+  }
+  return searchContext
+}
+
+/**
+ * @param  {AlgoliaMultipleQueriesQuery} searchRequest
+ * @param  {Context} options
+ * @returns {SearchContext}
+ */
+function createPaginationContext(
+  searchContext: SearchContext,
+  params: InstantSearchParams
+): PaginationContext {
+  return {
+    paginationTotalHits: searchContext.paginationTotalHits || 200,
+    hitsPerPage:
+      searchContext.hitsPerPage === undefined ? 20 : searchContext.hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
+    page: params?.page || 0, // default page is 0 if none is provided
   }
 }
