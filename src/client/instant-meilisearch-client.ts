@@ -56,7 +56,6 @@ export function instantMeiliSearch(
           searchRequest,
           context
         )
-        console.log(searchContext)
 
         const paginationContext = createPaginationContext(
           searchContext,
