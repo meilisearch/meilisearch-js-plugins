@@ -69,5 +69,10 @@ export function adaptSearchParams(
     meiliSearchParams.sort = [sort]
   }
 
+  const insideBoundingBox = adaptGeoPoint(instantSearchParams?.insideBoundingBox)
+  if (insideBoundingBox) {
+
+  }
+
   return meiliSearchParams
 }
