@@ -75,8 +75,9 @@ describe('Pagination browser test', () => {
       apiKey: '',
     })
     expect(mockedSearch).toHaveBeenCalledTimes(2)
-  })
-  test('Test two same and one different search parameter', async () => {
+ })
+  
+  test('Test two identical and one different search parameters', async () => {
     const searchParameters1 = {
       indexName: 'movies',
       params: {
