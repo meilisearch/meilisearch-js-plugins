@@ -1,8 +1,12 @@
 import { instantMeiliSearch } from '../../../src/index'
 import injectScript from 'scriptjs'
+console.log(process.env.local)
+console.log(process.env.GOOGLE_API)
+
+const GOOGLE_API = process.env.GOOGLE_API
 
 injectScript(
-  'https://maps.googleapis.com/maps/api/js?v=quarterly&key=AIzaSyBNrL9pJHScT2Xma6OdhyVZLBGO9v7JcAA',
+  `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
     const search = instantsearch({
       indexName: 'steam-video-games',
