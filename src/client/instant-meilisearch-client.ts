@@ -103,7 +103,6 @@ function createSearchContext(
   searchRequest: AlgoliaMultipleQueriesQuery,
   options: Context
 ): SearchContext {
-  console.log(searchRequest)
 
   // Split index name and possible sorting rules
   const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
