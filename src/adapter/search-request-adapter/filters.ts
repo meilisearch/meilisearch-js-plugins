@@ -15,7 +15,7 @@ const adaptFilterSyntax = (filter: string) => {
     const [_, filterName, value] = matches
     return [{ filterName, value }]
   }
-  return [undefined]
+  return []
 }
 
 /**
@@ -35,7 +35,7 @@ function extractFilters(filters?: Filter): Array<ParsedFilter | undefined> {
       })
       .flat(2)
   }
-  return [undefined]
+  return []
 }
 
 /**
@@ -70,21 +70,23 @@ export function cacheFilters(filters?: Filter): FilterCache {
  * @returns {FacetsDistribution}
  */
 export function assignMissingFilters(
-  cache?: FilterCache,
+  cachedFilters?: FilterCache,
   distribution?: FacetsDistribution
 ): FacetsDistribution {
   distribution = distribution || {}
-  if (cache && Object.keys(cache).length > 0) {
-    for (const cachedFacet in cache) {
-      for (const cachedField of cache[cachedFacet]) {
-        // if cached field is not present in the returned distribution
 
-        if (
-          !distribution[cachedFacet] ||
-          !Object.keys(distribution[cachedFacet]).includes(cachedField)
-        ) {
+  // If cachedFilters contains something
+  if (cachedFilters && Object.keys(cachedFilters).length > 0) {
+    // for all filters in cached filters
+    for (const cachedFacet in cachedFilters) {
+      // if facet does not exist on returned distribution, add an empty object
+      if (!distribution[cachedFacet]) distribution[cachedFacet] = {}
+      // for all fields in every filter
+      for (const cachedField of cachedFilters[cachedFacet]) {
+        // if the field is not present in the returned distribution
+        // set it at 0
+        if (!Object.keys(distribution[cachedFacet]).includes(cachedField)) {
           // add 0 value
-          distribution[cachedFacet] = distribution[cachedFacet] || {}
           distribution[cachedFacet][cachedField] = 0
         }
       }
