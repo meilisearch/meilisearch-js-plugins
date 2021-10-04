@@ -34,7 +34,7 @@ describe('Pagination browser test', () => {
     jest.clearAllMocks()
   })
 
-  test('Test two same search parameters twice', async () => {
+  test('Test the same search parameters twice', async () => {
     const searchParameters = {
       indexName: 'movies',
       params: {
