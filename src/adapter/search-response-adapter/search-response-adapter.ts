@@ -1,27 +1,25 @@
 import type {
   SearchContext,
-  InstantSearchParams,
   MeiliSearchResponse,
   AlgoliaSearchResponse,
-} from '../types'
-import { ceiledDivision } from '../utils'
+  PaginationContext,
+} from '../../types'
+import { ceiledDivision } from '../../utils'
 import { adaptHits } from './hits-adapter'
 
 /**
  * Adapt search response from MeiliSearch
  * to search response compliant with instantsearch.js
  *
- * @param  {string} indexUid
  * @param  {MeiliSearchResponse<Record<string} searchResponse
- * @param  {InstantSearchParams} instantSearchParams
- * @param  {SearchContext} instantMeiliSearchContext
- * @returns Array
+ * @param  {SearchContext} searchContext
+ * @param  {PaginationContext} paginationContext
+ * @returns {{ results: Array<AlgoliaSearchResponse<T>> }}
  */
 export function adaptSearchResponse<T>(
-  indexUid: string,
   searchResponse: MeiliSearchResponse<Record<string, any>>,
-  instantSearchParams: InstantSearchParams,
-  instantMeiliSearchContext: SearchContext
+  searchContext: SearchContext,
+  paginationContext: PaginationContext
 ): { results: Array<AlgoliaSearchResponse<T>> } {
   const searchResponseOptionals: Record<string, any> = {}
 
@@ -32,15 +30,11 @@ export function adaptSearchResponse<T>(
     searchResponseOptionals.exhaustiveFacetsCount = exhaustiveFacetsCount
   }
 
-  const hits = adaptHits(
-    searchResponse.hits,
-    instantSearchParams,
-    instantMeiliSearchContext
-  )
+  const hits = adaptHits(searchResponse.hits, searchContext, paginationContext)
 
   const nbPages = ceiledDivision(
     searchResponse.hits.length,
-    instantMeiliSearchContext.hitsPerPage
+    paginationContext.hitsPerPage
   )
 
   const exhaustiveNbHits = searchResponse.exhaustiveNbHits
@@ -48,11 +42,11 @@ export function adaptSearchResponse<T>(
   const processingTimeMs = searchResponse.processingTimeMs
   const query = searchResponse.query
 
-  const { hitsPerPage, page } = instantMeiliSearchContext
+  const { hitsPerPage, page } = paginationContext
 
   // Create response object compliant with InstantSearch
   const adaptedSearchResponse = {
-    index: indexUid,
+    index: searchContext.indexUid,
     hitsPerPage,
     page,
     facets,

@@ -1,4 +1,4 @@
-import { cacheFilters } from '..'
+import { cacheFilters } from '../filters'
 
 const facetCacheData = [
   {

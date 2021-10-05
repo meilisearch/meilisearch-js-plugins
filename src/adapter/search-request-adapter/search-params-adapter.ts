@@ -1,4 +1,4 @@
-import type { InstantSearchParams, MeiliSearchParams } from '../types'
+import type { MeiliSearchParams, SearchContext } from '../../types'
 
 import { adaptFilters } from './filter-adapter'
 
@@ -6,46 +6,38 @@ import { adaptFilters } from './filter-adapter'
  * Adapt search request from instantsearch.js
  * to search request compliant with MeiliSearch
  *
- * @param  {InstantSearchParams} instantSearchParams
- * @param  {number} paginationTotalHits
- * @param  {boolean} placeholderSearch
- * @param  {string} sort?
- * @param  {string} query?
- * @returns MeiliSearchParams
+ * @param  {SearchContext} searchContext
+ * @returns {MeiliSearchParams}
  */
-export function adaptSearchRequest(
-  instantSearchParams: InstantSearchParams,
-  paginationTotalHits: number,
-  placeholderSearch: boolean,
-  sort?: string,
-  query?: string
+export function adaptSearchParams(
+  searchContext: SearchContext
 ): MeiliSearchParams {
   // Creates search params object compliant with MeiliSearch
   const meiliSearchParams: Record<string, any> = {}
 
   // Facets
-  const facets = instantSearchParams?.facets
+  const facets = searchContext?.facets
   if (facets?.length) {
     meiliSearchParams.facetsDistribution = facets
   }
 
   // Attributes To Crop
-  const attributesToCrop = instantSearchParams?.attributesToSnippet
+  const attributesToCrop = searchContext?.attributesToSnippet
   if (attributesToCrop) {
     meiliSearchParams.attributesToCrop = attributesToCrop
   }
 
   // Attributes To Retrieve
-  const attributesToRetrieve = instantSearchParams?.attributesToRetrieve
+  const attributesToRetrieve = searchContext?.attributesToRetrieve
   if (attributesToRetrieve) {
     meiliSearchParams.attributesToRetrieve = attributesToRetrieve
   }
 
   // Filter
   const filter = adaptFilters(
-    instantSearchParams?.filters,
-    instantSearchParams?.numericFilters,
-    instantSearchParams?.facetFilters
+    searchContext?.filters,
+    searchContext?.numericFilters,
+    searchContext?.facetFilters
   )
   if (filter.length) {
     meiliSearchParams.filter = filter
@@ -57,9 +49,13 @@ export function adaptSearchRequest(
   }
 
   // Attributes To Highlight
-  meiliSearchParams.attributesToHighlight = instantSearchParams?.attributesToHighlight || [
+  meiliSearchParams.attributesToHighlight = searchContext?.attributesToHighlight || [
     '*',
   ]
+
+  const placeholderSearch = meiliSearchParams.placeholderSearch
+  const query = meiliSearchParams.query
+  const paginationTotalHits = meiliSearchParams.paginationTotalHits
 
   if ((!placeholderSearch && query === '') || paginationTotalHits === 0) {
     meiliSearchParams.limit = 0
@@ -67,6 +63,7 @@ export function adaptSearchRequest(
     meiliSearchParams.limit = paginationTotalHits
   }
 
+  const sort = searchContext.sort
   // Sort
   if (sort?.length) {
     meiliSearchParams.sort = [sort]

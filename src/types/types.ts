@@ -1,22 +1,24 @@
-import type { MeiliSearch } from 'meilisearch'
-import type { SearchClient } from 'instantsearch.js'
 import type {
-  SearchOptions as AlgoliaSearchOptions,
-  MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
-} from '@algolia/client-search'
+  MeiliSearch,
+  SearchResponse as MeiliSearchResponse,
+} from 'meilisearch'
+import type { SearchClient } from 'instantsearch.js'
+import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
-export type { AlgoliaMultipleQueriesQuery, AlgoliaSearchOptions }
+export type { AlgoliaMultipleQueriesQuery }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
+
 export type {
   Filter,
   FacetsDistribution,
   SearchResponse as MeiliSearchResponse,
   SearchParams as MeiliSearchParams,
+  MeiliSearch,
 } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
 
-export type Cache = {
+export type FilterCache = {
   [category: string]: string[]
 }
 
@@ -31,22 +33,31 @@ export type InstantMeiliSearchOptions = {
   primaryKey?: string
 }
 
-export type SearchContext = {
-  page: number
+export type Context = {
   paginationTotalHits: number
-  hitsPerPage: number
-  primaryKey?: string
-  client: MeiliSearch
   placeholderSearch: boolean
-  sort?: string
-  query?: string
-  indexUid: string
+  primaryKey?: string
 }
 
-export type AdaptToMeiliSearchParams = (
-  instantSearchParams: InstantSearchParams,
-  instantMeiliSearchContext: SearchContext
-) => Record<string, any>
+export type SearchCacheInterface = {
+  getEntry: (key: string) => MeiliSearchResponse | undefined
+  formatKey: (components: any[]) => string
+  setEntry: <T>(key: string, searchResponse: T) => void
+}
+
+export type SearchContext = InstantSearchParams & {
+  primaryKey?: string
+  placeholderSearch?: boolean
+  sort?: string
+  indexUid: string
+  paginationTotalHits: number
+}
+
+export type PaginationContext = {
+  paginationTotalHits: number
+  hitsPerPage: number
+  page: number
+}
 
 export type InstantMeiliSearchInstance = SearchClient & {
   MeiliSearchClient: MeiliSearch
