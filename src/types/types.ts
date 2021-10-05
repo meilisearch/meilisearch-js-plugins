@@ -51,6 +51,7 @@ export type SearchContext = InstantSearchParams & {
   sort?: string
   indexUid: string
   paginationTotalHits: number
+  insideBoundingBox?: string
 }
 
 export type PaginationContext = {

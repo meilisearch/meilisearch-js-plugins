@@ -1,5 +1,6 @@
 import type { MeiliSearchParams, SearchContext } from '../../types'
 
+import { adaptGeoPoint } from './adapt-geopoint'
 import { adaptFilters } from './filter-adapter'
 
 /**
@@ -69,9 +70,13 @@ export function adaptSearchParams(
     meiliSearchParams.sort = [sort]
   }
 
-  const insideBoundingBox = adaptGeoPoint(instantSearchParams?.insideBoundingBox)
-  if (insideBoundingBox) {
+  // console.log(searchContext?.insideBoundingBox)
 
+  // @ts-expect - error class uses strings
+  const geoTruc = adaptGeoPoint(searchContext?.insideBoundingBox)
+  if (geoTruc) {
+    meiliSearchParams.filter = [geoTruc[0]] // todo this override all filters
+    meiliSearchParams.sort = [geoTruc[1]] // todo this override all filters
   }
 
   return meiliSearchParams

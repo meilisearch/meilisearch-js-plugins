@@ -52,9 +52,9 @@ export function instantMeiliSearch(
         const searchRequest = instantSearchRequests[0]
         const { params: instantSearchParams } = searchRequest
 
-        instantSearchRequests.map((x) =>
-          console.log(JSON.stringify(x, null, 2))
-        )
+        // instantSearchRequests.map((x) =>
+        //   console.log(JSON.stringify(x, null, 2))
+        // )
 
         const searchContext: SearchContext = createSearchContext(
           searchRequest,
@@ -94,6 +94,10 @@ export function instantMeiliSearch(
           this.MeiliSearchClient
         )
 
+        // searchResponse.hits[0]._geoloc = {
+        //   lat: 50.629973371633746,
+        //   lng: 3.056944739941957,
+        // }
         for (const res of searchResponse.hits) {
           if (res._geo) {
             res._geoloc = {
