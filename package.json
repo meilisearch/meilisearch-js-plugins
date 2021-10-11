@@ -53,7 +53,7 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "^0.21.0"
+    "meilisearch": "^0.22.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
