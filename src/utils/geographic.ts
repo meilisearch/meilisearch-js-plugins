@@ -10,7 +10,7 @@ export function middleGeoPoints(
   lng1: number,
   lat2: number,
   lng2: number
-): { lat3: number; lng3: number } {
+): string {
   // convert to radians
   lat1 = degr2rad(lat1)
   lng1 = degr2rad(lng1)
@@ -47,7 +47,7 @@ export function middleGeoPoints(
     lng3 = 0
   }
 
-  return { lat3, lng3 }
+  return `${lat3},${lng3}`
 }
 
 export function getDistanceInMeter(

@@ -49,12 +49,10 @@ export function instantMeiliSearch(
       instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
     ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
+        console.log(JSON.stringify(instantSearchRequests));
+
         const searchRequest = instantSearchRequests[0]
         const { params: instantSearchParams } = searchRequest
-
-        // instantSearchRequests.map((x) =>
-        //   console.log(JSON.stringify(x, null, 2))
-        // )
 
         const searchContext: SearchContext = createSearchContext(
           searchRequest,
@@ -94,19 +92,20 @@ export function instantMeiliSearch(
           this.MeiliSearchClient
         )
 
-        // searchResponse.hits[0]._geoloc = {
-        //   lat: 50.629973371633746,
-        //   lng: 3.056944739941957,
-        // }
-        for (const res of searchResponse.hits) {
-          if (res._geo) {
-            res._geoloc = {
-              lat: res._geo.lat,
-              lng: res._geo.lng,
+        for (let i = 0; i < searchResponse.hits.length; i++) {
+          if (searchResponse.hits[i]._geo) {
+            searchResponse.hits[i]._geoloc = {
+              lat: searchResponse.hits[i]._geo.lat,
+              lng: searchResponse.hits[i]._geo.lng,
             }
-            delete res._geo
+
+            // searchResponse.hits[i].objectID = searchResponse.hits[i].id
+            searchResponse.hits[i].objectID = `${i + Math.random() * 1000000}`
+            delete searchResponse.hits[i]._geo
+            // delete searchResponse.hits[i]._geoDistance
           }
         }
+
         // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
         const adaptedSearchResponse = adaptSearchResponse<T>(
           searchResponse,

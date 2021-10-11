@@ -1,6 +1,9 @@
 import type { MeiliSearchParams, SearchContext } from '../../types'
 
-import { adaptGeoPoint } from './adapt-geopoint'
+import {
+  adaptGeoPointsRules,
+  createGeoSearchContext,
+} from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
 /**
@@ -54,10 +57,11 @@ export function adaptSearchParams(
     '*',
   ]
 
-  const placeholderSearch = meiliSearchParams.placeholderSearch
-  const query = meiliSearchParams.query
-  const paginationTotalHits = meiliSearchParams.paginationTotalHits
+  const placeholderSearch = searchContext.placeholderSearch
+  const query = searchContext.query
+  const paginationTotalHits = searchContext.paginationTotalHits
 
+  // Limit
   if ((!placeholderSearch && query === '') || paginationTotalHits === 0) {
     meiliSearchParams.limit = 0
   } else {
@@ -70,14 +74,26 @@ export function adaptSearchParams(
     meiliSearchParams.sort = [sort]
   }
 
-  // console.log(searchContext?.insideBoundingBox)
+  const geoSearchContext = createGeoSearchContext(searchContext)
+  console.log(geoSearchContext)
 
-  // @ts-expect - error class uses strings
-  const geoTruc = adaptGeoPoint(searchContext?.insideBoundingBox)
-  if (geoTruc) {
-    meiliSearchParams.filter = [geoTruc[0]] // todo this override all filters
-    meiliSearchParams.sort = [geoTruc[1]] // todo this override all filters
+  const geoRules = adaptGeoPointsRules(geoSearchContext)
+  console.log(geoRules)
+
+  if (geoRules) {
+    if (meiliSearchParams.filter) {
+      meiliSearchParams.filter.unshift(geoRules.filter)
+    } else {
+      meiliSearchParams.filter = [geoRules.filter]
+    }
+
+    if (meiliSearchParams.sort) {
+      meiliSearchParams.sort.unshift(geoRules.sort)
+    } else {
+      meiliSearchParams.sort = [geoRules.sort]
+    }
   }
+  console.log(meiliSearchParams)
 
   return meiliSearchParams
 }

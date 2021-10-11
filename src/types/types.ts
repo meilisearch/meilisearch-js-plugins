@@ -47,12 +47,28 @@ export type SearchCacheInterface = {
 
 export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
 
-export type SearchContext = InstantSearchParams & {
+type ClientParams = {
   primaryKey?: string
   placeholderSearch?: boolean
   sort?: string
   indexUid: string
   paginationTotalHits: number
+}
+
+export type GeoSearchContext = {
+  aroundLatLng?: string
+  aroundLatLngViaIP?: boolean
+  aroundRadius?: number | 'all'
+  aroundPrecision?: number
+  minimumAroundRadius?: number
+  insideBoundingBox?: InsideBoundingBox
+  insidePolygon?: ReadonlyArray<readonly number[]>
+}
+
+export type SearchContext = Omit<
+  InstantSearchParams & ClientParams,
+  'insideBoundingBox'
+> & {
   insideBoundingBox?: InsideBoundingBox
 }
 
