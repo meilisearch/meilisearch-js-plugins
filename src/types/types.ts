@@ -45,13 +45,15 @@ export type SearchCacheInterface = {
   setEntry: <T>(key: string, searchResponse: T) => void
 }
 
+export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
+
 export type SearchContext = InstantSearchParams & {
   primaryKey?: string
   placeholderSearch?: boolean
   sort?: string
   indexUid: string
   paginationTotalHits: number
-  insideBoundingBox?: string
+  insideBoundingBox?: InsideBoundingBox
 }
 
 export type PaginationContext = {
