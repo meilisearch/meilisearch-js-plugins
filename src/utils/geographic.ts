@@ -73,5 +73,6 @@ export function getDistanceInMeter(
   const bearing = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
   const distance = R * bearing // in metres
-  return distance
+
+  return Math.ceil(distance)
 }
