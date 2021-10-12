@@ -6,16 +6,91 @@ test('Adapt geoPoints rules without a boundingBox', () => {
 })
 
 test('Adapt geoPoints rules with same 0 lat and 0 lng geo points', () => {
-  const rules = adaptGeoPointsRules('0,0,0,0')
+  const rules = adaptGeoPointsRules({
+    insideBoundingBox: '0,0,0,0',
+  })
 
   expect(rules?.filter).toBe('_geoRadius(0, 0, 0)')
   expect(rules?.sort).toBe('_geoPoint(0, 0):asc')
 })
 
 test('Adapt geoPoints rules with integer geo points', () => {
-  const rules = adaptGeoPointsRules('1,2,3,4')
+  const rules = adaptGeoPointsRules({
+    insideBoundingBox: '1,2,3,4',
+  })
   expect(rules?.filter).toBe(
-    '_geoRadius(2.0003044085023727, 2.999390393801055, 157202)'
+    '_geoRadius(2.0003044085023727, 2.999390393801055, 157201.5)'
+  )
+  expect(rules?.sort).toBe(
+    '_geoPoint(2.0003044085023727, 2.999390393801055):asc'
+  )
+})
+
+test('Try geoContext with only a radius', () => {
+  const rules = adaptGeoPointsRules({
+    aroundRadius: 1,
+  })
+  expect(rules).toBeUndefined()
+})
+
+test('Try geoContext with an aroundLatLng', () => {
+  const rules = adaptGeoPointsRules({
+    aroundLatLng: '51.1241999, 9.662499900000057',
+  })
+  expect(rules?.sort).toBe('_geoPoint(51.1241999,  9.662499900000057):asc')
+  expect(rules?.filter).toBeUndefined()
+})
+
+test('Try geoContext with an aroundLatLng and a radius', () => {
+  const rules = adaptGeoPointsRules({
+    aroundLatLng: '51.1241999, 9.662499900000057',
+    aroundRadius: 1,
+  })
+  expect(rules?.sort).toBe('_geoPoint(51.1241999,  9.662499900000057):asc')
+  expect(rules?.filter).toBe('_geoRadius(51.1241999,  9.662499900000057, 1)')
+})
+
+test('Try geoContext with an aroundLatLng and a 0 radius', () => {
+  const rules = adaptGeoPointsRules({
+    aroundLatLng: '51.1241999, 9.662499900000057',
+    aroundRadius: 0,
+  })
+  expect(rules?.sort).toBe('_geoPoint(51.1241999,  9.662499900000057):asc')
+  expect(rules?.filter).toBe('_geoRadius(51.1241999,  9.662499900000057, 0)')
+})
+
+test('Try geoContext with aroundLatLng, radius and insideBoundingBox', () => {
+  const rules = adaptGeoPointsRules({
+    aroundLatLng: '51.1241999, 9.662499900000057',
+    aroundRadius: 1,
+    insideBoundingBox: '1,2,3,4',
+  })
+  expect(rules?.filter).toBe(
+    '_geoRadius(2.0003044085023727, 2.999390393801055, 157201.5)'
+  )
+  expect(rules?.sort).toBe(
+    '_geoPoint(2.0003044085023727, 2.999390393801055):asc'
+  )
+})
+test('Try geoContext with a radius and insideBoundingBox', () => {
+  const rules = adaptGeoPointsRules({
+    aroundRadius: 1,
+    insideBoundingBox: '1,2,3,4',
+  })
+  expect(rules?.filter).toBe(
+    '_geoRadius(2.0003044085023727, 2.999390393801055, 157201.5)'
+  )
+  expect(rules?.sort).toBe(
+    '_geoPoint(2.0003044085023727, 2.999390393801055):asc'
+  )
+})
+test('Try geoContext with aroundLatLng and insideBoundingBox', () => {
+  const rules = adaptGeoPointsRules({
+    aroundLatLng: '51.1241999, 9.662499900000057',
+    insideBoundingBox: '1,2,3,4',
+  })
+  expect(rules?.filter).toBe(
+    '_geoRadius(2.0003044085023727, 2.999390393801055, 157201.5)'
   )
   expect(rules?.sort).toBe(
     '_geoPoint(2.0003044085023727, 2.999390393801055):asc'
