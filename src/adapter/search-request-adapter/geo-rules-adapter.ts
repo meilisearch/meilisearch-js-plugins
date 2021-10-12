@@ -2,8 +2,11 @@ import { SearchContext, GeoSearchContext } from '../../types'
 import { getDistanceInMeter, middleGeoPoints } from '../../utils/geographic'
 
 export function adaptGeoPointsRules(
-  geoSearchContext: GeoSearchContext
+  geoSearchContext?: GeoSearchContext
 ): { filter?: string; sort?: string } | undefined {
+  if (!geoSearchContext) {
+    return undefined
+  }
   const {
     insideBoundingBox,
     aroundLatLng,
@@ -17,8 +20,9 @@ export function adaptGeoPointsRules(
   if (aroundLatLng) {
     middlePoint = aroundLatLng
   }
-  if (aroundRadius || minimumAroundRadius) {
-    radius = aroundRadius
+  if (aroundRadius != null || minimumAroundRadius != null) {
+    if (aroundRadius != null) radius = aroundRadius
+    else radius = minimumAroundRadius
   }
 
   // If insideBoundingBox is provided it takes precedent over all other options
@@ -35,7 +39,7 @@ export function adaptGeoPointsRules(
     middlePoint = middleGeoPoints(lat1, lng1, lat2, lng2)
   }
 
-  if (middlePoint && radius) {
+  if (middlePoint != null && radius != null) {
     const [lat3, lng3] = middlePoint.split(',')
 
     // check if radius is big enough
@@ -44,7 +48,7 @@ export function adaptGeoPointsRules(
     const sort = `_geoPoint(${lat3}, ${lng3}):asc`
 
     return { filter, sort }
-  } else if (middlePoint) {
+  } else if (middlePoint != null) {
     const [lat3, lng3] = middlePoint.split(',')
     const sort = `_geoPoint(${lat3}, ${lng3}):asc`
     return { sort }
@@ -67,7 +71,6 @@ export function createGeoSearchContext(
   } = searchContext
 
   if (aroundLatLng) {
-    // only filter
     geoContext.aroundLatLng = aroundLatLng
   }
 
@@ -84,7 +87,7 @@ export function createGeoSearchContext(
     See this discussion to track its implementation https://github.com/meilisearch/product/discussions/264`)
   }
 
-  if (minimumAroundRadius && aroundLatLng) {
+  if (minimumAroundRadius) {
     geoContext.minimumAroundRadius = minimumAroundRadius
   }
 
@@ -93,7 +96,9 @@ export function createGeoSearchContext(
   }
   // TODO: issue
   if (insidePolygon) {
-    geoContext.insidePolygon = insidePolygon
+    console.warn(
+      `instant-meilisearch: \`insidePolygon\` is not implented in instant-meilisearch.`
+    )
   }
   return geoContext
 }

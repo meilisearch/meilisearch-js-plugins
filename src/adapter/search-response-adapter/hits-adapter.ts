@@ -1,6 +1,7 @@
 import type { PaginationContext, SearchContext } from '../../types'
 import { adaptPagination } from './pagination-adapter'
 import { adaptFormating } from './highlight-adapter'
+import { adaptGeoResponse } from './geo-reponse-adapter'
 
 /**
  * @param  {Array<Record<string} hits
@@ -17,7 +18,7 @@ export function adaptHits(
   const { hitsPerPage, page } = paginationContext
   const paginatedHits = adaptPagination(hits, page, hitsPerPage)
 
-  return paginatedHits.map((hit: any) => {
+  let formattedHits = paginatedHits.map((hit: Record<string, any>) => {
     // Creates Hit object compliant with InstantSearch
     if (Object.keys(hit).length > 0) {
       const { _formatted: formattedHit, _matchesInfo, ...restOfHit } = hit
@@ -29,4 +30,6 @@ export function adaptHits(
     }
     return hit
   })
+  formattedHits = adaptGeoResponse(formattedHits)
+  return formattedHits
 }
