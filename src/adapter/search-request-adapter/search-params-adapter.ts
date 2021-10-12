@@ -75,10 +75,8 @@ export function adaptSearchParams(
   }
 
   const geoSearchContext = createGeoSearchContext(searchContext)
-  console.log(geoSearchContext)
 
   const geoRules = adaptGeoPointsRules(geoSearchContext)
-  console.log(geoRules)
 
   if (geoRules) {
     if (meiliSearchParams.filter) {
@@ -93,7 +91,7 @@ export function adaptSearchParams(
       meiliSearchParams.sort = [geoRules.sort]
     }
   }
-  console.log(meiliSearchParams)
+  // console.log(meiliSearchParams)
 
   return meiliSearchParams
 }
