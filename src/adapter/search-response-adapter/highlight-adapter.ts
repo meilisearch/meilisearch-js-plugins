@@ -104,10 +104,11 @@ function adaptSnippet(
   attributesToSnippet = attributesToSnippet.map(
     (attribute) => attribute.split(':')[0]
   ) as any[]
+  const snippetAll = attributesToSnippet.includes('*')
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
   return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
-    if (attributesToSnippet?.includes(key)) {
+    if (snippetAll || attributesToSnippet?.includes(key)) {
       ;(result[key] as any) = {
         value: snippetValue(
           formattedHit[key],
