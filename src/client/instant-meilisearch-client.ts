@@ -49,8 +49,6 @@ export function instantMeiliSearch(
       instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
     ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
-        console.log(JSON.stringify(instantSearchRequests));
-
         const searchRequest = instantSearchRequests[0]
         const { params: instantSearchParams } = searchRequest
 
@@ -67,44 +65,11 @@ export function instantMeiliSearch(
         // Adapt search request to MeiliSearch compliant search request
         const adaptedSearchRequest = adaptSearchParams(searchContext)
 
-        // - insideBoundingBox
-        // Possiblt to set inside bounding box
-        // helper.setQueryParameter('insideBoundingBox', [
-        //   [51.1241999, 9.662499900000057, 41.3253001, -5.559099999999944],
-        // ])
-
-        // aroundLatLngViaIP
-
-        // When recieving aroundLatLngViaIP, but no insideBoundingBox, create _geo arround user's IP
-        // If no access to users's IP use go to default
-        // We need a default starting position
-        // We need to determine the aroundRadius by default
-
-        // When recieving insideBoundingBox, calculate center of diagonal of points recieved. This is the center position arround which the radius is applied
-        // ex "_geoRadius(lat, long, ..)"
-
-        // When reciving insideBoundingBox calculate height between longs or lats and take biggest number
-        // ex "_geoRadius(lat, long, biggest number)"
-
         const searchResponse = await searchResolver.searchResponse(
           searchContext,
           adaptedSearchRequest,
           this.MeiliSearchClient
         )
-
-        for (let i = 0; i < searchResponse.hits.length; i++) {
-          if (searchResponse.hits[i]._geo) {
-            searchResponse.hits[i]._geoloc = {
-              lat: searchResponse.hits[i]._geo.lat,
-              lng: searchResponse.hits[i]._geo.lng,
-            }
-
-            // searchResponse.hits[i].objectID = searchResponse.hits[i].id
-            searchResponse.hits[i].objectID = `${i + Math.random() * 1000000}`
-            delete searchResponse.hits[i]._geo
-            // delete searchResponse.hits[i]._geoDistance
-          }
-        }
 
         // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
         const adaptedSearchResponse = adaptSearchResponse<T>(
