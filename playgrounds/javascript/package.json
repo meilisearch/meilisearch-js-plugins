@@ -22,7 +22,5 @@
     "last 3 safari versions"
   ],
   "license": "MIT",
-  "dependencies": {
-    "scriptjs": "^2.5.9"
-  }
+  "dependencies": {}
 }

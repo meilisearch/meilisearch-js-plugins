@@ -12,12 +12,6 @@ import {
   SortBy,
   Snippet,
 } from 'react-instantsearch-dom'
-import {
-  GoogleMapsLoader,
-  GeoSearch,
-  Control,
-  Marker,
-} from 'react-instantsearch-dom-maps'
 
 import './App.css'
 import { instantMeiliSearch } from '../../../src/index'
@@ -44,22 +38,6 @@ const App = () => (
       This is not the official Steam dataset but only for demo purpose. Enjoy
       searching with MeiliSearch!
     </p>
-    <div style={{ height: 500 }}>
-      <GoogleMapsLoader apiKey="AIzaSyBNrL9pJHScT2Xma6OdhyVZLBGO9v7JcAA">
-        {(google) => (
-          <GeoSearch google={google}>
-            {({ hits }) => (
-              <div>
-                <Control />
-                {hits.map((hit) => (
-                  <Marker key={hit.objectID} hit={hit} />
-                ))}
-              </div>
-            )}
-          </GeoSearch>
-        )}
-      </GoogleMapsLoader>
-    </div>
     <InstantSearch indexName="steam-video-games" searchClient={searchClient}>
       <Stats />
       <div className="left-panel">
