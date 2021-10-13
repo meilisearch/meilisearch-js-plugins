@@ -88,19 +88,3 @@ test('Adapt SearchContext with no sort abd no filters and geo rules ', () => {
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
-// test('AdaptGeoPoints with same 0 lat and 0 lng geo points', () => {
-//   const returnedDistribution = adaptSearchParams('0,0,0,0')
-
-//   expect(returnedDistribution?.filter).toBe('_geoRadius(0, 0, 0)')
-//   expect(returnedDistribution?.sort).toBe('_geoPoint(0, 0):asc')
-// })
-
-// test('AdaptGeoPoints with integer geo points', () => {
-//   const returnedDistribution = adaptSearchParams('1,2,3,4')
-//   expect(returnedDistribution?.filter).toBe(
-//     '_geoRadius(2.0003044085023727, 2.999390393801055, 157202)'
-//   )
-//   expect(returnedDistribution?.sort).toBe(
-//     '_geoPoint(2.0003044085023727, 2.999390393801055):asc'
-//   )
-// })
