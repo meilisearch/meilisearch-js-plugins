@@ -87,7 +87,7 @@ export function createGeoSearchContext(
   if (insideBoundingBox) {
     geoContext.insideBoundingBox = insideBoundingBox
   }
-  // TODO: issue
+  // See related issue: https://github.com/meilisearch/instant-meilisearch/issues/555
   if (insidePolygon) {
     console.warn(
       `instant-meilisearch: \`insidePolygon\` is not implented in instant-meilisearch.`
