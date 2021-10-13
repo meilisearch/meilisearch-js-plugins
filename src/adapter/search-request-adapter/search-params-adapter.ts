@@ -91,7 +91,6 @@ export function adaptSearchParams(
       meiliSearchParams.sort = [geoRules.sort]
     }
   }
-  // console.log(meiliSearchParams)
 
   return meiliSearchParams
 }

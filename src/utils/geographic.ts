@@ -1,10 +1,26 @@
+/**
+ * @param  {number} rad
+ * @returns {number}
+ */
 function rad2degr(rad: number): number {
   return (rad * 180) / Math.PI
 }
+
+/**
+ * @param  {number} degr
+ * @returns {number}
+ */
 function degr2rad(degr: number): number {
   return (degr * Math.PI) / 180
 }
 
+/**
+ * @param  {number} lat1
+ * @param  {number} lng1
+ * @param  {number} lat2
+ * @param  {number} lng2
+ * @returns {string}
+ */
 export function middleGeoPoints(
   lat1: number,
   lng1: number,
@@ -49,7 +65,13 @@ export function middleGeoPoints(
 
   return `${lat3},${lng3}`
 }
-
+/**
+ * @param  {number} lat1
+ * @param  {number} lng1
+ * @param  {number} lat2
+ * @param  {number} lng2
+ * @returns {number}
+ */
 export function getDistanceInMeter(
   lat1: number,
   lng1: number,
