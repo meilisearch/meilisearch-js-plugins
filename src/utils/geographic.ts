@@ -96,5 +96,5 @@ export function getDistanceInMeter(
 
   const distance = R * bearing // in metres
 
-  return Math.ceil(distance)
+  return distance
 }

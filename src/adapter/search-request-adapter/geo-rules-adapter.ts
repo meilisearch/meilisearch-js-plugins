@@ -45,13 +45,7 @@ export function adaptGeoPointsRules(
     // check if radius is big enough
     const filter = `_geoRadius(${lat3}, ${lng3}, ${radius})`
 
-    const sort = `_geoPoint(${lat3}, ${lng3}):asc`
-
-    return { filter, sort }
-  } else if (middlePoint != null) {
-    const [lat3, lng3] = middlePoint.split(',')
-    const sort = `_geoPoint(${lat3}, ${lng3}):asc`
-    return { sort }
+    return { filter }
   }
   return undefined
 }

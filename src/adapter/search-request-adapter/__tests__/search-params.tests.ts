@@ -40,7 +40,7 @@ test('Adapt SearchContext with filters, sort and geo rules ', () => {
     ['genres="Drama"', 'genres="Thriller"'],
     ['title="Ariel"'],
   ])
-  expect(searchParams.sort).toStrictEqual(['_geoPoint(0, 0):asc', 'id < 1'])
+  expect(searchParams.sort).toStrictEqual(['id < 1'])
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
@@ -71,7 +71,7 @@ test('Adapt SearchContext with only sort and geo rules ', () => {
   })
 
   expect(searchParams.filter).toEqual(['_geoRadius(0, 0, 0)'])
-  expect(searchParams.sort).toStrictEqual(['_geoPoint(0, 0):asc', 'id < 1'])
+  expect(searchParams.sort).toStrictEqual(['id < 1'])
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
@@ -84,7 +84,6 @@ test('Adapt SearchContext with no sort abd no filters and geo rules ', () => {
   })
 
   expect(searchParams.filter).toEqual(['_geoRadius(0, 0, 0)'])
-  expect(searchParams.sort).toStrictEqual(['_geoPoint(0, 0):asc'])
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })

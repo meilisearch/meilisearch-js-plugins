@@ -34,7 +34,7 @@ describe('Instant MeiliSearch Browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toEqual(13)
-    expect(hits[0].city).toEqual('Brussels')
+    expect(hits[0].city).toEqual('Ghent')
   })
 
   test('Test aroundLatLng being overwritten by insideBoundingBox in geo search', async () => {
@@ -53,7 +53,7 @@ describe('Instant MeiliSearch Browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toEqual(7)
-    expect(hits[0].city).toEqual('Hellemmes')
+    expect(hits[0].city).toEqual('Lille')
   })
 
   test('Test insideBoundingBox in geo search', async () => {
@@ -70,7 +70,7 @@ describe('Instant MeiliSearch Browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toEqual(4)
-    expect(hits[0].city).toEqual('Brussels')
+    expect(hits[0].city).toEqual('Ghent')
   })
 
   test('Test insideBoundingBox and aroundRadius in geo search', async () => {
@@ -88,7 +88,7 @@ describe('Instant MeiliSearch Browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toEqual(4)
-    expect(hits[0].city).toEqual('Brussels')
+    expect(hits[0].city).toEqual('Ghent')
   })
 
   test('Test insideBoundingBox and aroundLatLng in geo search', async () => {
@@ -106,6 +106,6 @@ describe('Instant MeiliSearch Browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toEqual(4)
-    expect(hits[0].city).toEqual('Brussels')
+    expect(hits[0].city).toEqual('Ghent')
   })
 })
