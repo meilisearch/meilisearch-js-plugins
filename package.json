@@ -16,6 +16,7 @@
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
     "playground:javascript": "yarn --cwd ./playgrounds/javascript && yarn --cwd ./playgrounds/javascript start",
+    "playground:geo-javascript": "yarn --cwd ./playgrounds/geo-javascript && yarn --cwd ./playgrounds/geo-javascript start",
     "playground:html": "yarn --cwd ./playgrounds/html && yarn --cwd ./playgrounds/html start",
     "playground:angular": "yarn --cwd ./playgrounds/angular && yarn --cwd ./playgrounds/angular start",
     "postbuild": "yarn typingsheader",

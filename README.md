@@ -495,7 +495,33 @@ The `geoSearch` widget displays search results on a Google Map. It lets you sear
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-#### Usage
+[See our playground for a working exemple](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `MeiliSearch`.
+
+#### Requirements
+
+The Geosearch widgey only works with a valid Google API key.
+
+In order to communicate your Google API key, your `instantSearch` widget should be surrounded by the following function:
+
+```js
+import injectScript from 'scriptjs'
+
+injectScript(
+  `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
+  () => {
+      const search = instantsearch({
+      indexName: 'geo',
+      // ...
+      })
+      // ...
+  })
+```
+
+Replace `${GOOGLE_API}` with you google api key.
+
+See [code example in the playground](./playgrounds/geo-javascript/src/app.js)
+
+### Usage
 
 The classic usage, with only the `required` elements, renders an embedded Google Map on which you can move and refine search based on the position maps.
 
@@ -510,12 +536,12 @@ For further customization, for example to determine an initial position for the 
 
 The following parameters exist:
 
-- `insideBoundingBox`: The Google Map window box. It is used as parameter in a search request. It takes precedent on all the following parameters.
-- `aroundLatLng`: The middle point of the Google Map. If `insideBoundingBox` is present, it is ignored.
-- `aroundRadius`: The radius around a Geo Point, used for sorting in the search request. It only works if `aroundLatLng` is present as well. If `insideBoundingBox` is present, it is ignored.
+- `boundingBox`: The Google Map window box. It is used as parameter in a search request. It takes precedent on all the following parameters.
+- `aroundLatLng`: The middle point of the Google Map. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
+- `aroundRadius`: The radius around a Geo Point, used for sorting in the search request. It only works if `aroundLatLng` is present as well. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
 
 
-For exemple, by adding `insideBoundingBox` in the [`instantSearch`](#-instantsearch) widget parameters, the parameter is used to refine the first search request.
+For exemple, by adding `boundingBox` in the [`instantSearch`](#-instantsearch) widget parameters, the parameter will be used as a search parameter for the first request.
 
 ```js
   initialUiState: {

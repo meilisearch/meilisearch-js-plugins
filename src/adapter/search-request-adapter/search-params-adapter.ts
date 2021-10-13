@@ -69,13 +69,13 @@ export function adaptSearchParams(
   }
 
   const sort = searchContext.sort
+
   // Sort
   if (sort?.length) {
     meiliSearchParams.sort = [sort]
   }
 
   const geoSearchContext = createGeoSearchContext(searchContext)
-
   const geoRules = adaptGeoPointsRules(geoSearchContext)
 
   if (geoRules?.filter) {
@@ -83,14 +83,6 @@ export function adaptSearchParams(
       meiliSearchParams.filter.unshift(geoRules.filter)
     } else {
       meiliSearchParams.filter = [geoRules.filter]
-    }
-  }
-  // Useless until `proximityGeoRule` is implemented. See https://github.com/meilisearch/instant-meilisearch/issues/554
-  if (geoRules?.sort) {
-    if (meiliSearchParams.sort) {
-      meiliSearchParams.sort.unshift(geoRules.sort)
-    } else {
-      meiliSearchParams.sort = [geoRules.sort]
     }
   }
 

@@ -42,7 +42,6 @@ export function adaptGeoPointsRules(
   if (middlePoint != null && radius != null) {
     const [lat3, lng3] = middlePoint.split(',')
 
-    // check if radius is big enough
     const filter = `_geoRadius(${lat3}, ${lng3}, ${radius})`
 
     return { filter }
