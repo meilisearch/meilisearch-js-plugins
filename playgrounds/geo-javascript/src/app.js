@@ -26,18 +26,18 @@ injectScript(
         container: '#searchbox',
       }),
       instantsearch.widgets.configure({
-        hitsPerPage: 6,
+        hitsPerPage: 20,
       }),
       instantsearch.widgets.geoSearch({
         container: '#maps',
         googleReference: window.google,
-        initialZoom: 5,
+        initialZoom: 7,
         initialPosition: {
           lat: 50.655250871381355,
           lng: 4.843585698860502,
         },
       }),
-      instantsearch.widgets.hits({
+      instantsearch.widgets.infiniteHits({
         container: '#hits',
         templates: {
           item: `
@@ -48,9 +48,6 @@ injectScript(
             </div>
           `,
         },
-      }),
-      instantsearch.widgets.pagination({
-        container: '#pagination',
       }),
     ])
 

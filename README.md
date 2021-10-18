@@ -205,7 +205,7 @@ List of all the components that are available in [instantSearch](https://github.
 - ✅ [InfiniteHits](#-infinitehits)
 - ✅ [Highlight](#-highlight)
 - ✅ [Snippet](#-snippet)
-- ❌[Geo Search](#-geo-search)
+- ✅ [Geo Search](#-geo-search)
 - ❌[Answers](#-answers)
 - ✅ [RefinementList](#-refinementlist)
 - ❌[HierarchicalMenu](#-hierarchicalmenu)
