@@ -49,6 +49,45 @@ describe('Snippet Browser test', () => {
     expect(snippeted?.overview?.value).toEqual('While...')
   })
 
+  test('Test * attributesToSnippet on specific query', async () => {
+    const response = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: 'judg',
+          attributesToSnippet: ['*:2'],
+          snippetEllipsisText: '...',
+        },
+      },
+    ])
+    const highlighted = response.results[0]?.hits[0]?._highlightResult
+    const snippeted = response.results[0].hits[0]._snippetResult
+    expect(highlighted?.id?.value).toEqual('6')
+    expect(highlighted?.title?.value).toEqual(
+      '__ais-highlight__Judg__/ais-highlight__ment Night'
+    )
+    expect(highlighted?.overview?.value).toEqual('While')
+    expect(highlighted?.genres).toBeTruthy()
+    if (highlighted?.genres) {
+      expect(highlighted?.genres[0].value).toEqual('Action')
+      expect(highlighted?.genres[1].value).toEqual('Thriller')
+      expect(highlighted?.genres[2].value).toEqual('Crime')
+    }
+    expect(highlighted?.release_date?.value).toEqual('750643200')
+    expect(snippeted?.id?.value).toEqual('6')
+    expect(snippeted?.title?.value).toEqual(
+      '__ais-highlight__Judg__/ais-highlight__ment Night...'
+    )
+    expect(snippeted?.overview?.value).toEqual('While...')
+    expect(snippeted?.genres).toBeTruthy()
+    if (snippeted?.genres) {
+      expect(snippeted?.genres[0].value).toEqual('Action...')
+      expect(snippeted?.genres[1].value).toEqual('Thriller...')
+      expect(snippeted?.genres[2].value).toEqual('Crime...')
+    }
+    expect(snippeted?.release_date?.value).toEqual('750643200')
+  })
+
   test('Test two attributesToSnippet on specific query with one hit empty string', async () => {
     const response = await searchClient.search<Movies>([
       {

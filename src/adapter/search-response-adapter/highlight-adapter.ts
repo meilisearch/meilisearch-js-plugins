@@ -41,14 +41,14 @@ function adaptHighlight(
 ): Record<string, any> {
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
+  const toHighlightMatch = (value: any) => ({
+    value: replaceHighlightTags(value, highlightPreTag, highlightPostTag),
+  })
   return Object.keys(formattedHit).reduce((result, key) => {
-    ;(result[key] as any) = {
-      value: replaceHighlightTags(
-        formattedHit[key],
-        highlightPreTag,
-        highlightPostTag
-      ),
-    }
+    const value = formattedHit[key]
+    result[key] = Array.isArray(value)
+      ? value.map(toHighlightMatch)
+      : toHighlightMatch(value)
     return result
   }, {} as any)
 }
@@ -104,18 +104,23 @@ function adaptSnippet(
   attributesToSnippet = attributesToSnippet.map(
     (attribute) => attribute.split(':')[0]
   ) as any[]
+  const snippetAll = attributesToSnippet.includes('*')
   // formattedHit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
+  const toSnippetMatch = (value: any) => ({
+    value: snippetValue(
+      value,
+      snippetEllipsisText,
+      highlightPreTag,
+      highlightPostTag
+    ),
+  })
   return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
-    if (attributesToSnippet?.includes(key)) {
-      ;(result[key] as any) = {
-        value: snippetValue(
-          formattedHit[key],
-          snippetEllipsisText,
-          highlightPreTag,
-          highlightPostTag
-        ),
-      }
+    if (snippetAll || attributesToSnippet?.includes(key)) {
+      const value = formattedHit[key]
+      result[key] = Array.isArray(value)
+        ? value.map(toSnippetMatch)
+        : toSnippetMatch(value)
     }
     return result
   }, {} as any)
