@@ -205,7 +205,7 @@ List of all the components that are available in [instantSearch](https://github.
 - ✅ [InfiniteHits](#-infinitehits)
 - ✅ [Highlight](#-highlight)
 - ✅ [Snippet](#-snippet)
-- ❌[Geo Search](#-geo-search)
+- ✅ [Geo Search](#-geo-search)
 - ❌[Answers](#-answers)
 - ✅ [RefinementList](#-refinementlist)
 - ❌[HierarchicalMenu](#-hierarchicalmenu)
@@ -474,13 +474,98 @@ instantsearch.widgets.hits({
 })
 ```
 
-### ❌ Geo Search
+### ✅ Geo Search
 
 [Geo search references](https://www.algolia.com/doc/api-reference/widgets/geo-search/js/)
 
-No compatibility because MeiliSearch does not support Geo Search.
+The `geoSearch` widget displays search results on a Google Map. It lets you search for results based on their position and provides some common usage patterns such as “search on map interactions”.
 
-If you'd like to see it implemented please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/33-geo-search?utm_medium=social&utm_source=portal_share).
+- ✅ container: The CSS Selector or HTMLElement to insert the Google maps into. _required_
+- ✅ googleReference: The reference to the global window.google object. See the [Google Maps](https://developers.google.com/maps/documentation/javascript/overview) documentation for more information. _required_
+
+- ✅ initialZoom: When no search results are found, google map will default to this zoom.
+- ✅ initialPosition: When no search results are found, google map will default to this position.
+- ✅ mapOptions: The options forwarded to the Google Maps constructor.
+- ❔ builtInMarker: Used to customize Google Maps markers. Because of lack of tests we cannot guarantee its compatibility. For more information please visit [InstantSearch related documentation](https://www.algolia.com/doc/api-reference/widgets/geo-search/js/#widget-param-builtinmarker).
+- customHTMLMarker: Same as `builtInMarker`. Because of lack of tests, we cannot guarantee its compatibility. For more information please visit [InstantSearch related documentation](https://www.algolia.com/doc/api-reference/widgets/geo-search/js/#widget-param-customhtmlmarker).
+- ✅ enableRefine: If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
+- ✅ enableClearMapRefinement: If `true`, a button is displayed on the map when the refinement is coming from interacting with it, to remove it.
+- ✅ enableRefineControl: If `true`, the map is used for refining the search. Otherwise, it’s only for display purposes.
+- ✅ enableRefineOnMapMove: If `true`, a button is displayed on the map when the refinement is coming from interacting with it, to remove it.,
+- ✅ templates: The templates to use for the widget.
+- ✅ cssClasses: The CSS classes to override.
+
+[See our playground for a working exemple](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `MeiliSearch`.
+
+#### Requirements
+
+The Geosearch widgey only works with a valid Google API key.
+
+In order to communicate your Google API key, your `instantSearch` widget should be surrounded by the following function:
+
+```js
+import injectScript from 'scriptjs'
+
+injectScript(
+  `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
+  () => {
+      const search = instantsearch({
+      indexName: 'geo',
+      // ...
+      })
+      // ...
+  })
+```
+
+Replace `${GOOGLE_API}` with you google api key.
+
+See [code example in the playground](./playgrounds/geo-javascript/src/app.js)
+
+### Usage
+
+The classic usage, with only the `required` elements, renders an embedded Google Map on which you can move and refine search based on the position maps.
+
+```js
+  instantsearch.widgets.geoSearch({
+    container: '#maps',
+    googleReference: window.google,
+  }),
+```
+
+For further customization, for example to determine an initial position for the map. Contrary to `initialZoom` and `initialPosition`, triggers a search request with the provided information.
+
+The following parameters exist:
+
+- `boundingBox`: The Google Map window box. It is used as parameter in a search request. It takes precedent on all the following parameters.
+- `aroundLatLng`: The middle point of the Google Map. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
+- `aroundRadius`: The radius around a Geo Point, used for sorting in the search request. It only works if `aroundLatLng` is present as well. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
+
+
+For exemple, by adding `boundingBox` in the [`instantSearch`](#-instantsearch) widget parameters, the parameter will be used as a search parameter for the first request.
+
+```js
+  initialUiState: {
+    geo: {
+      geoSearch: {
+        boundingBox:
+          '50.680720183653065, 3.273798366642514,50.55969330590075, 2.9625244444490253',
+      },
+    },
+  },
+```
+Without providing this parameter, Google Maps will default to a window containing all markers from the provided search results.
+
+Alternatively, the parameters can be passed through the [`searchFunction`](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/#widget-param-searchfunction) parameter of the [`instantSearch`](#-instantsearch) widget. Contrary to `initialUiState` these parameters overwrite the values on each search.
+
+```js
+  searchFunction: function (helper) {
+    helper.setQueryParameter('aroundRadius', 75000)
+    helper.setQueryParameter('aroundLatLng', '51.1241999, 9.662499900000057');
+    helper.search()
+  },
+```
+
+[Read the guide on how GeoSearch works in MeiliSearch](https://docs.meilisearch.com/reference/features/geosearch.html#geosearch).
 
 ### ❌ Answers
 

@@ -45,12 +45,31 @@ export type SearchCacheInterface = {
   setEntry: <T>(key: string, searchResponse: T) => void
 }
 
-export type SearchContext = InstantSearchParams & {
+export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
+
+type ClientParams = {
   primaryKey?: string
   placeholderSearch?: boolean
   sort?: string
   indexUid: string
   paginationTotalHits: number
+}
+
+export type GeoSearchContext = {
+  aroundLatLng?: string
+  aroundLatLngViaIP?: boolean
+  aroundRadius?: number | 'all'
+  aroundPrecision?: number
+  minimumAroundRadius?: number
+  insideBoundingBox?: InsideBoundingBox
+  insidePolygon?: ReadonlyArray<readonly number[]>
+}
+
+export type SearchContext = Omit<
+  InstantSearchParams & ClientParams,
+  'insideBoundingBox'
+> & {
+  insideBoundingBox?: InsideBoundingBox
 }
 
 export type PaginationContext = {

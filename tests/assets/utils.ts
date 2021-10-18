@@ -55,6 +55,115 @@ const dataset = [
   },
 ]
 
+const geoDataset = [
+  {
+    id: '1',
+    city: 'Lille',
+    _geo: { lat: 50.629973371633746, lng: 3.056944739941957 },
+  },
+  {
+    id: '2',
+    city: 'Mons-en-Barœul',
+    _geo: { lat: 50.64158612012105, lng: 3.110659348034867 },
+  },
+  {
+    id: '3',
+    city: 'Hellemmes',
+    _geo: { lat: 50.63122096551808, lng: 3.1106399673339933 },
+  },
+  {
+    id: '4',
+    city: "Villeneuve-d'Ascq",
+    _geo: { lat: 50.622468098014565, lng: 3.147642551343714 },
+  },
+  {
+    id: '5',
+    city: 'Hem',
+    _geo: { lat: 50.655250871381355, lng: 3.189729726624413 },
+  },
+  {
+    id: '6',
+    city: 'Roubaix',
+    _geo: { lat: 50.69247345189671, lng: 3.176332673774765 },
+  },
+  {
+    id: '7',
+    city: 'Tourcoing',
+    _geo: { lat: 50.72639746673648, lng: 3.154165365957867 },
+  },
+  {
+    id: '8',
+    city: 'Mouscron',
+    _geo: { lat: 50.74532555490861, lng: 3.2206407854429853 },
+  },
+  {
+    id: '9',
+    city: 'Tournai',
+    _geo: { lat: 50.60534252860263, lng: 3.3758586941351414 },
+  },
+  {
+    id: '10',
+    city: 'Ghent',
+    _geo: { lat: 51.053777403679035, lng: 3.695773311992693 },
+  },
+  {
+    id: '11',
+    city: 'Brussels',
+    _geo: { lat: 50.84664097454469, lng: 4.337066356428184 },
+  },
+  {
+    id: '12',
+    city: 'Charleroi',
+    _geo: { lat: 50.40957013888948, lng: 4.434735431508552 },
+  },
+  {
+    id: '13',
+    city: 'Mons',
+    _geo: { lat: 50.45029417885542, lng: 3.962372287090469 },
+  },
+  {
+    id: '14',
+    city: 'Valenciennes',
+    _geo: { lat: 50.351817774473545, lng: 3.53262836469288 },
+  },
+  {
+    id: '15',
+    city: 'Arras',
+    _geo: { lat: 50.28448752857995, lng: 2.763751584447816 },
+  },
+  {
+    id: '16',
+    city: 'Cambrai',
+    _geo: { lat: 50.1793405779067, lng: 3.218940995250293 },
+  },
+  {
+    id: '17',
+    city: 'Bapaume',
+    _geo: { lat: 50.1112761272364, lng: 2.854789466608312 },
+  },
+  {
+    id: '18',
+    city: 'Amiens',
+    _geo: { lat: 49.931472529669996, lng: 2.271049975831708 },
+  },
+  {
+    id: '19',
+    city: 'Compiègne',
+    _geo: { lat: 49.444980887725656, lng: 2.7913841281529015 },
+  },
+  {
+    id: '20',
+    city: 'Paris',
+    _geo: { lat: 48.90210006089548, lng: 2.370840086740693 },
+  },
+]
+
+export type City = {
+  id: string
+  city: string
+  _geo: { lat: number; lng: number }
+}
+
 export type Movies = {
   id?: number
   title?: string
@@ -70,4 +179,4 @@ const wrongSearchClient = instantMeiliSearch(
   'masterKey'
 )
 
-export { searchClient, dataset, wrongSearchClient }
+export { searchClient, dataset, wrongSearchClient, geoDataset }

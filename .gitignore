@@ -119,3 +119,4 @@ cypress/plugins
 cypress/fixtures
 
 .vscode
+data.ms

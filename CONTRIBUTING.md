@@ -87,6 +87,24 @@ Or the HTML playground:
 yarn playground:html
 ```
 
+### Geo-Search Playground
+
+A playground is available to try out the [GeoSearch](./README.md/-geo-search) in `instant-meilisearch`.
+
+Unfortunately, for the moment, no online dataset is provided. Meaning that to make the playground work, you will have to set up your MeiliSearch accordingly to the playground needs.
+
+To do so follow these steps:
+
+1. Run a MeiliSeaerch instance. See [Setup](#setup) section to launch MeiliSearch with `Docker`. It is important to use the same `host` and `apikey` as provided in the `setup` section.
+2. Add the settings and the documents to your running MeiliSearch instance. We provide a script that does this automatically. Please run `node playgrounds/geo-javascript/setup/index.js`. Or you can look at the script to take inspiration!
+4. Run the playground!
+
+```bash
+yarn playground:geo-javascript
+```
+
+Note: If the Google Maps stopped working, please create a new [Google Api Key](https://developers.google.com/maps/documentation/javascript/get-api-key) and add it in the `.env` file at the root of the playground: `/playgrounds/geo-javascript`
+
 ## Git Guidelines
 
 ### Git Branches <!-- omit in TOC -->
