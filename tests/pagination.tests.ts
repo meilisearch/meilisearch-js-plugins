@@ -1,3 +1,4 @@
+import { instantMeiliSearch } from '../src'
 import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Pagination browser test', () => {
@@ -96,5 +97,56 @@ describe('Pagination browser test', () => {
     const hits = response.results[0].hits
     expect(hits.length).toBe(0)
     expect(hits).toEqual([])
+  })
+
+  test('Test pagination total hits ', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        paginationTotalHits: 1,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(1)
+  })
+
+  test('Test zero pagination total hits ', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        paginationTotalHits: 0,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(0)
+  })
+
+  test('Test bigger pagination total hits than nbr hits', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        paginationTotalHits: 1000,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(6)
   })
 })
