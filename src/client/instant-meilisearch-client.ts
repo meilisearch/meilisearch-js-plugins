@@ -31,11 +31,13 @@ export function instantMeiliSearch(
 ): InstantMeiliSearchInstance {
   // create search resolver with included cache
   const searchResolver = SearchResolver(SearchCache())
-
+  // paginationTotalHits can be 0 as it is a valid number
+  const paginationTotalHits =
+    options.paginationTotalHits != null ? options.paginationTotalHits : 200
   const context: Context = {
     primaryKey: options.primaryKey || undefined,
     placeholderSearch: options.placeholderSearch !== false, // true by default
-    paginationTotalHits: options.paginationTotalHits || 200,
+    paginationTotalHits,
   }
 
   return {
