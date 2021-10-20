@@ -40,8 +40,9 @@ export function adaptGeoPointsRules(
   }
 
   if (middlePoint != null && radius != null) {
-    const [lat3, lng3] = middlePoint.split(',')
-
+    let [lat3, lng3] = middlePoint.split(',')
+    lat3 = Number.parseFloat(lat3).toFixed(5)
+    lng3 = Number.parseFloat(lng3).toFixed(5)
     const filter = `_geoRadius(${lat3}, ${lng3}, ${radius})`
 
     return { filter }

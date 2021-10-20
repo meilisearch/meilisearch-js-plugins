@@ -36,7 +36,7 @@ test('Adapt SearchContext with filters, sort and geo rules ', () => {
   })
 
   expect(searchParams.filter).toStrictEqual([
-    '_geoRadius(0, 0, 0)',
+    '_geoRadius(0.00000, 0.00000, 0)',
     ['genres="Drama"', 'genres="Thriller"'],
     ['title="Ariel"'],
   ])
@@ -54,7 +54,7 @@ test('Adapt SearchContext with only facetFilters and geo rules ', () => {
   })
 
   expect(searchParams.filter).toEqual([
-    '_geoRadius(0, 0, 0)',
+    '_geoRadius(0.00000, 0.00000, 0)',
     ['genres="Drama"', 'genres="Thriller"'],
     ['title="Ariel"'],
   ])
@@ -70,7 +70,7 @@ test('Adapt SearchContext with only sort and geo rules ', () => {
     sort: 'id < 1',
   })
 
-  expect(searchParams.filter).toEqual(['_geoRadius(0, 0, 0)'])
+  expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
   expect(searchParams.sort).toStrictEqual(['id < 1'])
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
@@ -83,7 +83,7 @@ test('Adapt SearchContext with no sort abd no filters and geo rules ', () => {
     insideBoundingBox: '0,0,0,0',
   })
 
-  expect(searchParams.filter).toEqual(['_geoRadius(0, 0, 0)'])
+  expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })

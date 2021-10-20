@@ -1,12 +1,4 @@
 {
-  "rankingRules": [
-    "words",
-    "typo",
-    "proximity",
-    "attribute",
-    "sort",
-    "exactness"
-  ],
   "filterableAttributes": [
     "_geo"
   ],
