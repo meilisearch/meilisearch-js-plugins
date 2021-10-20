@@ -51,8 +51,13 @@ export function middleGeoPoints(
   let lng3 = Math.atan2(y, x)
   let lat3 = Math.atan2(z, Hyp)
 
-  lat3 = rad2degr(lat3)
-  lng3 = rad2degr(lng3)
+  if (lng1 < lng2 || (lng1 > lng2 && lng1 > Math.PI && lng2 < -Math.PI)) {
+    lat3 = lat3 + Math.PI
+    lng3 = lng3 + Math.PI
+  } else {
+    lat3 = rad2degr(lat3)
+    lng3 = rad2degr(lng3)
+  }
 
   if (
     Math.abs(x) < Math.pow(10, -9) &&
