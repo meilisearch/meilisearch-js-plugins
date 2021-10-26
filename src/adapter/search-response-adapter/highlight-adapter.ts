@@ -19,9 +19,7 @@ function replaceHighlightTags(
   highlightPostTag = highlightPostTag || '__/ais-highlight__'
   // Highlight is applied by MeiliSearch (<em> tags)
   // We replace the <em> by the expected tag for InstantSearch
-  const stringifiedValue = isString(value)
-    ? value
-    : JSON.stringify(value, null, 2)
+  const stringifiedValue = isString(value) ? value : JSON.stringify(value)
 
   return stringifiedValue
     .replace(/<em>/g, highlightPreTag)
@@ -46,9 +44,10 @@ function adaptHighlight(
   })
   return Object.keys(formattedHit).reduce((result, key) => {
     const value = formattedHit[key]
-    result[key] = Array.isArray(value)
-      ? value.map(toHighlightMatch)
-      : toHighlightMatch(value)
+    result[key] =
+      typeof value === 'object' && value !== null
+        ? JSON.stringify(value)
+        : toHighlightMatch(value)
     return result
   }, {} as any)
 }

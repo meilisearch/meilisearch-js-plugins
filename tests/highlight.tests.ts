@@ -78,6 +78,21 @@ describe('Highlight Browser test', () => {
     expect(response.results[0]?.hits[0]).not.toHaveProperty('_highlightResult')
   })
 
+  test('Test no attributesToHighlight on placeholder', async () => {
+    const response = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          attributesToHighlight: ['genres'],
+        },
+      },
+    ])
+    console.log(response.results[0].hits[0]._highlightResult?.genres)
+    expect(response.results[0].hits[0]._highlightResult?.genres).toBe(
+      '["Adventure","Action","Science Fiction"]'
+    )
+  })
+
   test('Test one attributesToHighlight on specific query', async () => {
     const response = await searchClient.search<Movies>([
       {
