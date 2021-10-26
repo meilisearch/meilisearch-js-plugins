@@ -29,13 +29,11 @@ export function adaptSearchResponse<T>(
   if (exhaustiveFacetsCount) {
     searchResponseOptionals.exhaustiveFacetsCount = exhaustiveFacetsCount
   }
-
-  const hits = adaptHits(searchResponse.hits, searchContext, paginationContext)
-
   const nbPages = ceiledDivision(
     searchResponse.hits.length,
     paginationContext.hitsPerPage
   )
+  const hits = adaptHits(searchResponse.hits, searchContext, paginationContext)
 
   const exhaustiveNbHits = searchResponse.exhaustiveNbHits
   const nbHits = searchResponse.nbHits

@@ -11,6 +11,11 @@ export function adaptPagination(
   page: number,
   hitsPerPage: number
 ): Array<Record<string, any>> {
+  if (hitsPerPage < 0) {
+    throw new TypeError(
+      'Value too small for "hitsPerPage" parameter, expected integer between 0 and 9223372036854775807'
+    )
+  }
   const start = page * hitsPerPage
-  return hits.splice(start, hitsPerPage)
+  return hits.slice(start, start + hitsPerPage)
 }
