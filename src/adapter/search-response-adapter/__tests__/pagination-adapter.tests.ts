@@ -30,13 +30,6 @@ const numberPagesTestParameters = [
   // Not an Algolia behavior. Algolia returns an error:
   // "Value too small for \"hitsPerPage\" parameter, expected integer between 0 and 9223372036854775807",
   {
-    hitsPerPage: -1,
-    hitsLength: 20,
-    numberPages: 0,
-  },
-  // Not an Algolia behavior. Algolia returns an error:
-  // "Value too small for \"hitsPerPage\" parameter, expected integer between 0 and 9223372036854775807",
-  {
     hitsPerPage: 1.5,
     hitsLength: 20,
     numberPages: 14,
@@ -129,15 +122,6 @@ const paginateHitsTestsParameters = [
     hitsPerPage: 0,
     returnedHits: [],
   },
-  // Wrong types
-  // Not an Algolia behavior. Algolia returns an error:
-  // "Value too small for \"hitsPerPage\" parameter, expected integer between 0 and 9223372036854775807",
-  {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 0,
-    hitsPerPage: -1,
-    returnedHits: [],
-  },
 ]
 
 describe.each(numberPagesTestParameters)(
@@ -163,3 +147,17 @@ describe.each(paginateHitsTestsParameters)(
     })
   }
 )
+
+it('Should throw when hitsPerPage is negative', () => {
+  try {
+    const hits: string[] = []
+    const hitsPerPage = -1
+    const page = 0
+    adaptPagination(hits, page, hitsPerPage)
+  } catch (e: any) {
+    expect(e.message).toBe(
+      'Value too small for "hitsPerPage" parameter, expected integer between 0 and 9223372036854775807'
+    )
+    expect(e.name).toBe('TypeError')
+  }
+})
