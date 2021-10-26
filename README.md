@@ -57,6 +57,9 @@ npm install @meilisearch/instant-meilisearch
 yarn add @meilisearch/instant-meilisearch
 ```
 
+InstantMeiliSearch is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
+To be able to create a search interface, you'll need to [install `instantsearch.js`](https://www.algolia.com/doc/guides/building-search-ui/installation/js/) as well. 
+
 ## Usage
 
 ### Basic
