@@ -44,10 +44,15 @@ function adaptHighlight(
   })
   return Object.keys(formattedHit).reduce((result, key) => {
     const value = formattedHit[key]
-    result[key] =
-      typeof value === 'object' && value !== null
-        ? JSON.stringify(value)
-        : toHighlightMatch(value)
+    if (Array.isArray(value)) {
+      result[key] = value.map((val) => ({
+        value: typeof val === 'object' ? JSON.stringify(val) : val,
+      }))
+    } else if (typeof value === 'object' && value !== null) {
+      result[key] = { value: JSON.stringify(value) }
+    } else {
+      result[key] = toHighlightMatch(value)
+    }
     return result
   }, {} as any)
 }

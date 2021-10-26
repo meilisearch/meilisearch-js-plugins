@@ -87,10 +87,12 @@ describe('Highlight Browser test', () => {
         },
       },
     ])
-    console.log(response.results[0].hits[0]._highlightResult?.genres)
-    expect(response.results[0].hits[0]._highlightResult?.genres).toBe(
-      '["Adventure","Action","Science Fiction"]'
-    )
+
+    const highlightedHit = response.results[0].hits[0]._highlightResult
+    if (highlightedHit?.genres) {
+      expect(highlightedHit?.genres[0]?.value).toEqual('Adventure')
+      expect(highlightedHit?.genres[1]?.value).toEqual('Action')
+    }
   })
 
   test('Test one attributesToHighlight on specific query', async () => {
