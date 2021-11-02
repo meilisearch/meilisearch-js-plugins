@@ -14,6 +14,20 @@ injectScript(
     })
 
     search.addWidgets([
+      instantsearch.widgets.sortBy({
+        container: '#sort-by',
+        items: [
+          { value: 'cities_playground', label: 'Relevant' },
+          {
+            value: 'cities_playground:population:desc',
+            label: 'Most Populated',
+          },
+          {
+            value: 'cities_playground:population:asc',
+            label: 'Least Populated',
+          },
+        ],
+      }),
       instantsearch.widgets.searchBox({
         container: '#searchbox',
       }),
