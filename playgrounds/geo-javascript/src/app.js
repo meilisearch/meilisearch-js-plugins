@@ -7,12 +7,12 @@ injectScript(
   `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
     const search = instantsearch({
-      indexName: 'countries_playground',
+      indexName: 'cities_playground',
       searchClient: instantMeiliSearch('http://localhost:7700', 'masterKey', {
         limitPerRequest: 200,
       }),
       initialUiState: {
-        countries_playground: {
+        cities_playground: {
           geoSearch: {
             boundingBox:
               '51.21699878945007, 4.867560211665137,50.433157541783224, 3.938237196122078',
