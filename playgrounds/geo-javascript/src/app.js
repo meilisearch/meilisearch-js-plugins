@@ -10,7 +10,7 @@ injectScript(
       indexName: 'cities_playground',
       searchClient: instantMeiliSearch('http://localhost:7700', 'masterKey', {
         limitPerRequest: 200,
-      })
+      }),
     })
 
     search.addWidgets([

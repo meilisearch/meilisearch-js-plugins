@@ -26,7 +26,9 @@ const INDEX_UID = 'cities_playground'
     )
   }
   const citiesUpdate = await client.index(INDEX_UID).addDocuments(cities)
-  const documentAdditionStatus = await client.index(INDEX_UID).waitForPendingUpdate(citiesUpdate.updateId, { timeOutMs: 10000 })
+  const documentAdditionStatus = await client
+    .index(INDEX_UID)
+    .waitForPendingUpdate(citiesUpdate.updateId, { timeOutMs: 10000 })
   if (documentAdditionStatus.status === 'processed') {
     console.log('SUCCESS: All documents have been succesfully indexed.')
   } else {
