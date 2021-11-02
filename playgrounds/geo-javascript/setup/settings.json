@@ -3,6 +3,12 @@
     "_geo"
   ],
   "sortableAttributes": [
-    "_geo"
+    "_geo",
+    "population"
+  ],
+  "searchableAttributes": [
+    "name",
+    "alternatenames",
+    "country"
   ]
 }
