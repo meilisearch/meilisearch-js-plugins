@@ -35,7 +35,13 @@ injectScript(
           item: `
             <div>
               <div class="hit-name">
-                {{#helpers.highlight}}{ "attribute": "city" }{{/helpers.highlight}}
+                City: {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
+              </div>
+              <div class="hit-name">
+                Country: {{#helpers.highlight}}{ "attribute": "country" }{{/helpers.highlight}}
+              </div>
+              <div class="hit-name">
+                Population: {{#helpers.highlight}}{ "attribute": "population" }{{/helpers.highlight}}
               </div>
             </div>
           `,
