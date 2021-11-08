@@ -3,8 +3,8 @@ import { instantMeiliSearch } from '../../../src/index'
 const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
-    'https://demo-steam.meilisearch.com',
-    '90b03f9c47d0f321afae5ae4c4e4f184f53372a2953ab77bca679ff447ecc15c',
+    'https://demos.meilisearch.com',
+    'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
     {
       limitPerRequest: 30,
     }
