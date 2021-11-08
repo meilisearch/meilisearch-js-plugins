@@ -11,69 +11,33 @@
     <div class="container">
       <ais-instant-search
         :search-client="searchClient"
-        index-name="bgg"
-        routing="true"
+        index-name="steam-video-games"
       >
-        <ais-stats />
         <div class="search-panel__filters">
-          <ais-configure>
-            <div slot-scope="{ searchParameters, refine }">
-              <div class="range-wrapper">
-                <div class="range">
-                  <label>Min publish year</label>
-                  <input type="number" v-model="minNumber" />
-                </div>
-                <div class="range">
-                  <label>Max publish year</label>
-                  <input type="number" v-model="maxNumber" />
-                </div>
-                <button
-                  class="ais-ClearRefinements-button"
-                  @click="
-                    (event) => {
-                      const filters = [
-                        minNumber === '' ? '' : `yearPublished > ${minNumber}`,
-                        maxNumber === '' ? '' : `yearPublished < ${maxNumber}`,
-                      ]
-                        .filter((filter) => filter)
-                        .join(' AND ')
-                      refine({
-                        ...searchParameters,
-                        filters,
-                      })
-                    }
-                  "
-                >
-                  Ok
-                </button>
-              </div>
-            </div>
-          </ais-configure>
-
-          <h4>Max Difficulty</h4>
-          <ais-numeric-menu
-            attribute="difficulty"
-            :items="[
-              { label: 'All' },
-              { label: '1', end: 2 },
-              { label: '2', end: 3 },
-              { label: '3', end: 4 },
-              { label: '4', end: 5 },
-              { label: '5', end: 6 },
-            ]"
-          />
-          <br />
-          <!-- <ais-clear-refinements>
+          <ais-clear-refinements>
             <span slot="resetLabel">Clear all filters</span>
           </ais-clear-refinements>
-          <h2>Categories</h2>
-          <ais-refinement-list limit="3" attribute="boardgamecategory" />
-          <h2>Mechanics</h2>
-          <ais-refinement-list attribute="boardgamemechanic" />
-          <h2>Designers</h2>
-          <ais-refinement-list attribute="boardgamedesigner" />
-          <h2>Artists</h2>
-          <ais-refinement-list attribute="boardgameartist" /> -->
+          <ais-sort-by
+            :items="[
+              { value: 'steam-video-games', label: 'Relevant' },
+              {
+                value: 'steam-video-games:recommendationCount:desc',
+                label: 'Most Recommended',
+              },
+              {
+                value: 'steam-video-games:recommendationCount:asc',
+                label: 'Least Recommended',
+              },
+            ]"
+          />
+          <h2>Genres</h2>
+          <ais-refinement-list attribute="genres" />
+          <h2>Players</h2>
+          <ais-refinement-list attribute="players" />
+          <h2>Platforms</h2>
+          <ais-refinement-list attribute="platforms" />
+          <h2>Misc</h2>
+          <ais-refinement-list attribute="misc" />
         </div>
 
         <div class="search-panel__results">
@@ -85,30 +49,26 @@
                 <div class="hit-name">
                   <ais-highlight :hit="item" attribute="name" />
                 </div>
-                <a
-                  class="hit-wrapper"
-                  :href="`https://boardgamegeek.com/boardgame/${item.id}`"
-                >
-                  <img :src="item.image" align="left" :alt="item.image" />
-                </a>
+                <img :src="item.image" align="left" :alt="item.image" />
                 <div class="hit-description">
                   <ais-snippet :hit="item" attribute="description" />
                 </div>
-                <div class="hit-info">min player: {{ item.minplayers }}</div>
-                <div class="hit-info">max player: {{ item.maxplayers }}</div>
-                <div class="hit-info">difficulty: {{ item.difficulty }}</div>
+                <div class="hit-info">Price: {{ item.price }}</div>
+                <div class="hit-info">Release date: {{ item.releaseDate }}</div>
                 <div class="hit-info">
-                  yearPublished: {{ item.yearPublished }}
+                  Recommended: {{ item.recommendationCount }}
                 </div>
               </div>
             </template>
           </ais-hits>
 
+          <ais-pagination :padding="4" />
+
           <ais-configure
+            :hits-per-page.camel="6"
             :attributesToSnippet="['description:50']"
             snippetEllipsisText="…"
           />
-          <ais-pagination />
         </div>
       </ais-instant-search>
     </div>
@@ -124,8 +84,8 @@ export default {
     return {
       recommendation: '',
       searchClient: instantMeiliSearch(
-        'http://localhost:7700',
-        '90b03f9c47d0f321afae5ae4c4e4f184f53372a2953ab77bca679ff447ecc15c'
+        'https://demos.meilisearch.com',
+        'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25'
       ),
     }
   },
