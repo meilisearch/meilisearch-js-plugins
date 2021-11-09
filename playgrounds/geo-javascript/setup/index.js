@@ -5,8 +5,8 @@ const { MeiliSearch } = require('meilisearch')
 const INDEX_UID = 'world_cities'
 ;(async () => {
   const client = new MeiliSearch({
-    host: 'http://localhost:7700',
-    apiKey: 'masterKey',
+    host: 'https://demos.meilisearch.com',
+    apiKey: 'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
   })
   try {
     await client.deleteIndex(INDEX_UID)
