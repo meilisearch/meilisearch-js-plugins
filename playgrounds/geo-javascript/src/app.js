@@ -7,7 +7,7 @@ injectScript(
   `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
     const search = instantsearch({
-      indexName: 'cities_playground',
+      indexName: 'world_cities',
       searchClient: instantMeiliSearch('http://localhost:7700', 'masterKey', {
         limitPerRequest: 200,
       }),
@@ -17,13 +17,13 @@ injectScript(
       instantsearch.widgets.sortBy({
         container: '#sort-by',
         items: [
-          { value: 'cities_playground', label: 'Relevant' },
+          { value: 'world_cities', label: 'Relevant' },
           {
-            value: 'cities_playground:population:desc',
+            value: 'world_cities:population:desc',
             label: 'Most Populated',
           },
           {
-            value: 'cities_playground:population:asc',
+            value: 'world_cities:population:asc',
             label: 'Least Populated',
           },
         ],

@@ -2,7 +2,7 @@ const settings = require('./settings.json')
 const cities = require('./world-cities.json')
 const { MeiliSearch } = require('meilisearch')
 
-const INDEX_UID = 'cities_playground'
+const INDEX_UID = 'world_cities'
 ;(async () => {
   const client = new MeiliSearch({
     host: 'http://localhost:7700',
@@ -11,7 +11,7 @@ const INDEX_UID = 'cities_playground'
   try {
     await client.deleteIndex(INDEX_UID)
   } catch (e) {
-    // cities_playground does not exist
+    // world_cities does not exist
   }
   const settingsUpdate = await client.index(INDEX_UID).updateSettings(settings)
   const status = await client
