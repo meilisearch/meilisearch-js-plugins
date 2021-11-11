@@ -44,14 +44,21 @@ function adaptHighlight(
   })
   return Object.keys(formattedHit).reduce((result, key) => {
     const value = formattedHit[key]
+
     if (Array.isArray(value)) {
+      // Array
       result[key] = value.map((val) => ({
         value: typeof val === 'object' ? JSON.stringify(val) : val,
       }))
-    } else if (typeof value === 'object' && value !== null) {
-      result[key] = { value: JSON.stringify(value) }
-    } else {
+    } else if (typeof value === 'string') {
+      // String
       result[key] = toHighlightMatch(value)
+    } else if (value === undefined) {
+      // undefined
+      result[key] = { value: JSON.stringify(null) }
+    } else {
+      // Other
+      result[key] = { value: JSON.stringify(value) }
     }
     return result
   }, {} as any)
@@ -147,7 +154,7 @@ export function adaptFormating(
   const highlightPostTag = searchContext?.highlightPostTag
 
   if (!formattedHit || formattedHit.length) return {}
-  return {
+  const highlightedHit = {
     _highlightResult: adaptHighlight(
       formattedHit,
       highlightPreTag,
@@ -161,4 +168,5 @@ export function adaptFormating(
       highlightPostTag
     ),
   }
+  return highlightedHit
 }
