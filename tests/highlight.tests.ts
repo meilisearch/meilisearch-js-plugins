@@ -229,4 +229,55 @@ describe('Highlight Browser test', () => {
       expect.stringMatching('<p>S</p>olo')
     )
   })
+
+  test('Test attributes to highlight on non-string-types', async () => {
+    const response = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: 'Ariel',
+          attributesToHighlight: ['*'],
+        },
+      },
+    ])
+    const hit = response.results[0].hits[0]._highlightResult
+
+    if (hit?.genres) {
+      expect(hit?.genres[0]?.value).toEqual('Drama')
+      expect(hit?.genres[1]?.value).toEqual('Crime')
+    }
+    if (hit?.id) {
+      expect(hit?.id.value).toEqual('2')
+    }
+    if (hit?.undefinedArray) {
+      // @ts-ignore
+      expect(hit?.undefinedArray[0]?.value).toEqual('null')
+      // @ts-ignore
+      expect(hit?.undefinedArray[1]?.value).toEqual('null')
+    }
+
+    if (hit?.nullArray) {
+      // @ts-ignore
+      expect(hit?.nullArray[0]?.value).toEqual('null')
+      // @ts-ignore
+      expect(hit?.nullArray[1]?.value).toEqual('null')
+    }
+
+    if (hit?.objectArray) {
+      // @ts-ignore
+      expect(hit?.objectArray[0]?.value).toEqual('{"name":"charlotte"}')
+      // @ts-ignore
+      expect(hit?.objectArray[1]?.value).toEqual('{"name":"charlotte"}')
+    }
+
+    if (hit?.object) {
+      // @ts-ignore
+      expect(hit?.object?.value).toEqual('{"id":1,"name":"Nader"}')
+    }
+
+    if (hit?.nullField) {
+      // @ts-ignore
+      expect(hit?.nullField?.value).toEqual('null')
+    }
+  })
 })

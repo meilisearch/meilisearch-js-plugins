@@ -12,18 +12,39 @@ import { SearchContext } from '../../types'
  */
 function replaceHighlightTags(
   value: any,
-  highlightPreTag?: string,
-  highlightPostTag?: string
+  preTag?: string,
+  postTag?: string
 ): string {
-  highlightPreTag = highlightPreTag || '__ais-highlight__'
-  highlightPostTag = highlightPostTag || '__/ais-highlight__'
+  preTag = preTag || '__ais-highlight__'
+  postTag = postTag || '__/ais-highlight__'
   // Highlight is applied by MeiliSearch (<em> tags)
   // We replace the <em> by the expected tag for InstantSearch
   const stringifiedValue = isString(value) ? value : JSON.stringify(value)
 
-  return stringifiedValue
-    .replace(/<em>/g, highlightPreTag)
-    .replace(/<\/em>/g, highlightPostTag)
+  return stringifiedValue.replace(/<em>/g, preTag).replace(/<\/em>/g, postTag)
+}
+
+function addHighlightTags(value: string, preTag?: string, postTag?: string) {
+  return {
+    value: replaceHighlightTags(value, preTag, postTag),
+  }
+}
+
+function resolveHighlightValue(
+  value: string,
+  preTag?: string,
+  postTag?: string
+) {
+  if (typeof value === 'string') {
+    // String
+    return addHighlightTags(value, preTag, postTag)
+  } else if (value === undefined) {
+    // undefined
+    return { value: JSON.stringify(null) }
+  } else {
+    // Other
+    return { value: JSON.stringify(value) }
+  }
 }
 
 /**
@@ -33,32 +54,23 @@ function replaceHighlightTags(
  * @returns {Record}
  */
 function adaptHighlight(
-  formattedHit: Record<string, any>,
-  highlightPreTag?: string,
-  highlightPostTag?: string
+  hit: Record<string, any>,
+  preTag?: string,
+  postTag?: string
 ): Record<string, any> {
-  // formattedHit is the `_formatted` object returned by MeiliSearch.
+  // hit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
-  const toHighlightMatch = (value: any) => ({
-    value: replaceHighlightTags(value, highlightPreTag, highlightPostTag),
-  })
-  return Object.keys(formattedHit).reduce((result, key) => {
-    const value = formattedHit[key]
+
+  return Object.keys(hit).reduce((result, key) => {
+    const value = hit[key]
 
     if (Array.isArray(value)) {
       // Array
-      result[key] = value.map((val) => ({
-        value: typeof val === 'object' ? JSON.stringify(val) : val,
-      }))
-    } else if (typeof value === 'string') {
-      // String
-      result[key] = toHighlightMatch(value)
-    } else if (value === undefined) {
-      // undefined
-      result[key] = { value: JSON.stringify(null) }
+      result[key] = value.map((elem) =>
+        resolveHighlightValue(elem, preTag, postTag)
+      )
     } else {
-      // Other
-      result[key] = { value: JSON.stringify(value) }
+      result[key] = resolveHighlightValue(value, preTag, postTag)
     }
     return result
   }, {} as any)
@@ -66,72 +78,69 @@ function adaptHighlight(
 
 /**
  * @param  {string} value
- * @param  {string} snippetEllipsisText?
- * @param  {string} highlightPreTag?
- * @param  {string} highlightPostTag?
+ * @param  {string} preTag?
+ * @param  {string} postTag?
+ * @param  {string} ellipsis?
  * @returns {string}
  */
-function snippetValue(
+function resolveSnippetValue(
   value: string,
-  snippetEllipsisText?: string,
-  highlightPreTag?: string,
-  highlightPostTag?: string
-): string {
+  preTag?: string,
+  postTag?: string,
+  ellipsis?: string
+): { value: string } {
   let newValue = value
-  // manage a kind of `...` for the crop until this feature is implemented https://roadmap.meilisearch.com/c/69-policy-for-cropped-values?utm_medium=social&utm_source=portal_share
-  // `...` is put if we are at the middle of a sentence (instead at the middle of the document field)
-  if (snippetEllipsisText !== undefined && isString(newValue) && newValue) {
+
+  // Manage ellpsis on cropped values until this feature is implemented https://roadmap.meilisearch.com/c/69-policy-for-cropped-values?utm_medium=social&utm_source=portal_share in MeiliSearch
+  if (newValue && ellipsis !== undefined && isString(newValue)) {
     if (
       newValue[0] === newValue[0].toLowerCase() && // beginning of a sentence
-      newValue.startsWith('<em>') === false // beginning of the document field, otherwise MeiliSearch would crop around the highligh
+      newValue.startsWith('<em>') === false // beginning of the document field, otherwise MeiliSearch would crop around the highlight
     ) {
-      newValue = `${snippetEllipsisText}${newValue}`
+      newValue = `${ellipsis}${newValue}`
     }
     if (!!newValue.match(/[.!?]$/) === false) {
       // end of the sentence
-      newValue = `${newValue}${snippetEllipsisText}`
+      newValue = `${newValue}${ellipsis}`
     }
   }
-  return replaceHighlightTags(newValue, highlightPreTag, highlightPostTag)
+  return resolveHighlightValue(newValue, preTag, postTag)
 }
 
 /**
- * @param  {Record<string} formattedHit
- * @param  {readonlystring[]|undefined} attributesToSnippet
- * @param  {string|undefined} snippetEllipsisText
- * @param  {string|undefined} highlightPreTag
- * @param  {string|undefined} highlightPostTag
+ * @param  {Record<string} hit
+ * @param  {readonlystring[]|undefined} attributes
+ * @param  {string|undefined} ellipsis
+ * @param  {string|undefined} preTag
+ * @param  {string|undefined} postTage
  */
 function adaptSnippet(
-  formattedHit: Record<string, any>,
-  attributesToSnippet: readonly string[] | undefined,
-  snippetEllipsisText: string | undefined,
-  highlightPreTag: string | undefined,
-  highlightPostTag: string | undefined
+  hit: Record<string, any>,
+  attributes: readonly string[] | undefined,
+  ellipsis: string | undefined,
+  pretag: string | undefined,
+  postTag: string | undefined
 ) {
-  if (attributesToSnippet === undefined) {
+  if (attributes === undefined) {
     return null
   }
-  attributesToSnippet = attributesToSnippet.map(
-    (attribute) => attribute.split(':')[0]
-  ) as any[]
-  const snippetAll = attributesToSnippet.includes('*')
-  // formattedHit is the `_formatted` object returned by MeiliSearch.
+  attributes = attributes.map((attribute) => attribute.split(':')[0]) as any[]
+  const snippetAll = attributes.includes('*')
+
+  // hit is the `_formatted` object returned by MeiliSearch.
   // It contains all the highlighted and croped attributes
-  const toSnippetMatch = (value: any) => ({
-    value: snippetValue(
-      value,
-      snippetEllipsisText,
-      highlightPreTag,
-      highlightPostTag
-    ),
-  })
-  return (Object.keys(formattedHit) as any[]).reduce((result, key) => {
-    if (snippetAll || attributesToSnippet?.includes(key)) {
-      const value = formattedHit[key]
-      result[key] = Array.isArray(value)
-        ? value.map(toSnippetMatch)
-        : toSnippetMatch(value)
+
+  return (Object.keys(hit) as any[]).reduce((result, key) => {
+    if (snippetAll || attributes?.includes(key)) {
+      const value = hit[key]
+      if (Array.isArray(value)) {
+        // Array
+        result[key] = value.map((elem) =>
+          resolveSnippetValue(elem, pretag, postTag, ellipsis)
+        )
+      } else {
+        result[key] = resolveSnippetValue(value, pretag, postTag, ellipsis)
+      }
     }
     return result
   }, {} as any)
@@ -145,27 +154,23 @@ function adaptSnippet(
  * @returns {Record}
  */
 export function adaptFormating(
-  formattedHit: Record<string, any>,
+  hit: Record<string, any>,
   searchContext: SearchContext
 ): Record<string, any> {
   const attributesToSnippet = searchContext?.attributesToSnippet
-  const snippetEllipsisText = searchContext?.snippetEllipsisText
-  const highlightPreTag = searchContext?.highlightPreTag
-  const highlightPostTag = searchContext?.highlightPostTag
+  const ellipsis = searchContext?.snippetEllipsisText
+  const preTag = searchContext?.highlightPreTag
+  const postTag = searchContext?.highlightPostTag
 
-  if (!formattedHit || formattedHit.length) return {}
+  if (!hit || hit.length) return {}
   const highlightedHit = {
-    _highlightResult: adaptHighlight(
-      formattedHit,
-      highlightPreTag,
-      highlightPostTag
-    ),
+    _highlightResult: adaptHighlight(hit, preTag, postTag),
     _snippetResult: adaptSnippet(
-      formattedHit,
+      hit,
       attributesToSnippet,
-      snippetEllipsisText,
-      highlightPreTag,
-      highlightPostTag
+      ellipsis,
+      preTag,
+      postTag
     ),
   }
   return highlightedHit
