@@ -584,7 +584,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The facet to display _required_
-- ✅ operator: How to apply facets, "AND" or "OR"
+- ❌ operator: How to apply facets, "AND" or "OR". For the moment it only works with "AND"
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
