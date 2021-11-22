@@ -54,11 +54,11 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "^0.22.1"
+    "meilisearch": "^0.22.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.15.8",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
@@ -88,7 +88,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.7.0",
-    "instantsearch.js": "^4.31.0",
+    "instantsearch.js": "^4.33.1",
     "jest": "^27.2.2",
     "jest-watch-typeahead": "^0.6.3",
     "prettier": "^2.0.0",

@@ -2,22 +2,11 @@
 
 First of all, thank you for contributing to MeiliSearch! The goal of this document is to provide everything you need to know in order to contribute to MeiliSearch and its different integrations.
 
-- [Hacktoberfest](#hacktoberfest)
 - [Assumptions](#assumptions)
 - [How to Contribute](#how-to-contribute)
 - [Development Workflow](#development-workflow)
 - [Git Guidelines](#git-guidelines)
 - [Release Process (for internal team only)](#release-process-for-internal-team-only)
-
-## Hacktoberfest
-
-It's [Hacktoberfest month](https://blog.meilisearch.com/contribute-hacktoberfest-2021/)! 🥳
-
-🚀 If your PR gets accepted it will count into your participation to Hacktoberfest!
-
-✅ To be accepted it has either to have been merged, approved or tagged with the `hacktoberfest-accepted` label.
-
-🧐 Don't forget to check the [quality standards](https://hacktoberfest.digitalocean.com/resources/qualitystandards)! Low-quality PRs might get marked as `spam` or `invalid`, and will not count toward your participation in Hacktoberfest.
 
 ## Assumptions
 
@@ -91,14 +80,6 @@ yarn playground:html
 
 A playground is available to try out the [GeoSearch](./README.md/-geo-search) in `instant-meilisearch`.
 
-Unfortunately, for the moment, no online dataset is provided. Meaning that to make the playground work, you will have to set up your MeiliSearch accordingly to the playground needs.
-
-To do so follow these steps:
-
-1. Run a MeiliSeaerch instance. See [Setup](#setup) section to launch MeiliSearch with `Docker`. It is important to use the same `host` and `apikey` as provided in the `setup` section.
-2. Add the settings and the documents to your running MeiliSearch instance. We provide a script that does this automatically. Please run `node playgrounds/geo-javascript/setup/index.js`. Or you can look at the script to take inspiration!
-4. Run the playground!
-
 ```bash
 yarn playground:geo-javascript
 ```
@@ -128,7 +109,7 @@ Some notes on GitHub PRs:
 
 - [Convert your PR as a draft](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/changing-the-stage-of-a-pull-request) if your changes are a work in progress: no one will review it until you pass your PR as ready for review.<br>
   The draft PR can be very useful if you want to show that you are working on something and make your work visible.
-- The branch related to the PR must be **up-to-date with `main`** before merging. Fortunately, this project [integrates a bot](https://github.com/meilisearch/integration-guides/blob/main/guides/bors.md) to automatically enforce this requirement without the PR author having to do it manually.
+- The branch related to the PR must be **up-to-date with `main`** before merging. Fortunately, this project [integrates a bot](https://github.com/meilisearch/integration-guides/blob/main/resources/bors.md) to automatically enforce this requirement without the PR author having to do it manually.
 - All PRs must be reviewed and approved by at least one maintainer.
 - The PR title should be accurate and descriptive of the changes. The title of the PR will be indeed automatically added to the next [release changelogs](https://github.com/meilisearch/instant-meilisearch/releases/).
 
@@ -139,16 +120,16 @@ MeiliSearch tools follow the [Semantic Versioning Convention](https://semver.org
 ### Automation to Rebase and Merge the PRs <!-- omit in TOC -->
 
 This project integrates a bot that helps us manage pull requests merging.<br>
-_[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/guides/bors.md)._
+_[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/resources/bors.md)._
 
 ### Automated Changelogs <!-- omit in TOC -->
 
 This project integrates a tool to create automated changelogs.<br>
-_[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/guides/release-drafter.md)._
+_[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/resources/release-drafter.md)._
 
 ### How to Publish the Release <!-- omit in TOC -->
 
-⚠️ Before doing anything, make sure you got through the guide about [Releasing an Integration](https://github.com/meilisearch/integration-guides/blob/main/guides/integration-release.md).
+⚠️ Before doing anything, make sure you got through the guide about [Releasing an Integration](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md).
 
 Make a PR modifying the file [`package.json`](/package.json) with the right version.
 
@@ -156,7 +137,7 @@ Make a PR modifying the file [`package.json`](/package.json) with the right vers
 "version": "X.X.X"
 ```
 
-Once the changes are merged on `main`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases).
+Once the changes are merged on `main`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Edit` (related to the draft release) > update the description (be sure you apply [these recommandations](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md#writting-the-release-description)) > when you are ready, click on `Publish release`.
 
 GitHub Actions will be triggered and push the package to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
 

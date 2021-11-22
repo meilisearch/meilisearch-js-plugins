@@ -7,21 +7,31 @@ injectScript(
   `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
     const search = instantsearch({
-      indexName: 'countries_playground',
-      searchClient: instantMeiliSearch('http://localhost:7700', 'masterKey', {
-        limitPerRequest: 200,
-      }),
-      initialUiState: {
-        countries_playground: {
-          geoSearch: {
-            boundingBox:
-              '51.21699878945007, 4.867560211665137,50.433157541783224, 3.938237196122078',
-          },
-        },
-      },
+      indexName: 'world_cities',
+      searchClient: instantMeiliSearch(
+        'https://demos.meilisearch.com',
+        'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
+        {
+          limitPerRequest: 200,
+        }
+      ),
     })
 
     search.addWidgets([
+      instantsearch.widgets.sortBy({
+        container: '#sort-by',
+        items: [
+          { value: 'world_cities', label: 'Relevant' },
+          {
+            value: 'world_cities:population:desc',
+            label: 'Most Populated',
+          },
+          {
+            value: 'world_cities:population:asc',
+            label: 'Least Populated',
+          },
+        ],
+      }),
       instantsearch.widgets.searchBox({
         container: '#searchbox',
       }),
@@ -43,7 +53,13 @@ injectScript(
           item: `
             <div>
               <div class="hit-name">
-                {{#helpers.highlight}}{ "attribute": "city" }{{/helpers.highlight}}
+                City: {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
+              </div>
+              <div class="hit-name">
+                Country: {{#helpers.highlight}}{ "attribute": "country" }{{/helpers.highlight}}
+              </div>
+              <div class="hit-name">
+                Population: {{#helpers.highlight}}{ "attribute": "population" }{{/helpers.highlight}}
               </div>
             </div>
           `,

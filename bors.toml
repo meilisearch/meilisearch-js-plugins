@@ -1,3 +1,8 @@
-status = ['integration-tests', 'style-check', 'cypress-run']
+status = [
+  'style-check',
+  'integration-tests (Node.js 12)',
+  'integration-tests (Node.js 14)',
+  'cypress-run'
+]
 # 1 hour timeout
 timeout-sec = 3600
