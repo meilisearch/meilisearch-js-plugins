@@ -9,6 +9,18 @@ const dataset = [
     genres: ['Drama', 'Crime', 'Comedy'],
     poster: 'https://image.tmdb.org/t/p/w500/ojDg0PGvs6R9xYFodRct2kdI6wC.jpg',
     release_date: 593395200,
+    undefinedArray: [undefined, undefined, undefined],
+    nullArray: [null, null, null],
+    objectArray: [
+      { name: 'charlotte' },
+      { name: 'charlotte' },
+      { name: 'charlotte' },
+    ],
+    object: {
+      id: 1,
+      name: 'Nader',
+    },
+    nullField: null,
   },
   {
     id: 5,
@@ -18,6 +30,18 @@ const dataset = [
     genres: ['Crime', 'Comedy'],
     poster: 'https://image.tmdb.org/t/p/w500/75aHn1NOYXh4M7L5shoeQ6NGykP.jpg',
     release_date: 818467200,
+    undefinedArray: [undefined, undefined, undefined],
+    nullArray: [null, null, null],
+    objectArray: [
+      { name: 'charlotte' },
+      { name: 'charlotte' },
+      { name: 'charlotte' },
+    ],
+    object: {
+      id: 1,
+      name: 'Nader',
+    },
+    nullField: null,
   },
   {
     id: 6,
@@ -27,6 +51,18 @@ const dataset = [
     genres: ['Action', 'Thriller', 'Crime'],
     poster: 'https://image.tmdb.org/t/p/w500/rYFAvSPlQUCebayLcxyK79yvtvV.jpg',
     release_date: 750643200,
+    undefinedArray: [undefined, undefined, undefined],
+    nullArray: [null, null, null],
+    objectArray: [
+      { name: 'charlotte' },
+      { name: 'charlotte' },
+      { name: 'charlotte' },
+    ],
+    object: {
+      id: 1,
+      name: 'Nader',
+    },
+    nullField: null,
   },
   {
     id: 11,
@@ -170,6 +206,14 @@ export type Movies = {
   overview?: string
   genres?: string[]
   release_date?: number // eslint-disable-line
+  undefinedArray?: [undefined, undefined, undefined]
+  nullArray?: [null]
+  objectArray?: Array<{ name: string }>
+  object?: {
+    id?: number
+    name?: string
+  }
+  nullField?: null
   _highlightResult?: Movies
 }
 

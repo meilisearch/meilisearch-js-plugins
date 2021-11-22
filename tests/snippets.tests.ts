@@ -221,4 +221,59 @@ describe('Snippet Browser test', () => {
     )
     // expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
   })
+
+  test('Test attributes to snippet on non-string-types', async () => {
+    const response = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: 'Jud',
+          attributesToSnippet: ['*:2'],
+        },
+      },
+    ])
+    const hit = response.results[0].hits[0]._highlightResult
+
+    if (hit?.overview) {
+      expect(hit?.overview.value).toEqual('While')
+    }
+
+    if (hit?.genres) {
+      expect(hit?.genres[0]?.value).toEqual('Action')
+      expect(hit?.genres[1]?.value).toEqual('Thriller')
+    }
+    if (hit?.id) {
+      expect(hit?.id.value).toEqual('6')
+    }
+    if (hit?.undefinedArray) {
+      // @ts-ignore
+      expect(hit?.undefinedArray[0]?.value).toEqual('null')
+      // @ts-ignore
+      expect(hit?.undefinedArray[1]?.value).toEqual('null')
+    }
+
+    if (hit?.nullArray) {
+      // @ts-ignore
+      expect(hit?.nullArray[0]?.value).toEqual('null')
+      // @ts-ignore
+      expect(hit?.nullArray[1]?.value).toEqual('null')
+    }
+
+    if (hit?.objectArray) {
+      // @ts-ignore
+      expect(hit?.objectArray[0]?.value).toEqual('{"name":"charlotte"}')
+      // @ts-ignore
+      expect(hit?.objectArray[1]?.value).toEqual('{"name":"charlotte"}')
+    }
+
+    if (hit?.object) {
+      // @ts-ignore
+      expect(hit?.object?.value).toEqual('{"id":1,"name":"Nader"}')
+    }
+
+    if (hit?.nullField) {
+      // @ts-ignore
+      expect(hit?.nullField?.value).toEqual('null')
+    }
+  })
 })
