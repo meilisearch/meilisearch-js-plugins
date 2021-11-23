@@ -6,11 +6,8 @@ function nakedOfTags(str: string) {
 
 function addEllipsis(value: any, formatValue: string, ellipsis: string): any {
   // Manage ellpsis on cropped values until this feature is implemented https://roadmap.meilisearch.com/c/69-policy-for-cropped-values?utm_medium=social&utm_source=portal_share in MeiliSearch
-  // console.log({ value, formatValue, ellipsis })
-  let ellipsedValue = formatValue
 
-  // console.log('formatValue', formatValue, nakedOfTags(formatValue).length)
-  // console.log('value', value, value.toString().length)
+  let ellipsedValue = formatValue
 
   if (
     isString(formatValue) &&
@@ -20,7 +17,6 @@ function addEllipsis(value: any, formatValue: string, ellipsis: string): any {
       formatValue[0] === formatValue[0].toLowerCase() && // beginning of a sentence
       formatValue.startsWith('<em>') === false // beginning of the document field, otherwise MeiliSearch would crop around the highlight
     ) {
-      console.log('Front')
       ellipsedValue = `${ellipsis}${formatValue.trim()}`
     }
     if (!!formatValue.match(/[.!?]$/) === false) {
@@ -28,7 +24,6 @@ function addEllipsis(value: any, formatValue: string, ellipsis: string): any {
       ellipsedValue = `${formatValue.trim()}${ellipsis}`
     }
   }
-  console.log(ellipsedValue)
   return ellipsedValue
 }
 
@@ -63,7 +58,6 @@ export function adaptSnippet(
   const formattedHit = hit._formatted
   const newHit = hit._formatted
 
-  // console.log({ attributes })
   if (attributes === undefined) {
     return hit
   }

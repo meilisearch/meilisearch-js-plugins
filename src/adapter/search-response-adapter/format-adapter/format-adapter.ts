@@ -32,6 +32,6 @@ export function adaptFormating(
     _highlightResult,
     _snippetResult,
   }
-  console.log(highlightedHit)
+
   return highlightedHit
 }

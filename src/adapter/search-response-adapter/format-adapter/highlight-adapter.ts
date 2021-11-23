@@ -69,7 +69,6 @@ export function adaptHighlight(
   if (!hit._formatted) return hit._formatted
   return Object.keys(hit._formatted).reduce((result, key) => {
     const value = hit._formatted[key]
-    // console.log(value)
 
     result[key] = resolveHighlightValue(value, preTag, postTag)
     return result
