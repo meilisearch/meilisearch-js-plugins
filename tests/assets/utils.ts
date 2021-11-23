@@ -204,6 +204,7 @@ export type Movies = {
   id?: number
   title?: string
   overview?: string
+  poster?: string
   genres?: string[]
   release_date?: number // eslint-disable-line
   undefinedArray?: [undefined, undefined, undefined]

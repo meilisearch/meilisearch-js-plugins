@@ -272,7 +272,7 @@ describe('Highlight Browser test', () => {
 
     if (hit?.object) {
       // @ts-ignore
-      expect(hit?.object?.value).toEqual('{"id":1,"name":"Nader"}')
+      expect(hit?.object?.value).toEqual('{"id":"1","name":"Nader"}')
     }
 
     if (hit?.nullField) {
