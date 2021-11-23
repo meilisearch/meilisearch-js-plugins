@@ -45,7 +45,6 @@ describe('Instant MeiliSearch Browser test', () => {
           query: '',
           aroundRadius: 100000,
           aroundLatLng: '50.83094249790228, 4.368630010322772',
-          // @ts-expect-error connector uses strings
           insideBoundingBox:
             '50.680720183653065, 3.273798366642514,50.55969330590075, 2.9625244444490253',
         },
@@ -62,7 +61,6 @@ describe('Instant MeiliSearch Browser test', () => {
         indexName: 'geotest',
         params: {
           query: '',
-          // @ts-expect-error connector uses strings
           insideBoundingBox:
             '51.29613859469906, 4.911139116616028,50.42574330144633, 3.9566714733443122',
         },
@@ -80,7 +78,6 @@ describe('Instant MeiliSearch Browser test', () => {
         params: {
           query: '',
           aroundRadius: 1,
-          // @ts-expect-error connector uses strings
           insideBoundingBox:
             '51.29613859469906, 4.911139116616028,50.42574330144633, 3.9566714733443122',
         },
@@ -98,7 +95,6 @@ describe('Instant MeiliSearch Browser test', () => {
         params: {
           query: '',
           aroundLatLng: '50.22326791296595, 2.7681166283566405',
-          // @ts-expect-error connector uses strings
           insideBoundingBox:
             '51.29613859469906, 4.911139116616028,50.42574330144633, 3.9566714733443122',
         },
