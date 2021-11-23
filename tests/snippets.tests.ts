@@ -25,11 +25,12 @@ describe('Snippet Browser test', () => {
         params: {
           query: '',
           attributesToSnippet: ['overview:2'],
+          snippetEllipsisText: '...',
         },
       },
     ])
-    const snippeted = response.results[0]?.hits[0]?._highlightResult
-    expect(snippeted?.overview?.value).toEqual('Princess')
+    const snippeted = response.results[0]?.hits[0]?._snippetResult
+    expect(snippeted).toHaveProperty('overview', { value: 'Princess...' })
   })
 
   test('Test one attributesToSnippet on specific query', async () => {
@@ -45,8 +46,13 @@ describe('Snippet Browser test', () => {
     ])
     const highlighted = response.results[0]?.hits[0]?._highlightResult
     const snippeted = response.results[0].hits[0]._snippetResult
-    expect(highlighted?.overview?.value).toEqual('While')
-    expect(snippeted?.overview?.value).toEqual('While...')
+
+    expect(highlighted).toHaveProperty('overview', {
+      value: 'While',
+    })
+    expect(snippeted).toHaveProperty('overview', {
+      value: 'While...',
+    })
   })
 
   test('Test * attributesToSnippet on specific query', async () => {
@@ -62,33 +68,48 @@ describe('Snippet Browser test', () => {
     ])
     const highlighted = response.results[0]?.hits[0]?._highlightResult
     const snippeted = response.results[0].hits[0]._snippetResult
-    expect(highlighted?.id?.value).toEqual('6')
-    expect(highlighted?.title?.value).toEqual(
-      '__ais-highlight__Judg__/ais-highlight__ment Night'
-    )
-    expect(highlighted?.overview?.value).toEqual('While')
+
+    expect(highlighted).toHaveProperty('id', {
+      value: '6',
+    })
+    expect(snippeted).toHaveProperty('id', {
+      value: '6',
+    })
+    expect(highlighted).toHaveProperty('title', {
+      value: '__ais-highlight__Judg__/ais-highlight__ment Night',
+    })
+    expect(snippeted).toHaveProperty('title', {
+      value: '__ais-highlight__Judg__/ais-highlight__ment Night',
+    })
+    expect(highlighted).toHaveProperty('overview', {
+      value: 'While',
+    })
+    expect(snippeted).toHaveProperty('overview', {
+      value: 'While...',
+    })
+    expect(highlighted).toHaveProperty('release_date', {
+      value: '750643200',
+    })
+    expect(snippeted).toHaveProperty('release_date', {
+      value: '750643200',
+    })
+
     expect(highlighted?.genres).toBeTruthy()
     if (highlighted?.genres) {
       expect(highlighted?.genres[0].value).toEqual('Action')
       expect(highlighted?.genres[1].value).toEqual('Thriller')
       expect(highlighted?.genres[2].value).toEqual('Crime')
     }
-    expect(highlighted?.release_date?.value).toEqual('750643200')
-    expect(snippeted?.id?.value).toEqual('6')
-    expect(snippeted?.title?.value).toEqual(
-      '__ais-highlight__Judg__/ais-highlight__ment Night...'
-    )
-    expect(snippeted?.overview?.value).toEqual('While...')
+
     expect(snippeted?.genres).toBeTruthy()
     if (snippeted?.genres) {
-      expect(snippeted?.genres[0].value).toEqual('Action...')
-      expect(snippeted?.genres[1].value).toEqual('Thriller...')
-      expect(snippeted?.genres[2].value).toEqual('Crime...')
+      expect(snippeted?.genres[0].value).toEqual('Action')
+      expect(snippeted?.genres[1].value).toEqual('Thriller')
+      expect(snippeted?.genres[2].value).toEqual('Crime')
     }
-    expect(snippeted?.release_date?.value).toEqual('750643200')
   })
 
-  test('Test two attributesToSnippet on specific query with one hit empty string', async () => {
+  test('Test two snippets on specific query and compare snippet with highlight results', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -105,21 +126,31 @@ describe('Snippet Browser test', () => {
     const firstHitHighlight = response.results[0]?.hits[0]?._highlightResult
     const firstHitSnippet = response.results[0].hits[0]._snippetResult
 
-    expect(firstHitHighlight?.title?.value).toEqual('<p>S</p>tar Wars')
-    expect(firstHitHighlight?.overview?.value).toEqual(
-      'Luke <p>S</p>kywalker and'
-    )
-    expect(firstHitSnippet?.title?.value).toEqual('<p>S</p>tar Wars...')
-    expect(firstHitSnippet?.overview?.value).toEqual(
-      'Luke <p>S</p>kywalker and...'
-    )
+    expect(firstHitHighlight).toHaveProperty('title', {
+      value: '<p>S</p>tar Wars',
+    })
+    expect(firstHitHighlight).toHaveProperty('overview', {
+      value: 'Luke <p>S</p>kywalker and',
+    })
+
+    expect(firstHitSnippet).toHaveProperty('title', {
+      value: '<p>S</p>tar Wars',
+    })
+    expect(firstHitSnippet).toHaveProperty('overview', {
+      value: 'Luke <p>S</p>kywalker and...',
+    })
 
     const secondHitHighlight = response.results[0]?.hits[1]?._highlightResult
     const secondHitSnippet = response.results[0]?.hits[1]?._snippetResult
-    expect(secondHitHighlight?.title?.value).toEqual('Four')
+    expect(secondHitHighlight).toHaveProperty('title', { value: 'Four' })
     expect(secondHitHighlight?.overview?.value).toEqual("It'<p>s</p> Ted")
-    expect(secondHitSnippet?.title?.value).toEqual('Four...')
-    expect(secondHitSnippet?.overview?.value).toEqual("It'<p>s</p> Ted...")
+
+    expect(secondHitSnippet).toHaveProperty('title', {
+      value: 'Four...',
+    })
+    expect(secondHitSnippet).toHaveProperty('overview', {
+      value: "It'<p>s</p> Ted...",
+    })
   })
 
   test('Test attributesToSnippet on a null attribute', async () => {
@@ -129,12 +160,13 @@ describe('Snippet Browser test', () => {
         params: {
           query: 'Kill',
           attributesToSnippet: ['overview:2'],
+          snippetEllipsisText: '...',
         },
       },
     ])
 
-    const firstHit = response.results[0]?.hits[0]?._highlightResult
-    expect(firstHit?.overview?.value).toEqual('null')
+    const firstHit = response.results[0]?.hits[0]?._snippetResult
+    expect(firstHit).toHaveProperty('overview', { value: 'null' })
   })
 
   test('Test one attributesToSnippet on placeholder w/ snippetEllipsisText', async () => {
@@ -144,11 +176,14 @@ describe('Snippet Browser test', () => {
         params: {
           query: '',
           attributesToSnippet: ['overview:2'],
+          snippetEllipsisText: '...',
         },
       },
     ])
-    const snippeted = response.results[0]?.hits[0]?._highlightResult
-    expect(snippeted?.overview?.value).toEqual('Princess')
+
+    const snippeted = response.results[0]?.hits[0]?._snippetResult
+    expect(snippeted).toHaveProperty('overview', { value: 'Princess...' })
+    expect(snippeted).toHaveProperty('title', { value: 'Star Wars' })
   })
 
   test('Test one attributesToSnippet on specific query w/ snippetEllipsisText', async () => {
@@ -158,11 +193,12 @@ describe('Snippet Browser test', () => {
         params: {
           query: 'judg',
           attributesToSnippet: ['overview:2'],
+          snippetEllipsisText: '...',
         },
       },
     ])
-    const snippeted = response.results[0]?.hits[0]?._highlightResult?.overview
-    expect(snippeted?.value).toEqual('While')
+    const snippeted = response.results[0]?.hits[0]?._snippetResult
+    expect(snippeted).toHaveProperty('overview', { value: 'While...' })
   })
 
   test('Test two attributesToSnippet on specific query with one hit empty string w/ snippetEllipsisText', async () => {
@@ -170,24 +206,26 @@ describe('Snippet Browser test', () => {
       {
         indexName: 'movies',
         params: {
-          query: 's',
-          attributesToSnippet: ['overview:2', 'title:2'],
+          query: 'm',
+          attributesToSnippet: ['overview:2', 'title:5'],
+          snippetEllipsisText: '...',
         },
       },
     ])
-    const firstHit = response.results[0]?.hits[0]?._highlightResult
+    const firstHit = response.results[0]?.hits[0]?._snippetResult
 
-    expect(firstHit?.title?.value).toEqual(
-      '__ais-highlight__S__/ais-highlight__tar Wars'
-    )
-    expect(firstHit?.overview?.value).toEqual(
-      'Luke __ais-highlight__S__/ais-highlight__kywalker and'
-    )
-    const secondHit = response.results[0].hits[1]._highlightResult
-    expect(secondHit?.title?.value).toEqual('Four')
-    expect(secondHit?.overview?.value).toEqual(
-      "It'__ais-highlight__s__/ais-highlight__ Ted"
-    )
+    expect(firstHit).toHaveProperty('title', {
+      value: '__ais-highlight__M__/ais-highlight__agnetic Rose',
+    })
+    expect(firstHit).toHaveProperty('overview', { value: '' })
+
+    const secondHit = response.results[0].hits[1]._snippetResult
+    expect(secondHit).toHaveProperty('title', {
+      value: 'Judgment...',
+    })
+    expect(secondHit).toHaveProperty('overview', {
+      value: 'boxing __ais-highlight__m__/ais-highlight__atch,...',
+    })
   })
 
   test('Test attributesToSnippet on a null attribute w/ snippetEllipsisText', async () => {
@@ -197,29 +235,19 @@ describe('Snippet Browser test', () => {
         params: {
           query: 'Kill',
           attributesToSnippet: ['overview:2'],
+          snippetEllipsisText: '...',
         },
       },
     ])
+    const firstHit = response.results[0]?.hits[0]?._snippetResult
 
-    const firstHit = response.results[0]?.hits[0]?._highlightResult
-    expect(firstHit?.overview?.value).toEqual('null')
-    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty('id')
-    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
-      'title'
-    )
-    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
-      'overview'
-    )
-    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
-      'genres'
-    )
-    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
-      'poster'
-    )
-    expect(response.results[0]?.hits[0]?._highlightResult).toHaveProperty(
-      'release_date'
-    )
-    // expect(resKeys).toEqual(expect.arrayContaining(Object.keys(dataset[0])))
+    expect(firstHit).toHaveProperty('overview', { value: 'null' })
+    expect(firstHit).toHaveProperty('id', {
+      value: '24',
+    })
+    expect(firstHit).toHaveProperty('title', {
+      value: '__ais-highlight__Kill__/ais-highlight__ Bill: Vol. 1',
+    })
   })
 
   test('Test attributes to snippet on non-string-types', async () => {
@@ -229,13 +257,17 @@ describe('Snippet Browser test', () => {
         params: {
           query: 'Jud',
           attributesToSnippet: ['*:2'],
+          snippetEllipsisText: '...',
         },
       },
     ])
-    const hit = response.results[0].hits[0]._highlightResult
+    const hit = response.results[0].hits[0]._snippetResult
 
     if (hit?.overview) {
-      expect(hit?.overview.value).toEqual('While')
+      expect(hit?.overview.value).toEqual('While...')
+    }
+    if (hit?.poster) {
+      expect(hit?.poster.value).toEqual('https...')
     }
 
     if (hit?.genres) {
@@ -268,7 +300,7 @@ describe('Snippet Browser test', () => {
 
     if (hit?.object) {
       // @ts-ignore
-      expect(hit?.object?.value).toEqual('{"id":1,"name":"Nader"}')
+      expect(hit?.object?.value).toEqual('{"id":"1","name":"Nader"}')
     }
 
     if (hit?.nullField) {

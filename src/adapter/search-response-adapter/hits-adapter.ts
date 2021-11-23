@@ -1,6 +1,6 @@
 import type { PaginationContext, SearchContext } from '../../types'
 import { adaptPagination } from './pagination-adapter'
-import { adaptFormating } from './highlight-adapter'
+import { adaptFormating } from './format-adapter'
 import { adaptGeoResponse } from './geo-reponse-adapter'
 
 /**
@@ -22,9 +22,10 @@ export function adaptHits(
     // Creates Hit object compliant with InstantSearch
     if (Object.keys(hit).length > 0) {
       const { _formatted: formattedHit, _matchesInfo, ...restOfHit } = hit
+
       return {
         ...restOfHit,
-        ...adaptFormating(formattedHit, searchContext),
+        ...adaptFormating(hit, searchContext),
         ...(primaryKey && { objectID: hit[primaryKey] }),
       }
     }

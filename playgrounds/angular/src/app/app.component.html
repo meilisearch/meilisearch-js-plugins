@@ -10,8 +10,7 @@
     <div class="search-panel">
       <div class="search-panel__filters">
         <ais-clear-refinements></ais-clear-refinements>
-        <ais-sort-by
-          [items]="[
+        <ais-sort-by [items]="[
           { value: 'steam-video-games', label: 'Relevant' },
           {
             value: 'steam-video-games:recommendationCount:desc',
@@ -21,17 +20,18 @@
             value: 'steam-video-games:recommendationCount:asc',
             label: 'Least Recommended'
           }
-          ]"
-        ></ais-sort-by>
-        <ais-configure [searchParameters]="{ hitsPerPage: 6 }"></ais-configure>
+          ]"></ais-sort-by>
+        <ais-configure
+          [searchParameters]="{ hitsPerPage: 6, attributesToSnippet: ['description:10'], snippetEllipsisText:'...' }">
+        </ais-configure>
         <h2>Genres</h2>
-        <ais-refinement-list attribute="genres" ></ais-refinement-list>
+        <ais-refinement-list attribute="genres"></ais-refinement-list>
         <h2>Players</h2>
-        <ais-refinement-list attribute="players" ></ais-refinement-list>
+        <ais-refinement-list attribute="players"></ais-refinement-list>
         <h2>Platforms</h2>
-        <ais-refinement-list attribute="platforms" ></ais-refinement-list>
+        <ais-refinement-list attribute="platforms"></ais-refinement-list>
         <h2>Misc</h2>
-        <ais-refinement-list attribute="misc" ></ais-refinement-list>
+        <ais-refinement-list attribute="misc"></ais-refinement-list>
       </div>
 
       <div class="search-panel__results">
@@ -51,7 +51,8 @@
                   <ais-highlight attribute="name" [hit]="hit"></ais-highlight>
                 </div>
                 <div class="hit-description">
-                  <ais-highlight attribute="description" [hit]="hit"></ais-highlight>
+                  <ais-snippet attribute="description" [hit]="hit">
+                  </ais-snippet>
                 </div>
                 <div class="hit-info">price: ${{hit.price}}</div>
                 <div class="hit-info">Release date: {{hit.releaseDate}}</div>
