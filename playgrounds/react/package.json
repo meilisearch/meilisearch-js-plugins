@@ -11,6 +11,9 @@
     "react",
     "instant-meilisearch"
   ],
+  "browserslist": [
+    "defaults"
+  ],
   "author": "",
   "license": "ISC",
   "resolutions": {

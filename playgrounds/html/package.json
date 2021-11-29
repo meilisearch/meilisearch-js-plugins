@@ -8,11 +8,7 @@
     "build": "parcel build ./public/index.html --global instantMeiliSearch"
   },
   "browserslist": [
-    "last 3 and_chr versions",
-    "last 3 chrome versions",
-    "last 3 opera versions",
-    "last 3 ios_saf versions",
-    "last 3 safari versions"
+    "defaults"
   ],
   "author": "",
   "license": "ISC",
