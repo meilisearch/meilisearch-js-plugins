@@ -953,3 +953,8 @@ If you want to know more about the development workflow or want to contribute, p
 <hr>
 
 **MeiliSearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.
+
+
+## Adding cool lookin stats to this repo (still in test mode)
+
+![Alt](https://repobeats.axiom.co/api/embed/02df6255fbbe195a974519cc7c3c1f68c097f2b4.svg "Repobeats analytics image")
