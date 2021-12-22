@@ -58,7 +58,7 @@ yarn add @meilisearch/instant-meilisearch
 ```
 
 InstantMeiliSearch is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
-To be able to create a search interface, you'll need to [install `instantsearch.js`](https://www.algolia.com/doc/guides/building-search-ui/installation/js/) as well. 
+To be able to create a search interface, you'll need to [install `instantsearch.js`](https://www.algolia.com/doc/guides/building-search-ui/installation/js/) as well.
 
 ## Usage
 
@@ -68,7 +68,7 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
-  'https://demos.meilisearch.com',
+  'https://integration-demos.meilisearch.com',
   'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25'
 )
 ```
@@ -79,7 +79,7 @@ const searchClient = instantMeiliSearch(
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
-  'https://demos.meilisearch.com',
+  'https://integration-demos.meilisearch.com',
   'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
   {
     paginationTotalHits: 30, // default: 200.
@@ -132,7 +132,7 @@ In `app.js`:
 const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
-    'https://demos.meilisearch.com',
+    'https://integration-demos.meilisearch.com',
     'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25'
   ),
 })
@@ -253,7 +253,7 @@ List of all the components that are available in [instantSearch](https://github.
 const search = instantsearch({
   indexName: 'instant_search',
   searchClient: instantMeiliSearch(
-    'https://demos.meilisearch.com',
+    'https://integration-demos.meilisearch.com',
     'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
     {
       // ... InstantMeiliSearch options
