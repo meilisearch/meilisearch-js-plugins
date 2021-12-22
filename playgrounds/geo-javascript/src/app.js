@@ -59,7 +59,7 @@ injectScript(
                 Country: {{#helpers.highlight}}{ "attribute": "country" }{{/helpers.highlight}}
               </div>
               <div class="hit-name">
-                {{#helpers.highlight}}{ "attribute": "population" }{{/helpers.highlight}}
+                Population: {{#helpers.highlight}}{ "attribute": "population" }{{/helpers.highlight}}
               </div>
             </div>
           `,
