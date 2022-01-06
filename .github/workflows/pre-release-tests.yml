@@ -26,8 +26,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "14.x"
+      - name: Install docker
+        run: sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io
       - name: Install dependencies
-        run: yarn --dev && yarn --cwd ./playgrounds/vue
+        run: yarn --dev && yarn --cwd ./tests/env/react
       - name: Get the latest MeiliSearch RC
         run: echo "MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | bash)" >> $GITHUB_ENV
       - name: MeiliSearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
