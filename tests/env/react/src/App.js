@@ -14,16 +14,12 @@ import {
 } from 'react-instantsearch-dom'
 
 import './App.css'
-import { instantMeiliSearch } from '../../../src/index'
+import { instantMeiliSearch } from '../../../../src/index'
 
-const searchClient = instantMeiliSearch(
-  'https://integration-demos.meilisearch.com',
-  'dc3fedaf922de8937fdea01f0a7d59557f1fd31832cb8440ce94231cfdde7f25',
-  {
-    paginationTotalHits: 60,
-    primaryKey: 'id',
-  }
-)
+const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
+  paginationTotalHits: 60,
+  primaryKey: 'id',
+})
 
 const App = () => (
   <div className="ais-InstantSearch">
