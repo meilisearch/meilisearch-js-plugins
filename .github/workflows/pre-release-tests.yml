@@ -46,6 +46,7 @@ jobs:
           # Tests are only done on one playground to avoid long testing time
           start: yarn local:env:react
           env: playground=reactlocal
+          spec: cypress/integration/local-ui.spec.js
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
