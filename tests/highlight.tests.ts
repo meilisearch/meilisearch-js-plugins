@@ -2,18 +2,23 @@ import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Highlight Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
-      'movies'
-    )
-    await searchClient.MeiliSearchClient.waitForTask(deleteTask.uid)
-    await searchClient.MeiliSearchClient.index(
-      'movies'
-    ).updateFilterableAttributes(['genres'])
-    const documentsTask = await searchClient.MeiliSearchClient.index(
+    try {
+      await searchClient.MeiliSearchClient.deleteIndex('movies')
+    } catch (e) {
+      // movies does not exist
+    }
+    const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
-    await searchClient.MeiliSearchClient.index('movies').waitForTask(
-      documentsTask.uid
+    const settingsUpdate = await searchClient.MeiliSearchClient.index(
+      'movies'
+    ).updateFilterableAttributes(['genres']) // if settings update is put before document addition relevancy is impacted
+
+    await searchClient.MeiliSearchClient.index('movies').waitForPendingUpdate(
+      moviesUpdate.updateId
+    )
+    await searchClient.MeiliSearchClient.index('movies').waitForPendingUpdate(
+      settingsUpdate.updateId
     )
   })
 

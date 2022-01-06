@@ -2,21 +2,22 @@ import { searchClient, geoDataset, City } from './assets/utils'
 
 describe('Instant MeiliSearch Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
-      'geotest'
-    )
-    await searchClient.MeiliSearchClient.waitForTask(deleteTask.uid)
+    try {
+      await searchClient.MeiliSearchClient.deleteIndex('geotest')
+    } catch (e) {
+      // geotest does not exist
+    }
     await searchClient.MeiliSearchClient.index(
       'geotest'
     ).updateFilterableAttributes(['_geo'])
     await searchClient.MeiliSearchClient.index(
       'geotest'
     ).updateSortableAttributes(['_geo'])
-    const documentsTask = await searchClient.MeiliSearchClient.index(
+    const geotestUpdate = await searchClient.MeiliSearchClient.index(
       'geotest'
     ).addDocuments(geoDataset)
-    await searchClient.MeiliSearchClient.index('movies').waitForTask(
-      documentsTask.uid
+    await searchClient.MeiliSearchClient.index('geotest').waitForPendingUpdate(
+      geotestUpdate.updateId
     )
   })
 

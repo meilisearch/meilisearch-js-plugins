@@ -3,18 +3,19 @@ import { searchClient, dataset, Movies } from './assets/utils'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
-      'movies'
-    )
-    await searchClient.MeiliSearchClient.waitForTask(deleteTask.uid)
+    try {
+      await searchClient.MeiliSearchClient.deleteIndex('movies')
+    } catch (e) {
+      // movies does not exist
+    }
     await searchClient.MeiliSearchClient.index(
       'movies'
     ).updateFilterableAttributes(['genres'])
-    const documentsTask = await searchClient.MeiliSearchClient.index(
+    const moviesUpdate = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
-    await searchClient.MeiliSearchClient.index('movies').waitForTask(
-      documentsTask.uid
+    await searchClient.MeiliSearchClient.index('movies').waitForPendingUpdate(
+      moviesUpdate.updateId
     )
   })
 
