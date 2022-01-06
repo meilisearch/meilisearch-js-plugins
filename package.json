@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.5.10",
+  "version": "0.5.11",
   "private": false,
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
@@ -21,10 +21,11 @@
     "playground:angular": "yarn --cwd ./playgrounds/angular && yarn --cwd ./playgrounds/angular start",
     "postbuild": "yarn typingsheader",
     "typingsheader": "node scripts/build.js",
-    "build": "yarn cleanup && rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js  && tsc --emitDeclarationOnly",
+    "build": "yarn cleanup && rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js",
     "dev": "rollup -c rollup.config.js --watch",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
-    "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix ."
+    "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix .",
+    "types": "yarn tsc"
   },
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",
@@ -54,7 +55,7 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "0.24.0-beta.0"
+    "meilisearch": "0.23.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
