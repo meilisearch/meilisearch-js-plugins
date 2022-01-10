@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.6.0",
+  "version": "0.6.0-beta.0",
   "private": false,
   "description": "The search client to use MeiliSearch with InstantSearch.",
   "scripts": {
@@ -59,7 +59,7 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "0.24.0-beta.0"
+    "meilisearch": "0.24.0-beta.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
