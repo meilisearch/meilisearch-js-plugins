@@ -57,14 +57,15 @@ describe(`${playground} playground test`, () => {
   })
 
   it('click on facets', () => {
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
+
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(checkbox).eq(1).click()
+
     if (playground === 'react') cy.contains('1,939')
     if (playground === 'angular') cy.contains('1939')
-    cy.get(HIT_ITEM_CLASS)
-      .eq(0)
-      .contains('Safecracker: The Ultimate Puzzle Adventure')
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('4.99 $')
+
+    cy.contains('Counter-Strike').should('not.exist')
   })
 
   it('Search', () => {
@@ -87,14 +88,19 @@ describe(`${playground} playground test`, () => {
   })
 
   it('Paginate Search', () => {
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
+
     if (playground === 'react') {
       cy.get('.ais-InfiniteHits-loadMore').click()
       cy.get(HIT_ITEM_CLASS).should('have.length', 12)
     } else {
-      if (playground === 'vue') cy.get('.ais-Pagination-item').eq(3).click()
-      else cy.get('.ais-Pagination-item--page').eq(1).click()
-      cy.wait(500)
-      cy.get(HIT_ITEM_CLASS).eq(0).contains('Darwinia')
+      if (playground === 'vue') {
+        cy.get('.ais-Pagination-item').eq(3).click()
+      } else {
+        cy.get('.ais-Pagination-item--page').eq(1).click()
+      }
+
+      cy.contains('Counter-Strike').should('not.exist')
     }
   })
 })
