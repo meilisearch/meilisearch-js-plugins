@@ -4,7 +4,7 @@ const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
-    'SEJe5jmM54f7afa09d0500b1fcc5bbeda8e4667453f5af2707c7fd62db6e4727701be0ae',
+    'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
     {
       limitPerRequest: 30,
     }
