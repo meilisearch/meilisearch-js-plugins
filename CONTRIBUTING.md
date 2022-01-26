@@ -1,6 +1,6 @@
 # Contributing <!-- omit in TOC -->
 
-First of all, thank you for contributing to MeiliSearch! The goal of this document is to provide everything you need to know in order to contribute to MeiliSearch and its different integrations.
+First of all, thank you for contributing to meilisearch! The goal of this document is to provide everything you need to know in order to contribute to meilisearch and its different integrations.
 
 - [Assumptions](#assumptions)
 - [How to Contribute](#how-to-contribute)
@@ -11,8 +11,8 @@ First of all, thank you for contributing to MeiliSearch! The goal of this docume
 ## Assumptions
 
 1. **You're familiar with [GitHub](https://github.com) and the [Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) (PR) workflow.**
-2. **You've read the MeiliSearch [documentation](https://docs.meilisearch.com) and the [README](/README.md).**
-3. **You know about the [MeiliSearch community](https://docs.meilisearch.com/learn/what_is_meilisearch/contact.html). Please use this for help.**
+2. **You've read the meilisearch [documentation](https://docs.meilisearch.com) and the [README](/README.md).**
+3. **You know about the [meilisearch community](https://docs.meilisearch.com/learn/what_is_meilisearch/contact.html). Please use this for help.**
 
 ## How to Contribute
 
@@ -38,7 +38,7 @@ Each PR should pass the tests and the linter to be accepted.
 
 ```bash
 # Tests with Jest
-docker pull getmeili/meilisearch:latest # Fetch the latest version of MeiliSearch image from Docker Hub
+docker pull getmeili/meilisearch:latest # Fetch the latest version of meilisearch image from Docker Hub
 docker run -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --master-key=masterKey --no-analytics=true
 # Integration tests
 yarn test
@@ -115,7 +115,7 @@ Some notes on GitHub PRs:
 
 ## Release Process (for internal team only)
 
-MeiliSearch tools follow the [Semantic Versioning Convention](https://semver.org/).
+meilisearch tools follow the [Semantic Versioning Convention](https://semver.org/).
 
 ### Automation to Rebase and Merge the PRs <!-- omit in TOC -->
 
@@ -143,9 +143,9 @@ GitHub Actions will be triggered and push the package to [npm](https://www.npmjs
 
 Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
 
-- [MeiliSearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
-- [MeiliSearch + Vue InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
-- [MeiliSearch + React InstantSearch](https://codesandbox.io/s/ms-react-is-sh9ud)
+- [meilisearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
+- [meilisearch + Vue InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
+- [meilisearch + React InstantSearch](https://codesandbox.io/s/ms-react-is-sh9ud)
 
 If you don't have the access to do it, please request it internally.
 
@@ -153,8 +153,8 @@ If you don't have the access to do it, please request it internally.
 
 Here are the steps to release a beta version of this package:
 
-- Create a new branch originating the branch containing the "beta" changes. For example, if during the MeiliSearch pre-release, create a branch originating `bump-meilisearch-v*.*.*`.<br>
-`vX.X.X` is the next version of the package, NOT the version of MeiliSearch!
+- Create a new branch originating the branch containing the "beta" changes. For example, if during the meilisearch pre-release, create a branch originating `bump-meilisearch-v*.*.*`.<br>
+`vX.X.X` is the next version of the package, NOT the version of meilisearch!
 
 ```bash
 git checkout bump-meilisearch-v*.*.*
