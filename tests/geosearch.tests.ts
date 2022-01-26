@@ -1,6 +1,6 @@
 import { searchClient, geoDataset, City } from './assets/utils'
 
-describe('Instant MeiliSearch Browser test', () => {
+describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
     const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
       'geotest'

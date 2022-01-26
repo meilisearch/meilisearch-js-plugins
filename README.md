@@ -57,7 +57,7 @@ npm install @meilisearch/instant-meilisearch
 yarn add @meilisearch/instant-meilisearch
 ```
 
-InstantMeilisearch is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
+`instant-meilisearch` is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
 To be able to create a search interface, you'll need to [install `instantsearch.js`](https://www.algolia.com/doc/guides/building-search-ui/installation/js/) as well.
 
 ## Usage
@@ -65,9 +65,9 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 ### Basic
 
 ```js
-import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeilisearch(
+const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com',
   'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
 )
@@ -76,9 +76,9 @@ const searchClient = instantMeilisearch(
 ### Customization
 
 ```js
-import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeilisearch(
+const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com',
   'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
   {
@@ -131,7 +131,7 @@ In `app.js`:
 ```js
 const search = instantsearch({
   indexName: 'steam-video-games',
-  searchClient: instantMeilisearch(
+  searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
     'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
   ),
@@ -240,8 +240,8 @@ List of all the components that are available in [instantSearch](https://github.
 `instantSearch` is the main component. It manages the widget and lets you add new ones.
 
 - ✅ IndexName: [`uid` of your index](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes). _required_
-- ✅ SearchClient: Search client, in our case instantMeilisearch. See [customization](#customization) for details on options. _required_
-- ❌ numberLocale: Does not work with both Algoliasearch and InstantMeilisearch.
+- ✅ SearchClient: Search client, in our case instant-meilisearch. See [customization](#customization) for details on options. _required_
+- ❌ numberLocale: Does not work with both Algoliasearch and instant-meilisearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
 - ✅ initialUiState: Determine the search state on app start.
 - ✅ onStateChange: Change search state on change (see option above).
@@ -252,11 +252,11 @@ List of all the components that are available in [instantSearch](https://github.
 ```js
 const search = instantsearch({
   indexName: 'instant_search',
-  searchClient: instantMeilisearch(
+  searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
     'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
     {
-      // ... InstantMeilisearch options
+      // ... InstantMeiliSearch options
     }
   ),
   // ... InstantSearch options
@@ -284,8 +284,8 @@ The `searchBox` widget is used to let the user perform a text-based query.
 - ✅ placeholder: Placeholder of the search box.
 - ✅ autofocus: Whether the search box is focused on arrival.
 - ✅ searchAsYouType: Whether result appears as you type or after pressing enter.
-- ❌ showReset: Does not work with both algoliaSearch and instantMeilisearche
-- ❌ showSubmit: Does not work with both algoliaSearch and instantMeilisearch
+- ❌ showReset: Does not work with both algoliasearch and instant-meilisearch
+- ❌ showSubmit: Does not work with both algoliasearch and instant-meilisearch
 - ✅ showLoadingIndicator: Whether to show the spinning loader.
 - ✅ queryHook: A function that is called just before the search is triggered.
 - ✅ templates: The templates to use for the widget.
@@ -314,7 +314,7 @@ We also suggest looking at [Meilisearch's search parameters](https://docs.meilis
 ```js
 instantsearch.widgets.configure({
   hitsPerPage: 6,
-  // other algoliaSearch parameters
+  // other algoliasearch parameters
 })
 ```
 

@@ -5,7 +5,7 @@ function nakedOfTags(str: string) {
 }
 
 function addEllipsis(value: any, formatValue: string, ellipsis: string): any {
-  // Manage ellpsis on cropped values until this feature is implemented https://roadmap.meilisearch.com/c/69-policy-for-cropped-values?utm_medium=social&utm_source=portal_share in MeiliSearch
+  // Manage ellpsis on cropped values until this feature is implemented https://roadmap.meilisearch.com/c/69-policy-for-cropped-values?utm_medium=social&utm_source=portal_share in Meilisearch
 
   let ellipsedValue = formatValue
 
@@ -15,7 +15,7 @@ function addEllipsis(value: any, formatValue: string, ellipsis: string): any {
   ) {
     if (
       formatValue[0] === formatValue[0].toLowerCase() && // beginning of a sentence
-      formatValue.startsWith('<em>') === false // beginning of the document field, otherwise MeiliSearch would crop around the highlight
+      formatValue.startsWith('<em>') === false // beginning of the document field, otherwise Meilisearch would crop around the highlight
     ) {
       ellipsedValue = `${ellipsis}${formatValue.trim()}`
     }
@@ -52,7 +52,7 @@ export function adaptSnippet(
   attributes: readonly string[] | undefined,
   ellipsis: string | undefined
 ): Record<string, any> {
-  // hit is the `_formatted` object returned by MeiliSearch.
+  // hit is the `_formatted` object returned by Meilisearch.
   // It contains all the highlighted and croped attributes
 
   const formattedHit = hit._formatted

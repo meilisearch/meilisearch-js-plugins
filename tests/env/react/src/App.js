@@ -23,7 +23,7 @@ const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
 
 const App = () => (
   <div className="ais-InstantSearch">
-    <h1>MeiliSearch + React InstantSearch</h1>
+    <h1>Meilisearch + React InstantSearch</h1>
     <h2>
       Search in Steam video games{' '}
       <span role="img" aria-label="emoji">
@@ -32,7 +32,7 @@ const App = () => (
     </h2>
     <p>
       This is not the official Steam dataset but only for demo purpose. Enjoy
-      searching with MeiliSearch!
+      searching with Meilisearch!
     </p>
     <InstantSearch indexName="steam-video-games" searchClient={searchClient}>
       <Stats />

@@ -8,7 +8,7 @@ import { ceiledDivision } from '../../utils'
 import { adaptHits } from './hits-adapter'
 
 /**
- * Adapt search response from MeiliSearch
+ * Adapt search response from Meilisearch
  * to search response compliant with instantsearch.js
  *
  * @param  {MeiliSearchResponse<Record<string} searchResponse

@@ -2,7 +2,7 @@ import type { Filter, SearchContext } from '../../types'
 import { replaceColonByEqualSign } from '../../utils'
 
 /**
- * Transform InstantSearch filter to MeiliSearch filter.
+ * Transform InstantSearch filter to Meilisearch filter.
  * Change sign from `:` to `=` in nested filter object.
  * example: [`genres:comedy`] becomes [`genres=comedy`]
  *
@@ -76,7 +76,7 @@ function mergeFilters(
 }
 
 /**
- * Adapt instantsearch.js filters to MeiliSearch filters by
+ * Adapt instantsearch.js filters to Meilisearch filters by
  * combining and transforming all provided filters.
  *
  * @param  {string|undefined} filters

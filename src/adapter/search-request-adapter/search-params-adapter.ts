@@ -8,7 +8,7 @@ import { adaptFilters } from './filter-adapter'
 
 /**
  * Adapt search request from instantsearch.js
- * to search request compliant with MeiliSearch
+ * to search request compliant with Meilisearch
  *
  * @param  {SearchContext} searchContext
  * @returns {MeiliSearchParams}
@@ -16,7 +16,7 @@ import { adaptFilters } from './filter-adapter'
 export function adaptSearchParams(
   searchContext: SearchContext
 ): MeiliSearchParams {
-  // Creates search params object compliant with MeiliSearch
+  // Creates search params object compliant with Meilisearch
   const meiliSearchParams: Record<string, any> = {}
 
   // Facets

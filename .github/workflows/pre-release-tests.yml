@@ -1,4 +1,4 @@
-# Testing the code base against the MeiliSearch pre-releases
+# Testing the code base against the Meilisearch pre-releases
 name: Pre-Release Tests
 
 # Will only run for PRs and pushes to bump-meilisearch-v*
@@ -28,17 +28,17 @@ jobs:
           node-version: "14.x"
       - name: Install dependencies
         run: yarn --dev && yarn --cwd ./tests/env/react
-      - name: Grep latest version of MeiliSearch
+      - name: Grep latest version of Meilisearch
         run: |
           echo "MEILISEARCH_LATEST=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | sh)" >> $GITHUB_ENV
-      - name: Download MeiliSearch
+      - name: Download Meilisearch
         run: |
-          curl https://github.com/meilisearch/MeiliSearch/releases/download/${{ env.MEILISEARCH_LATEST }}/meilisearch-linux-amd64 --output meilisearch --location
+          curl https://github.com/meilisearch/Meilisearch/releases/download/${{ env.MEILISEARCH_LATEST }}/meilisearch-linux-amd64 --output meilisearch --location
           chmod +x meilisearch
-      - name: Run MeiliSearch
+      - name: Run Meilisearch
         run: |
           ./meilisearch --master-key=masterKey --no-analytics true &
-      - name: Setup MeiliSearch Index
+      - name: Setup Meilisearch Index
         run: yarn local:env:setup
       - name: Run local browser tests
         uses: cypress-io/github-action@v2
@@ -73,9 +73,9 @@ jobs:
           path: |
             ./node_modules
           key: ${{ hashFiles('yarn.lock') }}
-      - name: Get the latest MeiliSearch RC
+      - name: Get the latest Meilisearch RC
         run: echo "MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | bash)" >> $GITHUB_ENV
-      - name: MeiliSearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
+      - name: Meilisearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
         run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ env.MEILISEARCH_VERSION }} ./meilisearch --master-key=masterKey --no-analytics=true
       - name: Install dependencies
         run: yarn install
