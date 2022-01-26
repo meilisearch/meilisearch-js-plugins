@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/meilisearch/integration-guides/main/assets/logos/logo.svg" alt="Instant-MeiliSearch" width="200" height="200" />
+  <img src="https://raw.githubusercontent.com/meilisearch/integration-guides/main/assets/logos/logo.svg" alt="Instant-Meilisearch" width="200" height="200" />
 </p>
 
-<h1 align="center">Instant MeiliSearch</h1>
+<h1 align="center">Instant Meilisearch</h1>
 
 <h4 align="center">
-  <a href="https://github.com/meilisearch/MeiliSearch">MeiliSearch</a> |
+  <a href="https://github.com/meilisearch/Meilisearch">Meilisearch</a> |
   <a href="https://docs.meilisearch.com">Documentation</a> |
   <a href="https://slack.meilisearch.com">Slack</a> |
   <a href="https://roadmap.meilisearch.com/tabs/1-under-consideration">Roadmap</a> |
@@ -17,15 +17,15 @@
   <a href="https://www.npmjs.com/package/@meilisearch/instant-meilisearch"><img src="https://img.shields.io/npm/v/@meilisearch/instant-meilisearch.svg" alt="npm version"></a>
   <a href="https://github.com/meilisearch/instant-meilisearch/actions"><img src="https://github.com/meilisearch/instant-meilisearch/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
   <a href="https://github.com/meilisearch/instant-meilisearch/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
-  <a href="https://github.com/meilisearch/MeiliSearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
+  <a href="https://github.com/meilisearch/Meilisearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
   <a href="https://app.bors.tech/repositories/28908"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
 </p>
 
-<p align="center">⚡ How to integrate a front-end search bar in your website using MeiliSearch</p>
+<p align="center">⚡ How to integrate a front-end search bar in your website using Meilisearch</p>
 
-**MeiliSearch** is an open-source search engine. [Discover what MeiliSearch is!](https://github.com/meilisearch/MeiliSearch)
+**Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/Meilisearch)
 
-This library is a plugin to establish the communication between your [MeiliSearch](https://github.com/meilisearch/MeiliSearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
+This library is a plugin to establish the communication between your [Meilisearch](https://github.com/meilisearch/Meilisearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
 If you use Angular, React, or Vue, you might want to check out these repositories:
@@ -34,14 +34,14 @@ If you use Angular, React, or Vue, you might want to check out these repositorie
 - [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 
-NB: If you don't have any MeiliSearch instance running and containing your data, you should take a look at this [getting started page](https://docs.meilisearch.com/learn/tutorials/getting_started.html).
+NB: If you don't have any Meilisearch instance running and containing your data, you should take a look at this [getting started page](https://docs.meilisearch.com/learn/tutorials/getting_started.html).
 
 ## Table of Contents <!-- omit in toc -->
 
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [⚡️ Example with InstantSearch](#-example-with-instantSearch)
-- [🤖 Compatibility with MeiliSearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
+- [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
 
@@ -57,7 +57,7 @@ npm install @meilisearch/instant-meilisearch
 yarn add @meilisearch/instant-meilisearch
 ```
 
-InstantMeiliSearch is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
+InstantMeilisearch is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
 To be able to create a search interface, you'll need to [install `instantsearch.js`](https://www.algolia.com/doc/guides/building-search-ui/installation/js/) as well.
 
 ## Usage
@@ -65,9 +65,9 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 ### Basic
 
 ```js
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeiliSearch(
+const searchClient = instantMeilisearch(
   'https://integration-demos.meilisearch.com',
   'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
 )
@@ -76,9 +76,9 @@ const searchClient = instantMeiliSearch(
 ### Customization
 
 ```js
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeiliSearch(
+const searchClient = instantMeilisearch(
   'https://integration-demos.meilisearch.com',
   'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
   {
@@ -94,15 +94,15 @@ const searchClient = instantMeiliSearch(
 - `paginationTotalHits` (`200` by default): The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/). If the pagination widget is not used, `paginationTotalHits` is ignored.<br>
   Which means that, with a `paginationTotalHits` default value of 200, and `hitsPerPage` default value of 20, you can browse `paginationTotalHits / hitsPerPage` => `200 / 20 = 10` pages during pagination. Each of the 10 pages containing 20 results.<br>
   The default value of `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples).<br>
-  ⚠️ MeiliSearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
-  More information about MeiliSearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
+  ⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
+  More information about Meilisearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
 - `primaryKey` (`undefined` by default): Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
 
 ## Example with InstantSearch
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
 
-InstantSearch requires that you provide an indexName. The indexName corresponds to the [index `uid`](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes) in which your document are stored in MeiliSearch.
+InstantSearch requires that you provide an indexName. The indexName corresponds to the [index `uid`](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes) in which your document are stored in Meilisearch.
 
 In `index.html`:
 
@@ -131,7 +131,7 @@ In `app.js`:
 ```js
 const search = instantsearch({
   indexName: 'steam-video-games',
-  searchClient: instantMeiliSearch(
+  searchClient: instantMeilisearch(
     'https://integration-demos.meilisearch.com',
     'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
   ),
@@ -167,21 +167,21 @@ search.start()
 ## More Documentation
 
 - The open-source InstantSearch library is widely used and well documented in the [Algolia documentation](https://www.algolia.com/doc/api-reference/widgets/js/). It provides all the widgets to customize and improve your search bar environment in your website.
-- The [MeiliSearch documentation](https://docs.meilisearch.com/).
+- The [Meilisearch documentation](https://docs.meilisearch.com/).
 - If you use React, check out [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - If you use Vue, check out [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 - If you use Angular, check out [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
 
 
-## 🤖 Compatibility with MeiliSearch and InstantSearch
+## 🤖 Compatibility with Meilisearch and InstantSearch
 
 **Supported InstantSearch.js versions**:
 
 This package only guarantees the compatibility with the [version v4 of InstantSearch.js](https://github.com/algolia/instantsearch.js/releases/tag/v4.24.1). It may work with older or newer InstantSearch versions, but these are not tested nor officially supported at this time.
 
-**Supported MeiliSearch versions**:
+**Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v0.25.0 of MeiliSearch](https://github.com/meilisearch/MeiliSearch/releases/tag/v0.25.0).
+This package only guarantees the compatibility with the [version v0.25.0 of Meilisearch](https://github.com/meilisearch/Meilisearch/releases/tag/v0.25.0).
 
 **Node / NPM versions**:
 
@@ -190,7 +190,7 @@ This package only guarantees the compatibility with the [version v0.25.0 of Meil
 
 ## API resources
 
-List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibility with [MeiliSearch](https://github.com/meilisearch/meilisearch/).
+List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibility with [Meilisearch](https://github.com/meilisearch/meilisearch/).
 
 ### Table Of Widgets
 
@@ -240,8 +240,8 @@ List of all the components that are available in [instantSearch](https://github.
 `instantSearch` is the main component. It manages the widget and lets you add new ones.
 
 - ✅ IndexName: [`uid` of your index](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes). _required_
-- ✅ SearchClient: Search client, in our case instantMeiliSearch. See [customization](#customization) for details on options. _required_
-- ❌ numberLocale: Does not work with both Algoliasearch and InstantMeiliSearch.
+- ✅ SearchClient: Search client, in our case instantMeilisearch. See [customization](#customization) for details on options. _required_
+- ❌ numberLocale: Does not work with both Algoliasearch and InstantMeilisearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
 - ✅ initialUiState: Determine the search state on app start.
 - ✅ onStateChange: Change search state on change (see option above).
@@ -252,11 +252,11 @@ List of all the components that are available in [instantSearch](https://github.
 ```js
 const search = instantsearch({
   indexName: 'instant_search',
-  searchClient: instantMeiliSearch(
+  searchClient: instantMeilisearch(
     'https://integration-demos.meilisearch.com',
     'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
     {
-      // ... InstantMeiliSearch options
+      // ... InstantMeilisearch options
     }
   ),
   // ... InstantSearch options
@@ -270,7 +270,7 @@ const search = instantsearch({
 
 `Index` is the component that lets you apply widgets to a dedicated index. It’s useful if you want to build an interface that targets multiple indices.
 
-Not compatible as MeiliSearch does not support federated search on multiple indexes.
+Not compatible as Meilisearch does not support federated search on multiple indexes.
 
 If you'd like to see federated search implemented please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/74-multi-index-search?utm_medium=social&utm_source=portal_share).
 
@@ -284,8 +284,8 @@ The `searchBox` widget is used to let the user perform a text-based query.
 - ✅ placeholder: Placeholder of the search box.
 - ✅ autofocus: Whether the search box is focused on arrival.
 - ✅ searchAsYouType: Whether result appears as you type or after pressing enter.
-- ❌ showReset: Does not work with both algoliaSearch and instantMeiliSearche
-- ❌ showSubmit: Does not work with both algoliaSearch and instantMeiliSearch
+- ❌ showReset: Does not work with both algoliaSearch and instantMeilisearche
+- ❌ showSubmit: Does not work with both algoliaSearch and instantMeilisearch
 - ✅ showLoadingIndicator: Whether to show the spinning loader.
 - ✅ queryHook: A function that is called just before the search is triggered.
 - ✅ templates: The templates to use for the widget.
@@ -309,7 +309,7 @@ Because these are the search parameters of AlgoliaSearch and not the InstantSear
 Since we do not act as AlgoliaSearch on search parameters, detailed compatibility can be found in [this issue](https://github.com/meilisearch/instant-meilisearch/issues/389).<br>
 This component should only be used if no other component provides the same configuration.
 
-We also suggest looking at [MeiliSearch's search parameters](https://docs.meilisearch.com/reference/features/search_parameters.html) to determine how they act.
+We also suggest looking at [Meilisearch's search parameters](https://docs.meilisearch.com/reference/features/search_parameters.html) to determine how they act.
 
 ```js
 instantsearch.widgets.configure({
@@ -322,7 +322,7 @@ instantsearch.widgets.configure({
 
 [ConfigureRelatedItems references](https://www.algolia.com/doc/api-reference/widgets/configure-related-items/js/).
 
-No compatibility with MeiliSearch because the component uses [sumOrFiltersScores](https://www.algolia.com/doc/api-reference/api-parameters/sumOrFiltersScores/) and [optionalFilters](https://www.algolia.com/doc/api-reference/api-parameters/optionalFilters/) search parameters that do not exist in MeiliSearch.
+No compatibility with Meilisearch because the component uses [sumOrFiltersScores](https://www.algolia.com/doc/api-reference/api-parameters/sumOrFiltersScores/) and [optionalFilters](https://www.algolia.com/doc/api-reference/api-parameters/optionalFilters/) search parameters that do not exist in Meilisearch.
 
 ### Panel
 
@@ -341,7 +341,7 @@ The `panel` widget wraps other widgets in a consistent panel design.
 
 Deprecated component in InstantSearch in favor of [autocomplete package](https://github.com/algolia/autocomplete).
 
-InstantMeiliSearch is not compatible with the autocomplete package.
+InstantMeilisearch is not compatible with the autocomplete package.
 
 ### ✅ Voice Search
 
@@ -375,7 +375,7 @@ Middleware is a function returning an object with `onStateChange`, `subscribe` a
 
 Provides all the data and functions from the widgets.
 
-It works only on widgets that are compatible with instantMeiliSearch.
+It works only on widgets that are compatible with instantMeilisearch.
 
 ### ✅ Hits
 
@@ -415,8 +415,8 @@ The `infiniteHits` widget is used to display a list of results with a “Show mo
 - ✅ transformItems: Function that maps over every hit the provided logic.
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
-- ❌ showPrevious: Does not work with both Algoliasearch and InstantMeiliSearch.
-- ❌ cache: Not added in InstantMeiliSearch.
+- ❌ showPrevious: Does not work with both Algoliasearch and InstantMeilisearch.
+- ❌ cache: Not added in InstantMeilisearch.
 
 ```js
 instantsearch.widgets.infiniteHits({
@@ -455,7 +455,7 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 
 Note that the attribute has to be added to `attributesToSnippet` in [configuration](#configuration). Highlight is applied on snippeted fields.
 
-Snippeting is called `cropping` in MeiliSearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
+Snippeting is called `cropping` in Meilisearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
 For example: `"description:40"`.
 
 The `40` value represents the number of characters (rounded down to always have full words) and not the number of words. Thus, the snippet string size is always equal to or lower than `40` characters.
@@ -498,7 +498,7 @@ The `geoSearch` widget displays search results on a Google Map. It lets you sear
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-[See our playground for a working exemple](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `MeiliSearch`.
+[See our playground for a working exemple](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `Meilisearch`.
 
 #### Requirements
 
@@ -568,13 +568,13 @@ Alternatively, the parameters can be passed through the [`searchFunction`](https
   },
 ```
 
-[Read the guide on how GeoSearch works in MeiliSearch](https://docs.meilisearch.com/reference/features/geosearch.html#geosearch).
+[Read the guide on how GeoSearch works in Meilisearch](https://docs.meilisearch.com/reference/features/geosearch.html#geosearch).
 
 ### ❌ Answers
 
 [Answers references](https://www.algolia.com/doc/api-reference/widgets/answers/js/).
 
-No compatibility because MeiliSearch does not support this experimental feature.
+No compatibility because Meilisearch does not support this experimental feature.
 
 ### ✅ RefinementList
 
@@ -588,7 +588,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
-- ❌ searchable: Whether to add a search input to let the user search for more facet values. Not supported by MeiliSearch. If you'd like to see it implemented [please vote](https://roadmap.meilisearch.com/c/64-search-for-facet-values?utm_medium=social&utm_source=portal_share).
+- ❌ searchable: Whether to add a search input to let the user search for more facet values. Not supported by Meilisearch. If you'd like to see it implemented [please vote](https://roadmap.meilisearch.com/c/64-search-for-facet-values?utm_medium=social&utm_source=portal_share).
 - ❌ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
 - ❌ searchableIsAlwaysActive: When false, disables the facet search input. Not supported, see `searchable`.
 - ❌ searchableEscapeFacetValues: When true, escapes the facet values. Not supported, see `searchable`.
@@ -612,7 +612,7 @@ instantsearch.widgets.refinementList({
 
 The `hierarchicalMenu` widget is used to create a navigation based on a hierarchy of facet attributes. It is commonly used for categories with subcategories.
 
-No compatibility because MeiliSearch does not support hierarchical facets.
+No compatibility because Meilisearch does not support hierarchical facets.
 
 If you'd like get nested facets/hierarchical facets implemented, please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/97-nested-facets?utm_medium=social&utm_source=portal_share).
 
@@ -636,7 +636,7 @@ The `rangeSlider` widget provides a user-friendly way to filter the results, bas
 
 #### 1. Manual Min Max
 
-Min and max of attributes are not returned from MeiliSearch and thus **must be set manually**.
+Min and max of attributes are not returned from Meilisearch and thus **must be set manually**.
 
 ```js
   instantsearch.widgets.rangeSlider({
@@ -717,7 +717,7 @@ The `rangeInput` widget allows a user to select a numeric range using a minimum 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-⚠️ Not compatible with MeiliSearch by default, needs a workaround. See workaround in [RangeSlider](#rangeslider) section.
+⚠️ Not compatible with Meilisearch by default, needs a workaround. See workaround in [RangeSlider](#rangeslider) section.
 
 ### ✅ MenuSelect
 
@@ -767,7 +767,7 @@ The `numericMenu` widget displays a list of numeric filters in a list. Those num
 
 The `RatingMenu` widget lets the user refine search results by clicking on stars. The stars are based on the selected attribute.
 
-No compatibility because MeiliSearch does not support integers as facet and instantSearch uses facets information to showcase the UI elements.
+No compatibility because Meilisearch does not support integers as facet and instantSearch uses facets information to showcase the UI elements.
 
 ### ✅ ClearRefinements
 
@@ -825,7 +825,7 @@ The `hitsPerPage` widget displays a dropdown menu to let the user change the num
 
 The `breadcrumb` widget is a secondary navigation scheme that lets the user see where the current page is in relation to the facet’s hierarchy.
 
-No compatibility because MeiliSearch does not support hierarchical facets.
+No compatibility because Meilisearch does not support hierarchical facets.
 
 If you'd like get nested facets implemented, please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/97-nested-facets?utm_medium=social&utm_source=portal_share).
 
@@ -857,7 +857,7 @@ Deprecated. See [Insight](#Insight).
 
 You may want to use this widget to display banners or recommendations returned by [Rules](https://www.algolia.com/doc/api-client/methods/rules/), and that match search parameters.
 
-No compatibility because MeiliSearch does not support Rules.
+No compatibility because Meilisearch does not support Rules.
 
 ### ❌ QueryRuleContext
 
@@ -865,7 +865,7 @@ No compatibility because MeiliSearch does not support Rules.
 
 The queryRuleContext widget lets you apply ruleContexts based on filters to trigger context-dependent [Rules](https://www.algolia.com/doc/api-client/methods/rules/).
 
-No compatibility because MeiliSearch does not support Rules.
+No compatibility because Meilisearch does not support Rules.
 
 ### ✅ SortBy
 
@@ -952,4 +952,4 @@ If you want to know more about the development workflow or want to contribute, p
 
 <hr>
 
-**MeiliSearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.
+**Meilisearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.
