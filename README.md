@@ -5,7 +5,7 @@
 <h1 align="center">Instant Meilisearch</h1>
 
 <h4 align="center">
-  <a href="https://github.com/meilisearch/Meilisearch">Meilisearch</a> |
+  <a href="https://github.com/meilisearch/meilisearch">Meilisearch</a> |
   <a href="https://docs.meilisearch.com">Documentation</a> |
   <a href="https://slack.meilisearch.com">Slack</a> |
   <a href="https://roadmap.meilisearch.com/tabs/1-under-consideration">Roadmap</a> |
@@ -17,15 +17,15 @@
   <a href="https://www.npmjs.com/package/@meilisearch/instant-meilisearch"><img src="https://img.shields.io/npm/v/@meilisearch/instant-meilisearch.svg" alt="npm version"></a>
   <a href="https://github.com/meilisearch/instant-meilisearch/actions"><img src="https://github.com/meilisearch/instant-meilisearch/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
   <a href="https://github.com/meilisearch/instant-meilisearch/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
-  <a href="https://github.com/meilisearch/Meilisearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
+  <a href="https://github.com/meilisearch/meilisearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
   <a href="https://app.bors.tech/repositories/28908"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
 </p>
 
 <p align="center">⚡ How to integrate a front-end search bar in your website using Meilisearch</p>
 
-**Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/Meilisearch)
+**Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/meilisearch)
 
-This library is a plugin to establish the communication between your [Meilisearch](https://github.com/meilisearch/Meilisearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
+This library is a plugin to establish the communication between your [Meilisearch](https://github.com/meilisearch/meilisearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
 If you use Angular, React, or Vue, you might want to check out these repositories:
@@ -181,7 +181,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v0.25.0 of Meilisearch](https://github.com/meilisearch/Meilisearch/releases/tag/v0.25.0).
+This package only guarantees the compatibility with the [version v0.25.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.25.0).
 
 **Node / NPM versions**:
 

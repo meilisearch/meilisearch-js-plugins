@@ -33,7 +33,7 @@ jobs:
           echo "MEILISEARCH_LATEST=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | sh)" >> $GITHUB_ENV
       - name: Download Meilisearch
         run: |
-          curl https://github.com/meilisearch/Meilisearch/releases/download/${{ env.MEILISEARCH_LATEST }}/meilisearch-linux-amd64 --output meilisearch --location
+          curl https://github.com/meilisearch/meilisearch/releases/download/${{ env.MEILISEARCH_LATEST }}/meilisearch-linux-amd64 --output meilisearch --location
           chmod +x meilisearch
       - name: Run Meilisearch
         run: |
