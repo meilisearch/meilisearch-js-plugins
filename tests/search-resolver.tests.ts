@@ -15,7 +15,7 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
-// Mocking of MeiliSearch package
+// Mocking of Meilisearch package
 const mockedMeilisearch = mocked(MeiliSearch, true)
 const mockedSearch = jest.fn(() => searchResponse)
 const mockedIndex = jest.fn(() => {

@@ -3,7 +3,7 @@ import { adaptSnippet } from './snippet-adapter'
 import { SearchContext } from '../../../types'
 
 /**
- * Adapt MeiliSearch formating to formating compliant with instantsearch.js.
+ * Adapt Meilisearch formating to formating compliant with instantsearch.js.
  *
  * @param  {Record<string} formattedHit
  * @param  {SearchContext} searchContext

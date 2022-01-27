@@ -64,7 +64,7 @@ export function instantMeiliSearch(
           instantSearchParams
         )
 
-        // Adapt search request to MeiliSearch compliant search request
+        // Adapt search request to Meilisearch compliant search request
         const adaptedSearchRequest = adaptSearchParams(searchContext)
 
         const searchResponse = await searchResolver.searchResponse(
@@ -73,7 +73,7 @@ export function instantMeiliSearch(
           this.MeiliSearchClient
         )
 
-        // Adapt the MeiliSearch responsne to a compliant instantsearch.js response
+        // Adapt the Meilisearch responsne to a compliant instantsearch.js response
         const adaptedSearchResponse = adaptSearchResponse<T>(
           searchResponse,
           searchContext,
@@ -88,7 +88,7 @@ export function instantMeiliSearch(
     searchForFacetValues: async function (_) {
       return await new Promise((resolve, reject) => {
         reject(
-          new Error('SearchForFacetValues is not compatible with MeiliSearch')
+          new Error('SearchForFacetValues is not compatible with Meilisearch')
         )
         resolve([]) // added here to avoid compilation error
       })
@@ -130,7 +130,7 @@ function createPaginationContext(
   return {
     paginationTotalHits: searchContext.paginationTotalHits || 200,
     hitsPerPage:
-      searchContext.hitsPerPage === undefined ? 20 : searchContext.hitsPerPage, // 20 is the MeiliSearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
+      searchContext.hitsPerPage === undefined ? 20 : searchContext.hitsPerPage, // 20 is the Meilisearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
     page: params?.page || 0, // default page is 0 if none is provided
   }
 }

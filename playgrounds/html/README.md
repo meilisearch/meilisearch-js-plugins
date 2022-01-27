@@ -1,4 +1,4 @@
-# MeiliSearch Simple Game Search
+# Meilisearch Simple Game Search
 
 This repository is a **playground**, all the following files are hot-reloading:
 
