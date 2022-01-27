@@ -375,7 +375,7 @@ Middleware is a function returning an object with `onStateChange`, `subscribe` a
 
 Provides all the data and functions from the widgets.
 
-It works only on widgets that are compatible with instantMeilisearch.
+It works only on widgets that are compatible with `instant-meilisearch`.
 
 ### ✅ Hits
 
