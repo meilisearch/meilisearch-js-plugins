@@ -53,6 +53,7 @@ describe(`${playground} playground test`, () => {
   it('click on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(checkbox).eq(1).click()
+    cy.wait(1000)
     cy.get(HIT_ITEM_CLASS).eq(1).contains('Team Fortress Classic')
     cy.get(HIT_ITEM_CLASS).eq(1).contains('4.99 $')
   })
