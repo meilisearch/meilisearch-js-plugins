@@ -1,20 +1,19 @@
 import { searchClient, dataset, Movies } from './assets/utils'
 
-describe('Instant MeiliSearch Browser test', () => {
+describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
-    try {
-      await searchClient.MeiliSearchClient.deleteIndex('movies')
-    } catch (e) {
-      // movies does not exist
-    }
+    const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
+      'movies'
+    )
+    await searchClient.MeiliSearchClient.waitForTask(deleteTask.uid)
     await searchClient.MeiliSearchClient.index(
       'movies'
     ).updateFilterableAttributes(['genres', 'title'])
-    const moviesUpdate = await searchClient.MeiliSearchClient.index(
+    const documentsTask = await searchClient.MeiliSearchClient.index(
       'movies'
     ).addDocuments(dataset)
-    await searchClient.MeiliSearchClient.index('movies').waitForPendingUpdate(
-      moviesUpdate.updateId
+    await searchClient.MeiliSearchClient.index('movies').waitForTask(
+      documentsTask.uid
     )
   })
 

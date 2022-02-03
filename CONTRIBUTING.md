@@ -1,6 +1,6 @@
 # Contributing <!-- omit in TOC -->
 
-First of all, thank you for contributing to MeiliSearch! The goal of this document is to provide everything you need to know in order to contribute to MeiliSearch and its different integrations.
+First of all, thank you for contributing to Meilisearch! The goal of this document is to provide everything you need to know in order to contribute to Meilisearch and its different integrations.
 
 - [Assumptions](#assumptions)
 - [How to Contribute](#how-to-contribute)
@@ -11,8 +11,8 @@ First of all, thank you for contributing to MeiliSearch! The goal of this docume
 ## Assumptions
 
 1. **You're familiar with [GitHub](https://github.com) and the [Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) (PR) workflow.**
-2. **You've read the MeiliSearch [documentation](https://docs.meilisearch.com) and the [README](/README.md).**
-3. **You know about the [MeiliSearch community](https://docs.meilisearch.com/learn/what_is_meilisearch/contact.html). Please use this for help.**
+2. **You've read the Meilisearch [documentation](https://docs.meilisearch.com) and the [README](/README.md).**
+3. **You know about the [Meilisearch community](https://docs.meilisearch.com/learn/what_is_meilisearch/contact.html). Please use this for help.**
 
 ## How to Contribute
 
@@ -38,7 +38,7 @@ Each PR should pass the tests and the linter to be accepted.
 
 ```bash
 # Tests with Jest
-docker pull getmeili/meilisearch:latest # Fetch the latest version of MeiliSearch image from Docker Hub
+docker pull getmeili/meilisearch:latest # Fetch the latest version of Meilisearch image from Docker Hub
 docker run -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --master-key=masterKey --no-analytics=true
 # Integration tests
 yarn test
@@ -115,7 +115,7 @@ Some notes on GitHub PRs:
 
 ## Release Process (for internal team only)
 
-MeiliSearch tools follow the [Semantic Versioning Convention](https://semver.org/).
+Meilisearch tools follow the [Semantic Versioning Convention](https://semver.org/).
 
 ### Automation to Rebase and Merge the PRs <!-- omit in TOC -->
 
@@ -143,11 +143,44 @@ GitHub Actions will be triggered and push the package to [npm](https://www.npmjs
 
 Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
 
-- [MeiliSearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
-- [MeiliSearch + Vue InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
-- [MeiliSearch + React InstantSearch](https://codesandbox.io/s/ms-react-is-sh9ud)
+- [Meilisearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
+- [Meilisearch + Vue InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
+- [Meilisearch + React InstantSearch](https://codesandbox.io/s/ms-react-is-sh9ud)
 
 If you don't have the access to do it, please request it internally.
+
+#### Release a `beta` Version
+
+Here are the steps to release a beta version of this package:
+
+- Create a new branch originating the branch containing the "beta" changes. For example, if during the Meilisearch pre-release, create a branch originating `bump-meilisearch-v*.*.*`.<br>
+`vX.X.X` is the next version of the package, NOT the version of Meilisearch!
+
+```bash
+git checkout bump-meilisearch-v*.*.*
+git pull origin bump-meilisearch-v*.*.*
+git checkout -b vX.X.X-beta.0
+```
+
+- Change the version in `package.json` by `vX.X.X-beta.0` and commit it to the `vX.X.X-beta.0` branch
+
+- Go to the [GitHub interface for releasing](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Draft a new release`.
+
+- Create a GitHub pre-release:
+  - Fill the description with the detailed changelogs
+  - Fill the title with `vX.X.X-beta.0`
+  - Fill the tag with `vX.X.X-beta.0`
+  - ⚠️ Select the `vX.X.X-beta.0` branch and NOT `main`
+  - ⚠️ Click on the "This is a pre-release" checkbox
+  - Click on "Publish release"
+
+GitHub Actions will be triggered and push the beta version to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
+
+💡 If you need to release a new beta for the same version (i.e. `vX.X.X-beta.1`):
+- merge the change into `bump-meilisearch-v*.*.*`
+- rebase the `vX.X.X-beta.0` branch
+- change the version name in `package.json`
+- creata a pre-release via the GitHub interface
 
 <hr>
 

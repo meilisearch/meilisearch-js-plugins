@@ -29,16 +29,15 @@ body {
   overflow: hidden;
   margin: 0 auto;
 }
+
+.ais-Hits-item,
 .ais-InfiniteHits-item {
   margin-bottom: 1em;
   width: calc(50% - 1rem);
 }
-.ais-Hits-item {
-  margin-bottom: 1em;
-  width: calc(50% - 1rem);
-}
 
-.ais-Hits-item img {
+.ais-Hits-item img,
+.ais-InfiniteHits-item img {
   margin-right: 1em;
   width: 100%;
   height: 100%;

@@ -1,5 +1,6 @@
 status = [
   'style-check',
+  'types-check',
   'integration-tests (Node.js 12)',
   'integration-tests (Node.js 14)',
   'cypress-run'

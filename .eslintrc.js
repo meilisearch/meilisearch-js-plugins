@@ -5,7 +5,7 @@ module.exports = {
       /*
        * REACT
        */
-      files: ['playgrounds/react/**/*.js'],
+      files: ['playgrounds/react/**/*.js', 'tests/env/react/**/*.js'],
       env: {
         es2020: true,
         commonjs: true, // Needed to avoid import is reserved error

@@ -1,6 +1,6 @@
 import { isString } from '../../../utils'
 /**
- * Replace `em` tags in highlighted MeiliSearch hits to
+ * Replace `em` tags in highlighted Meilisearch hits to
  * provided tags by instantsearch.js.
  *
  * @param  {string} value
@@ -13,7 +13,7 @@ function replaceDefaultEMTag(
   preTag = '__ais-highlight__',
   postTag = '__/ais-highlight__'
 ): string {
-  // Highlight is applied by MeiliSearch (<em> tags)
+  // Highlight is applied by Meilisearch (<em> tags)
   // We replace the <em> by the expected tag for InstantSearch
   const stringifiedValue = isString(value) ? value : JSON.stringify(value)
 
@@ -63,7 +63,7 @@ export function adaptHighlight(
   preTag?: string,
   postTag?: string
 ): Record<string, any> {
-  // hit is the `_formatted` object returned by MeiliSearch.
+  // hit is the `_formatted` object returned by Meilisearch.
   // It contains all the highlighted and croped attributes
 
   if (!hit._formatted) return hit._formatted

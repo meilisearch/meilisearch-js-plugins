@@ -1,17 +1,19 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.5.10",
+  "version": "0.6.0",
   "private": false,
-  "description": "The search client to use MeiliSearch with InstantSearch.",
+  "description": "The search client to use Meilisearch with InstantSearch.",
   "scripts": {
     "cleanup": "shx rm -rf dist/",
     "test:watch": "yarn test --watch",
     "test": "jest --runInBand --selectProjects dom --selectProjects node",
     "test:build": "yarn build && jest --runInBand --selectProjects build",
-    "test:e2e": "concurrently --kill-others -s first \"yarn playground:vue\" \"cypress run --env playground=vue\"",
     "test:e2e:all": "sh scripts/e2e.sh",
-    "test:e2e:watch": "concurrently --kill-others -s first \"yarn playground:vue\" \"cypress open --env playground=vue\"",
+    "test:e2e:local": "yarn local:env:setup && concurrently --kill-others -s first \"yarn local:env:react\" \"cypress run --env playground=reactlocal --spec 'cypress/integration/local-ui.spec.js'\"",
+    "test:e2e:local:watch": "yarn local:env:setup && concurrently --kill-others -s first \"yarn local:env:react\" \"cypress open  --env playground=reactlocal\"",
     "test:all": "yarn test:e2e:all && yarn test && test:build",
+    "test:e2e": "concurrently --kill-others -s first \"yarn playground:vue\" \"cypress run --env playground=vue\"",
+    "test:e2e:watch": "concurrently --kill-others -s first \"yarn playground:vue\" \"cypress open --env playground=vue\"",
     "cy:open": "cypress open",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
     "playground:react": "yarn --cwd ./playgrounds/react && yarn --cwd ./playgrounds/react start",
@@ -19,12 +21,15 @@
     "playground:geo-javascript": "yarn --cwd ./playgrounds/geo-javascript && yarn --cwd ./playgrounds/geo-javascript start",
     "playground:html": "yarn --cwd ./playgrounds/html && yarn --cwd ./playgrounds/html start",
     "playground:angular": "yarn --cwd ./playgrounds/angular && yarn --cwd ./playgrounds/angular start",
+    "local:env:setup": "yarn --cwd ./tests/env/react && yarn --cwd ./tests/env/react setup",
+    "local:env:react": "yarn --cwd ./tests/env/react && yarn --cwd ./tests/env/react start",
     "postbuild": "yarn typingsheader",
     "typingsheader": "node scripts/build.js",
-    "build": "yarn cleanup && rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js  && tsc --emitDeclarationOnly",
+    "build": "yarn cleanup && rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js",
     "dev": "rollup -c rollup.config.js --watch",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
-    "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix ."
+    "lint:fix": "eslint --ext .js,.ts,.tsx,.vue --fix .",
+    "types": "yarn tsc"
   },
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",
@@ -54,7 +59,7 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "meilisearch": "^0.23.0"
+    "meilisearch": "0.24.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",

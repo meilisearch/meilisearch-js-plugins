@@ -1,19 +1,15 @@
-name: Tests
+# Testing the code base against the Meilisearch pre-releases
+name: Pre-Release Tests
 
+# Will only run for PRs and pushes to bump-meilisearch-v*
 on:
-  pull_request:
   push:
-    # trying and staging branches are for BORS config
-    branches:
-      - trying
-      - staging
-      - main
+    branches: [bump-meilisearch-v*]
+  pull_request:
+    branches: [bump-meilisearch-v*]
 
 jobs:
   cypress-run:
-    # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
     # Only test on Google Chrome
     container: cypress/browsers:node12.18.3-chrome87-ff82
@@ -31,14 +27,26 @@ jobs:
         with:
           node-version: "14.x"
       - name: Install dependencies
-        run: yarn --dev && yarn --cwd ./playgrounds/vue
-      - name: Run Browser tests
+        run: yarn --dev && yarn --cwd ./tests/env/react
+      - name: Grep latest version of Meilisearch
+        run: |
+          echo "MEILISEARCH_LATEST=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | sh)" >> $GITHUB_ENV
+      - name: Download Meilisearch
+        run: |
+          curl https://github.com/meilisearch/meilisearch/releases/download/${{ env.MEILISEARCH_LATEST }}/meilisearch-linux-amd64 --output meilisearch --location
+          chmod +x meilisearch
+      - name: Run Meilisearch
+        run: |
+          ./meilisearch --master-key=masterKey --no-analytics true &
+      - name: Setup Meilisearch Index
+        run: yarn local:env:setup
+      - name: Run local browser tests
         uses: cypress-io/github-action@v2
         with:
           # Tests are only done on one playground to avoid long testing time
-          start: yarn playground:vue
-          env: playground=vue
-          spec: cypress/integration/search-ui.spec.js
+          start: yarn local:env:react
+          env: playground=reactlocal
+          spec: cypress/integration/local-ui.spec.js
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
@@ -49,10 +57,8 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
   tests:
-    # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -67,18 +73,18 @@ jobs:
           path: |
             ./node_modules
           key: ${{ hashFiles('yarn.lock') }}
-      - name: Docker setup
-        run: docker run -d -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --no-analytics=true --master-key='masterKey'
+      - name: Get the latest Meilisearch RC
+        run: echo "MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | bash)" >> $GITHUB_ENV
+      - name: Meilisearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
+        run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ env.MEILISEARCH_VERSION }} ./meilisearch --master-key=masterKey --no-analytics=true
       - name: Install dependencies
         run: yarn install
       - name: Run tests
         run: yarn test
       - name: Build project
         run: yarn build
+
   style:
-    # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     name: style-check
     runs-on: ubuntu-latest
 
@@ -99,9 +105,6 @@ jobs:
         with:
           config_file: .yamllint.yml
   types_test:
-    # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
     name: types-check
     steps:

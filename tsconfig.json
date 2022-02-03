@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "esnext",
+    "noEmit": true,
     "allowJs": false,
     "removeComments": false,
     "declaration": true,
@@ -23,13 +24,5 @@
     "noUnusedParameters": true,
     "isolatedModules": true
   },
-  "include": [
-    "src"
-  ], // files to include during compilation
-  "exclude": [
-    "tests",
-    "*.js",
-    "scripts",
-    "**/__tests__/*.ts"
-  ],
+  "exclude": ["playgrounds/"]
 }
