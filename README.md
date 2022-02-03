@@ -717,7 +717,7 @@ The `rangeInput` widget allows a user to select a numeric range using a minimum 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-⚠️ Not compatible with Meilisearch by default, needs a workaround. See workaround in [RangeSlider](#rangeslider) section.
+⚠️ Not compatible with Meilisearch by default, needs a workaround. See workaround in [RangeSlider](#-rangeslider) section.
 
 ### ✅ MenuSelect
 
