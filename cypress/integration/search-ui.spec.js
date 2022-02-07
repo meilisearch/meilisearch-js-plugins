@@ -3,8 +3,7 @@ const {
   [playground]: { host },
 } = Cypress.env()
 
-const HIT_ITEM_CLASS =
-  playground === 'react' ? '.ais-InfiniteHits-item' : '.ais-Hits-item'
+const HIT_ITEM_CLASS = '.ais-InfiniteHits-item'
 
 describe(`${playground} playground test`, () => {
   before(() => {
@@ -17,20 +16,15 @@ describe(`${playground} playground test`, () => {
   })
 
   it('Contains stats', () => {
-    if (playground === 'react') cy.contains('12,546 results')
-    if (playground === 'angular') cy.contains('12546 results')
+    cy.contains('15 results')
   })
 
   it('Contains filter clear', () => {
-    if (playground === 'react') cy.contains('Clear all filters')
-    if (playground === 'angular') cy.contains('Clear refinements')
+    cy.contains('Clear all filters')
   })
 
   it('Contains Genres', () => {
-    cy.contains('Genres')
     cy.contains('Action')
-    if (playground === 'react') cy.contains('5,554')
-    if (playground === 'angular') cy.contains('5554')
   })
 
   it('Contains searchBar', () => {
@@ -46,7 +40,7 @@ describe(`${playground} playground test`, () => {
     const select = `.ais-SortBy-select`
     cy.get(select).select('steam-video-games:recommendationCount:asc')
     cy.wait(1000)
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Rag Doll Kung Fu')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Deathmatch Classic')
   })
 
   it('Sort by default relevancy', () => {
@@ -57,28 +51,23 @@ describe(`${playground} playground test`, () => {
   })
 
   it('click on facets', () => {
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
-
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(checkbox).eq(1).click()
-
-    if (playground === 'react') cy.contains('1,939')
-    if (playground === 'angular') cy.contains('1939')
-
-    cy.contains('Counter-Strike').should('not.exist')
+    cy.wait(1000)
+    cy.get(HIT_ITEM_CLASS).eq(1).contains('Team Fortress Classic')
+    cy.get(HIT_ITEM_CLASS).eq(1).contains('4.99 $')
   })
 
   it('Search', () => {
-    cy.get('.ais-SearchBox-input').type('orwell')
+    cy.get('.ais-SearchBox-input').type('Half-Life')
     cy.wait(1000)
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Orwell')
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Late 2016')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Half-Life')
   })
 
   it('Unclick on facets', () => {
     const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
     cy.get(checkbox).eq(0).click()
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Orwell')
+    cy.get(HIT_ITEM_CLASS).eq(0).contains('Half-Life')
   })
 
   it('Placeholder Search', () => {
@@ -88,19 +77,7 @@ describe(`${playground} playground test`, () => {
   })
 
   it('Paginate Search', () => {
-    cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
-
-    if (playground === 'react') {
-      cy.get('.ais-InfiniteHits-loadMore').click()
-      cy.get(HIT_ITEM_CLASS).should('have.length', 12)
-    } else {
-      if (playground === 'vue') {
-        cy.get('.ais-Pagination-item').eq(3).click()
-      } else {
-        cy.get('.ais-Pagination-item--page').eq(1).click()
-      }
-
-      cy.contains('Counter-Strike').should('not.exist')
-    }
+    cy.get('.ais-InfiniteHits-loadMore').click()
+    cy.get(HIT_ITEM_CLASS).should('have.length', 11)
   })
 })
