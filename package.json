@@ -90,7 +90,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.7.0",
-    "instantsearch.js": "^4.33.2",
+    "instantsearch.js": "^4.39.0",
     "jest": "^27.2.2",
     "jest-watch-typeahead": "^0.6.3",
     "prettier": "^2.0.0",
