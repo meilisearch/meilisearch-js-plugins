@@ -610,7 +610,7 @@ instantsearch.widgets.refinementList({
 
 [Hierarchical menu references](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/)
 
-The `hierarchicalMenu` widget is used to create a navigation based on a hierarchy of facet attributes. It is commonly used for categories with subcategories. See [usage](#hierarchical-menu-usage) bellow.
+The `hierarchicalMenu` widget is used to create navigation based on a hierarchy of facet attributes. It is commonly used for categories with subcategories. See [usage](#hierarchical-menu-usage) below.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The name of the attributes to generate the menu with. _required_.
