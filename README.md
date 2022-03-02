@@ -625,9 +625,9 @@ The `hierarchicalMenu` widget is used to create navigation based on a hierarchy 
 - ✅ cssClasses: The CSS classes to override.
 
 #### Hierarchical Menu Usage
-To make it work with Meilisearch your documents must have a specific structure, explaination on the structure can [be found here](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/#requirements).
+To make it work with Meilisearch your documents must have a specific structure, an explanation of the structure can [be found here](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/#requirements).
 
-Contrary to `instantsearch.js`, the hierchical fields are added in [`filterableAttributes`](https://docs.meilisearch.com/reference/api/filterable_attributes.html#update-filterable-attributes).
+Contrary to `instantsearch.js`, the hierarchical fields are added in [`filterableAttributes`](https://docs.meilisearch.com/reference/api/filterable_attributes.html#update-filterable-attributes).
 
 Example:
 Give the following document structure:
