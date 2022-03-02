@@ -219,7 +219,7 @@ List of all the components that are available in [instantSearch](https://github.
 - ✅ [MenuSelect](#-menuselect)
 - ✅ [ToggleRefinement](#-togglerefinement)
 - ✅ [NumericMenu](#-numericmenu)
-- ❌[RatingMenu](#-ratingmenu)
+- ✅ [RatingMenu](#-ratingmenu)
 - ✅ [ClearRefinements](#-clearrefinements)
 - ✅ [Pagination](#-pagination)
 - ✅ [HitsPerPage](#-hitsperpage)
@@ -798,13 +798,19 @@ The `numericMenu` widget displays a list of numeric filters in a list. Those num
 - ✅ cssClasses: The CSS classes to override.
 - ✅ transformItems: function receiving the items, called before displaying them.
 
-### ❌ RatingMenu
+### ✅ RatingMenu
 
 [Rating menu references](https://www.algolia.com/doc/api-reference/widgets/rating-menu/js/)
 
 The `RatingMenu` widget lets the user refine search results by clicking on stars. The stars are based on the selected attribute.
 
-No compatibility because Meilisearch does not support integers as facet and instantSearch uses facets information to showcase the UI elements.
+- ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
+- ✅ attribute: The name of the attribute in the document. _required_.
+- ✅ max: The maximum value for the rating. This value is exclusive, which means the number of stars will be the provided value, minus one.
+- ✅ templates: The templates to use for the widget.
+- ✅ cssClasses: The CSS classes to override.
+
+Contrary to `instantsearch.js`, To be able to use `RatingMenu` the field containing the rating has to be added in the [`filterableAttributes`](https://docs.meilisearch.com/reference/api/filterable_attributes.html#update-filterable-attributes) setting in your index settings.
 
 ### ✅ ClearRefinements
 
