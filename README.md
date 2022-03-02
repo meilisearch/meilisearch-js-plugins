@@ -614,7 +614,7 @@ The `hierarchicalMenu` widget is used to create navigation based on a hierarchy 
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The name of the attributes to generate the menu with. _required_.
-- ✅ limit: How many facet values to retrieves.
+- ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items (min `2`).
 - ❌ separator: The level separator used in the records. (default `>`).
