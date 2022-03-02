@@ -195,11 +195,11 @@ List of all the components that are available in [instantSearch](https://github.
 ### Table Of Widgets
 
 - ✅ [InstantSearch](#-instantsearch)
-- ❌[index](#-index)
+- ❌ [index](#-index)
 - ✅ [SearchBox](#-searchbox)
 - ✅ [Configure](#-configure)
-- ❌[ConfigureRelatedItems](#-configure-related-items)
-- ❌[Autocomplete](#-autocomplete)
+- ❌ [ConfigureRelatedItems](#-configure-related-items)
+- ❌ [Autocomplete](#-autocomplete)
 - ✅ [Voice Search](#-voice-search)
 - ✅ [Insight](#-insight)
 - ✅ [Middleware](#-middleware)
@@ -209,9 +209,9 @@ List of all the components that are available in [instantSearch](https://github.
 - ✅ [Highlight](#-highlight)
 - ✅ [Snippet](#-snippet)
 - ✅ [Geo Search](#-geo-search)
-- ❌[Answers](#-answers)
+- ❌ [Answers](#-answers)
 - ✅ [RefinementList](#-refinementlist)
-- ❌[HierarchicalMenu](#-hierarchicalmenu)
+- ✅ [HierarchicalMenu](#-hierarchicalmenu)
 - ✅ [RangeSlider](#-rangeslider)
 - ✅ [Menu](#-menu)
 - ✅ [currentRefinements](#-currentrefinements)
@@ -223,13 +223,13 @@ List of all the components that are available in [instantSearch](https://github.
 - ✅ [ClearRefinements](#-clearrefinements)
 - ✅ [Pagination](#-pagination)
 - ✅ [HitsPerPage](#-hitsperpage)
-- ❌[Breadcrumb](#-breadcrumb)
+- ✅ [Breadcrumb](#-breadcrumb)
 - ✅ [Stats](#-stats)
-- ❌[Analytics](#-analytics)
-- ❌[QueryRuleCustomData](#-queryrulecustomdata)
-- ❌[QueryRuleContext](#-queryrulecontext)
+- ❌ [Analytics](#-analytics)
+- ❌ [QueryRuleCustomData](#-queryrulecustomdata)
+- ❌ [QueryRuleContext](#-queryrulecontext)
 - ✅ [SortBy](#-sortby)
-- ❌[RelevantSort](#-relevantsort)
+- ❌ [RelevantSort](#-relevantsort)
 - ✅ [Routing](#-routing)
 
 
@@ -606,15 +606,52 @@ instantsearch.widgets.refinementList({
 })
 ```
 
-### ❌ HierarchicalMenu
+### ✅ HierarchicalMenu
 
 [Hierarchical menu references](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/)
 
-The `hierarchicalMenu` widget is used to create a navigation based on a hierarchy of facet attributes. It is commonly used for categories with subcategories.
+The `hierarchicalMenu` widget is used to create a navigation based on a hierarchy of facet attributes. It is commonly used for categories with subcategories. See [usage](#hierarchical-menu-usage) bellow.
 
-No compatibility because Meilisearch does not support hierarchical facets.
+- ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
+- ✅ attribute: The name of the attributes to generate the menu with. _required_.
+- ✅ limit: How many facet values to retrieves.
+- ✅ showMore: Whether to display a button that expands the number of items.
+- ✅ showMoreLimit: The maximum number of displayed items (min `2`).
+- ❌ separator: The level separator used in the records. (default `>`).
+- 🤷‍♀️ rootPath: The prefix path to use if the first level is not the root level.
+- ❌ showParentLevel: Whether to show the siblings of the selected parent level of the current refined value.
+- ✅ sortBy: How to sort refinements. [See guide](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/#widget-param-sortby)
+- ✅ templates: The templates to use for the widget.- ✅ templates: The templates to use for the widget.
+- ✅ cssClasses: The CSS classes to override.
 
-If you'd like get nested facets/hierarchical facets implemented, please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/97-nested-facets?utm_medium=social&utm_source=portal_share).
+#### Hierarchical Menu Usage
+To make it work with Meilisearch your documents must have a specific structure, explaination on the structure can [be found here](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/#requirements).
+
+Contrary to `instantsearch.js`, the hierchical fields are added in [`filterableAttributes`](https://docs.meilisearch.com/reference/api/filterable_attributes.html#update-filterable-attributes).
+
+Example:
+Give the following document structure:
+```json
+{
+    "id": 1,
+    "name": "Basic T-shirt",
+    "categories.lvl0": "Men",
+    "categories.lvl1": "Men > clothes",
+    "categories.lvl2": "Men > clothes > t-shirt"
+  }
+```
+
+You have to add the fields `categories.lvl0`, `categories.lvl1` and `categories.lvl2` in the `filterableAttributes` in your Meilisearch settings.
+```json
+{
+  "filterableAttributes": [
+    "categories.lvl0",
+    "categories.lvl1",
+    "categories.lvl2"
+  ]
+}
+```
+
 
 ### ✅ RangeSlider
 
@@ -819,15 +856,19 @@ The `hitsPerPage` widget displays a dropdown menu to let the user change the num
 - ✅ cssClasses: The CSS classes to override.
 - ✅ transformItems: function receiving the items, called before displaying them.
 
-### ❌ Breadcrumb
+### ✅ Breadcrumb
 
 [Breadcrumb references](https://www.algolia.com/doc/api-reference/widgets/breadcrumb/js/)
 
-The `breadcrumb` widget is a secondary navigation scheme that lets the user see where the current page is in relation to the facet’s hierarchy.
+The `breadcrumb` widget is a secondary navigation scheme that lets the user see where the current page is in relation to the facet’s hierarchy. The `HierarchicalMenu` widget has the same requirements, see its [usage](#hierarchical-menu-usage) to make breadcrumb work.
 
-No compatibility because Meilisearch does not support hierarchical facets.
+- ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
+- ✅ attribute: The name of the attributes to generate the menu with. _required_.
+- ❌ separator: The level separator used in the records. (default `>`).
+- 🤷‍♀️ rootPath: The prefix path to use if the first level is not the root level.
+- ✅ templates: The templates to use for the widget.- ✅ templates: The templates to use for the widget.
+- ✅ cssClasses: The CSS classes to override.
 
-If you'd like get nested facets implemented, please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/97-nested-facets?utm_medium=social&utm_source=portal_share).
 
 ### ✅ Stats
 
