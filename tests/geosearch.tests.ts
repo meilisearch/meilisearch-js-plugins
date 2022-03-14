@@ -32,8 +32,8 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     const hits = response.results[0].hits
-    expect(hits.length).toEqual(13)
-    expect(hits[0].city).toEqual('Ghent')
+    expect(hits.length).toEqual(14)
+    expect(hits[0].city).toEqual('Lille')
   })
 
   test('Test aroundLatLng being overwritten by insideBoundingBox in geo search', async () => {

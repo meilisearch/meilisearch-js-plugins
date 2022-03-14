@@ -36,7 +36,7 @@ jobs:
           chmod +x meilisearch
       - name: Run Meilisearch
         run: |
-          ./meilisearch --master-key=masterKey --no-analytics true &
+          ./meilisearch --master-key=masterKey --no-analytics &
       - name: Install dependencies
         run: yarn --dev && yarn --cwd ./tests/env/react
       - name: Setup Meilisearch Index
@@ -76,7 +76,7 @@ jobs:
             ./node_modules
           key: ${{ hashFiles('yarn.lock') }}
       - name: Docker setup
-        run: docker run -d -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --no-analytics=true --master-key='masterKey'
+        run: docker run -d -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --no-analytics --master-key='masterKey'
       - name: Install dependencies
         run: yarn install
       - name: Run tests
