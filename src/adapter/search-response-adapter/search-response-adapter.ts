@@ -2,10 +2,10 @@ import type {
   SearchContext,
   MeiliSearchResponse,
   AlgoliaSearchResponse,
-  PaginationContext,
 } from '../../types'
 import { ceiledDivision } from '../../utils'
 import { adaptHits } from './hits-adapter'
+import { createPaginationContext } from './pagination-adapter'
 
 /**
  * Adapt search response from Meilisearch
@@ -18,8 +18,7 @@ import { adaptHits } from './hits-adapter'
  */
 export function adaptSearchResponse<T>(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
-  searchContext: SearchContext,
-  paginationContext: PaginationContext
+  searchContext: SearchContext
 ): { results: Array<AlgoliaSearchResponse<T>> } {
   const searchResponseOptionals: Record<string, any> = {}
 
@@ -29,6 +28,9 @@ export function adaptSearchResponse<T>(
   if (exhaustiveFacetsCount) {
     searchResponseOptionals.exhaustiveFacetsCount = exhaustiveFacetsCount
   }
+
+  const paginationContext = createPaginationContext(searchContext)
+
   const nbPages = ceiledDivision(
     searchResponse.hits.length,
     paginationContext.hitsPerPage
