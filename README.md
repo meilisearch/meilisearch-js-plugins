@@ -40,7 +40,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
-- [💅 Customization](#-usage)
+- [💅 Customization](#-customization)
 - [⚡️ Example with InstantSearch](#-example-with-instantSearch)
 - [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
@@ -635,7 +635,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The facet to display _required_
-- ✅ operator: How to apply facets, `and` or `or` (`and` is the default value).
+- ✅ operator: How to apply facets, `and` or `or` (`and` is the default value). ⚠️ Does not seem to work on react-instantsearch.
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
