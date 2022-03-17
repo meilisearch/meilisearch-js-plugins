@@ -123,6 +123,6 @@ export function addMissingFacets(
       }
     }
   }
-  // console.log(JSON.stringify(distribution, null, 2))
+
   return distribution
 }
