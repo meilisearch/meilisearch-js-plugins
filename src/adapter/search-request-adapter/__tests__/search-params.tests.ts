@@ -4,6 +4,7 @@ test('Adapt basic SearchContext ', () => {
   const searchParams = adaptSearchParams({
     indexUid: 'test',
     paginationTotalHits: 20,
+    defaultFacetDistribution: {},
   })
   expect(searchParams.attributesToHighlight).toContain('*')
   expect(searchParams.attributesToHighlight?.length).toBe(1)
@@ -15,6 +16,7 @@ test('Adapt SearchContext with filters, sort and no geo rules ', () => {
     paginationTotalHits: 20,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
     sort: 'id < 1',
+    defaultFacetDistribution: {},
   })
 
   expect(searchParams.filter).toStrictEqual([
@@ -33,6 +35,7 @@ test('Adapt SearchContext with filters, sort and geo rules ', () => {
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
     insideBoundingBox: '0,0,0,0',
     sort: 'id < 1',
+    defaultFacetDistribution: {},
   })
 
   expect(searchParams.filter).toStrictEqual([
@@ -51,6 +54,7 @@ test('Adapt SearchContext with only facetFilters and geo rules ', () => {
     paginationTotalHits: 20,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
     insideBoundingBox: '0,0,0,0',
+    defaultFacetDistribution: {},
   })
 
   expect(searchParams.filter).toEqual([
@@ -68,6 +72,7 @@ test('Adapt SearchContext with only sort and geo rules ', () => {
     paginationTotalHits: 20,
     insideBoundingBox: '0,0,0,0',
     sort: 'id < 1',
+    defaultFacetDistribution: {},
   })
 
   expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
@@ -76,11 +81,12 @@ test('Adapt SearchContext with only sort and geo rules ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with no sort abd no filters and geo rules ', () => {
+test('Adapt SearchContext with no sort and no filters and geo rules ', () => {
   const searchParams = adaptSearchParams({
     indexUid: 'test',
     paginationTotalHits: 20,
     insideBoundingBox: '0,0,0,0',
+    defaultFacetDistribution: {},
   })
 
   expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
