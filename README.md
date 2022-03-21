@@ -40,6 +40,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
+- [💅 Customization](#-customization)
 - [⚡️ Example with InstantSearch](#-example-with-instantSearch)
 - [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
@@ -68,13 +69,16 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
-  'https://integration-demos.meilisearch.com',
-  'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
+  'https://integration-demos.meilisearch.com', // Host
+  'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47' // API key
 )
 ```
 
-### Customization
+## 💅 Customization
 
+InstantMeilisearch offers some options you can set to further fit your needs.
+
+The options are added as the third parameter of the `instantMeilisearch` function
 ```js
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
@@ -85,18 +89,65 @@ const searchClient = instantMeiliSearch(
     paginationTotalHits: 30, // default: 200.
     placeholderSearch: false, // default: true.
     primaryKey: 'id', // default: undefined
+    // ...
   }
 )
 ```
 
-- `placeholderSearch` (`true` by default). Displays documents even when the query is empty.
+### Placeholder Search
 
-- `paginationTotalHits` (`200` by default): The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/). If the pagination widget is not used, `paginationTotalHits` is ignored.<br>
-  Which means that, with a `paginationTotalHits` default value of 200, and `hitsPerPage` default value of 20, you can browse `paginationTotalHits / hitsPerPage` => `200 / 20 = 10` pages during pagination. Each of the 10 pages containing 20 results.<br>
-  The default value of `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples).<br>
-  ⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
-  More information about Meilisearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
-- `primaryKey` (`undefined` by default): Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
+Placeholders search means showing results even when the search query is empty. By default it is `true`.
+When placeholder search is set to `false`, no results appears when searching on no characters. For example, if the query is "" no results appear.
+
+```js
+{ placeholderSearch : true } // default true
+```
+
+### Pagination total hits
+
+The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/). If the pagination widget is not used, `paginationTotalHits` is ignored.<br>
+
+Which means that, with a `paginationTotalHits` default value of 200, and `hitsPerPage` default value of 20, you can browse `paginationTotalHits / hitsPerPage` => `200 / 20 = 10` pages during pagination. Each of the 10 pages containing 20 results.<br>
+
+The default value of `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples).<br>
+
+```js
+{ paginationTotalHits : 20 } // default: 200
+```
+
+⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
+More information about Meilisearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
+
+### Primary key
+
+Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field) (`undefined` by default). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
+
+```js
+{ primaryKey : 'id' } // default: undefined
+```
+
+### keepZeroFacets
+
+`keepZeroFacets` set to `true` keeps the facets even when they have 0 matching documents (default `false`).
+
+When using `refinementList` it happens that by checking some facets, the ones with no more valid documents disapear.
+Nonetheless you might want to still showcase them even if they have 0 matched documents with the current request:
+
+Without `keepZeroFacets` set to `true`:
+genres:
+  - [x] horror (2000)
+  - [x] thriller (214)
+  - [ ] comedy (0)
+
+With `keepZeroFacets` set to `false`, `comedy` disapears:
+
+genres:
+  - [x] horror (2000)
+  - [x] thriller (214)
+
+```js
+{ keepZeroFacets : true } // default: false
+```
 
 ## Example with InstantSearch
 
@@ -584,7 +635,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The facet to display _required_
-- ✅ operator: How to apply facets, `and` or `or` (`and` is the default value).
+- ✅ operator: How to apply facets, `and` or `or` (`and` is the default value). ⚠️ Does not seem to work on react-instantsearch.
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.

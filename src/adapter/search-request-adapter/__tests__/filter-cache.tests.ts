@@ -1,4 +1,4 @@
-import { cacheFilters } from '../filters'
+import { extractFacets } from '../filters'
 
 const facetCacheData = [
   {
@@ -59,7 +59,11 @@ describe.each(facetCacheData)(
   'Facet cache tests',
   ({ filters, expectedCache, cacheTestTitle }) => {
     it(cacheTestTitle, () => {
-      const cache = cacheFilters(filters)
+      const cache = extractFacets(
+        // @ts-ignore ignore to avoid having to add all the searchContext
+        { keepZeroFacets: false, defaultFacetDistribution: {} },
+        { filter: filters }
+      )
       expect(cache).toEqual(expectedCache)
     })
   }

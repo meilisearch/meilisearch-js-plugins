@@ -1,6 +1,7 @@
 import type {
   MeiliSearch,
   SearchResponse as MeiliSearchResponse,
+  FacetsDistribution,
 } from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
@@ -18,7 +19,7 @@ export type {
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
 
-export type FilterCache = {
+export type FacetsCache = {
   [category: string]: string[]
 }
 
@@ -31,12 +32,7 @@ export type InstantMeiliSearchOptions = {
   paginationTotalHits?: number
   placeholderSearch?: boolean
   primaryKey?: string
-}
-
-export type Context = {
-  paginationTotalHits: number
-  placeholderSearch: boolean
-  primaryKey?: string
+  keepZeroFacets?: boolean
 }
 
 export type SearchCacheInterface = {
@@ -70,6 +66,8 @@ export type SearchContext = Omit<
   'insideBoundingBox'
 > & {
   insideBoundingBox?: InsideBoundingBox
+  keepZeroFacets?: boolean
+  defaultFacetDistribution: FacetsDistribution
 }
 
 export type PaginationContext = {

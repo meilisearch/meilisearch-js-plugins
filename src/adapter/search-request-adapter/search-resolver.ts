@@ -5,7 +5,7 @@ import {
   SearchCacheInterface,
   MeiliSearchParams,
 } from '../../types'
-import { cacheFilters, assignMissingFilters } from './filters'
+import { addMissingFacets, extractFacets } from './filters'
 
 /**
  * @param  {ResponseCacher} cache
@@ -35,16 +35,16 @@ export function SearchResolver(cache: SearchCacheInterface) {
       if (entry) return entry
 
       // Cache filters: todo components
-      const filterCache = cacheFilters(searchParams?.filter)
+      const facetsCache = extractFacets(searchContext, searchParams)
 
       // Make search request
       const searchResponse = await client
         .index(searchContext.indexUid)
         .search(searchContext.query, searchParams)
 
-      // Add facets back into facetsDistribution
-      searchResponse.facetsDistribution = assignMissingFilters(
-        filterCache,
+      // Add missing facets back into facetsDistribution
+      searchResponse.facetsDistribution = addMissingFacets(
+        facetsCache,
         searchResponse.facetsDistribution
       )
 
