@@ -128,7 +128,7 @@ Specify the field in your documents containing the [unique identifier](https://d
 
 ### keepZeroFacets
 
-`keepZeroFacets` set to true keeps the facets even when they have 0 matching documents (default `false`).
+`keepZeroFacets` set to `true` keeps the facets even when they have 0 matching documents (default `false`).
 
 When using `refinementList` it happens that by checking some facets, the ones with no more valid documents disapear.
 Nonetheless you might want to still showcase them even if they have 0 matched documents with the current request:
