@@ -76,16 +76,15 @@ const searchClient = instantMeiliSearch(
 
 ## 💅 Customization
 
-InstantMeilisearch offers some options you can set to further fit your needs.
-
-### Customization
+`instant-meilisearch` offers some options you can set to further fit your needs.
 
 - [`placeholderSearch`]((#placeholder-search)): Enable or disable placeholder search (default: `true`).
 - [`paginationTotalHits`](#pagination-total-hits): Maximum total number of hits to create a finite pagination (default: `200`).
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 
-The options are added as the third parameter of the `instantMeilisearch` function
+The options are added as the third parameter of the `instantMeilisearch` function.
+
 ```js
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
