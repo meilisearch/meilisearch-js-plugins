@@ -46,7 +46,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
 
-## Installation
+## 🔧 Installation
 
 Use `npm` or `yarn` to install `instant-meilisearch`:
 
@@ -61,7 +61,7 @@ yarn add @meilisearch/instant-meilisearch
 `instant-meilisearch` is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
 To be able to create a search interface, you'll need to [install `instantsearch.js`](https://www.algolia.com/doc/guides/building-search-ui/installation/js/) as well.
 
-## Usage
+## 🎬 Usage
 
 ### Basic
 
@@ -149,7 +149,7 @@ genres:
 { keepZeroFacets : true } // default: false
 ```
 
-## Example with InstantSearch
+## ⚡️ Example with InstantSearch
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
 
@@ -239,7 +239,7 @@ This package only guarantees the compatibility with the [version v0.26.0 of Meil
 - NodeJS >= 12.10 <= 14
 - NPM >= 6.x
 
-## API resources
+## 📜 API resources
 
 List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibility with [Meilisearch](https://github.com/meilisearch/meilisearch/).
 
@@ -657,6 +657,8 @@ instantsearch.widgets.refinementList({
 })
 ```
 
+⚠️ To make refinementList work, [please refer to this](#hierarchical-menu-usage).
+
 ### ✅ HierarchicalMenu
 
 [Hierarchical menu references](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/)
@@ -1042,7 +1044,7 @@ Virtual indices allow you to use Relevant sort, a sorting mechanism that favors 
 Routing is configured inside `instantSearch` component. Please refer [to the documentation](https://www.algolia.com/doc/api-reference/widgets/simple-state-mapping/js/) for further implementation information.
 
 
-## Development Workflow and Contributing
+## ⚙️ Development Workflow and Contributing
 
 Any new contribution is more than welcome in this project!
 
