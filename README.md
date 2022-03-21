@@ -97,7 +97,7 @@ const searchClient = instantMeiliSearch(
 ### Placeholder Search
 
 Placeholders search means showing results even when the search query is empty. By default it is `true`.
-If set to `false`, only when a request is made with at least one character, results will appear.
+When placeholder search is set to `false`, no results appears when searching on no characters. For example, if the query is "" no results appear.
 
 ```js
 { placeholderSearch : true } // default true
