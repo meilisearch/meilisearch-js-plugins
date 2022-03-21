@@ -657,6 +657,8 @@ instantsearch.widgets.refinementList({
 })
 ```
 
+⚠️ To make refinementList work, [please refer to this](https://github.com/meilisearch/instant-meilisearch/#hierarchical-menu-usage).
+
 ### ✅ HierarchicalMenu
 
 [Hierarchical menu references](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/)
