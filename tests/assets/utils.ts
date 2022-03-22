@@ -1,4 +1,5 @@
 import { instantMeiliSearch } from '../../src'
+import { MeiliSearch } from 'meilisearch'
 
 const dataset = [
   {
@@ -223,5 +224,15 @@ const wrongSearchClient = instantMeiliSearch(
   'http://localhost:7777',
   'masterKey'
 )
+const meilisearchClient = new MeiliSearch({
+  host: 'http://localhost:7700',
+  apiKey: 'masterKey',
+})
 
-export { searchClient, dataset, wrongSearchClient, geoDataset }
+export {
+  searchClient,
+  dataset,
+  wrongSearchClient,
+  geoDataset,
+  meilisearchClient,
+}

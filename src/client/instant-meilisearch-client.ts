@@ -31,10 +31,9 @@ export function instantMeiliSearch(
   const searchResolver = SearchResolver(SearchCache())
   // paginationTotalHits can be 0 as it is a valid number
   let defaultFacetDistribution: any = {}
+  const meilisearchClient = new MeiliSearch({ host: hostUrl, apiKey: apiKey })
 
   return {
-    MeiliSearchClient: new MeiliSearch({ host: hostUrl, apiKey: apiKey }),
-
     /**
      * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
      * @returns {Array}
@@ -57,7 +56,7 @@ export function instantMeiliSearch(
         const searchResponse = await searchResolver.searchResponse(
           searchContext,
           adaptedSearchRequest,
-          this.MeiliSearchClient
+          meilisearchClient
         )
 
         // Cache first facets distribution of the instantMeilisearch instance

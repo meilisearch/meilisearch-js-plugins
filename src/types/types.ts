@@ -85,6 +85,4 @@ export type SearchContext = Omit<
   pagination: PaginationContext
 }
 
-export type InstantMeiliSearchInstance = SearchClient & {
-  MeiliSearchClient: MeiliSearch
-}
+export type InstantMeiliSearchInstance = SearchClient
