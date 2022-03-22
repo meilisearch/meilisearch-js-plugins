@@ -308,3 +308,21 @@ describe('Snippet Browser test', () => {
     }
   })
 })
+
+test('Test attributes to snippet on value smaller than the snippet size', async () => {
+  const response = await searchClient.search<Movies>([
+    {
+      indexName: 'movies',
+      params: {
+        query: '',
+        attributesToSnippet: ['*:20'],
+        snippetEllipsisText: '...',
+      },
+    },
+  ])
+  const hit = response.results[0].hits[0]._snippetResult
+
+  if (hit?.overview) {
+    expect(hit?.title?.value).toEqual('Star Wars')
+  }
+})
