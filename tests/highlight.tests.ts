@@ -1,20 +1,21 @@
-import { searchClient, dataset, Movies } from './assets/utils'
+import {
+  searchClient,
+  dataset,
+  Movies,
+  meilisearchClient,
+} from './assets/utils'
 
 describe('Highlight Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
-      'movies'
-    )
-    await searchClient.MeiliSearchClient.waitForTask(deleteTask.uid)
-    await searchClient.MeiliSearchClient.index(
-      'movies'
-    ).updateFilterableAttributes(['genres'])
-    const documentsTask = await searchClient.MeiliSearchClient.index(
-      'movies'
-    ).addDocuments(dataset)
-    await searchClient.MeiliSearchClient.index('movies').waitForTask(
-      documentsTask.uid
-    )
+    const deleteTask = await meilisearchClient.deleteIndex('movies')
+    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient
+      .index('movies')
+      .updateFilterableAttributes(['genres'])
+    const documentsTask = await meilisearchClient
+      .index('movies')
+      .addDocuments(dataset)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
   })
 
   test('Test one attributesToHighlight on wrong attribute placeholder', async () => {
