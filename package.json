@@ -4,6 +4,7 @@
   "private": false,
   "description": "The search client to use Meilisearch with InstantSearch.",
   "scripts": {
+    "clear_jest": "jest --clearCache",
     "cleanup": "shx rm -rf dist/",
     "test:watch": "yarn test --watch",
     "test": "jest --runInBand --selectProjects dom --selectProjects node",

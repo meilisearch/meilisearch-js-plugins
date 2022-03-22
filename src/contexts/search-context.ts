@@ -5,6 +5,8 @@ import {
   FacetsDistribution,
 } from '../types'
 
+import { createPaginationContext } from './pagination-context'
+
 /**
  * @param  {AlgoliaMultipleQueriesQuery} searchRequest
  * @param  {Context} options
@@ -19,16 +21,21 @@ export function createSearchContext(
   const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
   const { params: instantSearchParams } = searchRequest
 
+  const pagination = createPaginationContext({
+    paginationTotalHits: options.paginationTotalHits,
+    hitsPerPage: instantSearchParams?.hitsPerPage,
+    page: instantSearchParams?.page,
+  })
   const searchContext: SearchContext = {
     ...options,
     ...instantSearchParams,
     sort: sortByArray.join(':') || '',
     indexUid,
+    pagination,
     defaultFacetDistribution,
     placeholderSearch: !options.placeholderSearch, // true by default
-    paginationTotalHits:
-      options.paginationTotalHits != null ? options.paginationTotalHits : 200,
     keepZeroFacets: !!options.keepZeroFacets, // false by default
+    finitePagination: !!options.finitePagination, // false by default
   }
   return searchContext
 }

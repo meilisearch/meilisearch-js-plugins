@@ -5,7 +5,6 @@ import type {
 } from '../../types'
 import { ceiledDivision } from '../../utils'
 import { adaptHits } from './hits-adapter'
-import { createPaginationContext } from './pagination-adapter'
 
 /**
  * Adapt search response from Meilisearch
@@ -23,26 +22,25 @@ export function adaptSearchResponse<T>(
   const searchResponseOptionals: Record<string, any> = {}
 
   const facets = searchResponse.facetsDistribution
+  const { pagination } = searchContext
 
   const exhaustiveFacetsCount = searchResponse?.exhaustiveFacetsCount
   if (exhaustiveFacetsCount) {
     searchResponseOptionals.exhaustiveFacetsCount = exhaustiveFacetsCount
   }
 
-  const paginationContext = createPaginationContext(searchContext)
-
   const nbPages = ceiledDivision(
     searchResponse.hits.length,
-    paginationContext.hitsPerPage
+    pagination.hitsPerPage
   )
-  const hits = adaptHits(searchResponse.hits, searchContext, paginationContext)
+  const hits = adaptHits(searchResponse.hits, searchContext, pagination)
 
   const exhaustiveNbHits = searchResponse.exhaustiveNbHits
   const nbHits = searchResponse.nbHits
   const processingTimeMs = searchResponse.processingTimeMs
   const query = searchResponse.query
 
-  const { hitsPerPage, page } = paginationContext
+  const { hitsPerPage, page } = pagination
 
   // Create response object compliant with InstantSearch
   const adaptedSearchResponse = {

@@ -148,4 +148,57 @@ describe('Pagination browser test', () => {
     const hits = response.results[0].hits
     expect(hits.length).toBe(6)
   })
+
+  test('Test bigger pagination total hits than nbr hits', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        paginationTotalHits: 1000,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(6)
+  })
+
+  test('Test pagination total hits with finite pagination', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        paginationTotalHits: 5,
+        finitePagination: true,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(5)
+  })
+
+  test('Test pagination total hits with infinite pagination', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        paginationTotalHits: 5,
+        finitePagination: true,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(5)
+  })
 })

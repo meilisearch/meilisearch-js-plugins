@@ -11,7 +11,7 @@ import {
   adaptSearchParams,
   SearchResolver,
 } from '../adapter'
-import { createSearchContext } from './contexts'
+import { createSearchContext } from '../contexts'
 import { SearchCache, cacheFirstFacetsDistribution } from '../cache/'
 
 /**
@@ -79,7 +79,7 @@ export function instantMeiliSearch(
         throw new Error(e)
       }
     },
-    searchForFacetValues: async function (_) {
+    searchForFacetValues: async function (_: any) {
       return await new Promise((resolve, reject) => {
         reject(
           new Error('SearchForFacetValues is not compatible with Meilisearch')

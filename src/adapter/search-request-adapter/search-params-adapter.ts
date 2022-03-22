@@ -59,13 +59,24 @@ export function adaptSearchParams(
 
   const placeholderSearch = searchContext.placeholderSearch
   const query = searchContext.query
-  const paginationTotalHits = searchContext.paginationTotalHits
-
+  const { pagination } = searchContext
   // Limit
-  if ((!placeholderSearch && query === '') || paginationTotalHits === 0) {
+  if (
+    (!placeholderSearch && query === '') ||
+    pagination.paginationTotalHits === 0
+  ) {
     meiliSearchParams.limit = 0
+  } else if (searchContext.finitePagination) {
+    meiliSearchParams.limit = pagination.paginationTotalHits
   } else {
-    meiliSearchParams.limit = paginationTotalHits
+    const limit = (pagination.page + 1) * pagination.hitsPerPage + 1
+    // If the limit is bigger than the total hits accepted
+    // force the limit to that amount
+    if (limit > pagination.paginationTotalHits) {
+      meiliSearchParams.limit = pagination.paginationTotalHits
+    } else {
+      meiliSearchParams.limit = limit
+    }
   }
 
   const sort = searchContext.sort
