@@ -112,21 +112,17 @@ When placeholder search is set to `false`, no results appears when searching on 
 
 ### Pagination total hits
 
-The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/) or the [`infiniteHits` widget](#-infinitehits). If none of these widgets are used, `paginationTotalHits` is ignored.<br>
+The total (and finite) number of hits (default: `200`) you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/) or the [`infiniteHits` widget](#-infinitehits). If none of these widgets are used, `paginationTotalHits` is ignored.<br>
 
-`paginationTotalHits` has a default value of `200`.
+For example, using the `infiniteHits` widget, and a `paginationTotalHits` of 9. On the first search request 6 hits are shown, by clicking a second time on `load more` only 3 more hits are added. This is because `paginationTotalHits` is `9`.
 
-The pagination makes the following request on every page change `(hitsPerPage + 1) * (page + 1)`
-
-Example:
+Usage:
 
 ```js
 { paginationTotalHits: 50 } // default: 200
 ```
 
 `hitsPerPage` has a value of `6` by default and can [be customized](#-hitsperpage).
-
-
 
 ### Finite Pagination
 
@@ -140,7 +136,7 @@ Example:
 { finitePagination: true } // default: false
 ```
 
-⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage `finitePagination` but also of the pagination widgets are not recommended..<br>
+⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage `finitePagination` but also of the pagination widgets are not recommended.<br>
 More information about Meilisearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
 
 ### Primary key
