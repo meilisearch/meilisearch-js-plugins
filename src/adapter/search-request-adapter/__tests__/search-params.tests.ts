@@ -183,3 +183,29 @@ test('Adapt SearchContext with no finite pagination and pagination total hits lo
 
   expect(searchParams.limit).toBe(4)
 })
+
+test('Adapt SearchContext placeholderSearch set to false', () => {
+  const searchParams = adaptSearchParams({
+    indexUid: 'test',
+    query: '',
+    pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
+    defaultFacetDistribution: {},
+    finitePagination: false,
+    placeholderSearch: false,
+  })
+
+  expect(searchParams.limit).toBe(0)
+})
+
+test('Adapt SearchContext placeholderSearch set to false', () => {
+  const searchParams = adaptSearchParams({
+    indexUid: 'test',
+    query: '',
+    pagination: { paginationTotalHits: 200, page: 0, hitsPerPage: 6 },
+    defaultFacetDistribution: {},
+    finitePagination: false,
+    placeholderSearch: true,
+  })
+
+  expect(searchParams.limit).toBe(7)
+})

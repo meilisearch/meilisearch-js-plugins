@@ -26,6 +26,7 @@ export function createSearchContext(
     hitsPerPage: instantSearchParams?.hitsPerPage,
     page: instantSearchParams?.page,
   })
+
   const searchContext: SearchContext = {
     ...options,
     ...instantSearchParams,
@@ -33,7 +34,7 @@ export function createSearchContext(
     indexUid,
     pagination,
     defaultFacetDistribution,
-    placeholderSearch: !options.placeholderSearch, // true by default
+    placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
     finitePagination: !!options.finitePagination, // false by default
   }
