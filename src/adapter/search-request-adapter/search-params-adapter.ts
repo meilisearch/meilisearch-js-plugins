@@ -59,8 +59,11 @@ export function adaptSearchParams(
 
   const placeholderSearch = searchContext.placeholderSearch
   const query = searchContext.query
+
+  // Pagination
   const { pagination } = searchContext
-  // Limit
+
+  // Limit based on pagination preferences
   if (
     (!placeholderSearch && query === '') ||
     pagination.paginationTotalHits === 0

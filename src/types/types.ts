@@ -68,6 +68,7 @@ export type PaginationContext = {
   hitsPerPage: number
   page: number
 }
+
 export type PaginationParams = {
   paginationTotalHits?: number
   hitsPerPage?: number

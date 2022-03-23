@@ -38,12 +38,11 @@ export function SearchResolver(cache: SearchCacheInterface) {
         searchContext.query,
         paginationCache,
       ])
-      const entry = cache.getEntry(key)
+      const cachedResponse = cache.getEntry(key)
 
-      // Request is cached.
-      if (entry) return entry
+      // Check if specific request is already cached with its associated search response.
+      if (cachedResponse) return cachedResponse
 
-      // Cache filters: todo components
       const facetsCache = extractFacets(searchContext, searchParams)
 
       // Make search request
