@@ -126,8 +126,6 @@ Example:
 
 `hitsPerPage` has a value of `6` by default and can [be customized](#-hitsperpage).
 
-
-
 ### Finite Pagination
 
 Finite pagination is used when you want to add a numbered pagination at the bottom of your hits (for example: `< << 1, 2, 3 > >>`).
