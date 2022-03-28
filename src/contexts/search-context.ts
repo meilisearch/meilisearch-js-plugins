@@ -23,7 +23,7 @@ export function createSearchContext(
 
   const pagination = createPaginationContext({
     paginationTotalHits: options.paginationTotalHits,
-    hitsPerPage: instantSearchParams?.hitsPerPage,
+    hitsPerPage: instantSearchParams?.hitsPerPage, // 20 by default
     page: instantSearchParams?.page,
   })
 
