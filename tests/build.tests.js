@@ -10,11 +10,11 @@ const CJSclient = CJSinstantMeiliSearch('http://localhost:7700', 'masterKey')
 const instantsearch = require('instantsearch.js')
 
 test('UMD client should correctly created', () => {
-  expect(UMDclient.MeiliSearchClient.config.apiKey).toBe('masterKey')
+  expect(UMDclient.search).not.toBeUndefined()
 })
 
 test('CJS client should correctly created', () => {
-  expect(CJSclient.MeiliSearchClient.config.apiKey).toBe('masterKey')
+  expect(CJSclient.search).not.toBeUndefined()
 })
 
 test('CJS instantsearch client should correctly created', () => {
@@ -23,9 +23,7 @@ test('CJS instantsearch client should correctly created', () => {
     searchClient: CJSclient,
   })
   expect(CJSInstantSearch.indexName).toBe('cjs_index')
-  expect(CJSInstantSearch.client.MeiliSearchClient.config.apiKey).toBe(
-    'masterKey'
-  )
+  expect(CJSInstantSearch.client.search).not.toBeUndefined()
 })
 
 test('UMD instantsearch client should correctly created', () => {
@@ -34,7 +32,5 @@ test('UMD instantsearch client should correctly created', () => {
     searchClient: UMDclient,
   })
   expect(UMDInstantSearch.indexName).toBe('umd_index')
-  expect(UMDInstantSearch.client.MeiliSearchClient.config.apiKey).toBe(
-    'masterKey'
-  )
+  expect(UMDInstantSearch.client.search).not.toBeUndefined()
 })

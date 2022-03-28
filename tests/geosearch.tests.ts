@@ -1,23 +1,22 @@
-import { searchClient, geoDataset, City } from './assets/utils'
+import {
+  searchClient,
+  geoDataset,
+  City,
+  meilisearchClient,
+} from './assets/utils'
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await searchClient.MeiliSearchClient.deleteIndex(
-      'geotest'
-    )
-    await searchClient.MeiliSearchClient.waitForTask(deleteTask.uid)
-    await searchClient.MeiliSearchClient.index(
-      'geotest'
-    ).updateFilterableAttributes(['_geo'])
-    await searchClient.MeiliSearchClient.index(
-      'geotest'
-    ).updateSortableAttributes(['_geo'])
-    const documentsTask = await searchClient.MeiliSearchClient.index(
-      'geotest'
-    ).addDocuments(geoDataset)
-    await searchClient.MeiliSearchClient.index('movies').waitForTask(
-      documentsTask.uid
-    )
+    const deleteTask = await meilisearchClient.deleteIndex('geotest')
+    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient
+      .index('geotest')
+      .updateFilterableAttributes(['_geo'])
+    await meilisearchClient.index('geotest').updateSortableAttributes(['_geo'])
+    const documentsTask = await meilisearchClient
+      .index('geotest')
+      .addDocuments(geoDataset)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
   })
 
   test('Test aroundRadius and aroundLatLng in geo search', async () => {
