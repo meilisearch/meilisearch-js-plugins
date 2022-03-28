@@ -6,6 +6,15 @@ module.exports = {
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
   ],
+  collectCoverage: true,
+  coveragePathIgnorePatterns: [
+    'cypress/',
+    'playgrounds/',
+    'scripts',
+    'templates',
+    'tests',
+    '__tests__',
+  ],
   projects: [
     {
       displayName: 'build',

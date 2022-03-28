@@ -33,6 +33,7 @@ export type InstantMeiliSearchOptions = {
   placeholderSearch?: boolean
   primaryKey?: string
   keepZeroFacets?: boolean
+  finitePagination?: boolean
 }
 
 export type SearchCacheInterface = {
@@ -49,6 +50,7 @@ type ClientParams = {
   sort?: string
   indexUid: string
   paginationTotalHits: number
+  finitePagination: boolean
 }
 
 export type GeoSearchContext = {
@@ -61,19 +63,26 @@ export type GeoSearchContext = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type SearchContext = Omit<
-  InstantSearchParams & ClientParams,
-  'insideBoundingBox'
-> & {
-  insideBoundingBox?: InsideBoundingBox
-  keepZeroFacets?: boolean
-  defaultFacetDistribution: FacetsDistribution
-}
-
 export type PaginationContext = {
   paginationTotalHits: number
   hitsPerPage: number
   page: number
+}
+
+export type PaginationParams = {
+  paginationTotalHits?: number
+  hitsPerPage?: number
+  page?: number
+}
+
+export type SearchContext = Omit<
+  InstantSearchParams & ClientParams,
+  'insideBoundingBox' | 'paginationTotalHits'
+> & {
+  insideBoundingBox?: InsideBoundingBox
+  keepZeroFacets?: boolean
+  defaultFacetDistribution: FacetsDistribution
+  pagination: PaginationContext
 }
 
 export type InstantMeiliSearchInstance = SearchClient & {

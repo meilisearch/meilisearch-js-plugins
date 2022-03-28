@@ -1,5 +1,3 @@
-import { SearchContext, PaginationContext } from '../../types'
-
 /**
  * Slice the requested hits based on the pagination position.
  *
@@ -20,20 +18,4 @@ export function adaptPagination(
   }
   const start = page * hitsPerPage
   return hits.slice(start, start + hitsPerPage)
-}
-
-/**
- * @param  {AlgoliaMultipleQueriesQuery} searchRequest
- * @param  {Context} options
- * @returns {SearchContext}
- */
-export function createPaginationContext(
-  searchContext: SearchContext
-): PaginationContext {
-  return {
-    paginationTotalHits: searchContext.paginationTotalHits || 200,
-    hitsPerPage:
-      searchContext.hitsPerPage === undefined ? 20 : searchContext.hitsPerPage, // 20 is the Meilisearch's default limit value. `hitsPerPage` can be changed with `InsantSearch.configure`.
-    page: searchContext?.page || 0, // default page is 0 if none is provided
-  }
 }

@@ -80,6 +80,7 @@ const searchClient = instantMeiliSearch(
 
 - [`placeholderSearch`](#placeholder-search): Enable or disable placeholder search (default: `true`).
 - [`paginationTotalHits`](#pagination-total-hits): Maximum total number of hits to create a finite pagination (default: `200`).
+- [`finitePagination`](#finite-pagination): Used to work with the [`pagination`](#-pagination) widget (default: `false`) .
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 
@@ -111,17 +112,31 @@ When placeholder search is set to `false`, no results appears when searching on 
 
 ### Pagination total hits
 
-The total (and finite) number of hits you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/). If the pagination widget is not used, `paginationTotalHits` is ignored.<br>
+The total (and finite) number of hits (default: `200`) you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/) or the [`infiniteHits` widget](#-infinitehits). If none of these widgets are used, `paginationTotalHits` is ignored.<br>
 
-Which means that, with a `paginationTotalHits` default value of 200, and `hitsPerPage` default value of 20, you can browse `paginationTotalHits / hitsPerPage` => `200 / 20 = 10` pages during pagination. Each of the 10 pages containing 20 results.<br>
+For example, using the `infiniteHits` widget, and a `paginationTotalHits` of 9. On the first search request 6 hits are shown, by clicking a second time on `load more` only 3 more hits are added. This is because `paginationTotalHits` is `9`.
 
-The default value of `hitsPerPage` is set to `20` but it can be changed with [`InsantSearch.configure`](https://www.algolia.com/doc/api-reference/widgets/configure/js/#examples).<br>
+Usage:
 
 ```js
-{ paginationTotalHits : 20 } // default: 200
+{ paginationTotalHits: 50 } // default: 200
 ```
 
-⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage of the pagination widget is not encouraged. However, the `paginationTotalHits` parameter lets you implement this pagination with less performance issue as possible: depending on your dataset (the size of each document and the number of documents) you might decrease the value of `paginationTotalHits`.<br>
+`hitsPerPage` has a value of `6` by default and can [be customized](#-hitsperpage).
+
+### Finite Pagination
+
+Finite pagination is used when you want to add a numbered pagination at the bottom of your hits (for example: `< << 1, 2, 3 > >>`).
+To be able to know the amount of page numbers you have, a search is done requesting `paginationTotalHits` documents (default: `200`).
+With the amount of documents returned, instantsearch is able to render the correct amount of numbers in the pagination widget.
+
+Example:
+
+```js
+{ finitePagination: true } // default: false
+```
+
+⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage `finitePagination` but also of the pagination widgets are not recommended.<br>
 More information about Meilisearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
 
 ### Primary key

@@ -23,18 +23,26 @@ export function SearchResolver(cache: SearchCacheInterface) {
       searchParams: MeiliSearchParams,
       client: MeiliSearch
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
-      // Create key with relevant informations
+      const { pagination } = searchContext
+
+      // In case we are in a `finitePagination`, only one big request is made
+      // containing a total of max the paginationTotalHits (default: 200).
+      // Thus we dont want the pagination to impact the cache as every
+      // hits are already cached.
+      const paginationCache = searchContext.finitePagination ? {} : pagination
+
+      // Create cache key containing a unique set of search parameters
       const key = cache.formatKey([
         searchParams,
         searchContext.indexUid,
         searchContext.query,
+        paginationCache,
       ])
-      const entry = cache.getEntry(key)
+      const cachedResponse = cache.getEntry(key)
 
-      // Request is cached.
-      if (entry) return entry
+      // Check if specific request is already cached with its associated search response.
+      if (cachedResponse) return cachedResponse
 
-      // Cache filters: todo components
       const facetsCache = extractFacets(searchContext, searchParams)
 
       // Make search request
