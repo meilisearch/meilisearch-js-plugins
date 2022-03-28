@@ -7,6 +7,17 @@ import {
 } from '../../types'
 import { addMissingFacets, extractFacets } from './filters'
 
+const emptySearch: MeiliSearchResponse<Record<string, any>> = {
+  hits: [],
+  query: '',
+  facetsDistribution: {},
+  limit: 0,
+  offset: 0,
+  exhaustiveNbHits: false,
+  nbHits: 0,
+  processingTimeMs: 0,
+}
+
 /**
  * @param  {ResponseCacher} cache
  */
@@ -23,6 +34,14 @@ export function SearchResolver(cache: SearchCacheInterface) {
       searchParams: MeiliSearchParams,
       client: MeiliSearch
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
+      const { placeholderSearch, query } = searchContext
+
+      // query can be: empty string, undefined or null
+      // all of them are falsy's
+      if (!placeholderSearch && !query) {
+        return emptySearch
+      }
+
       const { pagination } = searchContext
 
       // In case we are in a `finitePagination`, only one big request is made
