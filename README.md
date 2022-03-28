@@ -122,7 +122,7 @@ Usage:
 { paginationTotalHits: 50 } // default: 200
 ```
 
-`hitsPerPage` has a value of `6` by default and can [be customized](#-hitsperpage).
+`hitsPerPage` has a value of `20` by default and can [be customized](#-hitsperpage).
 
 ### Finite Pagination
 
@@ -385,7 +385,7 @@ We also suggest looking at [Meilisearch's search parameters](https://docs.meilis
 
 ```js
 instantsearch.widgets.configure({
-  hitsPerPage: 6,
+  hitsPerPage: 20,
   // other algoliasearch parameters
 })
 ```
