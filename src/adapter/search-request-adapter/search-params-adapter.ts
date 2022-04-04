@@ -7,39 +7,39 @@ import {
 import { adaptFilters } from './filter-adapter'
 
 /**
- * Builder to creates an object containing all the search query parameters
- * provided by the search context of instantsearch.js and instant-meilisearch.
+ * Adapts instantsearch.js and instant-meilisearch options
+ * to meilisearch search query parameters.
  *
  * @param  {SearchContext} searchContext
  *
  * @returns {MeiliSearchParams}
  */
-function ParamsBuilder(searchContext: SearchContext) {
+function ParamsAdapter(searchContext: SearchContext) {
   const meiliSearchParams: Record<string, any> = {}
 
   return {
     getParams() {
       return meiliSearchParams
     },
-    addFacets() {
+    adaptFacets() {
       const facets = searchContext?.facets
       if (facets?.length) {
         meiliSearchParams.facetsDistribution = facets
       }
     },
-    addAttributesToCrop() {
+    adaptAttributesToCrop() {
       const attributesToCrop = searchContext?.attributesToSnippet
       if (attributesToCrop) {
         meiliSearchParams.attributesToCrop = attributesToCrop
       }
     },
-    addAttributesToRetrieve() {
+    adaptAttributesToRetrieve() {
       const attributesToRetrieve = searchContext?.attributesToRetrieve
       if (attributesToRetrieve) {
         meiliSearchParams.attributesToRetrieve = attributesToRetrieve
       }
     },
-    addFilters() {
+    adaptFilters() {
       const filter = adaptFilters(
         searchContext?.filters,
         searchContext?.numericFilters,
@@ -49,12 +49,12 @@ function ParamsBuilder(searchContext: SearchContext) {
         meiliSearchParams.filter = filter
       }
     },
-    addAttributesToHighlight() {
+    adaptAttributesToHighlight() {
       meiliSearchParams.attributesToHighlight = searchContext?.attributesToHighlight || [
         '*',
       ]
     },
-    addLimit() {
+    adaptLimit() {
       const placeholderSearch = searchContext.placeholderSearch
       const query = searchContext.query
       const { pagination } = searchContext
@@ -78,14 +78,14 @@ function ParamsBuilder(searchContext: SearchContext) {
         }
       }
     },
-    addSort() {
+    adaptSort() {
       const sort = searchContext.sort
 
       if (sort?.length) {
         meiliSearchParams.sort = [sort]
       }
     },
-    addGeoSearchRules() {
+    adaptGeoSearchRules() {
       const geoSearchContext = createGeoSearchContext(searchContext)
       const geoRules = adaptGeoPointsRules(geoSearchContext)
 
@@ -110,15 +110,15 @@ function ParamsBuilder(searchContext: SearchContext) {
 export function adaptSearchParams(
   searchContext: SearchContext
 ): MeiliSearchParams {
-  const buildParams = ParamsBuilder(searchContext)
-  buildParams.addFacets()
-  buildParams.addFilters()
-  buildParams.addLimit()
-  buildParams.addSort()
-  buildParams.addGeoSearchRules()
-  buildParams.addAttributesToCrop()
-  buildParams.addAttributesToHighlight()
-  buildParams.addAttributesToRetrieve()
+  const adapter = ParamsAdapter(searchContext)
+  adapter.adaptFacets()
+  adapter.adaptFilters()
+  adapter.adaptLimit()
+  adapter.adaptSort()
+  adapter.adaptGeoSearchRules()
+  adapter.adaptAttributesToCrop()
+  adapter.adaptAttributesToHighlight()
+  adapter.adaptAttributesToRetrieve()
 
-  return buildParams.getParams()
+  return adapter.getParams()
 }
