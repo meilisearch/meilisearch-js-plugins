@@ -1,10 +1,14 @@
 import { adaptSearchParams } from '../search-params-adapter'
 
+const DEFAULT_CONTEXT = {
+  indexUid: 'test',
+  pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
+  defaultFacetDistribution: {},
+}
+
 test('Adapt basic SearchContext ', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
-    defaultFacetDistribution: {},
+    ...DEFAULT_CONTEXT,
     finitePagination: false,
   })
   expect(searchParams.attributesToHighlight).toContain('*')
@@ -13,11 +17,9 @@ test('Adapt basic SearchContext ', () => {
 
 test('Adapt SearchContext with filters, sort and no geo rules ', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
+    ...DEFAULT_CONTEXT,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
     sort: 'id < 1',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -32,12 +34,10 @@ test('Adapt SearchContext with filters, sort and no geo rules ', () => {
 
 test('Adapt SearchContext with filters, sort and geo rules ', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
+    ...DEFAULT_CONTEXT,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
     insideBoundingBox: '0,0,0,0',
     sort: 'id < 1',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -53,11 +53,9 @@ test('Adapt SearchContext with filters, sort and geo rules ', () => {
 
 test('Adapt SearchContext with only facetFilters and geo rules ', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
+    ...DEFAULT_CONTEXT,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
     insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -72,11 +70,9 @@ test('Adapt SearchContext with only facetFilters and geo rules ', () => {
 
 test('Adapt SearchContext with only sort and geo rules ', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
+    ...DEFAULT_CONTEXT,
     insideBoundingBox: '0,0,0,0',
     sort: 'id < 1',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -88,10 +84,8 @@ test('Adapt SearchContext with only sort and geo rules ', () => {
 
 test('Adapt SearchContext with no sort and no filters and geo rules ', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
+    ...DEFAULT_CONTEXT,
     insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -102,10 +96,7 @@ test('Adapt SearchContext with no sort and no filters and geo rules ', () => {
 
 test('Adapt SearchContext with finite pagination', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
+    ...DEFAULT_CONTEXT,
     finitePagination: true,
   })
 
@@ -114,10 +105,8 @@ test('Adapt SearchContext with finite pagination', () => {
 
 test('Adapt SearchContext with finite pagination on a later page', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 20, page: 10, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: true,
   })
 
@@ -126,10 +115,8 @@ test('Adapt SearchContext with finite pagination on a later page', () => {
 
 test('Adapt SearchContext with finite pagination and pagination total hits lower than hitsPerPage', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: true,
   })
 
@@ -138,10 +125,7 @@ test('Adapt SearchContext with finite pagination and pagination total hits lower
 
 test('Adapt SearchContext with no finite pagination', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
-    pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
+    ...DEFAULT_CONTEXT,
     finitePagination: false,
   })
 
@@ -150,10 +134,8 @@ test('Adapt SearchContext with no finite pagination', () => {
 
 test('Adapt SearchContext with no finite pagination on page 2', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 20, page: 1, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -162,10 +144,8 @@ test('Adapt SearchContext with no finite pagination on page 2', () => {
 
 test('Adapt SearchContext with no finite pagination on page higher than paginationTotalHits', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 20, page: 40, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -174,10 +154,8 @@ test('Adapt SearchContext with no finite pagination on page higher than paginati
 
 test('Adapt SearchContext with no finite pagination and pagination total hits lower than hitsPerPage', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
-    insideBoundingBox: '0,0,0,0',
-    defaultFacetDistribution: {},
     finitePagination: false,
   })
 
@@ -186,10 +164,9 @@ test('Adapt SearchContext with no finite pagination and pagination total hits lo
 
 test('Adapt SearchContext placeholderSearch set to false', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     query: '',
     pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
-    defaultFacetDistribution: {},
     finitePagination: false,
     placeholderSearch: false,
   })
@@ -199,10 +176,9 @@ test('Adapt SearchContext placeholderSearch set to false', () => {
 
 test('Adapt SearchContext placeholderSearch set to false', () => {
   const searchParams = adaptSearchParams({
-    indexUid: 'test',
+    ...DEFAULT_CONTEXT,
     query: '',
     pagination: { paginationTotalHits: 200, page: 0, hitsPerPage: 6 },
-    defaultFacetDistribution: {},
     finitePagination: false,
     placeholderSearch: true,
   })
