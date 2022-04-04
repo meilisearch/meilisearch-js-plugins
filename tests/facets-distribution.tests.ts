@@ -13,7 +13,7 @@ describe('Instant Meilisearch Browser test', () => {
     await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
   })
 
-  test('Test empty array on facetsDistribution', async () => {
+  test('empty array on facetsDistribution', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -23,10 +23,11 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     expect(response.results[0].facets?.genres).toEqual(undefined)
   })
 
-  test('Test one facet on facetsDistribution', async () => {
+  test('one facet on facetsDistribution', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -36,6 +37,7 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     expect(response.results[0].facets?.genres?.Action).toEqual(3)
   })
 })

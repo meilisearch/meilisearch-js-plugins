@@ -126,7 +126,7 @@ Usage:
 
 ### Finite Pagination
 
-Finite pagination is used when you want to add a numbered pagination at the bottom of your hits (for example: `< << 1, 2, 3 > >>`).
+Finite pagination is used when you want to add a numbered pagination at the bottom of your hits (for example: `<< < 1, 2, 3 > >>`).
 To be able to know the amount of page numbers you have, a search is done requesting `paginationTotalHits` documents (default: `200`).
 With the amount of documents returned, instantsearch is able to render the correct amount of numbers in the pagination widget.
 
