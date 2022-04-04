@@ -6,7 +6,7 @@ const DEFAULT_CONTEXT = {
   defaultFacetDistribution: {},
 }
 
-test('Adapt basic SearchContext ', () => {
+test('adapting a basic searchContext ', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     finitePagination: false,
@@ -15,7 +15,7 @@ test('Adapt basic SearchContext ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with filters, sort and no geo rules ', () => {
+test('adapting a searchContext with filters, sort and no geo rules ', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
@@ -32,7 +32,7 @@ test('Adapt SearchContext with filters, sort and no geo rules ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with filters, sort and geo rules ', () => {
+test('adapting a searchContext with filters, sort and geo rules ', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
@@ -51,7 +51,7 @@ test('Adapt SearchContext with filters, sort and geo rules ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with only facetFilters and geo rules ', () => {
+test('adapting a searchContext with only facetFilters and geo rules ', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
@@ -68,7 +68,7 @@ test('Adapt SearchContext with only facetFilters and geo rules ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with only sort and geo rules ', () => {
+test('adapting a searchContext with only sort and geo rules ', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     insideBoundingBox: '0,0,0,0',
@@ -82,7 +82,7 @@ test('Adapt SearchContext with only sort and geo rules ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with no sort and no filters and geo rules ', () => {
+test('adapting a searchContext with no sort and no filters and geo rules ', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     insideBoundingBox: '0,0,0,0',
@@ -94,7 +94,7 @@ test('Adapt SearchContext with no sort and no filters and geo rules ', () => {
   expect(searchParams.attributesToHighlight?.length).toBe(1)
 })
 
-test('Adapt SearchContext with finite pagination', () => {
+test('adapting a searchContext with finite pagination', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     finitePagination: true,
@@ -103,7 +103,7 @@ test('Adapt SearchContext with finite pagination', () => {
   expect(searchParams.limit).toBe(20)
 })
 
-test('Adapt SearchContext with finite pagination on a later page', () => {
+test('adapting a searchContext with finite pagination on a later page', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 20, page: 10, hitsPerPage: 6 },
@@ -113,7 +113,7 @@ test('Adapt SearchContext with finite pagination on a later page', () => {
   expect(searchParams.limit).toBe(20)
 })
 
-test('Adapt SearchContext with finite pagination and pagination total hits lower than hitsPerPage', () => {
+test('adapting a searchContext with finite pagination and pagination total hits lower than hitsPerPage', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
@@ -123,7 +123,7 @@ test('Adapt SearchContext with finite pagination and pagination total hits lower
   expect(searchParams.limit).toBe(4)
 })
 
-test('Adapt SearchContext with no finite pagination', () => {
+test('adapting a searchContext with no finite pagination', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     finitePagination: false,
@@ -132,7 +132,7 @@ test('Adapt SearchContext with no finite pagination', () => {
   expect(searchParams.limit).toBe(7)
 })
 
-test('Adapt SearchContext with no finite pagination on page 2', () => {
+test('adapting a searchContext with no finite pagination on page 2', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 20, page: 1, hitsPerPage: 6 },
@@ -142,7 +142,7 @@ test('Adapt SearchContext with no finite pagination on page 2', () => {
   expect(searchParams.limit).toBe(13)
 })
 
-test('Adapt SearchContext with no finite pagination on page higher than paginationTotalHits', () => {
+test('adapting a searchContext with no finite pagination on page higher than paginationTotalHits', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 20, page: 40, hitsPerPage: 6 },
@@ -152,7 +152,7 @@ test('Adapt SearchContext with no finite pagination on page higher than paginati
   expect(searchParams.limit).toBe(20)
 })
 
-test('Adapt SearchContext with no finite pagination and pagination total hits lower than hitsPerPage', () => {
+test('adapting a searchContext with no finite pagination and pagination total hits lower than hitsPerPage', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
@@ -162,7 +162,7 @@ test('Adapt SearchContext with no finite pagination and pagination total hits lo
   expect(searchParams.limit).toBe(4)
 })
 
-test('Adapt SearchContext placeholderSearch set to false', () => {
+test('adapting a searchContext placeholderSearch set to false', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     query: '',
@@ -174,7 +174,7 @@ test('Adapt SearchContext placeholderSearch set to false', () => {
   expect(searchParams.limit).toBe(0)
 })
 
-test('Adapt SearchContext placeholderSearch set to false', () => {
+test('adapting a searchContext placeholderSearch set to false', () => {
   const searchParams = adaptSearchParams({
     ...DEFAULT_CONTEXT,
     query: '',
