@@ -6,6 +6,14 @@ import {
 } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
+/**
+ * Builder to creates an object containing all the search query parameters
+ * provided by the search context of instantsearch.js and instant-meilisearch.
+ *
+ * @param  {SearchContext} searchContext
+ *
+ * @returns {MeiliSearchParams}
+ */
 function ParamsBuilder(searchContext: SearchContext) {
   const meiliSearchParams: Record<string, any> = {}
 
