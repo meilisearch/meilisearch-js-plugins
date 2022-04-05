@@ -15,6 +15,7 @@ describe('Parameters adapter', () => {
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
+
   test('adapting a searchContext with filters and sort', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
