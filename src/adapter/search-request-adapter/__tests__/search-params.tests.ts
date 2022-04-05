@@ -12,6 +12,7 @@ describe('Parameters adapter', () => {
       ...DEFAULT_CONTEXT,
       finitePagination: false,
     })
+
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
