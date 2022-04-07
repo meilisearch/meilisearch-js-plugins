@@ -1,47 +1,36 @@
 landing_getting_started_1: |-
-  // in app.js
-  const search = instantsearch({
-    indexName: 'movies',
-    searchClient: instantMeiliSearch(
-      'http://localhost:7700',
-      'searchKey'
-    ),
-  })
+  <div>
+    <div id="searchbox"></div>
+    <div id="hits"></div>
+  </div>
 
-  search.addWidgets([
-    instantsearch.widgets.searchBox({
-      container: '#searchbox',
-    }),
-    instantsearch.widgets.hits({
-      container: '#hits',
-      templates: {
-        item: `
-          <div>
-            <div class="hit-name">
-              {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+  <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+  <script>
+    const search = instantsearch({
+      indexName: 'movies',
+      searchClient: instantMeiliSearch(
+        'http://localhost:7700',
+        'searchKey'
+      ),
+    })
+
+    search.addWidgets([
+      instantsearch.widgets.searchBox({
+        container: '#searchbox',
+      }),
+      instantsearch.widgets.hits({
+        container: '#hits',
+        templates: {
+          item: `
+            <div>
+              <div class="hit-name">
+                {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+              </div>
             </div>
-          </div>
-        `,
-      },
-    }),
-  ])
-  search.start()
-
-  // in index.html
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-    </head>
-
-    <body>
-      <div>
-        <div id="searchbox"></div>
-        <div id="hits"></div>
-      </div>
-
-      <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-      <script src="./app.js"></script>
-    </body>
-  </html>
+          `,
+        },
+      }),
+    ])
+    search.start()
+  </script>
