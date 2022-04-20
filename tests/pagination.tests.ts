@@ -54,7 +54,7 @@ describe('Pagination browser test', () => {
       {
         indexName: 'movies',
         params: {
-          query: '',
+          query: 'Ariel',
           hitsPerPage: 1,
           page: 1,
         },

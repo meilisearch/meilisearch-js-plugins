@@ -84,7 +84,7 @@ describe('Instant Meilisearch Browser test', () => {
         indexName: 'movies',
         params: {
           query: '',
-          facetFilters: ['genres:Comedy', 'genres:Crime'],
+          facetFilters: [['genres:Comedy'], ['genres:Crime']],
         },
       },
     ])
