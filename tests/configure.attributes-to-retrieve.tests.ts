@@ -54,7 +54,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit.title).not.toBeDefined()
   })
 
-  test('Test attributesToRetrieve on one non existing attribute', async () => {
+  test.skip('Test attributesToRetrieve on one non existing attribute', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -75,7 +75,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit._highlightResult?.title).toBeDefined()
   })
 
-  test('Test attributesToRetrieve on one existing attribute', async () => {
+  test.skip('Test attributesToRetrieve on one existing attribute', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
