@@ -324,6 +324,6 @@ test('Test attributes to snippet on value smaller than the snippet size', async 
   const hit = response.results[0].hits[0]._snippetResult
 
   if (hit?.overview) {
-    expect(hit?.title?.value).toEqual('Star Wars')
+    expect(hit?.title?.value).toEqual('Ariel')
   }
 })
