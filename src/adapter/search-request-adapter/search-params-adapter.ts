@@ -63,6 +63,22 @@ export function adaptSearchParams(
     '*',
   ]
 
+  // Highlight pre tag
+  const highlightPreTag = searchContext?.highlightPreTag
+  if (highlightPreTag) {
+    meiliSearchParams.highlightPreTag = highlightPreTag
+  } else {
+    meiliSearchParams.highlightPreTag = '__ais-highlight__'
+  }
+
+  // Highlight post tag
+  const highlightPostTag = searchContext?.highlightPostTag
+  if (highlightPostTag) {
+    meiliSearchParams.highlightPostTag = highlightPostTag
+  } else {
+    meiliSearchParams.highlightPostTag = '__/ais-highlight__'
+  }
+
   const placeholderSearch = searchContext.placeholderSearch
   const query = searchContext.query
 
