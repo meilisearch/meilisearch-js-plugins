@@ -81,6 +81,7 @@ export type SearchContext = Omit<
 > & {
   insideBoundingBox?: InsideBoundingBox
   keepZeroFacets?: boolean
+  cropMarker?: string
   defaultFacetDistribution: FacetsDistribution
   pagination: PaginationContext
 }

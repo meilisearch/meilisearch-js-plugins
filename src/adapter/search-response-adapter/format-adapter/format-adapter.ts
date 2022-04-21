@@ -1,5 +1,4 @@
 import { adaptHighlight } from './highlight-adapter'
-import { adaptSnippet } from './snippet-adapter'
 import { SearchContext } from '../../../types'
 
 /**
@@ -13,24 +12,16 @@ export function adaptFormating(
   hit: Record<string, any>,
   searchContext: SearchContext
 ): Record<string, any> {
-  const attributesToSnippet = searchContext?.attributesToSnippet
-  const ellipsis = searchContext?.snippetEllipsisText
   const preTag = searchContext?.highlightPreTag
   const postTag = searchContext?.highlightPostTag
 
   if (!hit._formatted) return {}
-  const _highlightResult = adaptHighlight(hit, preTag, postTag)
-
-  // what is ellipsis by default
-  const _snippetResult = adaptHighlight(
-    adaptSnippet(hit, attributesToSnippet, ellipsis),
-    preTag,
-    postTag
-  )
+  const _formattedResult = adaptHighlight(hit, preTag, postTag)
 
   const highlightedHit = {
-    _highlightResult,
-    _snippetResult,
+    // We could not determine what the differences are between those two fields.
+    _highlightResult: _formattedResult,
+    _snippetResult: _formattedResult,
   }
 
   return highlightedHit

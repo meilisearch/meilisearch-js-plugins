@@ -261,14 +261,14 @@ describe('Highlight Browser test', () => {
 
     if (hit?.objectArray) {
       // @ts-ignore
-      expect(hit?.objectArray[0]?.value).toEqual('{"name":"charlotte"}')
+      expect(hit?.objectArray[0]?.value).toEqual('{"name":"hello world"}')
       // @ts-ignore
-      expect(hit?.objectArray[1]?.value).toEqual('{"name":"charlotte"}')
+      expect(hit?.objectArray[1]?.value).toEqual('{"name":"hello world"}')
     }
 
     if (hit?.object) {
       // @ts-ignore
-      expect(hit?.object?.value).toEqual('{"id":"1","name":"Nader"}')
+      expect(hit?.object?.value).toEqual('{"id":"1","name":"One two"}')
     }
 
     if (hit?.nullField) {
