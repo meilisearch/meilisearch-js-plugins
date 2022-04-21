@@ -31,6 +31,12 @@ export function adaptSearchParams(
     meiliSearchParams.attributesToCrop = attributesToCrop
   }
 
+  // Attributes To Crop marker
+  const cropMarker = searchContext?.snippetEllipsisText
+  if (cropMarker != null) {
+    meiliSearchParams.cropMarker = cropMarker
+  }
+
   // Attributes To Retrieve
   const attributesToRetrieve = searchContext?.attributesToRetrieve
   if (attributesToRetrieve) {
