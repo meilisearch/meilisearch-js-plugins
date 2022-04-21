@@ -1,3 +1,5 @@
+import { isPureObject } from '../../../utils'
+
 /**
  * Stringify values following instantsearch practices.
  *
@@ -11,34 +13,44 @@ function stringifyValue(value: any) {
     // undefined
     return JSON.stringify(null)
   } else {
-    // Other
     return JSON.stringify(value)
   }
 }
 
 /**
- * Wrap formated values into a instantsearch compatible format.
- * value => { name: value }
+ * Recursif function wrap the deepest possible value
+ * the following way: { value: "xx" }.
  *
- * @param  {Record<string, any>} hit - Hit whose fields to adapt
+ * For example:
  *
- * @returns {Record<string, any>} Hit
+ * {
+ * "rootField": { "value": "x" }
+ * "nestedField": { child: { value: "y" } }
+ * }
+ *
+ * recursivity continues until the value is not an array or an object.
+ *
+ * @param  {any} value - value of a field
+ *
+ * @returns Record<string, any>
  */
-function adaptValueFormat(hit: Record<string, any>): Record<string, any> {
-  return Object.keys(hit).reduce((result, key) => {
-    const value = hit[key]
+function wrapValue(value: any): Record<string, any> {
+  if (Array.isArray(value)) {
+    // Array
+    return value.map((elem) => wrapValue(elem))
+  } else if (isPureObject(value)) {
+    // Object
+    return Object.keys(value).reduce<Record<string, any>>(
+      (nested: Record<string, any>, key: string) => {
+        nested[key] = wrapValue(value[key])
 
-    if (Array.isArray(value)) {
-      // Array
-      result[key] = value.map((elem) => ({
-        value: stringifyValue(elem),
-      }))
-    } else {
-      result[key] = { value: stringifyValue(value) }
-    }
-
-    return result
-  }, {} as any)
+        return nested
+      },
+      {}
+    )
+  } else {
+    return { value: stringifyValue(value) }
+  }
 }
 
 /**
@@ -52,7 +64,7 @@ export function adaptFormattedFields(
   hit: Record<string, any>
 ): Record<string, any> {
   if (!hit) return {}
-  const _formattedResult = adaptValueFormat(hit)
+  const _formattedResult = wrapValue(hit)
 
   const highlightedHit = {
     // We could not determine what the differences are between those two fields.

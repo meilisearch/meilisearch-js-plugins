@@ -265,15 +265,15 @@ describe('Highlight Browser test', () => {
     }
 
     if (hit?.objectArray) {
-      // @ts-ignore
-      expect(hit?.objectArray[0]?.value).toEqual(
-        '{"name":"__ais-highlight__hello__/ais-highlight__ world"}'
+      expect(hit?.objectArray[0]?.name.value).toEqual(
+        '__ais-highlight__hello__/ais-highlight__ world'
       )
     }
 
     if (hit?.object) {
-      // @ts-ignore
-      expect(hit?.object?.value).toEqual('{"id":"1","name":"One two"}')
+      expect(hit?.object?.id?.value).toEqual('1')
+
+      expect(hit?.object?.name?.value).toEqual('One two')
     }
 
     if (hit?.nullField) {
