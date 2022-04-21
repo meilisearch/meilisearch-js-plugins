@@ -86,8 +86,8 @@ describe('Highlight Browser test', () => {
 
     const highlightedHit = response.results[0].hits[0]._highlightResult
     if (highlightedHit?.genres) {
-      expect(highlightedHit?.genres[0]?.value).toEqual('Adventure')
-      expect(highlightedHit?.genres[1]?.value).toEqual('Action')
+      expect(highlightedHit?.genres[0]?.value).toEqual('Drama')
+      expect(highlightedHit?.genres[1]?.value).toEqual('Crime')
     }
   })
 

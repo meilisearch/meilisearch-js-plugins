@@ -104,6 +104,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     const hits = response.results[0].hits
+
     expect(hits.length).toEqual(2)
     expect(hits[0].title).toEqual('Ariel')
   })
@@ -121,7 +122,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hits[0].title).toEqual('Judgment Night')
   })
 
-  test('Test multiple nested on filter without a query', async () => {
+  test('Test multiple nested array in filter without a query', async () => {
     const params = {
       indexName: 'movies',
       params: {
@@ -131,7 +132,7 @@ describe('Instant Meilisearch Browser test', () => {
     }
     const response = await searchClient.search<Movies>([params])
     const hits = response.results[0].hits
-    expect(hits[0].title).toEqual('Kill Bill: Vol. 1')
+    expect(hits[0].title).toEqual('Judgment Night')
   })
 
   test('Test multiple nested arrays on filter with a query', async () => {
