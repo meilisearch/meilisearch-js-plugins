@@ -231,12 +231,17 @@ describe('Highlight Browser test', () => {
       {
         indexName: 'movies',
         params: {
-          query: 'Ariel',
+          query: 'hello',
           attributesToHighlight: ['*'],
         },
       },
     ])
+
     const hit = response.results[0].hits[0]._highlightResult
+
+    if (hit?.title) {
+      expect(hit?.title?.value).toEqual('Ariel')
+    }
 
     if (hit?.genres) {
       expect(hit?.genres[0]?.value).toEqual('Drama')
@@ -260,15 +265,15 @@ describe('Highlight Browser test', () => {
     }
 
     if (hit?.objectArray) {
-      // @ts-ignore
-      expect(hit?.objectArray[0]?.value).toEqual('{"name":"hello world"}')
-      // @ts-ignore
-      expect(hit?.objectArray[1]?.value).toEqual('{"name":"hello world"}')
+      expect(hit?.objectArray[0]?.name.value).toEqual(
+        '__ais-highlight__hello__/ais-highlight__ world'
+      )
     }
 
     if (hit?.object) {
-      // @ts-ignore
-      expect(hit?.object?.value).toEqual('{"id":"1","name":"One two"}')
+      expect(hit?.object?.id?.value).toEqual('1')
+
+      expect(hit?.object?.name?.value).toEqual('One two')
     }
 
     if (hit?.nullField) {
