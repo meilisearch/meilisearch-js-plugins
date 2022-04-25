@@ -297,17 +297,13 @@ describe('Snippet Browser test', () => {
     }
 
     if (hit?.objectArray) {
-      // @ts-ignore
-      expect(hit?.objectArray[0]?.name.value).toEqual('hello…')
-      // @ts-ignore
-      expect(hit?.objectArray[1]?.name.value).toEqual('hello…')
+      expect(hit?.objectArray[0]?.name?.value).toEqual('hello…')
+      expect(hit?.objectArray[1]?.name?.value).toEqual('hello…')
     }
 
     if (hit?.object) {
-      // @ts-ignore
-      expect(hit?.object?.name.value).toEqual('One…')
-      // @ts-ignore
-      expect(hit?.object?.id.value).toEqual('1')
+      expect(hit?.object?.name?.value).toEqual('One…')
+      expect(hit?.object?.id?.value).toEqual('1')
     }
 
     if (hit?.nullField) {
@@ -359,17 +355,13 @@ describe('Snippet Browser test', () => {
     }
 
     if (hit?.objectArray) {
-      // @ts-ignore
-      expect(hit?.objectArray[0]?.name.value).toEqual('hello( •_•)')
-      // @ts-ignore
-      expect(hit?.objectArray[1]?.name.value).toEqual('hello( •_•)')
+      expect(hit?.objectArray[0]?.name?.value).toEqual('hello( •_•)')
+      expect(hit?.objectArray[1]?.name?.value).toEqual('hello( •_•)')
     }
 
     if (hit?.object) {
-      // @ts-ignore
-      expect(hit?.object?.id.value).toEqual('1')
-      // @ts-ignore
-      expect(hit?.object?.name.value).toEqual('One( •_•)')
+      expect(hit?.object?.id?.value).toEqual('1')
+      expect(hit?.object?.name?.value).toEqual('One( •_•)')
     }
 
     if (hit?.nullField) {
