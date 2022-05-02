@@ -1888,10 +1888,10 @@ ajv@^7.0.2:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-algoliasearch-helper@^3.7.4:
-  version "3.7.4"
-  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.7.4.tgz#3812ea161da52463ec88da52612c9a363c1b181d"
-  integrity sha512-KmJrsHVm5TmxZ9Oj53XdXuM4CQeu7eVFnB15tpSFt+7is1d1yVCv3hxCLMqYSw/rH42ccv013miQpRr268P8vw==
+algoliasearch-helper@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.8.2.tgz#35726dc6d211f49dbab0bf6d37b4658165539523"
+  integrity sha512-AXxiF0zT9oYwl8ZBgU/eRXvfYhz7cBA5YrLPlw9inZHdaYF0QEya/f1Zp1mPYMXc1v6VkHwBq4pk6/vayBLICg==
   dependencies:
     "@algolia/events" "^4.0.1"
 
@@ -4053,16 +4053,16 @@ ini@2.0.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-2.0.0.tgz#e5fd556ecdd5726be978fa1001862eacb0a94bc5"
   integrity sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==
 
-instantsearch.js@^4.40.2:
-  version "4.40.2"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.40.2.tgz#600ac15fe6b22c55f3c08542b1b3ba1b8ff1fe96"
-  integrity sha512-XK4vXBbYJYVeXHNKtio9dbE1vp4WfyV4NME+PwBrKt/RDdk44GDRUcz+cTx2A9XQeA6+AeskSyZFk9KEJpviZw==
+instantsearch.js@^4.40.5:
+  version "4.40.5"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.40.5.tgz#17b3c2ed493bee80101b3eb9a48187b487d275c3"
+  integrity sha512-6YL4WGJ4mGz+b1mbAd/k+g3foz0W0HhZA7wSz0CeuNoJHnCcCcJAoAFdwLoWGRBKjxV7FoXFou0NRkLWXEmBrg==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@types/google.maps" "^3.45.3"
     "@types/hogan.js" "^3.0.0"
     "@types/qs" "^6.5.3"
-    algoliasearch-helper "^3.7.4"
+    algoliasearch-helper "^3.8.2"
     classnames "^2.2.5"
     hogan.js "^3.0.2"
     preact "^10.6.0"
