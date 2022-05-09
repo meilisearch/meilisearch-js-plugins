@@ -13,13 +13,13 @@ const dataset = [
     undefinedArray: [undefined, undefined, undefined],
     nullArray: [null, null, null],
     objectArray: [
-      { name: 'charlotte' },
-      { name: 'charlotte' },
-      { name: 'charlotte' },
+      { name: 'hello world' },
+      { name: 'hello world' },
+      { name: 'hello world' },
     ],
     object: {
       id: 1,
-      name: 'Nader',
+      name: 'One two',
     },
     nullField: null,
   },
@@ -34,13 +34,13 @@ const dataset = [
     undefinedArray: [undefined, undefined, undefined],
     nullArray: [null, null, null],
     objectArray: [
-      { name: 'charlotte' },
-      { name: 'charlotte' },
-      { name: 'charlotte' },
+      { name: 'hello world' },
+      { name: 'hello world' },
+      { name: 'hello world' },
     ],
     object: {
       id: 1,
-      name: 'Nader',
+      name: 'One two',
     },
     nullField: null,
   },
@@ -55,13 +55,13 @@ const dataset = [
     undefinedArray: [undefined, undefined, undefined],
     nullArray: [null, null, null],
     objectArray: [
-      { name: 'charlotte' },
-      { name: 'charlotte' },
-      { name: 'charlotte' },
+      { name: 'hello world' },
+      { name: 'hello world' },
+      { name: 'hello world' },
     ],
     object: {
       id: 1,
-      name: 'Nader',
+      name: 'One two',
     },
     nullField: null,
   },
@@ -208,8 +208,8 @@ export type Movies = {
   poster?: string
   genres?: string[]
   release_date?: number // eslint-disable-line
-  undefinedArray?: [undefined, undefined, undefined]
-  nullArray?: [null]
+  undefinedArray?: undefined[]
+  nullArray?: null[]
   objectArray?: Array<{ name: string }>
   object?: {
     id?: number
