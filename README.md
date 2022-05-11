@@ -41,7 +41,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [💅 Customization](#-customization)
-- [⚡️ Example with InstantSearch](#-example-with-instantSearch)
+- [⚡️ Example with InstantSearch](#-example-with-instantsearch)
 - [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
@@ -312,14 +312,14 @@ List of all the components that are available in [instantSearch](https://github.
 `instantSearch` is the main component. It manages the widget and lets you add new ones.
 
 - ✅ IndexName: [`uid` of your index](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes). _required_
-- ✅ SearchClient: Search client, in our case instant-meilisearch. See [customization](#customization) for details on options. _required_
+- ✅ SearchClient: Search client, in our case instant-meilisearch. See [customization](#-customization) for details on options. _required_
 - ❌ numberLocale: Does not work with both Algoliasearch and instant-meilisearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
 - ✅ initialUiState: Determine the search state on app start.
 - ✅ onStateChange: Change search state on change (see option above).
 - ✅ stalledSearchDelay: Time in ms before search is considered stalled. [Used for loader](https://www.algolia.com/doc/guides/building-search-ui/going-further/improve-performance/js/#using-the-searchbox).
 - ✅ routing: browser URL synchronization, search parameters appear in current URL ([guide](https://www.algolia.com/doc/guides/building-search-ui/going-further/routing-urls/js/)).
-- ✅ insightsClient: Hook analytics to search actions ([see insight section](#insight)).
+- ✅ insightsClient: Hook analytics to search actions ([see insight section](#-insight)).
 
 ```js
 const search = instantsearch({
@@ -513,7 +513,7 @@ The `highlight` function returns an attribute from a hit into its highlighted fo
 - ✅ hit: Hit object. _required_
 - ✅ highlightedTagName: HTML element to wrap the highlighted parts of the string.
 
-See [Hits](#hits) for an example.
+See [Hits](#-hits) for an example.
 
 ### ✅ Snippet
 
@@ -525,7 +525,7 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 - ✅ hit: Hit object. _required_
 - ✅ highlightedTagName: HTML element to wrap the highlighted parts of the string.
 
-Note that the attribute has to be added to `attributesToSnippet` in [configuration](#configuration). Highlight is applied on snippeted fields.
+Note that the attribute has to be added to `attributesToSnippet` in [configuration](#-configure). Highlight is applied on snippeted fields.
 
 Snippeting is called `cropping` in Meilisearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
 For example: `"description:40"`.
@@ -906,7 +906,7 @@ instantsearch.widgets.clearRefinements({
 
 The `pagination` widget displays a pagination system allowing the user to change the current page.
 
-We do not recommend using this widget as pagination slows the search responses. Instead, the [InfiniteHits](#InfiniteHits) component is recommended.
+We do not recommend using this widget as pagination slows the search responses. Instead, the [InfiniteHits](#-infinitehits) component is recommended.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ showFirst: Whether to display the first-page link.
@@ -970,7 +970,7 @@ instantsearch.widgets.stats({
 
 [Analytics](https://www.algolia.com/doc/api-reference/widgets/analytics/js/)
 
-Deprecated. See [Insight](#Insight).
+Deprecated. See [Insight](#-insight).
 
 ### ❌ QueryRuleCustomData
 
