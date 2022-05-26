@@ -946,7 +946,7 @@ The `breadcrumb` widget is a secondary navigation scheme that lets the user see 
 - ✅ attribute: The name of the attributes to generate the menu with. _required_.
 - ❌ separator: The level separator used in the records. (default `>`).
 - 🤷‍♀️ rootPath: The prefix path to use if the first level is not the root level.
-- ✅ templates: The templates to use for the widget.- ✅ templates: The templates to use for the widget.
+- ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
 
