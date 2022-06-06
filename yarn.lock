@@ -4069,10 +4069,10 @@ ini@2.0.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-2.0.0.tgz#e5fd556ecdd5726be978fa1001862eacb0a94bc5"
   integrity sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==
 
-instantsearch.js@^4.40.5:
-  version "4.40.5"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.40.5.tgz#17b3c2ed493bee80101b3eb9a48187b487d275c3"
-  integrity sha512-6YL4WGJ4mGz+b1mbAd/k+g3foz0W0HhZA7wSz0CeuNoJHnCcCcJAoAFdwLoWGRBKjxV7FoXFou0NRkLWXEmBrg==
+instantsearch.js@^4.41.0:
+  version "4.41.0"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.41.0.tgz#c879d7b892e3d9159a17a803e793e695aeb5431f"
+  integrity sha512-g9l+Cty0xxMT06L36gc6x6Nz6HsEbrqbNQOXAZDORb2g9ADjMQwR1YtOVqN28pTuwXnhWJ4UfEKlLfHTgTVKmg==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@types/google.maps" "^3.45.3"
