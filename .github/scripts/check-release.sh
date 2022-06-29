@@ -9,5 +9,12 @@ if [ "$current_tag" != "$file_tag" ]; then
   exit 1
 fi
 
+package_version_ts=$(grep "PACKAGE_VERSION =" src/package-version.ts | cut -d "=" -f 2- | tr -d " " | tr -d "'")
+if [ "$current_tag" != "$package_version_ts" ]; then
+  echo "Error: the current tag does not match the version in src/package-version.ts."
+  echo "$current_tag vs $package_version_ts"
+  exit 1
+fi
+
 echo 'OK'
 exit 0

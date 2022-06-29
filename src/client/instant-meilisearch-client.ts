@@ -13,6 +13,7 @@ import {
 } from '../adapter'
 import { createSearchContext } from '../contexts'
 import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
+import { PACKAGE_VERSION } from '../package-version'
 
 /**
  * Instanciate SearchClient required by instantsearch.js.
@@ -31,7 +32,11 @@ export function instantMeiliSearch(
   const searchResolver = SearchResolver(SearchCache())
   // paginationTotalHits can be 0 as it is a valid number
   let defaultFacetDistribution: any = {}
-  const meilisearchClient = new MeiliSearch({ host: hostUrl, apiKey: apiKey })
+  const meilisearchClient = new MeiliSearch({
+    host: hostUrl,
+    apiKey: apiKey,
+    clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
+  })
 
   return {
     /**
