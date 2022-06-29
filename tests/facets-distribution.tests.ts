@@ -3,17 +3,17 @@ import { searchClient, dataset, meilisearchClient } from './assets/utils'
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient.waitForTask(deleteTask.taskUid)
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes(['genres'])
     const documentsTask = await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
-  test('Test empty array on facetsDistribution', async () => {
+  test('Test empty array on facetDistribution', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -26,7 +26,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(response.results[0].facets?.genres).toEqual(undefined)
   })
 
-  test('Test one facet on facetsDistribution', async () => {
+  test('Test one facet on facetDistribution', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',

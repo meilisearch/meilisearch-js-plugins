@@ -1,5 +1,4 @@
 import type {
-  MeiliSearch,
   SearchResponse as MeiliSearchResponse,
   FacetsDistribution,
 } from 'meilisearch'
