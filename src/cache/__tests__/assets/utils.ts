@@ -4,6 +4,6 @@ export const searchResponse = {
   offset: 0,
   limit: 0,
   processingTimeMs: 0,
-  nbHits: 0,
+  estimatedTotalHits: 0,
   exhaustiveNbHits: false,
 }

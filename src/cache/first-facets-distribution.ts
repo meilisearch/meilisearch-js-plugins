@@ -1,6 +1,6 @@
 import { FacetsDistribution } from '../types'
 
-export function cacheFirstFacetsDistribution(
+export function cacheFirstFacetDistribution(
   defaultFacetDistribution: FacetsDistribution,
   searchResponse: any
 ): FacetsDistribution {
@@ -8,7 +8,7 @@ export function cacheFirstFacetsDistribution(
     searchResponse.query === '' &&
     Object.keys(defaultFacetDistribution).length === 0
   ) {
-    return searchResponse.facetsDistribution
+    return searchResponse.facetDistribution
   }
   return defaultFacetDistribution
 }

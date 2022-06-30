@@ -22,7 +22,7 @@ export function adaptSearchParams(
   // Facets
   const facets = searchContext?.facets
   if (facets?.length) {
-    meiliSearchParams.facetsDistribution = facets
+    meiliSearchParams.facets = facets
   }
 
   // Attributes To Crop
