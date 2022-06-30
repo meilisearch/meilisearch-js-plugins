@@ -62,10 +62,10 @@ export function getFacetsFromFilter(filters?: Filter): FacetsCache {
 }
 
 function getFacetsFromDefaultDistribution(
-  facetsDistribution: FacetsDistribution
+  facetDistribution: FacetsDistribution
 ): FacetsCache {
-  return Object.keys(facetsDistribution).reduce((cache: any, facet) => {
-    const facetValues = Object.keys(facetsDistribution[facet])
+  return Object.keys(facetDistribution).reduce((cache: any, facet) => {
+    const facetValues = Object.keys(facetDistribution[facet])
     return {
       ...cache,
       [facet]: facetValues,
@@ -91,8 +91,8 @@ export function extractFacets(
 }
 
 /**
- * Assign missing filters to facetsDistribution.
- * All facet passed as filter should appear in the facetsDistribution.
+ * Assign missing filters to facetDistribution.
+ * All facets passed as filter should appear in the facetDistribution.
  * If not present, the facet is added with 0 as value.
  *
  *
