@@ -33,6 +33,7 @@ export type InstantMeiliSearchOptions = {
   primaryKey?: string
   keepZeroFacets?: boolean
   finitePagination?: boolean
+  clientAgents?: string[]
 }
 
 export type SearchCacheInterface = {
