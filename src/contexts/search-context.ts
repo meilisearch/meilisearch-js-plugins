@@ -2,7 +2,7 @@ import {
   InstantMeiliSearchOptions,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
-  FacetsDistribution,
+  FacetDistribution,
 } from '../types'
 
 import { createPaginationContext } from './pagination-context'
@@ -15,7 +15,7 @@ import { createPaginationContext } from './pagination-context'
 export function createSearchContext(
   searchRequest: AlgoliaMultipleQueriesQuery,
   options: InstantMeiliSearchOptions,
-  defaultFacetDistribution: FacetsDistribution
+  defaultFacetDistribution: FacetDistribution
 ): SearchContext {
   // Split index name and possible sorting rules
   const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')

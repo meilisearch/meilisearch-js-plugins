@@ -1,7 +1,7 @@
 import {
   Filter,
   ParsedFilter,
-  FacetsDistribution,
+  FacetDistribution,
   FacetsCache,
   MeiliSearchParams,
   SearchContext,
@@ -62,7 +62,7 @@ export function getFacetsFromFilter(filters?: Filter): FacetsCache {
 }
 
 function getFacetsFromDefaultDistribution(
-  facetDistribution: FacetsDistribution
+  facetDistribution: FacetDistribution
 ): FacetsCache {
   return Object.keys(facetDistribution).reduce((cache: any, facet) => {
     const facetValues = Object.keys(facetDistribution[facet])
@@ -97,13 +97,13 @@ export function extractFacets(
  *
  *
  * @param  {FacetsCache} cache?
- * @param  {FacetsDistribution} distribution?
- * @returns {FacetsDistribution}
+ * @param  {FacetDistribution} distribution?
+ * @returns {FacetDistribution}
  */
 export function addMissingFacets(
   cachedFacets?: FacetsCache,
-  distribution?: FacetsDistribution
-): FacetsDistribution {
+  distribution?: FacetDistribution
+): FacetDistribution {
   distribution = distribution || {}
 
   // If cachedFacets contains something
