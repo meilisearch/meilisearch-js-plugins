@@ -1,9 +1,9 @@
-import { FacetsDistribution } from '../types'
+import { FacetDistribution } from '../types'
 
 export function cacheFirstFacetDistribution(
-  defaultFacetDistribution: FacetsDistribution,
+  defaultFacetDistribution: FacetDistribution,
   searchResponse: any
-): FacetsDistribution {
+): FacetDistribution {
   if (
     searchResponse.query === '' &&
     Object.keys(defaultFacetDistribution).length === 0

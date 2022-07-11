@@ -1,6 +1,6 @@
 import type {
   SearchResponse as MeiliSearchResponse,
-  FacetsDistribution,
+  FacetDistribution,
 } from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
@@ -10,7 +10,7 @@ export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-se
 
 export type {
   Filter,
-  FacetsDistribution,
+  FacetDistribution,
   SearchResponse as MeiliSearchResponse,
   SearchParams as MeiliSearchParams,
   MeiliSearch,
@@ -82,7 +82,7 @@ export type SearchContext = Omit<
   insideBoundingBox?: InsideBoundingBox
   keepZeroFacets?: boolean
   cropMarker?: string
-  defaultFacetDistribution: FacetsDistribution
+  defaultFacetDistribution: FacetDistribution
   pagination: PaginationContext
 }
 
