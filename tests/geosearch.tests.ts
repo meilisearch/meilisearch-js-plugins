@@ -8,7 +8,7 @@ import {
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('geotest')
-    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient.waitForTask(deleteTask.taskUid)
     await meilisearchClient
       .index('geotest')
       .updateFilterableAttributes(['_geo'])
@@ -16,7 +16,7 @@ describe('Instant Meilisearch Browser test', () => {
     const documentsTask = await meilisearchClient
       .index('geotest')
       .addDocuments(geoDataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
   test('Test aroundRadius and aroundLatLng in geo search', async () => {

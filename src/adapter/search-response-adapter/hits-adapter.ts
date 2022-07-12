@@ -21,7 +21,11 @@ export function adaptHits(
   let adaptedHits = paginatedHits.map((hit: Record<string, any>) => {
     // Creates Hit object compliant with InstantSearch
     if (Object.keys(hit).length > 0) {
-      const { _formatted: formattedHit, _matchesInfo, ...documentFields } = hit
+      const {
+        _formatted: formattedHit,
+        _matchesPosition,
+        ...documentFields
+      } = hit
 
       const adaptedHit: Record<string, any> = Object.assign(
         documentFields,

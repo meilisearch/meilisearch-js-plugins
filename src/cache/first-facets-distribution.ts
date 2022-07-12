@@ -1,14 +1,14 @@
-import { FacetsDistribution } from '../types'
+import { FacetDistribution } from '../types'
 
-export function cacheFirstFacetsDistribution(
-  defaultFacetDistribution: FacetsDistribution,
+export function cacheFirstFacetDistribution(
+  defaultFacetDistribution: FacetDistribution,
   searchResponse: any
-): FacetsDistribution {
+): FacetDistribution {
   if (
     searchResponse.query === '' &&
     Object.keys(defaultFacetDistribution).length === 0
   ) {
-    return searchResponse.facetsDistribution
+    return searchResponse.facetDistribution
   }
   return defaultFacetDistribution
 }

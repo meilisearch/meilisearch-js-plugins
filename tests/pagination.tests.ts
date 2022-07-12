@@ -9,14 +9,14 @@ import {
 describe('Pagination browser test', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient.waitForTask(deleteTask.taskUid)
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes(['genres'])
     const documentsTask = await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
   test('Test 1 hitsPerPage', async () => {

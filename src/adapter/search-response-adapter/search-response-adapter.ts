@@ -21,13 +21,8 @@ export function adaptSearchResponse<T>(
 ): { results: Array<AlgoliaSearchResponse<T>> } {
   const searchResponseOptionals: Record<string, any> = {}
 
-  const facets = searchResponse.facetsDistribution
+  const facets = searchResponse.facetDistribution
   const { pagination } = searchContext
-
-  const exhaustiveFacetsCount = searchResponse?.exhaustiveFacetsCount
-  if (exhaustiveFacetsCount) {
-    searchResponseOptionals.exhaustiveFacetsCount = exhaustiveFacetsCount
-  }
 
   const nbPages = ceiledDivision(
     searchResponse.hits.length,
@@ -35,8 +30,7 @@ export function adaptSearchResponse<T>(
   )
   const hits = adaptHits(searchResponse.hits, searchContext, pagination)
 
-  const exhaustiveNbHits = searchResponse.exhaustiveNbHits
-  const nbHits = searchResponse.nbHits
+  const estimatedTotalHits = searchResponse.estimatedTotalHits
   const processingTimeMs = searchResponse.processingTimeMs
   const query = searchResponse.query
 
@@ -49,12 +43,12 @@ export function adaptSearchResponse<T>(
     page,
     facets,
     nbPages,
-    exhaustiveNbHits,
-    nbHits,
+    nbHits: estimatedTotalHits,
     processingTimeMS: processingTimeMs,
     query,
     hits,
     params: '',
+    exhaustiveNbHits: false,
     ...searchResponseOptionals,
   }
   return {

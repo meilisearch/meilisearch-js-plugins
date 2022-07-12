@@ -12,7 +12,8 @@ import {
   SearchResolver,
 } from '../adapter'
 import { createSearchContext } from '../contexts'
-import { SearchCache, cacheFirstFacetsDistribution } from '../cache/'
+import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
+import { constructClientAgents } from './agents'
 
 /**
  * Instanciate SearchClient required by instantsearch.js.
@@ -31,7 +32,15 @@ export function instantMeiliSearch(
   const searchResolver = SearchResolver(SearchCache())
   // paginationTotalHits can be 0 as it is a valid number
   let defaultFacetDistribution: any = {}
-  const meilisearchClient = new MeiliSearch({ host: hostUrl, apiKey: apiKey })
+  const clientAgents = constructClientAgents(
+    instantMeiliSearchOptions.clientAgents
+  )
+
+  const meilisearchClient = new MeiliSearch({
+    host: hostUrl,
+    apiKey: apiKey,
+    clientAgents,
+  })
 
   return {
     /**
@@ -60,9 +69,9 @@ export function instantMeiliSearch(
         )
 
         // Cache first facets distribution of the instantMeilisearch instance
-        // Needed to add in the facetsDistribution the fields that were not returned
+        // Needed to add in the facetDistribution the fields that were not returned
         // When the user sets `keepZeroFacets` to true.
-        defaultFacetDistribution = cacheFirstFacetsDistribution(
+        defaultFacetDistribution = cacheFirstFacetDistribution(
           defaultFacetDistribution,
           searchResponse
         )

@@ -2,6 +2,7 @@ import { Movies } from './assets/utils'
 import { instantMeiliSearch } from '../src'
 import { MeiliSearch } from 'meilisearch'
 import { mocked } from 'ts-jest/utils'
+import { PACKAGE_VERSION } from '../src/package-version'
 
 jest.mock('meilisearch')
 
@@ -11,7 +12,7 @@ export const searchResponse = {
   offset: 0,
   limit: 0,
   processingTimeMs: 0,
-  nbHits: 0,
+  estimatedTotalHits: 0,
   exhaustiveNbHits: false,
 }
 
@@ -48,6 +49,7 @@ describe('Pagination browser test', () => {
     expect(mockedMeilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
+      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
     expect(mockedSearch).toHaveBeenCalledTimes(1)
   })
@@ -73,6 +75,7 @@ describe('Pagination browser test', () => {
     expect(mockedMeilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
+      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
     expect(mockedSearch).toHaveBeenCalledTimes(2)
   })
@@ -99,6 +102,7 @@ describe('Pagination browser test', () => {
     expect(mockedMeilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
+      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
     expect(mockedSearch).toHaveBeenCalledTimes(2)
   })
@@ -126,6 +130,7 @@ describe('Pagination browser test', () => {
     expect(mockedMeilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
+      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
     expect(mockedSearch).toHaveBeenCalledTimes(2)
   })
