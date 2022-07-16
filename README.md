@@ -70,7 +70,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com', // Host
-  'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47' // API key
+  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185' // API key
 )
 ```
 
@@ -91,7 +91,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com',
-  'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
+  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
   {
     paginationTotalHits: 30, // default: 200.
     placeholderSearch: false, // default: true.
@@ -205,7 +205,7 @@ const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
-    'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
+    '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185'
   ),
 })
 
@@ -326,7 +326,7 @@ const search = instantsearch({
   indexName: 'instant_search',
   searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
-    'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
+    '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
     {
       // ... InstantMeiliSearch options
     }
