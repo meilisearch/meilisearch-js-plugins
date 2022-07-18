@@ -85,7 +85,7 @@ export default {
       recommendation: '',
       searchClient: instantMeiliSearch(
         'https://integration-demos.meilisearch.com',
-        'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
+        '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185'
       ),
     }
   },
