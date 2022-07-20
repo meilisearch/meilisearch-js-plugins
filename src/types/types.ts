@@ -28,11 +28,9 @@ export type ParsedFilter = {
 }
 
 export type InstantMeiliSearchOptions = {
-  paginationTotalHits?: number
   placeholderSearch?: boolean
   primaryKey?: string
   keepZeroFacets?: boolean
-  finitePagination?: boolean
   clientAgents?: string[]
 }
 
@@ -49,8 +47,6 @@ type ClientParams = {
   placeholderSearch?: boolean
   sort?: string
   indexUid: string
-  paginationTotalHits: number
-  finitePagination: boolean
 }
 
 export type GeoSearchContext = {
@@ -64,20 +60,18 @@ export type GeoSearchContext = {
 }
 
 export type PaginationContext = {
-  paginationTotalHits: number
   hitsPerPage: number
   page: number
 }
 
 export type PaginationParams = {
-  paginationTotalHits?: number
   hitsPerPage?: number
   page?: number
 }
 
 export type SearchContext = Omit<
   InstantSearchParams & ClientParams,
-  'insideBoundingBox' | 'paginationTotalHits'
+  'insideBoundingBox'
 > & {
   insideBoundingBox?: InsideBoundingBox
   keepZeroFacets?: boolean

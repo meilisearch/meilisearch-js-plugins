@@ -30,7 +30,7 @@ export function instantMeiliSearch(
 ): InstantMeiliSearchInstance {
   // create search resolver with included cache
   const searchResolver = SearchResolver(SearchCache())
-  // paginationTotalHits can be 0 as it is a valid number
+
   let defaultFacetDistribution: any = {}
   const clientAgents = constructClientAgents(
     instantMeiliSearchOptions.clientAgents

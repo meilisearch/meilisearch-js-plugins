@@ -11,9 +11,10 @@ const emptySearch: MeiliSearchResponse<Record<string, any>> = {
   hits: [],
   query: '',
   facetDistribution: {},
-  limit: 0,
-  offset: 0,
-  estimatedTotalHits: 0,
+  page: 0,
+  hitsPerPage: 0,
+  totalPages: 0,
+  totalHits: 0,
   processingTimeMs: 0,
 }
 
@@ -41,20 +42,11 @@ export function SearchResolver(cache: SearchCacheInterface) {
         return emptySearch
       }
 
-      const { pagination } = searchContext
-
-      // In case we are in a `finitePagination`, only one big request is made
-      // containing a total of max the paginationTotalHits (default: 200).
-      // Thus we dont want the pagination to impact the cache as every
-      // hits are already cached.
-      const paginationCache = searchContext.finitePagination ? {} : pagination
-
       // Create cache key containing a unique set of search parameters
       const key = cache.formatKey([
         searchParams,
         searchContext.indexUid,
         searchContext.query,
-        paginationCache,
       ])
       const cachedResponse = cache.getEntry(key)
 
@@ -62,6 +54,7 @@ export function SearchResolver(cache: SearchCacheInterface) {
       if (cachedResponse) return cachedResponse
 
       const facetsCache = extractFacets(searchContext, searchParams)
+      console.log({ searchParams })
 
       // Make search request
       const searchResponse = await client

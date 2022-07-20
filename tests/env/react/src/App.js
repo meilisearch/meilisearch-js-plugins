@@ -17,7 +17,6 @@ import './App.css'
 import { instantMeiliSearch } from '../../../../src/index'
 
 const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
-  paginationTotalHits: 60,
   primaryKey: 'id',
 })
 
@@ -55,13 +54,13 @@ const App = () => (
         <h2>Genres</h2>
         <RefinementList attribute="genres" />
         <h2>Players</h2>
-        <RefinementList attribute="players" />
+        <RefinementList attribute="players" operator="or" />
         <h2>Platforms</h2>
         <RefinementList attribute="platforms" />
         <h2>Misc</h2>
         <RefinementList attribute="misc" />
         <Configure
-          hitsPerPage={6}
+          hitsPerPage={1}
           attributesToSnippet={['description:50']}
           snippetEllipsisText={'...'}
         />
