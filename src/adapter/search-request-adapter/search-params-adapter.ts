@@ -112,5 +112,6 @@ export function adaptSearchParams(
     }
   }
 
+  console.log(meiliSearchParams)
   return meiliSearchParams
 }
