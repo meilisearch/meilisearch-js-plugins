@@ -85,10 +85,10 @@ export function adaptSearchParams(
   // Pagination
   const { pagination } = searchContext
 
-  // TODO: remove finitePagination and paginationTotalHits
   // Limit based on pagination preferences
   if (!placeholderSearch && query === '') {
     meiliSearchParams.hitsPerPage = 0
+    meiliSearchParams.page = pagination.page + 1
   } else {
     meiliSearchParams.page = pagination.page + 1
     meiliSearchParams.hitsPerPage = pagination.hitsPerPage

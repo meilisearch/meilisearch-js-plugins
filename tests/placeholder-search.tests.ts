@@ -1,10 +1,5 @@
 import { instantMeiliSearch } from '../src'
-import {
-  searchClient,
-  dataset,
-  Movies,
-  meilisearchClient,
-} from './assets/utils'
+import { dataset, Movies, meilisearchClient } from './assets/utils'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {
@@ -24,25 +19,6 @@ describe('Pagination browser test', () => {
       'http://localhost:7700',
       'masterKey',
       {
-        paginationTotalHits: 5,
-        placeholderSearch: true,
-      }
-    )
-    const response = await customClient.search<Movies>([
-      {
-        indexName: 'movies',
-      },
-    ])
-    const hits = response.results[0].hits
-    expect(hits.length).toBe(5)
-  })
-
-  test('Test placeholdersearch set to true', async () => {
-    const customClient = instantMeiliSearch(
-      'http://localhost:7700',
-      'masterKey',
-      {
-        paginationTotalHits: 5,
         placeholderSearch: false,
       }
     )
@@ -53,5 +29,22 @@ describe('Pagination browser test', () => {
     ])
     const hits = response.results[0].hits
     expect(hits.length).toBe(0)
+  })
+
+  test('Test placeholdersearch set to true', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey',
+      {
+        placeholderSearch: true,
+      }
+    )
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+      },
+    ])
+    const hits = response.results[0].hits
+    expect(hits.length).toBe(6)
   })
 })

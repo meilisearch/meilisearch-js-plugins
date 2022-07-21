@@ -54,7 +54,6 @@ export function SearchResolver(cache: SearchCacheInterface) {
       if (cachedResponse) return cachedResponse
 
       const facetsCache = extractFacets(searchContext, searchParams)
-      console.log({ searchParams })
 
       // Make search request
       const searchResponse = await client
