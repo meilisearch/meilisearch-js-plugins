@@ -1,19 +1,20 @@
-import { MeiliSearch } from 'meilisearch'
 import {
-  InstantMeiliSearchOptions,
-  InstantMeiliSearchInstance,
-  AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
+  AlgoliaSearchResponse,
+  InstantMeiliSearchInstance,
+  InstantMeiliSearchOptions,
   SearchContext,
 } from '../types'
-import {
-  adaptSearchResponse,
-  adaptSearchParams,
-  SearchResolver,
-} from '../adapter'
-import { createSearchContext } from '../contexts'
 import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
+import {
+  SearchResolver,
+  adaptSearchParams,
+  adaptSearchResponse,
+} from '../adapter'
+
+import { MeiliSearch } from 'meilisearch'
 import { constructClientAgents } from './agents'
+import { createSearchContext } from '../contexts'
 
 /**
  * Instanciate SearchClient required by instantsearch.js.
@@ -28,8 +29,9 @@ export function instantMeiliSearch(
   apiKey = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
+  const searchCache = SearchCache()
   // create search resolver with included cache
-  const searchResolver = SearchResolver(SearchCache())
+  const searchResolver = SearchResolver(searchCache)
   // paginationTotalHits can be 0 as it is a valid number
   let defaultFacetDistribution: any = {}
   const clientAgents = constructClientAgents(
@@ -43,6 +45,7 @@ export function instantMeiliSearch(
   })
 
   return {
+    clearCache: () => searchCache.clearCache(),
     /**
      * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
      * @returns {Array}

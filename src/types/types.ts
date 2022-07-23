@@ -1,9 +1,10 @@
 import type {
-  SearchResponse as MeiliSearchResponse,
   FacetDistribution,
+  SearchResponse as MeiliSearchResponse,
 } from 'meilisearch'
-import type { SearchClient } from 'instantsearch.js'
+
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
+import type { SearchClient } from 'instantsearch.js'
 
 export type { AlgoliaMultipleQueriesQuery }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
@@ -40,6 +41,7 @@ export type SearchCacheInterface = {
   getEntry: (key: string) => MeiliSearchResponse | undefined
   formatKey: (components: any[]) => string
   setEntry: <T>(key: string, searchResponse: T) => void
+  clearCache: () => void
 }
 
 export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
@@ -86,4 +88,8 @@ export type SearchContext = Omit<
   pagination: PaginationContext
 }
 
-export type InstantMeiliSearchInstance = SearchClient
+interface CacheSearchClient extends SearchClient {
+  clearCache: () => void
+}
+
+export type InstantMeiliSearchInstance = CacheSearchClient
