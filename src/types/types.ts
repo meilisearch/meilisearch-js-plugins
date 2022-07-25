@@ -40,6 +40,7 @@ export type SearchCacheInterface = {
   getEntry: (key: string) => MeiliSearchResponse | undefined
   formatKey: (components: any[]) => string
   setEntry: <T>(key: string, searchResponse: T) => void
+  clearCache: () => void
 }
 
 export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
@@ -86,4 +87,6 @@ export type SearchContext = Omit<
   pagination: PaginationContext
 }
 
-export type InstantMeiliSearchInstance = SearchClient
+export type InstantMeiliSearchInstance = SearchClient & {
+  clearCache: () => void
+}

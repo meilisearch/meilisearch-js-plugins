@@ -28,8 +28,9 @@ export function instantMeiliSearch(
   apiKey = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
+  const searchCache = SearchCache()
   // create search resolver with included cache
-  const searchResolver = SearchResolver(SearchCache())
+  const searchResolver = SearchResolver(searchCache)
   // paginationTotalHits can be 0 as it is a valid number
   let defaultFacetDistribution: any = {}
   const clientAgents = constructClientAgents(
@@ -43,6 +44,7 @@ export function instantMeiliSearch(
   })
 
   return {
+    clearCache: () => searchCache.clearCache(),
     /**
      * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
      * @returns {Array}

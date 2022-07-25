@@ -7,7 +7,7 @@ import { stringifyArray } from '../utils'
 export function SearchCache(
   cache: Record<string, string> = {}
 ): SearchCacheInterface {
-  const searchCache = cache
+  let searchCache = cache
   return {
     getEntry: function (key: string) {
       if (searchCache[key]) {
@@ -24,6 +24,9 @@ export function SearchCache(
     },
     setEntry: function <T>(key: string, searchResponse: T) {
       searchCache[key] = JSON.stringify(searchResponse)
+    },
+    clearCache: function () {
+      searchCache = {}
     },
   }
 }
