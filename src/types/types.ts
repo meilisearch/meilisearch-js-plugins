@@ -88,8 +88,6 @@ export type SearchContext = Omit<
   pagination: PaginationContext
 }
 
-interface CacheSearchClient extends SearchClient {
+export type InstantMeiliSearchInstance = SearchClient & {
   clearCache: () => void
 }
-
-export type InstantMeiliSearchInstance = CacheSearchClient
