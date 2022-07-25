@@ -1,10 +1,9 @@
 import type {
-  FacetDistribution,
   SearchResponse as MeiliSearchResponse,
+  FacetDistribution,
 } from 'meilisearch'
-
-import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 import type { SearchClient } from 'instantsearch.js'
+import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
 export type { AlgoliaMultipleQueriesQuery }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
