@@ -41,7 +41,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [💅 Customization](#-customization)
-- [⚡️ Example with InstantSearch](#-example-with-instantsearch)
+- [🪡 Example with InstantSearch](#-example-with-instantsearch)
 - [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
@@ -170,7 +170,7 @@ genres:
 { keepZeroFacets : true } // default: false
 ```
 
-## ⚡️ Example with InstantSearch
+## 🪡 Example with InstantSearch
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
 
