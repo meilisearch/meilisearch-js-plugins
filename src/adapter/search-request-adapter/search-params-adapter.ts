@@ -14,58 +14,82 @@ import { adaptFilters } from './filter-adapter'
  *
  * @returns {MeiliSearchParams}
  */
-function ParamsAdapter(searchContext: SearchContext) {
+function MeiliParamsCreator(searchContext: SearchContext) {
   const meiliSearchParams: Record<string, any> = {}
+  const {
+    facets,
+    attributesToSnippet,
+    snippetEllipsisText,
+    attributesToRetrieve,
+    filters,
+    numericFilters,
+    facetFilters,
+    attributesToHighlight,
+    highlightPreTag,
+    highlightPostTag,
+    placeholderSearch,
+    query,
+    finitePagination,
+    sort,
+    pagination,
+  } = searchContext
 
   return {
     getParams() {
       return meiliSearchParams
     },
-    adaptFacets() {
-      const facets = searchContext?.facets
+    addFacets() {
       if (facets?.length) {
-        meiliSearchParams.facetsDistribution = facets
+        meiliSearchParams.facets = facets
       }
     },
-    adaptAttributesToCrop() {
-      const attributesToCrop = searchContext?.attributesToSnippet
-      if (attributesToCrop) {
-        meiliSearchParams.attributesToCrop = attributesToCrop
+    addAttributesToCrop() {
+      if (attributesToSnippet) {
+        meiliSearchParams.attributesToCrop = attributesToSnippet
       }
     },
-    adaptAttributesToRetrieve() {
-      const attributesToRetrieve = searchContext?.attributesToRetrieve
+    addCropMarker() {
+      // Attributes To Crop marker
+      if (snippetEllipsisText != null) {
+        meiliSearchParams.cropMarker = snippetEllipsisText
+      }
+    },
+    addAttributesToRetrieve() {
       if (attributesToRetrieve) {
         meiliSearchParams.attributesToRetrieve = attributesToRetrieve
       }
     },
-    adaptFilters() {
-      const filter = adaptFilters(
-        searchContext?.filters,
-        searchContext?.numericFilters,
-        searchContext?.facetFilters
-      )
+    addFilters() {
+      const filter = adaptFilters(filters, numericFilters, facetFilters)
       if (filter.length) {
         meiliSearchParams.filter = filter
       }
     },
-    adaptAttributesToHighlight() {
-      meiliSearchParams.attributesToHighlight = searchContext?.attributesToHighlight || [
-        '*',
-      ]
+    addAttributesToHighlight() {
+      meiliSearchParams.attributesToHighlight = attributesToHighlight || ['*']
     },
-    adaptLimit() {
-      const placeholderSearch = searchContext.placeholderSearch
-      const query = searchContext.query
-      const { pagination } = searchContext
-
+    addPreTag() {
+      if (highlightPreTag) {
+        meiliSearchParams.highlightPreTag = highlightPreTag
+      } else {
+        meiliSearchParams.highlightPreTag = '__ais-highlight__'
+      }
+    },
+    addPostTag() {
+      if (highlightPostTag) {
+        meiliSearchParams.highlightPostTag = highlightPostTag
+      } else {
+        meiliSearchParams.highlightPostTag = '__/ais-highlight__'
+      }
+    },
+    addPagination() {
       // Limit based on pagination preferences
       if (
         (!placeholderSearch && query === '') ||
         pagination.paginationTotalHits === 0
       ) {
         meiliSearchParams.limit = 0
-      } else if (searchContext.finitePagination) {
+      } else if (finitePagination) {
         meiliSearchParams.limit = pagination.paginationTotalHits
       } else {
         const limit = (pagination.page + 1) * pagination.hitsPerPage + 1
@@ -78,14 +102,12 @@ function ParamsAdapter(searchContext: SearchContext) {
         }
       }
     },
-    adaptSort() {
-      const sort = searchContext.sort
-
+    addSort() {
       if (sort?.length) {
         meiliSearchParams.sort = [sort]
       }
     },
-    adaptGeoSearchRules() {
+    addGeoSearchRules() {
       const geoSearchContext = createGeoSearchContext(searchContext)
       const geoRules = adaptGeoPointsRules(geoSearchContext)
 
@@ -110,15 +132,18 @@ function ParamsAdapter(searchContext: SearchContext) {
 export function adaptSearchParams(
   searchContext: SearchContext
 ): MeiliSearchParams {
-  const adapter = ParamsAdapter(searchContext)
-  adapter.adaptFacets()
-  adapter.adaptFilters()
-  adapter.adaptLimit()
-  adapter.adaptSort()
-  adapter.adaptGeoSearchRules()
-  adapter.adaptAttributesToCrop()
-  adapter.adaptAttributesToHighlight()
-  adapter.adaptAttributesToRetrieve()
+  const meilisearchParams = MeiliParamsCreator(searchContext)
+  meilisearchParams.addFacets()
+  meilisearchParams.addAttributesToHighlight()
+  meilisearchParams.addPreTag()
+  meilisearchParams.addPostTag()
+  meilisearchParams.addAttributesToRetrieve()
+  meilisearchParams.addAttributesToCrop()
+  meilisearchParams.addCropMarker()
+  meilisearchParams.addPagination()
+  meilisearchParams.addFilters()
+  meilisearchParams.addSort()
+  meilisearchParams.addGeoSearchRules()
 
-  return adapter.getParams()
+  return meilisearchParams.getParams()
 }
