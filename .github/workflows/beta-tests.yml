@@ -1,0 +1,80 @@
+# Testing the code base against a specific Meilisearch feature
+name: Beta tests
+
+# Will only run for PRs and pushes to *-beta
+on:
+  push:
+    branches: ['!bump-meilisearch-v*.*.*-beta', '**-beta']
+  pull_request:
+    branches: ['!bump-meilisearch-v*.*.*-beta', '**-beta']
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    # Only test on Google Chrome
+    container: cypress/browsers:node12.18.3-chrome87-ff82
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Grep beta version of Meilisearch
+        run: echo "MEILISEARCH_IMAGE=$(sh .github/scripts/beta-docker-version.sh)" >> $GITHUB_ENV
+      - name: Try version script
+        run: sh .github/scripts/beta-docker-version.sh
+      - name: Meilisearch (${{ env.MEILISEARCH_IMAGE }}) setup with Docker
+        run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ env.MEILISEARCH_IMAGE }} meilisearch --master-key=masterKey --no-analytics
+      - name: Install dependencies
+        run: yarn --dev && yarn --cwd ./tests/env/react
+      - name: Setup Meilisearch Index
+        run: yarn local:env:setup
+      - name: Run local browser tests
+        uses: cypress-io/github-action@v2
+        with:
+          # Tests are only done on one playground to avoid long testing time
+          start: yarn local:env:react
+          env: playground=local
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['12', '14', '16']
+    name: integration-tests (Node.js ${{ matrix.node }})
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+      - name: Get the latest Meilisearch RC
+        run: echo "MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | bash)" >> $GITHUB_ENV
+      - name: Meilisearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
+        run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ env.MEILISEARCH_VERSION }} meilisearch --master-key=masterKey --no-analytics
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn test
+      - name: Build project
+        run: yarn build
