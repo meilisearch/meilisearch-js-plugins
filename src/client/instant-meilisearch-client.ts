@@ -1,20 +1,19 @@
+import { MeiliSearch } from 'meilisearch'
 import {
-  AlgoliaMultipleQueriesQuery,
-  AlgoliaSearchResponse,
-  InstantMeiliSearchInstance,
   InstantMeiliSearchOptions,
+  InstantMeiliSearchInstance,
+  AlgoliaSearchResponse,
+  AlgoliaMultipleQueriesQuery,
   SearchContext,
 } from '../types'
-import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
 import {
-  SearchResolver,
-  adaptSearchParams,
   adaptSearchResponse,
+  adaptSearchParams,
+  SearchResolver,
 } from '../adapter'
-
-import { MeiliSearch } from 'meilisearch'
-import { constructClientAgents } from './agents'
 import { createSearchContext } from '../contexts'
+import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
+import { constructClientAgents } from './agents'
 
 /**
  * Instanciate SearchClient required by instantsearch.js.
