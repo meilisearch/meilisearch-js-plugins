@@ -79,7 +79,7 @@ describe('Pagination browser test', () => {
     expect(hits).toEqual([])
   })
 
-  test.skip('Test 0 hitsPerPage w/ page 0 ', async () => {
+  test('Test 0 hitsPerPage w/ page 0 ', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
