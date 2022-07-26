@@ -40,7 +40,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: 16
           cache: yarn
       - name: Install dependencies
         run: yarn --dev && yarn --cwd ./tests/env/react
@@ -52,7 +52,6 @@ jobs:
           wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
           start: yarn local:env:react
-          browser: chrome
           env: playground=local
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -69,19 +68,26 @@ jobs:
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
+    services:
+      meilisearch:
+        image: getmeili/meilisearch:latest
+        env:
+          MEILI_MASTER_KEY: 'masterKey'
+          MEILI_NO_ANALYTICS: 'true'
+        ports:
+          - '7700:7700'
     strategy:
       fail-fast: false
       matrix:
-        node: ['12', '14', '16']
+        node: ['14', '16', '18']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
       - uses: actions/checkout@v3
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+          cache: yarn
+          node-version: ${{ matrix.node }}
       - name: Docker setup
         run: docker run -d -p 7700:7700 getmeili/meilisearch:latest meilisearch --no-analytics --master-key='masterKey'
       - name: Install dependencies
@@ -99,12 +105,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+          node-version: 16
+          cache: yarn
       - name: Install dependencies
         run: yarn install
       - name: Tests style
@@ -121,14 +126,11 @@ jobs:
     name: types-check
     steps:
       - uses: actions/checkout@v3
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
       - name: Setup node
         uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
       - name: Install dependencies
         run: yarn --dev
       - name: Build project
