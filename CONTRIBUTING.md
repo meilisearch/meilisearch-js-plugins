@@ -39,7 +39,7 @@ Each PR should pass the tests and the linter to be accepted.
 ```bash
 # Tests with Jest
 docker pull getmeili/meilisearch:latest # Fetch the latest version of Meilisearch image from Docker Hub
-docker run -p 7700:7700 getmeili/meilisearch:latest ./meilisearch --master-key=masterKey --no-analytics
+docker run -p 7700:7700 getmeili/meilisearch:latest meilisearch --master-key=masterKey --no-analytics
 # Integration tests
 yarn test
 # End-to-end tests
@@ -131,10 +131,16 @@ _[Read more about this](https://github.com/meilisearch/integration-guides/blob/m
 
 ⚠️ Before doing anything, make sure you got through the guide about [Releasing an Integration](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md).
 
-Make a PR modifying the file [`package.json`](/package.json) with the right version.
+Make a PR modifying the following files with the right version:
 
+[`package.json`](/package.json):
 ```javascript
-"version": "X.X.X"
+"version": "X.X.X",
+```
+
+[`src/package-version`](/src/package-version.ts)
+```javascript
+export const PACKAGE_VERSION = 'X.X.X'
 ```
 
 Once the changes are merged on `main`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Edit` (related to the draft release) > update the description (be sure you apply [these recommandations](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md#writting-the-release-description)) > when you are ready, click on `Publish release`.
@@ -153,16 +159,25 @@ If you don't have the access to do it, please request it internally.
 
 Here are the steps to release a beta version of this package:
 
-- Create a new branch originating the branch containing the "beta" changes. For example, if during the Meilisearch pre-release, create a branch originating `bump-meilisearch-v*.*.*`.<br>
-`vX.X.X` is the next version of the package, NOT the version of Meilisearch!
+- Create a new branch containing the "beta" changes with the following format `xxx-beta` where `xxx` explains the context.
 
-```bash
-git checkout bump-meilisearch-v*.*.*
-git pull origin bump-meilisearch-v*.*.*
-git checkout -b vX.X.X-beta.0
-```
+  For example:
+    - When implementing a beta feature, create a branch `my-feature-beta` where you implement the feature.
+      ```bash
+        git checkout -b my-feature-beta
+      ```
+    - During the Meilisearch pre-release, create a branch originating from `bump-meilisearch-v*.*.*` named `bump-meilisearch-v*.*.*-beta`. <br>
+    `v*.*.*` is the next version of the package, NOT the version of Meilisearch!
 
-- Change the version in `package.json` by `vX.X.X-beta.0` and commit it to the `vX.X.X-beta.0` branch
+      ```bash
+      git checkout bump-meilisearch-v*.*.*
+      git pull origin bump-meilisearch-v*.*.*
+      git checkout -b bump-meilisearch-v*.*.*-beta
+      ```
+
+- Change the version in `package.json` with `*.*.*-xxx-beta.0` and commit it to the `v*.*.*-beta` branch. None or multiple `-xxx`are valid. Examples:
+  - `v*.*.*-my-feature-beta.0`
+  - `v*.*.*-beta.0`
 
 - Go to the [GitHub interface for releasing](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Draft a new release`.
 

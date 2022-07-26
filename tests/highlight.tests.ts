@@ -8,14 +8,14 @@ import {
 describe('Highlight Browser test', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient.waitForTask(deleteTask.taskUid)
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes(['genres'])
     const documentsTask = await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
   test('one attributesToHighlight on wrong attribute placeholder', async () => {
@@ -86,8 +86,8 @@ describe('Highlight Browser test', () => {
 
     const highlightedHit = response.results[0].hits[0]._highlightResult
     if (highlightedHit?.genres) {
-      expect(highlightedHit?.genres[0]?.value).toEqual('Adventure')
-      expect(highlightedHit?.genres[1]?.value).toEqual('Action')
+      expect(highlightedHit?.genres[0]?.value).toEqual('Drama')
+      expect(highlightedHit?.genres[1]?.value).toEqual('Crime')
     }
   })
 
@@ -231,12 +231,17 @@ describe('Highlight Browser test', () => {
       {
         indexName: 'movies',
         params: {
-          query: 'Ariel',
+          query: 'hello',
           attributesToHighlight: ['*'],
         },
       },
     ])
+
     const hit = response.results[0].hits[0]._highlightResult
+
+    if (hit?.title) {
+      expect(hit?.title?.value).toEqual('Ariel')
+    }
 
     if (hit?.genres) {
       expect(hit?.genres[0]?.value).toEqual('Drama')
@@ -260,15 +265,15 @@ describe('Highlight Browser test', () => {
     }
 
     if (hit?.objectArray) {
-      // @ts-ignore
-      expect(hit?.objectArray[0]?.value).toEqual('{"name":"charlotte"}')
-      // @ts-ignore
-      expect(hit?.objectArray[1]?.value).toEqual('{"name":"charlotte"}')
+      expect(hit?.objectArray[0]?.name.value).toEqual(
+        '__ais-highlight__hello__/ais-highlight__ world'
+      )
     }
 
     if (hit?.object) {
-      // @ts-ignore
-      expect(hit?.object?.value).toEqual('{"id":"1","name":"Nader"}')
+      expect(hit?.object?.id?.value).toEqual('1')
+
+      expect(hit?.object?.name?.value).toEqual('One two')
     }
 
     if (hit?.nullField) {

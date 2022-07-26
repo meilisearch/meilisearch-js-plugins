@@ -8,14 +8,14 @@ import {
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.uid)
+    await meilisearchClient.waitForTask(deleteTask.taskUid)
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes(['genres', 'title'])
     const documentsTask = await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.uid)
+    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
   test('one string facet on filter without a query', async () => {
@@ -110,6 +110,7 @@ describe('Instant Meilisearch Browser test', () => {
     ])
 
     const hits = response.results[0].hits
+
     expect(hits.length).toEqual(2)
     expect(hits[0].title).toEqual('Ariel')
   })
@@ -129,7 +130,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hits[0].title).toEqual('Judgment Night')
   })
 
-  test('multiple nested on filter without a query', async () => {
+  test('multiple nested array in filter without a query', async () => {
     const params = {
       indexName: 'movies',
       params: {
@@ -141,7 +142,7 @@ describe('Instant Meilisearch Browser test', () => {
     const response = await searchClient.search<Movies>([params])
 
     const hits = response.results[0].hits
-    expect(hits[0].title).toEqual('Kill Bill: Vol. 1')
+    expect(hits[0].title).toEqual('Judgment Night')
   })
 
   test('multiple nested arrays on filter with a query', async () => {

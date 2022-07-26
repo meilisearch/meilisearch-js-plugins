@@ -41,7 +41,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [💅 Customization](#-customization)
-- [⚡️ Example with InstantSearch](#-example-with-instantSearch)
+- [🪡 Example with InstantSearch](#-example-with-instantsearch)
 - [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
@@ -70,7 +70,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com', // Host
-  'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47' // API key
+  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185' // API key
 )
 ```
 
@@ -91,7 +91,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com',
-  'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
+  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
   {
     paginationTotalHits: 30, // default: 200.
     placeholderSearch: false, // default: true.
@@ -170,7 +170,7 @@ genres:
 { keepZeroFacets : true } // default: false
 ```
 
-## ⚡️ Example with InstantSearch
+## 🪡 Example with InstantSearch
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
 
@@ -205,7 +205,7 @@ const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
-    'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47'
+    '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185'
   ),
 })
 
@@ -253,7 +253,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v0.26.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.26.0).
+This package only guarantees the compatibility with the [version v0.28.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.28.0).
 
 **Node / NPM versions**:
 
@@ -312,21 +312,21 @@ List of all the components that are available in [instantSearch](https://github.
 `instantSearch` is the main component. It manages the widget and lets you add new ones.
 
 - ✅ IndexName: [`uid` of your index](https://docs.meilisearch.com/learn/core_concepts/indexes.html#indexes). _required_
-- ✅ SearchClient: Search client, in our case instant-meilisearch. See [customization](#customization) for details on options. _required_
+- ✅ SearchClient: Search client, in our case instant-meilisearch. See [customization](#-customization) for details on options. _required_
 - ❌ numberLocale: Does not work with both Algoliasearch and instant-meilisearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
 - ✅ initialUiState: Determine the search state on app start.
 - ✅ onStateChange: Change search state on change (see option above).
 - ✅ stalledSearchDelay: Time in ms before search is considered stalled. [Used for loader](https://www.algolia.com/doc/guides/building-search-ui/going-further/improve-performance/js/#using-the-searchbox).
 - ✅ routing: browser URL synchronization, search parameters appear in current URL ([guide](https://www.algolia.com/doc/guides/building-search-ui/going-further/routing-urls/js/)).
-- ✅ insightsClient: Hook analytics to search actions ([see insight section](#insight)).
+- ✅ insightsClient: Hook analytics to search actions ([see insight section](#-insight)).
 
 ```js
 const search = instantsearch({
   indexName: 'instant_search',
   searchClient: instantMeiliSearch(
     'https://integration-demos.meilisearch.com',
-    'q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47',
+    '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
     {
       // ... InstantMeiliSearch options
     }
@@ -513,7 +513,7 @@ The `highlight` function returns an attribute from a hit into its highlighted fo
 - ✅ hit: Hit object. _required_
 - ✅ highlightedTagName: HTML element to wrap the highlighted parts of the string.
 
-See [Hits](#hits) for an example.
+See [Hits](#-hits) for an example.
 
 ### ✅ Snippet
 
@@ -525,7 +525,7 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 - ✅ hit: Hit object. _required_
 - ✅ highlightedTagName: HTML element to wrap the highlighted parts of the string.
 
-Note that the attribute has to be added to `attributesToSnippet` in [configuration](#configuration). Highlight is applied on snippeted fields.
+Note that the attribute has to be added to `attributesToSnippet` in [configuration](#-configure). Highlight is applied on snippeted fields.
 
 Snippeting is called `cropping` in Meilisearch, [more about it here](https://docs.meilisearch.com/reference/features/search_parameters.html#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
 For example: `"description:40"`.
@@ -656,7 +656,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 
 - ✅ container: The CSS Selector or HTMLElement to insert the refinements. _required_
 - ✅ attribute: The facet to display _required_
-- ✅ operator: How to apply facets, `and` or `or` (`and` is the default value). ⚠️ Does not seem to work on react-instantsearch.
+- ✅ operator: How to apply facets, `and` or `or` (`and` is the default value).
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
@@ -906,7 +906,7 @@ instantsearch.widgets.clearRefinements({
 
 The `pagination` widget displays a pagination system allowing the user to change the current page.
 
-We do not recommend using this widget as pagination slows the search responses. Instead, the [InfiniteHits](#InfiniteHits) component is recommended.
+We do not recommend using this widget as pagination slows the search responses. Instead, the [InfiniteHits](#-infinitehits) component is recommended.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ showFirst: Whether to display the first-page link.
@@ -946,7 +946,7 @@ The `breadcrumb` widget is a secondary navigation scheme that lets the user see 
 - ✅ attribute: The name of the attributes to generate the menu with. _required_.
 - ❌ separator: The level separator used in the records. (default `>`).
 - 🤷‍♀️ rootPath: The prefix path to use if the first level is not the root level.
-- ✅ templates: The templates to use for the widget.- ✅ templates: The templates to use for the widget.
+- ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
 
@@ -970,7 +970,7 @@ instantsearch.widgets.stats({
 
 [Analytics](https://www.algolia.com/doc/api-reference/widgets/analytics/js/)
 
-Deprecated. See [Insight](#Insight).
+Deprecated. See [Insight](#-insight).
 
 ### ❌ QueryRuleCustomData
 

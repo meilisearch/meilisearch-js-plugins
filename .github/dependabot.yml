@@ -25,3 +25,4 @@ updates:
       - dependency-name: "regenerator-runtime*"
       - dependency-name: "shx*"
       - dependency-name: "@vue/*"
+      - dependency-name: "concurrently"

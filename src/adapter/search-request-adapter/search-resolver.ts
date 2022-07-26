@@ -10,11 +10,10 @@ import { addMissingFacets, extractFacets } from './filters'
 const emptySearch: MeiliSearchResponse<Record<string, any>> = {
   hits: [],
   query: '',
-  facetsDistribution: {},
+  facetDistribution: {},
   limit: 0,
   offset: 0,
-  exhaustiveNbHits: false,
-  nbHits: 0,
+  estimatedTotalHits: 0,
   processingTimeMs: 0,
 }
 
@@ -69,10 +68,10 @@ export function SearchResolver(cache: SearchCacheInterface) {
         .index(searchContext.indexUid)
         .search(searchContext.query, searchParams)
 
-      // Add missing facets back into facetsDistribution
-      searchResponse.facetsDistribution = addMissingFacets(
+      // Add missing facets back into facetDistribution
+      searchResponse.facetDistribution = addMissingFacets(
         facetsCache,
-        searchResponse.facetsDistribution
+        searchResponse.facetDistribution
       )
 
       // Cache response
