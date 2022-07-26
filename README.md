@@ -874,8 +874,6 @@ instantsearch.widgets.clearRefinements({
 
 The `pagination` widget displays a pagination system allowing the user to change the current page.
 
-We do not recommend using this widget as pagination slows the search responses. Instead, the [InfiniteHits](#-infinitehits) component is recommended.
-
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ showFirst: Whether to display the first-page link.
 - ✅ showPrevious: Whether to display the previous page link.
