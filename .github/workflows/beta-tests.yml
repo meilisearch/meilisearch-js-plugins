@@ -14,7 +14,7 @@ jobs:
     outputs:
       docker-version: ${{ steps.grep-step.outputs.version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Grep docker beta version of Meilisearch
         id: grep-step
         run: |
@@ -28,17 +28,12 @@ jobs:
     container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+        uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: 16
+          cache: yarn
       - name: Meilisearch (${{ needs.grep-docker-version.outputs.docker-version }}) setup with Docker
         run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ needs.grep-docker-version.outputs.docker-version }} meilisearch --master-key=masterKey --no-analytics
       - name: Install dependencies
@@ -46,7 +41,7 @@ jobs:
       - name: Setup Meilisearch Index
         run: yarn local:env:setup
       - name: Run local browser tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         with:
           # Tests are only done on one playground to avoid long testing time
           start: yarn local:env:react
@@ -71,7 +66,7 @@ jobs:
         node: ['12', '14', '16']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
@@ -79,7 +74,7 @@ jobs:
             ./node_modules
           key: ${{ hashFiles('yarn.lock') }}
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14.x'
       - name: Meilisearch (${{ needs.grep-docker-version.outputs.docker-version }}) setup with Docker
