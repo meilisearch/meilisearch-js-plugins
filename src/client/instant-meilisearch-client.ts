@@ -28,6 +28,7 @@ export function instantMeiliSearch(
   apiKey = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
+  const searchCache = SearchCache()
   // create search resolver with included cache
   const searchResolver = SearchResolver(SearchCache())
 
@@ -43,6 +44,7 @@ export function instantMeiliSearch(
   })
 
   return {
+    clearCache: () => searchCache.clearCache(),
     /**
      * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
      * @returns {Array}
