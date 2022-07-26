@@ -7,6 +7,122 @@ import {
 import { adaptFilters } from './filter-adapter'
 
 /**
+ * Adapts instantsearch.js and instant-meilisearch options
+ * to meilisearch search query parameters.
+ *
+ * @param  {SearchContext} searchContext
+ *
+ * @returns {MeiliSearchParams}
+ */
+function MeiliParamsCreator(searchContext: SearchContext) {
+  const meiliSearchParams: Record<string, any> = {}
+  const {
+    facets,
+    attributesToSnippet,
+    snippetEllipsisText,
+    attributesToRetrieve,
+    filters,
+    numericFilters,
+    facetFilters,
+    attributesToHighlight,
+    highlightPreTag,
+    highlightPostTag,
+    placeholderSearch,
+    query,
+    finitePagination,
+    sort,
+    pagination,
+  } = searchContext
+
+  return {
+    getParams() {
+      return meiliSearchParams
+    },
+    addFacets() {
+      if (facets?.length) {
+        meiliSearchParams.facets = facets
+      }
+    },
+    addAttributesToCrop() {
+      if (attributesToSnippet) {
+        meiliSearchParams.attributesToCrop = attributesToSnippet
+      }
+    },
+    addCropMarker() {
+      // Attributes To Crop marker
+      if (snippetEllipsisText != null) {
+        meiliSearchParams.cropMarker = snippetEllipsisText
+      }
+    },
+    addAttributesToRetrieve() {
+      if (attributesToRetrieve) {
+        meiliSearchParams.attributesToRetrieve = attributesToRetrieve
+      }
+    },
+    addFilters() {
+      const filter = adaptFilters(filters, numericFilters, facetFilters)
+      if (filter.length) {
+        meiliSearchParams.filter = filter
+      }
+    },
+    addAttributesToHighlight() {
+      meiliSearchParams.attributesToHighlight = attributesToHighlight || ['*']
+    },
+    addPreTag() {
+      if (highlightPreTag) {
+        meiliSearchParams.highlightPreTag = highlightPreTag
+      } else {
+        meiliSearchParams.highlightPreTag = '__ais-highlight__'
+      }
+    },
+    addPostTag() {
+      if (highlightPostTag) {
+        meiliSearchParams.highlightPostTag = highlightPostTag
+      } else {
+        meiliSearchParams.highlightPostTag = '__/ais-highlight__'
+      }
+    },
+    addPagination() {
+      // Limit based on pagination preferences
+      if (
+        (!placeholderSearch && query === '') ||
+        pagination.paginationTotalHits === 0
+      ) {
+        meiliSearchParams.limit = 0
+      } else if (finitePagination) {
+        meiliSearchParams.limit = pagination.paginationTotalHits
+      } else {
+        const limit = (pagination.page + 1) * pagination.hitsPerPage + 1
+        // If the limit is bigger than the total hits accepted
+        // force the limit to that amount
+        if (limit > pagination.paginationTotalHits) {
+          meiliSearchParams.limit = pagination.paginationTotalHits
+        } else {
+          meiliSearchParams.limit = limit
+        }
+      }
+    },
+    addSort() {
+      if (sort?.length) {
+        meiliSearchParams.sort = [sort]
+      }
+    },
+    addGeoSearchRules() {
+      const geoSearchContext = createGeoSearchContext(searchContext)
+      const geoRules = adaptGeoPointsRules(geoSearchContext)
+
+      if (geoRules?.filter) {
+        if (meiliSearchParams.filter) {
+          meiliSearchParams.filter.unshift(geoRules.filter)
+        } else {
+          meiliSearchParams.filter = [geoRules.filter]
+        }
+      }
+    },
+  }
+}
+
+/**
  * Adapt search request from instantsearch.js
  * to search request compliant with Meilisearch
  *
@@ -16,111 +132,18 @@ import { adaptFilters } from './filter-adapter'
 export function adaptSearchParams(
   searchContext: SearchContext
 ): MeiliSearchParams {
-  // Creates search params object compliant with Meilisearch
-  const meiliSearchParams: Record<string, any> = {}
+  const meilisearchParams = MeiliParamsCreator(searchContext)
+  meilisearchParams.addFacets()
+  meilisearchParams.addAttributesToHighlight()
+  meilisearchParams.addPreTag()
+  meilisearchParams.addPostTag()
+  meilisearchParams.addAttributesToRetrieve()
+  meilisearchParams.addAttributesToCrop()
+  meilisearchParams.addCropMarker()
+  meilisearchParams.addPagination()
+  meilisearchParams.addFilters()
+  meilisearchParams.addSort()
+  meilisearchParams.addGeoSearchRules()
 
-  // Facets
-  const facets = searchContext?.facets
-  if (facets?.length) {
-    meiliSearchParams.facets = facets
-  }
-
-  // Attributes To Crop
-  const attributesToCrop = searchContext?.attributesToSnippet
-  if (attributesToCrop) {
-    meiliSearchParams.attributesToCrop = attributesToCrop
-  }
-
-  // Attributes To Crop marker
-  const cropMarker = searchContext?.snippetEllipsisText
-  if (cropMarker != null) {
-    meiliSearchParams.cropMarker = cropMarker
-  }
-
-  // Attributes To Retrieve
-  const attributesToRetrieve = searchContext?.attributesToRetrieve
-  if (attributesToRetrieve) {
-    meiliSearchParams.attributesToRetrieve = attributesToRetrieve
-  }
-
-  // Filter
-  const filter = adaptFilters(
-    searchContext?.filters,
-    searchContext?.numericFilters,
-    searchContext?.facetFilters
-  )
-  if (filter.length) {
-    meiliSearchParams.filter = filter
-  }
-
-  // Attributes To Retrieve
-  if (attributesToRetrieve) {
-    meiliSearchParams.attributesToCrop = attributesToRetrieve
-  }
-
-  // Attributes To Highlight
-  meiliSearchParams.attributesToHighlight = searchContext?.attributesToHighlight || [
-    '*',
-  ]
-
-  // Highlight pre tag
-  const highlightPreTag = searchContext?.highlightPreTag
-  if (highlightPreTag) {
-    meiliSearchParams.highlightPreTag = highlightPreTag
-  } else {
-    meiliSearchParams.highlightPreTag = '__ais-highlight__'
-  }
-
-  // Highlight post tag
-  const highlightPostTag = searchContext?.highlightPostTag
-  if (highlightPostTag) {
-    meiliSearchParams.highlightPostTag = highlightPostTag
-  } else {
-    meiliSearchParams.highlightPostTag = '__/ais-highlight__'
-  }
-
-  const placeholderSearch = searchContext.placeholderSearch
-  const query = searchContext.query
-
-  // Pagination
-  const { pagination } = searchContext
-
-  // Limit based on pagination preferences
-  if (
-    (!placeholderSearch && query === '') ||
-    pagination.paginationTotalHits === 0
-  ) {
-    meiliSearchParams.limit = 0
-  } else if (searchContext.finitePagination) {
-    meiliSearchParams.limit = pagination.paginationTotalHits
-  } else {
-    const limit = (pagination.page + 1) * pagination.hitsPerPage + 1
-    // If the limit is bigger than the total hits accepted
-    // force the limit to that amount
-    if (limit > pagination.paginationTotalHits) {
-      meiliSearchParams.limit = pagination.paginationTotalHits
-    } else {
-      meiliSearchParams.limit = limit
-    }
-  }
-
-  const sort = searchContext.sort
-
-  // Sort
-  if (sort?.length) {
-    meiliSearchParams.sort = [sort]
-  }
-
-  const geoSearchContext = createGeoSearchContext(searchContext)
-  const geoRules = adaptGeoPointsRules(geoSearchContext)
-
-  if (geoRules?.filter) {
-    if (meiliSearchParams.filter) {
-      meiliSearchParams.filter.unshift(geoRules.filter)
-    } else {
-      meiliSearchParams.filter = [geoRules.filter]
-    }
-  }
-
-  return meiliSearchParams
+  return meilisearchParams.getParams()
 }
