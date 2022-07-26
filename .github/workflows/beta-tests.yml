@@ -68,10 +68,16 @@ jobs:
           path: |
             ./node_modules
           key: ${{ hashFiles('yarn.lock') }}
-      - name: Get the latest Meilisearch RC
-        run: echo "MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | bash)" >> $GITHUB_ENV
-      - name: Meilisearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
-        run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ env.MEILISEARCH_VERSION }} meilisearch --master-key=masterKey --no-analytics
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Grep beta version of Meilisearch
+        run: echo "MEILISEARCH_IMAGE=$(sh .github/scripts/beta-docker-version.sh)" >> $GITHUB_ENV
+      - name: Try version script
+        run: sh .github/scripts/beta-docker-version.sh
+      - name: Meilisearch (${{ env.MEILISEARCH_IMAGE }}) setup with Docker
+        run: docker run -d -p 7700:7700 getmeili/meilisearch:${{ env.MEILISEARCH_IMAGE }} meilisearch --master-key=masterKey --no-analytics
       - name: Install dependencies
         run: yarn install
       - name: Run tests
