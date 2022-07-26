@@ -67,7 +67,7 @@ describe('Snippet Browser test', () => {
     ])
 
     const snippeted = response.results[0]?.hits[0]?._snippetResult
-    
+
     expect(snippeted).toHaveProperty('overview', {
       value: 'Taisto Kasurinen…',
     })
