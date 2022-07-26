@@ -10,25 +10,14 @@ on:
       - main
 
 jobs:
-  grep-docker-version:
-    runs-on: ubuntu-latest
-    outputs:
-      docker-version: ${{ steps.grep-step.outputs.version }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Grep docker beta version of Meilisearch
-        id: grep-step
-        run: |
-          echo ::set-output name=version::latest
   cypress-run:
-    needs: ['grep-docker-version']
+    runs-on: ubuntu-latest
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
-    runs-on: ubuntu-latest
     services:
       meilisearch:
-        image: getmeili/meilisearch:${{ needs.grep-docker-version.outputs.docker-version }}
+        image: getmeili/meilisearch:latest
         env:
           MEILI_MASTER_KEY: 'masterKey'
           MEILI_NO_ANALYTICS: 'true'
@@ -53,12 +42,12 @@ jobs:
           # Tests are only done on one playground to avoid long testing time
           start: yarn local:env:react
           env: playground=local
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-videos
