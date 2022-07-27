@@ -23,6 +23,7 @@ jobs:
           MEILI_NO_ANALYTICS: 'true'
         ports:
           - '7700:7700'
+    name: end-to-end-tests
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -52,7 +53,7 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
-  tests:
+  integration_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
@@ -83,13 +84,12 @@ jobs:
         run: yarn test
       - name: Build project
         run: yarn build
-  style:
+  style_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     name: style-check
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Setup node
@@ -105,7 +105,7 @@ jobs:
         uses: ibiqlik/action-yamllint@v3
         with:
           config_file: .yamllint.yml
-  types_test:
+  types_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
