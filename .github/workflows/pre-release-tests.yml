@@ -1,22 +1,12 @@
 # Testing the code base against the Meilisearch pre-releases
 name: Pre-Release Tests
 
-# TODO: CHANGE
 # Will only run for PRs and pushes to bump-meilisearch-v*
-# on:
-#   push:
-#     branches: [bump-meilisearch-v*]
-#   pull_request:
-#     branches: [bump-meilisearch-v*]
-
 on:
-  pull_request:
   push:
-    # trying and staging branches are for BORS config
-    branches:
-      - trying
-      - staging
-      - main
+    branches: [bump-meilisearch-v*]
+  pull_request:
+    branches: [bump-meilisearch-v*]
 
 jobs:
   meilisearch-version:
@@ -30,8 +20,7 @@ jobs:
         run: |
           MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | sh)
           echo $MEILISEARCH_VERSION
-          # TODO: CHANGE
-          echo ::set-output name=version::latest
+          echo ::set-output name=version::$MEILISEARCH_VERSION
   cypress-run:
     runs-on: ubuntu-latest
     needs: ['meilisearch-version']
