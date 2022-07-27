@@ -11,21 +11,14 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    # Only test on Google Chrome
-    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+        uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "14.x"
+          node-version: 16
+          cache: yarn
       - name: Install dependencies
         run: yarn --dev && yarn --cwd ./tests/env/react
       - name: Grep latest version of Meilisearch
@@ -43,15 +36,16 @@ jobs:
       - name: Run local browser tests
         uses: cypress-io/github-action@v2
         with:
+          wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
           start: yarn local:env:react
           env: playground=local
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-videos
@@ -62,16 +56,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ["12", "14", "16"]
+        node: ['14', '16', '18']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
-      - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+          cache: yarn
+          node-version: ${{ matrix.node }}
       - name: Get the latest Meilisearch RC
         run: echo "MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | bash)" >> $GITHUB_ENV
       - name: Meilisearch (${{ env.MEILISEARCH_VERSION }}) setup with Docker
@@ -82,43 +75,3 @@ jobs:
         run: yarn test
       - name: Build project
         run: yarn build
-
-  style:
-    name: style-check
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
-      - name: Install dependencies
-        run: yarn install
-      - name: Tests style
-        run: yarn lint
-      - name: Yaml Style
-        uses: ibiqlik/action-yamllint@v3
-        with:
-          config_file: .yamllint.yml
-  types_test:
-    runs-on: ubuntu-latest
-    name: types-check
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
-      - name: Setup node
-        uses: actions/setup-node@v2
-      - name: Install dependencies
-        run: yarn --dev
-      - name: Build project
-        run: yarn build
-      - name: Run types check
-        run: yarn types
