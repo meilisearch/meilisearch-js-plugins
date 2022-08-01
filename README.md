@@ -257,7 +257,7 @@ This package only guarantees the compatibility with the [version v0.28.0 of Meil
 
 **Node / NPM versions**:
 
-- NodeJS >= 12.10 <= 14
+- NodeJS >= 12.10 <= 18
 - NPM >= 6.x
 
 ## 📜 API resources
