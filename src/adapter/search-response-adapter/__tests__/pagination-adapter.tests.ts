@@ -129,6 +129,7 @@ describe.each(numberPagesTestParameters)(
   ({ hitsPerPage, hitsLength, numberPages }) => {
     it(`Should return ${numberPages} pages when hitsPerPage is ${hitsPerPage} and hits length is ${hitsLength}`, () => {
       const response = ceiledDivision(hitsLength, hitsPerPage)
+
       expect(response).toBe(numberPages)
     })
   }
@@ -143,6 +144,7 @@ describe.each(paginateHitsTestsParameters)(
       hits
     )}`, () => {
       const response = adaptPagination(hits, page, hitsPerPage)
+
       expect(response).toEqual(returnedHits)
     })
   }
@@ -153,6 +155,7 @@ it('Should throw when hitsPerPage is negative', () => {
     const hits: string[] = []
     const hitsPerPage = -1
     const page = 0
+
     adaptPagination(hits, page, hitsPerPage)
   } catch (e: any) {
     expect(e.message).toBe(

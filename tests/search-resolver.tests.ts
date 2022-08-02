@@ -35,7 +35,7 @@ describe('Pagination browser test', () => {
     jest.clearAllMocks()
   })
 
-  test('Test the same search parameters twice', async () => {
+  test('the same search parameters twice', async () => {
     const searchParameters = {
       indexName: 'movies',
       params: {
@@ -54,7 +54,7 @@ describe('Pagination browser test', () => {
     expect(mockedSearch).toHaveBeenCalledTimes(1)
   })
 
-  test('Test two different search parameters', async () => {
+  test('two different search parameters', async () => {
     const searchParameters1 = {
       indexName: 'movies',
       params: {
@@ -80,7 +80,7 @@ describe('Pagination browser test', () => {
     expect(mockedSearch).toHaveBeenCalledTimes(2)
   })
 
-  test('Test two identical and one different search parameters', async () => {
+  test('two identical and one different search parameters', async () => {
     const searchParameters1 = {
       indexName: 'movies',
       params: {
@@ -107,7 +107,7 @@ describe('Pagination browser test', () => {
     expect(mockedSearch).toHaveBeenCalledTimes(2)
   })
 
-  test('Test two same and two different search parameter', async () => {
+  test('two same and two different search parameter', async () => {
     const searchParameters1 = {
       indexName: 'movies',
       params: {

@@ -54,7 +54,7 @@ describe('Snippet Browser test', () => {
     })
   })
 
-  test('Test one attributesToSnippet on placeholder', async () => {
+  test('one attributesToSnippet on placeholder', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -65,13 +65,15 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
+
     const snippeted = response.results[0]?.hits[0]?._snippetResult
+
     expect(snippeted).toHaveProperty('overview', {
       value: 'Taisto Kasurinen…',
     })
   })
 
-  test('Test one attributesToSnippet on specific query', async () => {
+  test('one attributesToSnippet on specific query', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -82,6 +84,7 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
+
     const snippeted = response.results[0].hits[0]._snippetResult
 
     expect(snippeted).toHaveProperty('overview', {
@@ -89,7 +92,7 @@ describe('Snippet Browser test', () => {
     })
   })
 
-  test('Test * attributesToSnippet on specific query', async () => {
+  test('* attributesToSnippet on specific query', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -126,7 +129,7 @@ describe('Snippet Browser test', () => {
     }
   })
 
-  test('Test two snippets on specific query and compare snippet with highlight results', async () => {
+  test('two snippets on specific query and compare snippet with highlight results', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -157,7 +160,7 @@ describe('Snippet Browser test', () => {
     })
   })
 
-  test('Test attributesToSnippet on a null attribute', async () => {
+  test('attributesToSnippet on a null attribute', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -173,7 +176,7 @@ describe('Snippet Browser test', () => {
     expect(firstHit).toHaveProperty('overview', { value: 'null' })
   })
 
-  test('Test one attributesToSnippet on placeholder w/ snippetEllipsisText', async () => {
+  test('one attributesToSnippet on placeholder w/ snippetEllipsisText', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -190,7 +193,7 @@ describe('Snippet Browser test', () => {
     expect(snippeted).toHaveProperty('overview', { value: 'Taisto Kasurinen…' })
   })
 
-  test('Test one attributesToSnippet on specific query w/ snippetEllipsisText', async () => {
+  test('one attributesToSnippet on specific query w/ snippetEllipsisText', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -201,11 +204,12 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
+
     const snippeted = response.results[0]?.hits[0]?._snippetResult
     expect(snippeted).toHaveProperty('overview', { value: 'While racing…' })
   })
 
-  test('Test two attributesToSnippet on specific query with one hit empty string w/ snippetEllipsisText', async () => {
+  test('two attributesToSnippet on specific query with one hit empty string w/ snippetEllipsisText', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -216,8 +220,8 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const firstHit = response.results[0]?.hits[0]?._snippetResult
 
+    const firstHit = response.results[0]?.hits[0]?._snippetResult
     expect(firstHit).toHaveProperty('title', {
       value: '__ais-highlight__M__/ais-highlight__agnetic…',
     })
@@ -232,7 +236,7 @@ describe('Snippet Browser test', () => {
     })
   })
 
-  test('Test attributesToSnippet on a null attribute w/ snippetEllipsisText', async () => {
+  test('attributesToSnippet on a null attribute w/ snippetEllipsisText', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -254,7 +258,7 @@ describe('Snippet Browser test', () => {
     })
   })
 
-  test('Test attributes to snippet on non-string-types', async () => {
+  test('attributes to snippet on non-string-types', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -265,11 +269,12 @@ describe('Snippet Browser test', () => {
         },
       },
     ])
-    const hit = response.results[0].hits[0]._snippetResult
 
+    const hit = response.results[0].hits[0]._snippetResult
     if (hit?.overview) {
       expect(hit?.overview.value).toEqual('While…')
     }
+
     if (hit?.poster) {
       // Considered to be 2 words because of special char
       expect(hit?.poster.value).toEqual('https…')
@@ -279,9 +284,11 @@ describe('Snippet Browser test', () => {
       expect(hit?.genres[0]?.value).toEqual('Action')
       expect(hit?.genres[1]?.value).toEqual('Thriller')
     }
+
     if (hit?.id) {
       expect(hit?.id.value).toEqual('6')
     }
+
     if (hit?.undefinedArray) {
       // @ts-ignore
       expect(hit?.undefinedArray[0]?.value).toEqual('null')
@@ -371,7 +378,7 @@ describe('Snippet Browser test', () => {
   })
 })
 
-test('Test attributes to snippet on value smaller than the snippet size', async () => {
+test('attributes to snippet on value smaller than the snippet size', async () => {
   const response = await searchClient.search<Movies>([
     {
       indexName: 'movies',
@@ -382,8 +389,8 @@ test('Test attributes to snippet on value smaller than the snippet size', async 
       },
     },
   ])
-  const hit = response.results[0].hits[0]._snippetResult
 
+  const hit = response.results[0].hits[0]._snippetResult
   if (hit?.overview) {
     expect(hit?.title?.value).toEqual('Ariel')
   }
