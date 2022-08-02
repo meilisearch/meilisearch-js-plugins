@@ -69,14 +69,14 @@ export type PaginationParams = {
 
 export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
   InstantSearchParams & {
-    insideBoundingBox?: InsideBoundingBox
-    keepZeroFacets?: boolean
-    cropMarker?: string
     defaultFacetDistribution: FacetDistribution
     pagination: PaginationContext
     finitePagination: boolean
-    sort?: string
     indexUid: string
+    insideBoundingBox?: InsideBoundingBox
+    keepZeroFacets?: boolean
+    cropMarker?: string
+    sort?: string
     placeholderSearch?: boolean
     primaryKey?: string
   }
