@@ -81,7 +81,7 @@ export type SearchContext = Omit<
     finitePagination: boolean
     sort?: string
     indexUid: string
-    placeholderSearch: boolean
+    placeholderSearch?: boolean
     primaryKey?: string
     optionalWords?: string
   }
