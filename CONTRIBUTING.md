@@ -175,9 +175,7 @@ Here are the steps to release a beta version of this package:
       git checkout -b bump-meilisearch-v*.*.*-beta
       ```
 
-- Change the version in `package.json` with `*.*.*-xxx-beta.0` and commit it to the `v*.*.*-beta` branch. None or multiple `-xxx`are valid. Examples:
-  - `v*.*.*-my-feature-beta.0`
-  - `v*.*.*-beta.0`
+- Change the version in [`package.json`](/package.json) and [`src/package-version`](/src/package-version.ts) with `*.*.*-xxx-beta.0` and commit it to the `v*.*.*-beta` branch.
 
 - Go to the [GitHub interface for releasing](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Draft a new release`.
 
@@ -194,7 +192,7 @@ GitHub Actions will be triggered and push the beta version to [npm](https://www.
 💡 If you need to release a new beta for the same version (i.e. `vX.X.X-beta.1`):
 - merge the change into `bump-meilisearch-v*.*.*`
 - rebase the `vX.X.X-beta.0` branch
-- change the version name in `package.json`
+- change the version name in [`package.json`](/package.json) and [`src/package-version`](/src/package-version.ts)
 - creata a pre-release via the GitHub interface
 
 <hr>

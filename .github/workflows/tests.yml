@@ -11,93 +11,92 @@ on:
 
 jobs:
   cypress-run:
+    runs-on: ubuntu-latest
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
-    runs-on: ubuntu-latest
-    # Only test on Google Chrome
-    container: cypress/browsers:node12.18.3-chrome87-ff82
+    services:
+      meilisearch:
+        image: getmeili/meilisearch:latest
+        env:
+          MEILI_MASTER_KEY: 'masterKey'
+          MEILI_NO_ANALYTICS: 'true'
+        ports:
+          - '7700:7700'
+    name: end-to-end-tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+        uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "14.x"
-      - name: Download the latest stable version of Meilisearch
-        run: |
-          curl -L https://install.meilisearch.com | sh
-          chmod +x meilisearch
-      - name: Run Meilisearch
-        run: |
-          ./meilisearch --master-key=masterKey --no-analytics &
+          node-version: 16
+          cache: yarn
       - name: Install dependencies
         run: yarn --dev && yarn --cwd ./tests/env/react
       - name: Setup Meilisearch Index
         run: yarn local:env:setup
       - name: Run local browser tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         with:
+          wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
           start: yarn local:env:react
           env: playground=local
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-videos
           path: cypress/videos
-  tests:
+  integration_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
+    services:
+      meilisearch:
+        image: getmeili/meilisearch:latest
+        env:
+          MEILI_MASTER_KEY: 'masterKey'
+          MEILI_NO_ANALYTICS: 'true'
+        ports:
+          - '7700:7700'
     strategy:
       fail-fast: false
       matrix:
-        node: ["12", "14", "16"]
+        node: ['14', '16', '18']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
-      - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
-      - name: Docker setup
-        run: docker run -d -p 7700:7700 getmeili/meilisearch:latest meilisearch --no-analytics --master-key='masterKey'
+          cache: yarn
+          node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: yarn install
       - name: Run tests
         run: yarn test
       - name: Build project
         run: yarn build
-  style:
+  style_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     name: style-check
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+          node-version: 16
+          cache: yarn
       - name: Install dependencies
         run: yarn install
       - name: Tests style
@@ -106,22 +105,19 @@ jobs:
         uses: ibiqlik/action-yamllint@v3
         with:
           config_file: .yamllint.yml
-  types_test:
+  types_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
     # Will still run for each push to bump-meilisearch-v*
     if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
     name: types-check
     steps:
-      - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./node_modules
-          key: ${{ hashFiles('yarn.lock') }}
+      - uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
       - name: Install dependencies
         run: yarn --dev
       - name: Build project
