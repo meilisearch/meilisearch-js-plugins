@@ -19,7 +19,7 @@ describe('Instant Meilisearch Browser test', () => {
     await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
-  test('Test aroundRadius and aroundLatLng in geo search', async () => {
+  test('aroundRadius and aroundLatLng in geo search', async () => {
     const response = await searchClient.search<City>([
       {
         indexName: 'geotest',
@@ -30,12 +30,13 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toEqual(14)
     expect(hits[0].city).toEqual('Lille')
   })
 
-  test('Test aroundLatLng being overwritten by insideBoundingBox in geo search', async () => {
+  test('aroundLatLng being overwritten by insideBoundingBox in geo search', async () => {
     const response = await searchClient.search<City>([
       {
         indexName: 'geotest',
@@ -48,12 +49,13 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toEqual(7)
     expect(hits[0].city).toEqual('Lille')
   })
 
-  test('Test insideBoundingBox in geo search', async () => {
+  test('insideBoundingBox in geo search', async () => {
     const response = await searchClient.search<City>([
       {
         indexName: 'geotest',
@@ -64,12 +66,13 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toEqual(4)
     expect(hits[0].city).toEqual('Ghent')
   })
 
-  test('Test insideBoundingBox and aroundRadius in geo search', async () => {
+  test('insideBoundingBox and aroundRadius in geo search', async () => {
     const response = await searchClient.search<City>([
       {
         indexName: 'geotest',
@@ -81,12 +84,13 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toEqual(4)
     expect(hits[0].city).toEqual('Ghent')
   })
 
-  test('Test insideBoundingBox and aroundLatLng in geo search', async () => {
+  test('insideBoundingBox and aroundLatLng in geo search', async () => {
     const response = await searchClient.search<City>([
       {
         indexName: 'geotest',
@@ -98,6 +102,7 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toEqual(4)
     expect(hits[0].city).toEqual('Ghent')

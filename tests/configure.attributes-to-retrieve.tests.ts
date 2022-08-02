@@ -16,7 +16,7 @@ describe('Instant Meilisearch Browser test', () => {
     await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
-  test('Test attributesToRetrieve on no attributes', async () => {
+  test('attributesToRetrieve on no attributes', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -26,6 +26,7 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hit = <Movies>response.results[0].hits[0]
     expect(hit.id).not.toBeDefined()
     expect(hit.overview).not.toBeDefined()
@@ -34,7 +35,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit.title).not.toBeDefined()
   })
 
-  test('Test attributesToRetrieve on null', async () => {
+  test('attributesToRetrieve on null', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -54,7 +55,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit.title).not.toBeDefined()
   })
 
-  test('Test attributesToRetrieve on one non existing attribute', async () => {
+  test('attributesToRetrieve on one non existing attribute', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -66,7 +67,6 @@ describe('Instant Meilisearch Browser test', () => {
     ])
 
     const hit = <Movies>response.results[0].hits[0]
-
     expect(hit._highlightResult?.id).toBeDefined()
     expect(hit._highlightResult?.overview).toBeDefined()
     expect(hit._highlightResult?.genres).toBeDefined()
@@ -75,7 +75,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit._highlightResult?.title).toBeDefined()
   })
 
-  test('Test attributesToRetrieve on one existing attribute', async () => {
+  test('attributesToRetrieve on one existing attribute', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -85,6 +85,7 @@ describe('Instant Meilisearch Browser test', () => {
         },
       },
     ])
+
     const hit = <Movies>response.results[0].hits[0]
     expect(hit.title).toEqual('Ariel')
     expect(hit.id).not.toBeDefined()
@@ -95,7 +96,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit.title).toBeDefined()
   })
 
-  test('Test attributesToRetrieve on default value', async () => {
+  test('attributesToRetrieve on default value', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -108,14 +109,12 @@ describe('Instant Meilisearch Browser test', () => {
     const hit = <Movies>response.results[0].hits[0]
     expect(hit.title).toEqual('Ariel')
     expect(hit._highlightResult).toBeDefined()
-
     expect(hit.id).toBeDefined()
     expect(hit.overview).toBeDefined()
     expect(hit.genres).toBeDefined()
     expect(hit.poster).toBeDefined()
     expect(hit.release_date).toBeDefined()
     expect(hit.title).toBeDefined()
-
     expect(hit._highlightResult?.id).toBeDefined()
     expect(hit._highlightResult?.overview).toBeDefined()
     expect(hit._highlightResult?.genres).toBeDefined()
@@ -124,7 +123,7 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hit._highlightResult?.title).toBeDefined()
   })
 
-  test('Test attributesToRetrieve on wild card', async () => {
+  test('attributesToRetrieve on wild card', async () => {
     const response = await searchClient.search([
       {
         indexName: 'movies',

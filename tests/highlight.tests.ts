@@ -18,7 +18,7 @@ describe('Highlight Browser test', () => {
     await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
-  test('Test one attributesToHighlight on wrong attribute placeholder', async () => {
+  test('one attributesToHighlight on wrong attribute placeholder', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -32,7 +32,7 @@ describe('Highlight Browser test', () => {
     expect(resKeys).toEqual(undefined)
   })
 
-  test('Test one attributesToHighlight on placeholder search', async () => {
+  test('one attributesToHighlight on placeholder search', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -61,7 +61,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test no attributesToHighlight on placeholder', async () => {
+  test('no attributesToHighlight on placeholder', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -74,7 +74,7 @@ describe('Highlight Browser test', () => {
     expect(response.results[0]?.hits[0]).not.toHaveProperty('_highlightResult')
   })
 
-  test('Test no attributesToHighlight on placeholder', async () => {
+  test('no attributesToHighlight on placeholder', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -91,7 +91,7 @@ describe('Highlight Browser test', () => {
     }
   })
 
-  test('Test one attributesToHighlight on specific query', async () => {
+  test('one attributesToHighlight on specific query', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -108,7 +108,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test two attributesToHighlight on specific query', async () => {
+  test('two attributesToHighlight on specific query', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -128,7 +128,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test two attributesToHighlight on specific query with empty string value', async () => {
+  test('two attributesToHighlight on specific query with empty string value', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -148,7 +148,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test two attributesToHighlight on specific query with null value', async () => {
+  test('two attributesToHighlight on specific query with null value', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -167,7 +167,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test two attributesToHighlight on specific query with null value', async () => {
+  test('two attributesToHighlight on specific query with null value', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -186,7 +186,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test two attributesToHighlight on wild card', async () => {
+  test('two attributesToHighlight on wild card', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -206,7 +206,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test two attributesToHighlight with different tags', async () => {
+  test('two attributesToHighlight with different tags', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',
@@ -226,7 +226,7 @@ describe('Highlight Browser test', () => {
     )
   })
 
-  test('Test attributes to highlight on non-string-types', async () => {
+  test('attributes to highlight on non-string-types', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies',

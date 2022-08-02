@@ -64,6 +64,7 @@ describe.each(facetCacheData)(
         { keepZeroFacets: false, defaultFacetDistribution: {} },
         { filter: filters }
       )
+
       expect(cache).toEqual(expectedCache)
     })
   }

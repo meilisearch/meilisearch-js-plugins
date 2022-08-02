@@ -19,7 +19,7 @@ describe('Pagination browser test', () => {
     await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
-  test('Test placeholdersearch set to false', async () => {
+  test('placeholdersearch set to false', async () => {
     const customClient = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
@@ -28,16 +28,18 @@ describe('Pagination browser test', () => {
         placeholderSearch: true,
       }
     )
+
     const response = await customClient.search<Movies>([
       {
         indexName: 'movies',
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toBe(5)
   })
 
-  test('Test placeholdersearch set to true', async () => {
+  test('placeholdersearch set to true', async () => {
     const customClient = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
@@ -46,11 +48,13 @@ describe('Pagination browser test', () => {
         placeholderSearch: false,
       }
     )
+
     const response = await customClient.search<Movies>([
       {
         indexName: 'movies',
       },
     ])
+
     const hits = response.results[0].hits
     expect(hits.length).toBe(0)
   })
