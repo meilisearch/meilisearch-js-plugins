@@ -32,6 +32,7 @@ function MeiliParamsCreator(searchContext: SearchContext) {
     finitePagination,
     sort,
     pagination,
+    optionalWords,
   } = searchContext
 
   return {
@@ -119,6 +120,11 @@ function MeiliParamsCreator(searchContext: SearchContext) {
         }
       }
     },
+    addOptionalWords() {
+      if (optionalWords) {
+        meiliSearchParams.optionalWords = optionalWords
+      }
+    },
   }
 }
 
@@ -144,6 +150,7 @@ export function adaptSearchParams(
   meilisearchParams.addFilters()
   meilisearchParams.addSort()
   meilisearchParams.addGeoSearchRules()
+  meilisearchParams.addOptionalWords()
 
   return meilisearchParams.getParams()
 }

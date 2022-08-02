@@ -83,6 +83,7 @@ const searchClient = instantMeiliSearch(
 - [`finitePagination`](#finite-pagination): Used to work with the [`pagination`](#-pagination) widget (default: `false`) .
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
+- [`optionalWords`](#optional-words): Determine the search strategy on words matching (default `last`). [See extented explaination](https://github.com/meilisearch/meilisearch/discussions/2639).
 
 The options are added as the third parameter of the `instantMeilisearch` function.
 
@@ -168,6 +169,19 @@ genres:
 
 ```js
 { keepZeroFacets : true } // default: false
+```
+
+### Optional words
+
+`optionalWords` gives you the possibility to chose how Meilisearch should handle the presence of multiple query words.
+
+For example, if your query is `Hello world` by default Meilisearch returns documents containing either both `Hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
+The other strategy is `none`, where both `hello` and `worlds` **must** be present in a document for it to be returned.
+
+```js
+{
+  optionalWords: 'none' // default last
+}
 ```
 
 ## 🪡 Example with InstantSearch

@@ -34,6 +34,7 @@ export type InstantMeiliSearchOptions = {
   keepZeroFacets?: boolean
   finitePagination?: boolean
   clientAgents?: string[]
+  optionalWords?: string
 }
 
 export type SearchCacheInterface = {
@@ -44,15 +45,6 @@ export type SearchCacheInterface = {
 }
 
 export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
-
-type ClientParams = {
-  primaryKey?: string
-  placeholderSearch?: boolean
-  sort?: string
-  indexUid: string
-  paginationTotalHits: number
-  finitePagination: boolean
-}
 
 export type GeoSearchContext = {
   aroundLatLng?: string
@@ -77,15 +69,22 @@ export type PaginationParams = {
 }
 
 export type SearchContext = Omit<
-  InstantSearchParams & ClientParams,
-  'insideBoundingBox' | 'paginationTotalHits'
-> & {
-  insideBoundingBox?: InsideBoundingBox
-  keepZeroFacets?: boolean
-  cropMarker?: string
-  defaultFacetDistribution: FacetDistribution
-  pagination: PaginationContext
-}
+  InstantSearchParams,
+  'insideBoundingBox' | 'optionalWords'
+> &
+  InstantSearchParams & {
+    insideBoundingBox?: InsideBoundingBox
+    keepZeroFacets?: boolean
+    cropMarker?: string
+    defaultFacetDistribution: FacetDistribution
+    pagination: PaginationContext
+    finitePagination: boolean
+    sort?: string
+    indexUid: string
+    placeholderSearch: boolean
+    primaryKey?: string
+    optionalWords?: string
+  }
 
 export type InstantMeiliSearchInstance = SearchClient & {
   clearCache: () => void
