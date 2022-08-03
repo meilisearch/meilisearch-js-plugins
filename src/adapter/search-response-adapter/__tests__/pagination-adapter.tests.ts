@@ -79,7 +79,11 @@ const paginateHitsTestsParameters = [
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 0,
     hitsPerPage: 20,
-    returnedPagination: { page: 0, hitsPerPage: 20, nbPages: 1 },
+    returnedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
