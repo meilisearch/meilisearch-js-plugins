@@ -45,15 +45,6 @@ export type SearchCacheInterface = {
 
 export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
 
-type ClientParams = {
-  primaryKey?: string
-  placeholderSearch?: boolean
-  sort?: string
-  indexUid: string
-  paginationTotalHits: number
-  finitePagination: boolean
-}
-
 export type GeoSearchContext = {
   aroundLatLng?: string
   aroundLatLngViaIP?: boolean
@@ -76,16 +67,19 @@ export type PaginationParams = {
   page?: number
 }
 
-export type SearchContext = Omit<
-  InstantSearchParams & ClientParams,
-  'insideBoundingBox' | 'paginationTotalHits'
-> & {
-  insideBoundingBox?: InsideBoundingBox
-  keepZeroFacets?: boolean
-  cropMarker?: string
-  defaultFacetDistribution: FacetDistribution
-  pagination: PaginationContext
-}
+export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
+  InstantSearchParams & {
+    defaultFacetDistribution: FacetDistribution
+    pagination: PaginationContext
+    finitePagination: boolean
+    indexUid: string
+    insideBoundingBox?: InsideBoundingBox
+    keepZeroFacets?: boolean
+    cropMarker?: string
+    sort?: string
+    placeholderSearch?: boolean
+    primaryKey?: string
+  }
 
 export type InstantMeiliSearchInstance = SearchClient & {
   clearCache: () => void
