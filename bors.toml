@@ -1,9 +1,10 @@
 status = [
   'style-check',
   'types-check',
-  'integration-tests (Node.js 12)',
   'integration-tests (Node.js 14)',
-  'cypress-run'
+  'integration-tests (Node.js 16)',
+  'integration-tests (Node.js 18)',
+  'end-to-end-tests'
 ]
 # 1 hour timeout
 timeout-sec = 3600
