@@ -1,7 +1,7 @@
 import { SearchCache } from '../search-cache'
 import { searchResponse } from './assets/utils'
 
-describe('Tests on entries in cache', () => {
+describe('Entries in the cache', () => {
   test('to getEntry on empty cache', () => {
     const cache = SearchCache()
     const key = cache.getEntry('')
@@ -38,7 +38,7 @@ describe('Tests on entries in cache', () => {
   })
 })
 
-describe('Tests on key format', () => {
+describe('Key formating in the cache', () => {
   test('to format an empty string', () => {
     const cache = SearchCache()
     const key = cache.formatKey([''])
@@ -74,7 +74,7 @@ describe('Tests on key format', () => {
   })
 })
 
-describe('Tests on setEntry in cache', () => {
+describe('Setting entries in the cache', () => {
   test('Set a response on a key', () => {
     const cache = SearchCache()
     const key = 'test'
