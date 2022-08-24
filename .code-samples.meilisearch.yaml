@@ -36,3 +36,56 @@ landing_getting_started_1: |-
       search.start()
     </script>
   </body>
+getting_started_front_end_integration_md: |-
+  The following code sample uses plain [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/templates/basic_search.css" />
+    </head>
+    <body>
+      <div class="wrapper">
+        <div id="searchbox" focus></div>
+        <div id="hits"></div>
+      </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <script>
+      const search = instantsearch({
+        indexName: "movies",
+        searchClient: instantMeiliSearch(
+          "http://localhost:7700"
+        )
+        });
+        search.addWidgets([
+          instantsearch.widgets.searchBox({
+            container: "#searchbox"
+          }),
+          instantsearch.widgets.configure({ hitsPerPage: 8 }),
+          instantsearch.widgets.hits({
+            container: "#hits",
+            templates: {
+            item: `
+              <div>
+              <div class="hit-name">
+                    {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+              </div>
+              </div>
+            `
+            }
+          })
+        ]);
+        search.start();
+    </script>
+  </html>
+  ```
+
+  Here's what's happening:
+
+  - The first four lines of the `<body>` add two container elements: `#searchbox` and `#hits`. `instant-meilisearch` creates the search bar inside `#searchbox` and lists search results in `#hits`
+  - The first two`<script src="…">` tags import libraries needed to run `instant-meilisearch`
+  - The third and final `<script>` tag is where you customize `instant-meilisearch`
