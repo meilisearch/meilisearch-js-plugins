@@ -51,7 +51,7 @@ describe('Pagination browser test', () => {
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
-    expect(mockedSearch).toHaveBeenCalledTimes(1)
+    expect(mockedSearch).toHaveBeenCalledTimes(2)
   })
 
   test('two different search parameters', async () => {
@@ -77,7 +77,7 @@ describe('Pagination browser test', () => {
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
-    expect(mockedSearch).toHaveBeenCalledTimes(2)
+    expect(mockedSearch).toHaveBeenCalledTimes(3)
   })
 
   test('two identical and one different search parameters', async () => {
@@ -104,7 +104,7 @@ describe('Pagination browser test', () => {
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
-    expect(mockedSearch).toHaveBeenCalledTimes(2)
+    expect(mockedSearch).toHaveBeenCalledTimes(3)
   })
 
   test('two same and two different search parameter', async () => {
@@ -132,6 +132,6 @@ describe('Pagination browser test', () => {
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
     })
-    expect(mockedSearch).toHaveBeenCalledTimes(2)
+    expect(mockedSearch).toHaveBeenCalledTimes(3)
   })
 })

@@ -1,14 +1,20 @@
-import { FacetDistribution } from '../types'
+import { FacetDistribution, SearchContext } from '../types'
+import { MeiliParamsCreator } from '../adapter'
 
-export function cacheFirstFacetDistribution(
-  defaultFacetDistribution: FacetDistribution,
-  searchResponse: any
-): FacetDistribution {
-  if (
-    searchResponse.query === '' &&
-    Object.keys(defaultFacetDistribution).length === 0
-  ) {
-    return searchResponse.facetDistribution
-  }
-  return defaultFacetDistribution
+export async function cacheFirstFacetDistribution(
+  searchResolver: any,
+  searchContext: SearchContext
+): Promise<FacetDistribution> {
+  const meilisearchParams = MeiliParamsCreator(searchContext)
+  meilisearchParams.addFacets()
+  meilisearchParams.addAttributesToRetrieve()
+
+  // Search response from Meilisearch
+  const searchResponse = await searchResolver.searchResponse(
+    // placeholdersearch true to ensure a request is made
+    // query set to empty to ensure default facetdistributionap
+    { ...searchContext, placeholderSearch: true, query: '' },
+    meilisearchParams.getParams()
+  )
+  return searchResponse.facetDistribution || {}
 }

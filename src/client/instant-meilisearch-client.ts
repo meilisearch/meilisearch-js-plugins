@@ -28,11 +28,6 @@ export function instantMeiliSearch(
   apiKey = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
-  const searchCache = SearchCache()
-  // create search resolver with included cache
-  const searchResolver = SearchResolver(searchCache)
-  // paginationTotalHits can be 0 as it is a valid number
-  let defaultFacetDistribution: any = {}
   const clientAgents = constructClientAgents(
     instantMeiliSearchOptions.clientAgents
   )
@@ -42,6 +37,12 @@ export function instantMeiliSearch(
     apiKey: apiKey,
     clientAgents,
   })
+
+  const searchCache = SearchCache()
+  // create search resolver with included cache
+  const searchResolver = SearchResolver(meilisearchClient, searchCache)
+
+  let defaultFacetDistribution: any
 
   return {
     clearCache: () => searchCache.clearCache(),
@@ -63,19 +64,21 @@ export function instantMeiliSearch(
         // Adapt search request to Meilisearch compliant search request
         const adaptedSearchRequest = adaptSearchParams(searchContext)
 
-        // Search response from Meilisearch
-        const searchResponse = await searchResolver.searchResponse(
-          searchContext,
-          adaptedSearchRequest,
-          meilisearchClient
-        )
-
         // Cache first facets distribution of the instantMeilisearch instance
         // Needed to add in the facetDistribution the fields that were not returned
         // When the user sets `keepZeroFacets` to true.
-        defaultFacetDistribution = cacheFirstFacetDistribution(
-          defaultFacetDistribution,
-          searchResponse
+        if (defaultFacetDistribution === undefined) {
+          defaultFacetDistribution = await cacheFirstFacetDistribution(
+            searchResolver,
+            searchContext
+          )
+          searchContext.defaultFacetDistribution = defaultFacetDistribution
+        }
+
+        // Search response from Meilisearch
+        const searchResponse = await searchResolver.searchResponse(
+          searchContext,
+          adaptedSearchRequest
         )
 
         // Adapt the Meilisearch responsne to a compliant instantsearch.js response
@@ -83,6 +86,7 @@ export function instantMeiliSearch(
           searchResponse,
           searchContext
         )
+
         return adaptedSearchResponse
       } catch (e: any) {
         console.error(e)
