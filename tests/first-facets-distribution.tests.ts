@@ -148,7 +148,7 @@ describe('Default facet distribution', () => {
   // with keepZeroFacets
   // with placeholderSearch
   // With multiple search (empty and no results expected)
-  test('creation of facet distribution with facets and keepZeroFacets to true', async () => {
+  test('Ensure cached facetDistribution works between two searches when keepZeroFacets is true', async () => {
     const searchClient = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
     })
@@ -202,7 +202,7 @@ describe('Default facet distribution', () => {
   // with keepZeroFacets
   // without placeholderSearch
   // With multiple search (empty and no results expected)
-  test('creation of facet distribution with facets, keepZeroFacets to true and placeholderSearch to false', async () => {
+  test('ensure cached facetDistribution works between two calls when placeholderSearch is false', async () => {
     const searchClient = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
       placeholderSearch: false,
