@@ -14,7 +14,7 @@ import { adaptFilters } from './filter-adapter'
  *
  * @returns {MeiliSearchParams}
  */
-function MeiliParamsCreator(searchContext: SearchContext) {
+export function MeiliParamsCreator(searchContext: SearchContext) {
   const meiliSearchParams: Record<string, any> = {}
   const {
     facets,

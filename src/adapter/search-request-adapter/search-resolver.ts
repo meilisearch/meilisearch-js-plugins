@@ -7,20 +7,13 @@ import {
 } from '../../types'
 import { addMissingFacets, extractFacets } from './filters'
 
-const emptySearch: MeiliSearchResponse<Record<string, any>> = {
-  hits: [],
-  query: '',
-  facetDistribution: {},
-  limit: 0,
-  offset: 0,
-  estimatedTotalHits: 0,
-  processingTimeMs: 0,
-}
-
 /**
  * @param  {ResponseCacher} cache
  */
-export function SearchResolver(cache: SearchCacheInterface) {
+export function SearchResolver(
+  client: MeiliSearch,
+  cache: SearchCacheInterface
+) {
   return {
     /**
      * @param  {SearchContext} searchContext
@@ -30,16 +23,9 @@ export function SearchResolver(cache: SearchCacheInterface) {
      */
     searchResponse: async function (
       searchContext: SearchContext,
-      searchParams: MeiliSearchParams,
-      client: MeiliSearch
+      searchParams: MeiliSearchParams
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
       const { placeholderSearch, query } = searchContext
-
-      // query can be: empty string, undefined or null
-      // all of them are falsy's
-      if (!placeholderSearch && !query) {
-        return emptySearch
-      }
 
       const { pagination } = searchContext
 
@@ -74,6 +60,11 @@ export function SearchResolver(cache: SearchCacheInterface) {
         searchResponse.facetDistribution
       )
 
+      // query can be: empty string, undefined or null
+      // all of them are falsy's
+      if (!placeholderSearch && !query) {
+        searchResponse.hits = []
+      }
       // Cache response
       cache.setEntry<MeiliSearchResponse>(key, searchResponse)
       return searchResponse
