@@ -5,6 +5,7 @@ import {
   AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
+  FacetDistribution,
 } from '../types'
 import {
   adaptSearchResponse,
@@ -42,7 +43,7 @@ export function instantMeiliSearch(
   // create search resolver with included cache
   const searchResolver = SearchResolver(meilisearchClient, searchCache)
 
-  let defaultFacetDistribution: any
+  let defaultFacetDistribution: FacetDistribution
 
   return {
     clearCache: () => searchCache.clearCache(),
