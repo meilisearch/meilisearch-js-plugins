@@ -1,7 +1,7 @@
 import { dataset, meilisearchClient, HOST, API_KEY } from './assets/utils'
 import { instantMeiliSearch } from '../src'
 
-describe('Firt facet distribution', () => {
+describe('First facet distribution', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
     await meilisearchClient.waitForTask(deleteTask.taskUid)
