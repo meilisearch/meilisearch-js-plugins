@@ -64,7 +64,6 @@ export function SearchResolver(
       // all of them are falsy's
       if (!placeholderSearch && !query) {
         searchResponse.hits = []
-        searchResponse.estimatedTotalHits = 0
       }
       // Cache response
       cache.setEntry<MeiliSearchResponse>(key, searchResponse)
