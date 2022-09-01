@@ -33,7 +33,7 @@ export function createSearchContext(
     sort: sortByArray.join(':') || '',
     indexUid,
     pagination,
-    defaultFacetDistribution,
+    defaultFacetDistribution: defaultFacetDistribution || {},
     placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
     finitePagination: !!options.finitePagination, // false by default
