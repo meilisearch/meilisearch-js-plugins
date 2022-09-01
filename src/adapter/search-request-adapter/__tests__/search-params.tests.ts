@@ -1,16 +1,17 @@
 import { adaptSearchParams } from '../search-params-adapter'
+import { MatchingStrategies } from '../../../types'
 
 const DEFAULT_CONTEXT = {
   indexUid: 'test',
   pagination: { paginationTotalHits: 20, page: 0, hitsPerPage: 6 },
   defaultFacetDistribution: {},
+  finitePagination: false,
 }
 
 describe('Parameters adapter', () => {
   test('adapting a basic searchContext ', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      finitePagination: false,
     })
 
     expect(searchParams.attributesToHighlight).toContain('*')
@@ -22,7 +23,6 @@ describe('Parameters adapter', () => {
       ...DEFAULT_CONTEXT,
       facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
       sort: 'id < 1',
-      finitePagination: false,
     })
 
     expect(searchParams.filter).toStrictEqual([
@@ -33,6 +33,15 @@ describe('Parameters adapter', () => {
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
+
+  test('adapting a searchContext with matching strategy', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      matchingStrategy: MatchingStrategies.ALL,
+    })
+
+    expect(searchParams.matchingStrategy).toEqual('all')
+  })
 })
 
 describe('Geo rules adapter', () => {
@@ -42,7 +51,6 @@ describe('Geo rules adapter', () => {
       facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
       insideBoundingBox: '0,0,0,0',
       sort: 'id < 1',
-      finitePagination: false,
     })
 
     expect(searchParams.filter).toStrictEqual([
@@ -60,7 +68,6 @@ describe('Geo rules adapter', () => {
       ...DEFAULT_CONTEXT,
       facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
       insideBoundingBox: '0,0,0,0',
-      finitePagination: false,
     })
 
     expect(searchParams.filter).toEqual([
@@ -77,7 +84,6 @@ describe('Geo rules adapter', () => {
       ...DEFAULT_CONTEXT,
       insideBoundingBox: '0,0,0,0',
       sort: 'id < 1',
-      finitePagination: false,
     })
 
     expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
@@ -90,7 +96,6 @@ describe('Geo rules adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       insideBoundingBox: '0,0,0,0',
-      finitePagination: false,
     })
 
     expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
@@ -132,7 +137,6 @@ describe('Pagination adapter', () => {
   test('adapting a searchContext with no finite pagination', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      finitePagination: false,
     })
 
     expect(searchParams.limit).toBe(7)
@@ -142,7 +146,6 @@ describe('Pagination adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       pagination: { paginationTotalHits: 20, page: 1, hitsPerPage: 6 },
-      finitePagination: false,
     })
 
     expect(searchParams.limit).toBe(13)
@@ -152,7 +155,6 @@ describe('Pagination adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       pagination: { paginationTotalHits: 20, page: 40, hitsPerPage: 6 },
-      finitePagination: false,
     })
 
     expect(searchParams.limit).toBe(20)
@@ -162,7 +164,6 @@ describe('Pagination adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
-      finitePagination: false,
     })
 
     expect(searchParams.limit).toBe(4)
@@ -173,7 +174,6 @@ describe('Pagination adapter', () => {
       ...DEFAULT_CONTEXT,
       query: '',
       pagination: { paginationTotalHits: 4, page: 0, hitsPerPage: 6 },
-      finitePagination: false,
       placeholderSearch: false,
     })
 
@@ -185,7 +185,6 @@ describe('Pagination adapter', () => {
       ...DEFAULT_CONTEXT,
       query: '',
       pagination: { paginationTotalHits: 200, page: 0, hitsPerPage: 6 },
-      finitePagination: false,
       placeholderSearch: true,
     })
 

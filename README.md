@@ -182,7 +182,7 @@ The other strategy is `all`, where both `hello` and `worlds` **must** be present
 
 ```js
 {
-  optionalWords: 'all' // default last
+  matchingStrategy: 'all' // default last
 }
 ```
 
