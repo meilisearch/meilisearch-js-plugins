@@ -3,6 +3,7 @@ import {
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   FacetDistribution,
+  MatchingStrategies,
 } from '../types'
 
 import { createPaginationContext } from './pagination-context'

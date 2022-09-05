@@ -32,6 +32,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     finitePagination,
     sort,
     pagination,
+    matchingStrategy,
   } = searchContext
 
   return {
@@ -119,6 +120,11 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         }
       }
     },
+    addMatchingStrategy() {
+      if (matchingStrategy) {
+        meiliSearchParams.matchingStrategy = matchingStrategy
+      }
+    },
   }
 }
 
@@ -144,6 +150,7 @@ export function adaptSearchParams(
   meilisearchParams.addFilters()
   meilisearchParams.addSort()
   meilisearchParams.addGeoSearchRules()
+  meilisearchParams.addMatchingStrategy()
 
   return meilisearchParams.getParams()
 }

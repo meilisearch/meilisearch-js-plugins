@@ -27,6 +27,11 @@ export type ParsedFilter = {
   value: string
 }
 
+export const enum MatchingStrategies {
+  ALL = 'all',
+  LAST = 'last',
+}
+
 export type InstantMeiliSearchOptions = {
   paginationTotalHits?: number
   placeholderSearch?: boolean
@@ -34,6 +39,7 @@ export type InstantMeiliSearchOptions = {
   keepZeroFacets?: boolean
   finitePagination?: boolean
   clientAgents?: string[]
+  matchingStrategy?: MatchingStrategies
 }
 
 export type SearchCacheInterface = {
@@ -79,6 +85,7 @@ export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
     sort?: string
     placeholderSearch?: boolean
     primaryKey?: string
+    matchingStrategy?: MatchingStrategies
   }
 
 export type InstantMeiliSearchInstance = SearchClient & {
