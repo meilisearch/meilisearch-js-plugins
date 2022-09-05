@@ -38,7 +38,6 @@ export function createSearchContext(
     placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
     finitePagination: !!options.finitePagination, // false by default
-    matchingStrategy: options.matchingStrategy || MatchingStrategies.LAST,
   }
   return searchContext
 }
