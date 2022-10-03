@@ -83,6 +83,7 @@ const searchClient = instantMeiliSearch(
 - [`finitePagination`](#finite-pagination): Used to work with the [`pagination`](#-pagination) widget (default: `false`) .
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
+- [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
 
 The options are added as the third parameter of the `instantMeilisearch` function.
 
@@ -170,6 +171,20 @@ genres:
 { keepZeroFacets : true } // default: false
 ```
 
+### Matching strategy
+
+`matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words, see [documentation](https://docs.meilisearch.com/reference/api/search.html#matching-strategy).
+
+For example, if your query is `hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
+The other strategy is `all`, where both `hello` and `world` **must** be present in a document for it to be returned.
+
+
+```js
+{
+  matchingStrategy: 'all' // default last
+}
+```
+
 ## 🪡 Example with InstantSearch
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
@@ -253,7 +268,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v0.28.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.28.0).
+This package only guarantees the compatibility with the [version v0.29.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.29.0).
 
 **Node / NPM versions**:
 
