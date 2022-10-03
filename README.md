@@ -175,7 +175,7 @@ genres:
 
 `matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words.
 
-For example, if your query is `Hello world` by default Meilisearch returns documents containing either both `Hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
+For example, if your query is `Hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
 The other strategy is `all`, where both `hello` and `worlds` **must** be present in a document for it to be returned.
 
 // TODO: add documentation link
