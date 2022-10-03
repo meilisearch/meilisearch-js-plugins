@@ -1953,10 +1953,10 @@ ajv@^7.0.2:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-algoliasearch-helper@^3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.10.0.tgz#59a0f645dd3c7e55cf01faa568d1af50c49d36f6"
-  integrity sha512-4E4od8qWWDMVvQ3jaRX6Oks/k35ywD011wAA4LbYMMjOtaZV6VWaTjRr4iN2bdaXP2o1BP7SLFMBf3wvnHmd8Q==
+algoliasearch-helper@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.11.1.tgz#d83ab7f1a2a374440686ef7a144b3c288b01188a"
+  integrity sha512-mvsPN3eK4E0bZG0/WlWJjeqe/bUD2KOEVOl0GyL/TGXn6wcpZU8NOuztGHCUKXkyg5gq6YzUakVTmnmSSO5Yiw==
   dependencies:
     "@algolia/events" "^4.0.1"
 
@@ -4127,10 +4127,10 @@ ini@2.0.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-2.0.0.tgz#e5fd556ecdd5726be978fa1001862eacb0a94bc5"
   integrity sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==
 
-instantsearch.js@^4.44.1:
-  version "4.44.1"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.44.1.tgz#095786320a9f1f57f689f81c930bfb408c328c0c"
-  integrity sha512-1BuFe/LH08tQe0KreB6mre1sxLMOjm+YkA6mZinCIoArzRmgsx4Wl7guOvbj6QVLi9NtA/C9ZRRjx9DP2eSR6Q==
+instantsearch.js@^4.46.3:
+  version "4.46.3"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.46.3.tgz#075d6ac4b6b0da7cf4d6680a66a328296837801e"
+  integrity sha512-t/30eqpujcPzSk0l33YSoQYyGAojSwXmzhAYC3cFf9Pl1aUNbdNZm760713/Txj4hcXtYG2x0YidEAV+HkBwWg==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@algolia/ui-components-highlight-vdom" "^1.1.2"
@@ -4138,11 +4138,11 @@ instantsearch.js@^4.44.1:
     "@types/google.maps" "^3.45.3"
     "@types/hogan.js" "^3.0.0"
     "@types/qs" "^6.5.3"
-    algoliasearch-helper "^3.10.0"
+    algoliasearch-helper "^3.11.1"
     classnames "^2.2.5"
     hogan.js "^3.0.2"
     htm "^3.0.0"
-    preact "^10.6.0"
+    preact "^10.10.0"
     qs "^6.5.1 < 6.10"
     search-insights "^2.1.0"
 
@@ -5952,10 +5952,10 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.27:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-preact@^10.6.0:
-  version "10.6.6"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.6.6.tgz#f1899bc8dab7c0788b858481532cb3b5d764a520"
-  integrity sha512-dgxpTFV2vs4vizwKohYKkk7g7rmp1wOOcfd4Tz3IB3Wi+ivZzsn/SpeKJhRENSE+n8sUfsAl4S3HiCVT923ABw==
+preact@^10.10.0:
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.11.0.tgz#26af45a0613f4e17a197cc39d7a1ea23e09b2532"
+  integrity sha512-Fk6+vB2kb6mSJfDgODq0YDhMfl0HNtK5+Uc9QqECO4nlyPAQwCI+BKyWO//idA7ikV7o+0Fm6LQmNuQi1wXI1w==
 
 prelude-ls@^1.2.1:
   version "1.2.1"
