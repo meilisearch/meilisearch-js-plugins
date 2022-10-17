@@ -25,7 +25,8 @@
 
 **Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/meilisearch)
 
-This library is a plugin to establish the communication between your [Meilisearch](https://github.com/meilisearch/meilisearch) instance and the open-source [InstantSearch](https://github.com/algolia/instantsearch.js) tools (powered by Algolia) for your front-end application.<br>
+This library is a client that establishes communication between your [Meilisearch](https://github.com/meilisearch/meilisearch) instance and [InstantSearch](https://github.com/algolia/instantsearch.js). InstantSearch, an open-source project developed by Algolia, is the tool that renders all the components needed to start searching in your front-end application.
+
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
 If you use Angular, React, or Vue, you might want to check out these repositories:
