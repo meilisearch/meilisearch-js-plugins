@@ -1054,7 +1054,7 @@ See [relevancy guide](https://docs.meilisearch.com/learn/core_concepts/relevancy
     items: [
       { value: 'clothes', label: 'Relevant' }, // default index
       {
-        value: 'clothes:price:asc', // Sort on descending price
+        value: 'clothes:price:desc', // Sort on descending price
         label: 'Ascending price using query time sort',
       },
       {
