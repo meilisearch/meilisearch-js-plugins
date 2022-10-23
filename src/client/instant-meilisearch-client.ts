@@ -17,18 +17,49 @@ import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
 import { constructClientAgents } from './agents'
 
 /**
- * Instanciate SearchClient required by instantsearch.js.
- *
+ * apiKey callback definition
+ * @callback apiKeyCallback
+ * @returns {string} - The apiKey to use
+ */
+
+/**
+ * Instantiate SearchClient required by instantsearch.js.
  * @param  {string} hostUrl
- * @param  {string} apiKey
+ * @param  {string | apiKeyCallback} apiKey
  * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
  * @returns {InstantMeiliSearchInstance}
  */
 export function instantMeiliSearch(
   hostUrl: string,
-  apiKey = '',
+  apiKey: string | (() => string) = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
+  // Validate parameters
+  if (typeof hostUrl !== 'string') {
+    throw new TypeError(
+      'Provided hostUrl value (1st parameter) is not a string, expected string'
+    )
+  }
+
+  if (typeof apiKey !== 'string' && typeof apiKey !== 'function') {
+    throw new TypeError(
+      'Provided apiKey value (2nd parameter) is not a string or a function, expected string or function'
+    )
+  }
+
+  // If apiKey is function, call it to get the apiKey
+  if (typeof apiKey === 'function') {
+    const apiKeyFnValue = apiKey()
+    if (typeof apiKeyFnValue !== 'string') {
+      throw new TypeError(
+        'Provided apiKey function (2nd parameter) did not return a string, expected string'
+      )
+    }
+
+    // Replace apiKey with the value returned by the function
+    apiKey = apiKeyFnValue
+  }
+
   const clientAgents = constructClientAgents(
     instantMeiliSearchOptions.clientAgents
   )
