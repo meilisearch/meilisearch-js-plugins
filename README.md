@@ -114,9 +114,7 @@ Placeholders search means showing results even when the search query is empty. B
 When placeholder search is set to `false`, no results appears when searching on no characters. For example, if the query is "" no results appear.
 
 ```js
-{
-  placeholderSearch: true
-} // default true
+{ placeholderSearch : true } // default true
 ```
 
 ### Pagination total hits
@@ -128,9 +126,7 @@ For example, using the `infiniteHits` widget, and a `paginationTotalHits` of 9. 
 Usage:
 
 ```js
-{
-  paginationTotalHits: 50
-} // default: 200
+{ paginationTotalHits: 50 } // default: 200
 ```
 
 `hitsPerPage` has a value of `20` by default and can [be customized](#-hitsperpage).
@@ -144,9 +140,7 @@ With the amount of documents returned, instantsearch is able to render the corre
 Example:
 
 ```js
-{
-  finitePagination: true
-} // default: false
+{ finitePagination: true } // default: false
 ```
 
 ⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage `finitePagination` but also of the pagination widgets are not recommended.<br>
@@ -157,9 +151,7 @@ More information about Meilisearch and the pagination [here](https://github.com/
 Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field) (`undefined` by default). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
 
 ```js
-{
-  primaryKey: 'id'
-} // default: undefined
+{ primaryKey : 'id' } // default: undefined
 ```
 
 ### Keep zero facets
@@ -171,22 +163,18 @@ Nonetheless you might want to still showcase them even if they have 0 matched do
 
 Without `keepZeroFacets` set to `true`:
 genres:
-
-- [x] horror (2000)
-- [x] thriller (214)
-- [ ] comedy (0)
+  - [x] horror (2000)
+  - [x] thriller (214)
+  - [ ] comedy (0)
 
 With `keepZeroFacets` set to `false`, `comedy` disapears:
 
 genres:
-
-- [x] horror (2000)
-- [x] thriller (214)
+  - [x] horror (2000)
+  - [x] thriller (214)
 
 ```js
-{
-  keepZeroFacets: true
-} // default: false
+{ keepZeroFacets : true } // default: false
 ```
 
 ### Matching strategy
@@ -195,6 +183,7 @@ genres:
 
 For example, if your query is `hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
 The other strategy is `all`, where both `hello` and `world` **must** be present in a document for it to be returned.
+
 
 ```js
 {
@@ -276,6 +265,7 @@ search.start()
 - If you use Vue, check out [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 - If you use Angular, check out [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
 
+
 ## 🤖 Compatibility with Meilisearch and InstantSearch
 
 **Supported InstantSearch.js versions**:
@@ -335,6 +325,7 @@ List of all the components that are available in [instantSearch](https://github.
 - ❌ [RelevantSort](#-relevantsort)
 - ✅ [Routing](#-routing)
 
+
 ### ✅ InstantSearch
 
 [instantSearch references](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/)
@@ -362,7 +353,7 @@ const search = instantsearch({
     }
   ),
   // ... InstantSearch options
-  routing: true, // for example
+  routing: true // for example
 })
 ```
 
@@ -614,13 +605,12 @@ import injectScript from 'scriptjs'
 injectScript(
   `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
-    const search = instantsearch({
+      const search = instantsearch({
       indexName: 'geo',
       // ...
-    })
-    // ...
-  }
-)
+      })
+      // ...
+  })
 ```
 
 Replace `${GOOGLE_API}` with you google api key.
@@ -646,6 +636,7 @@ The following parameters exist:
 - `aroundLatLng`: The middle point of the Google Map. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
 - `aroundRadius`: The radius around a Geo Point, used for sorting in the search request. It only works if `aroundLatLng` is present as well. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
 
+
 For exemple, by adding `boundingBox` in the [`instantSearch`](#-instantsearch) widget parameters, the parameter will be used as a search parameter for the first request.
 
 ```js
@@ -658,7 +649,6 @@ For exemple, by adding `boundingBox` in the [`instantSearch`](#-instantsearch) w
     },
   },
 ```
-
 Without providing this parameter, Google Maps will default to a window containing all markers from the provided search results.
 
 Alternatively, the parameters can be passed through the [`searchFunction`](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/#widget-param-searchfunction) parameter of the [`instantSearch`](#-instantsearch) widget. Contrary to `initialUiState` these parameters overwrite the values on each search.
@@ -730,26 +720,23 @@ The `hierarchicalMenu` widget is used to create navigation based on a hierarchy 
 - ✅ cssClasses: The CSS classes to override.
 
 #### Hierarchical Menu Usage
-
 To make it work with Meilisearch your documents must have a specific structure, an explanation of the structure can [be found here](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/#requirements).
 
 Contrary to `instantsearch.js`, the hierarchical fields are added in [`filterableAttributes`](https://docs.meilisearch.com/reference/api/filterable_attributes.html#update-filterable-attributes).
 
 Example:
 Give the following document structure:
-
 ```json
 {
-  "id": 1,
-  "name": "Basic T-shirt",
-  "categories.lvl0": "Men",
-  "categories.lvl1": "Men > clothes",
-  "categories.lvl2": "Men > clothes > t-shirt"
-}
+    "id": 1,
+    "name": "Basic T-shirt",
+    "categories.lvl0": "Men",
+    "categories.lvl1": "Men > clothes",
+    "categories.lvl2": "Men > clothes > t-shirt"
+  }
 ```
 
 You have to add the fields `categories.lvl0`, `categories.lvl1` and `categories.lvl2` in the `filterableAttributes` in your Meilisearch settings.
-
 ```json
 {
   "filterableAttributes": [
@@ -759,6 +746,7 @@ You have to add the fields `categories.lvl0`, `categories.lvl1` and `categories.
   ]
 }
 ```
+
 
 ### ✅ RangeSlider
 
@@ -982,6 +970,7 @@ The `breadcrumb` widget is a secondary navigation scheme that lets the user see 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
+
 ### ✅ Stats
 
 [Stats references](https://www.algolia.com/doc/api-reference/widgets/stats/js/)
@@ -1037,9 +1026,8 @@ The usage of the `SortBy` widget differs from the one found in Algolia's documen
 - Different `sort` rules on the same index.
 
 The items list is composed of objects containing every sort possibility you want to provide to your user. Each object must contain two fields:
-
-- `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
-- `value`: The sort formula.
+  - `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
+  - `value`: The sort formula.
 
 #### Sort formula
 
@@ -1050,9 +1038,10 @@ A sort formula is expressed like this: `index:attribute:order`.
 When sorting on an attribute, the attribute has to be added to the [`sortableAttributes`](https://docs.meilisearch.com/reference/api/sortable_attributes.html) setting on your index.
 
 Example:
-
 ```js
-;[{ label: 'Sort By Price', value: 'clothes:price:asc' }]
+[
+  { label: 'Sort By Price', value: 'clothes:price:asc' }
+]
 ```
 
 In this scenario, in the `clothes` index, we want the price to be sorted in an ascending way. For this formula to be valid, `price` must be added to the `sortableAttributes` settings of the `clothes` index.
@@ -1095,6 +1084,7 @@ Virtual indices allow you to use Relevant sort, a sorting mechanism that favors 
 ### ✅ Routing
 
 Routing is configured inside `instantSearch` component. Please refer [to the documentation](https://www.algolia.com/doc/api-reference/widgets/simple-state-mapping/js/) for further implementation information.
+
 
 ## ⚙️ Development Workflow and Contributing
 
