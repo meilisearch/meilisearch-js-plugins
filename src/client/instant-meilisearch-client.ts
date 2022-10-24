@@ -15,6 +15,7 @@ import {
 import { createSearchContext } from '../contexts'
 import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
 import { constructClientAgents } from './agents'
+import { validateInstantMeiliSearchParams } from '../utils'
 
 /**
  * apiKey callback definition
@@ -35,30 +36,10 @@ export function instantMeiliSearch(
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
   // Validate parameters
-  if (typeof hostUrl !== 'string') {
-    throw new TypeError(
-      'Provided hostUrl value (1st parameter) is not a string, expected string'
-    )
-  }
+  validateInstantMeiliSearchParams(hostUrl, apiKey)
 
-  if (typeof apiKey !== 'string' && typeof apiKey !== 'function') {
-    throw new TypeError(
-      'Provided apiKey value (2nd parameter) is not a string or a function, expected string or function'
-    )
-  }
-
-  // If apiKey is function, call it to get the apiKey
-  if (typeof apiKey === 'function') {
-    const apiKeyFnValue = apiKey()
-    if (typeof apiKeyFnValue !== 'string') {
-      throw new TypeError(
-        'Provided apiKey function (2nd parameter) did not return a string, expected string'
-      )
-    }
-
-    // Replace apiKey with the value returned by the function
-    apiKey = apiKeyFnValue
-  }
+  // Resolve possible function to get apiKey
+  apiKey = getApiKey(apiKey)
 
   const clientAgents = constructClientAgents(
     instantMeiliSearchOptions.clientAgents
@@ -134,4 +115,25 @@ export function instantMeiliSearch(
       })
     },
   }
+}
+
+/**
+ * Resolves apiKey if it is a function
+ * @param  {string | apiKeyCallback} apiKey
+ * @returns {string} api key value
+ */
+function getApiKey(apiKey: string | (() => string)): string {
+  // If apiKey is function, call it to get the apiKey
+  if (typeof apiKey === 'function') {
+    const apiKeyFnValue = apiKey()
+    if (typeof apiKeyFnValue !== 'string') {
+      throw new TypeError(
+        'Provided apiKey function (2nd parameter) did not return a string, expected string'
+      )
+    }
+
+    return apiKeyFnValue
+  }
+
+  return apiKey
 }
