@@ -9,7 +9,6 @@
  * @param hostUrl
  * @param apiKey
  */
-
 export function validateInstantMeiliSearchParams(
   hostUrl: string,
   apiKey: string | (() => string)
