@@ -15,20 +15,32 @@ import {
 import { createSearchContext } from '../contexts'
 import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
 import { constructClientAgents } from './agents'
+import { validateInstantMeiliSearchParams } from '../utils'
 
 /**
- * Instanciate SearchClient required by instantsearch.js.
- *
+ * apiKey callback definition
+ * @callback apiKeyCallback
+ * @returns {string} - The apiKey to use
+ */
+
+/**
+ * Instantiate SearchClient required by instantsearch.js.
  * @param  {string} hostUrl
- * @param  {string} apiKey
+ * @param  {string | apiKeyCallback} apiKey
  * @param  {InstantMeiliSearchOptions={}} meiliSearchOptions
  * @returns {InstantMeiliSearchInstance}
  */
 export function instantMeiliSearch(
   hostUrl: string,
-  apiKey = '',
+  apiKey: string | (() => string) = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
+  // Validate parameters
+  validateInstantMeiliSearchParams(hostUrl, apiKey)
+
+  // Resolve possible function to get apiKey
+  apiKey = getApiKey(apiKey)
+
   const clientAgents = constructClientAgents(
     instantMeiliSearchOptions.clientAgents
   )
@@ -103,4 +115,25 @@ export function instantMeiliSearch(
       })
     },
   }
+}
+
+/**
+ * Resolves apiKey if it is a function
+ * @param  {string | apiKeyCallback} apiKey
+ * @returns {string} api key value
+ */
+function getApiKey(apiKey: string | (() => string)): string {
+  // If apiKey is function, call it to get the apiKey
+  if (typeof apiKey === 'function') {
+    const apiKeyFnValue = apiKey()
+    if (typeof apiKeyFnValue !== 'string') {
+      throw new TypeError(
+        'Provided apiKey function (2nd parameter) did not return a string, expected string'
+      )
+    }
+
+    return apiKeyFnValue
+  }
+
+  return apiKey
 }

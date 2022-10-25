@@ -75,6 +75,11 @@ const searchClient = instantMeiliSearch(
 )
 ```
 
+### Parameters
+
+- `Host` - URL of Meilisearch instance
+- `API Key` - Meilisearch access API Key. This can either be a string or a synchronous function that returns a string. ⚠️ Prefer using a key with only [search permissions](https://docs.meilisearch.com/learn/security/master_api_keys.html#master-key-and-api-keys) as it is used on your front-end.
+
 ## 💅 Customization
 
 `instant-meilisearch` offers some options you can set to further fit your needs.
