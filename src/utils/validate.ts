@@ -13,7 +13,7 @@ export function validateInstantMeiliSearchParams(
   hostUrl: string,
   apiKey: string | (() => string)
 ) {
-  // Validate parameters
+  // Validate host url
   if (typeof hostUrl !== 'string') {
     throw new TypeError(
       'Provided hostUrl value (1st parameter) is not a string, expected string'
