@@ -20,6 +20,7 @@ export function validateInstantMeiliSearchParams(
     )
   }
 
+  // Validate api key
   if (typeof apiKey !== 'string' && typeof apiKey !== 'function') {
     throw new TypeError(
       'Provided apiKey value (2nd parameter) is not a string or a function, expected string or function'
