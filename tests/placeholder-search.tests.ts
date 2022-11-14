@@ -1,10 +1,5 @@
 import { instantMeiliSearch } from '../src'
-import {
-  searchClient,
-  dataset,
-  Movies,
-  meilisearchClient,
-} from './assets/utils'
+import { dataset, Movies, meilisearchClient } from './assets/utils'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {
@@ -24,7 +19,6 @@ describe('Pagination browser test', () => {
       'http://localhost:7700',
       'masterKey',
       {
-        paginationTotalHits: 5,
         placeholderSearch: true,
       }
     )
@@ -44,7 +38,6 @@ describe('Pagination browser test', () => {
       'http://localhost:7700',
       'masterKey',
       {
-        paginationTotalHits: 5,
         placeholderSearch: false,
       }
     )

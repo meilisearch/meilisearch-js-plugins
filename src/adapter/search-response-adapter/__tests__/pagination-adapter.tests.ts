@@ -1,4 +1,4 @@
-import { adaptPagination } from '../pagination-adapter'
+import { adaptPaginationContext } from '../pagination-adapter'
 import { ceiledDivision } from '../../../utils'
 
 const numberPagesTestParameters = [
@@ -6,26 +6,31 @@ const numberPagesTestParameters = [
     hitsPerPage: 0,
     hitsLength: 100,
     numberPages: 0,
+    page: 0,
   },
   {
     hitsPerPage: 1,
     hitsLength: 100,
     numberPages: 100,
+    page: 1,
   },
   {
     hitsPerPage: 20,
     hitsLength: 24,
     numberPages: 2,
+    page: 1,
   },
   {
     hitsPerPage: 20,
     hitsLength: 0,
     numberPages: 0,
+    page: 1,
   },
   {
     hitsPerPage: 0,
     hitsLength: 0,
     numberPages: 0,
+    page: 1,
   },
   // Not an Algolia behavior. Algolia returns an error:
   // "Value too small for \"hitsPerPage\" parameter, expected integer between 0 and 9223372036854775807",
@@ -42,19 +47,31 @@ const paginateHitsTestsParameters = [
     hits: [],
     page: 0,
     hitsPerPage: 20,
-    returnedHits: [],
+    returnedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 0,
+    },
   },
   {
     hits: [],
     page: 100,
     hitsPerPage: 0,
-    returnedHits: [],
+    returnedPagination: {
+      page: 100,
+      hitsPerPage: 0,
+      nbPages: 0,
+    },
   },
   {
     hits: [],
     page: 100,
     hitsPerPage: 20,
-    returnedHits: [],
+    returnedPagination: {
+      page: 100,
+      hitsPerPage: 20,
+      nbPages: 0,
+    },
   },
 
   // Page 0
@@ -62,25 +79,41 @@ const paginateHitsTestsParameters = [
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 0,
     hitsPerPage: 20,
-    returnedHits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    returnedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 0,
     hitsPerPage: 0,
-    returnedHits: [],
+    returnedPagination: {
+      page: 0,
+      hitsPerPage: 0,
+      nbPages: 0,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 0,
     hitsPerPage: 20,
-    returnedHits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    returnedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 0,
     hitsPerPage: 2,
-    returnedHits: [{ id: 1 }, { id: 2 }],
+    returnedPagination: {
+      page: 0,
+      hitsPerPage: 2,
+      nbPages: 2,
+    },
   },
 
   // Page 1
@@ -88,19 +121,31 @@ const paginateHitsTestsParameters = [
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 1,
     hitsPerPage: 2,
-    returnedHits: [{ id: 3 }],
+    returnedPagination: {
+      page: 1,
+      hitsPerPage: 2,
+      nbPages: 2,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 1,
     hitsPerPage: 20,
-    returnedHits: [],
+    returnedPagination: {
+      page: 1,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 1,
     hitsPerPage: 0,
-    returnedHits: [],
+    returnedPagination: {
+      page: 1,
+      hitsPerPage: 0,
+      nbPages: 0,
+    },
   },
 
   // Page 2
@@ -108,19 +153,31 @@ const paginateHitsTestsParameters = [
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 2,
     hitsPerPage: 20,
-    returnedHits: [],
+    returnedPagination: {
+      page: 2,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 2,
     hitsPerPage: 20,
-    returnedHits: [],
+    returnedPagination: {
+      hitsPerPage: 20,
+      nbPages: 1,
+      page: 2,
+    },
   },
   {
     hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
     page: 2,
     hitsPerPage: 0,
-    returnedHits: [],
+    returnedPagination: {
+      page: 2,
+      nbPages: 0,
+      hitsPerPage: 0,
+    },
   },
 ]
 
@@ -129,7 +186,6 @@ describe.each(numberPagesTestParameters)(
   ({ hitsPerPage, hitsLength, numberPages }) => {
     it(`Should return ${numberPages} pages when hitsPerPage is ${hitsPerPage} and hits length is ${hitsLength}`, () => {
       const response = ceiledDivision(hitsLength, hitsPerPage)
-
       expect(response).toBe(numberPages)
     })
   }
@@ -137,26 +193,47 @@ describe.each(numberPagesTestParameters)(
 
 describe.each(paginateHitsTestsParameters)(
   'Paginate hits tests',
-  ({ hits, page, hitsPerPage, returnedHits }) => {
+  ({ hits, page, hitsPerPage, returnedPagination }) => {
     it(`Should return ${JSON.stringify(
-      returnedHits
+      returnedPagination
     )} when hitsPerPage is ${hitsPerPage}, number of page is ${page} and when hits is ${JSON.stringify(
       hits
     )}`, () => {
-      const response = adaptPagination(hits, page, hitsPerPage)
+      const response = adaptPaginationContext(
+        { hits, page: page + 1, hitsPerPage, processingTimeMs: 0, query: '' },
+        { hitsPerPage, page }
+      )
+      expect(response).toEqual(returnedPagination)
+    })
+  }
+)
 
-      expect(response).toEqual(returnedHits)
+describe.each(paginateHitsTestsParameters)(
+  'Paginate hits tests',
+  ({ hits, page, hitsPerPage, returnedPagination }) => {
+    it(`Should return ${JSON.stringify(
+      returnedPagination
+    )} when hitsPerPage is ${hitsPerPage}, number of page is ${page} and when hits is ${JSON.stringify(
+      hits
+    )} but there is no page and hitsPerPage fields returned by Meilisearch`, () => {
+      const response = adaptPaginationContext(
+        { hits, processingTimeMs: 0, query: '' },
+        { hitsPerPage, page }
+      )
+      expect(response).toEqual(returnedPagination)
     })
   }
 )
 
 it('Should throw when hitsPerPage is negative', () => {
   try {
-    const hits: string[] = []
+    const hits: Array<Record<string, any>> = []
     const hitsPerPage = -1
     const page = 0
-
-    adaptPagination(hits, page, hitsPerPage)
+    adaptPaginationContext(
+      { hits, page: page + 1, hitsPerPage, processingTimeMs: 0, query: '' },
+      { hitsPerPage, page }
+    )
   } catch (e: any) {
     expect(e.message).toBe(
       'Value too small for "hitsPerPage" parameter, expected integer between 0 and 9223372036854775807'
