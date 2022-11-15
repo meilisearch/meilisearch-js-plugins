@@ -14,5 +14,7 @@ export function adaptTotalHits(
   } else if (totalHits !== undefined) {
     return totalHits
   }
+
+  // Should not happen but safeguarding just in case
   return hitsPerPage * totalPages
 }

@@ -1,4 +1,4 @@
-import { adaptPaginationContext } from '../pagination-adapter'
+import { adaptPaginationParameters } from '../pagination-adapter'
 import { ceiledDivision } from '../../../utils'
 
 const numberPagesTestParameters = [
@@ -41,34 +41,33 @@ const numberPagesTestParameters = [
   },
 ]
 
-const paginateHitsTestsParameters = [
+const finitePaginateHitsTestsParameters = [
   // Empty hits
   {
-    hits: [],
-    page: 0,
-    hitsPerPage: 20,
-    returnedPagination: {
+    searchResponse: {
+      hits: [],
+      page: 0,
+      hitsPerPage: 20,
+      totalPages: 0,
+    },
+    adaptedPagination: {
       page: 0,
       hitsPerPage: 20,
       nbPages: 0,
     },
   },
   {
-    hits: [],
-    page: 100,
-    hitsPerPage: 0,
-    returnedPagination: {
-      page: 100,
+    searchResponse: { hits: [], page: 100, hitsPerPage: 0, totalPages: 0 },
+    adaptedPagination: {
+      page: 99,
       hitsPerPage: 0,
       nbPages: 0,
     },
   },
   {
-    hits: [],
-    page: 100,
-    hitsPerPage: 20,
-    returnedPagination: {
-      page: 100,
+    searchResponse: { hits: [], page: 100, hitsPerPage: 20, totalPages: 0 },
+    adaptedPagination: {
+      page: 99,
       hitsPerPage: 20,
       nbPages: 0,
     },
@@ -76,40 +75,52 @@ const paginateHitsTestsParameters = [
 
   // Page 0
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 0,
-    hitsPerPage: 20,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      page: 0,
+      hitsPerPage: 20,
+      totalPages: 1,
+    },
+    adaptedPagination: {
       page: 0,
       hitsPerPage: 20,
       nbPages: 1,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 0,
-    hitsPerPage: 0,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      page: 0,
+      hitsPerPage: 0,
+      totalPages: 0,
+    },
+    adaptedPagination: {
       page: 0,
       hitsPerPage: 0,
       nbPages: 0,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 0,
-    hitsPerPage: 20,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      page: 0,
+      hitsPerPage: 20,
+      totalPages: 1,
+    },
+    adaptedPagination: {
       page: 0,
       hitsPerPage: 20,
       nbPages: 1,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 0,
-    hitsPerPage: 2,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      page: 0,
+      hitsPerPage: 2,
+      totalPages: 2,
+    },
+    adaptedPagination: {
       page: 0,
       hitsPerPage: 2,
       nbPages: 2,
@@ -118,31 +129,40 @@ const paginateHitsTestsParameters = [
 
   // Page 1
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 1,
-    hitsPerPage: 2,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       page: 1,
+      hitsPerPage: 2,
+      totalPages: 2,
+    },
+    adaptedPagination: {
+      page: 0,
       hitsPerPage: 2,
       nbPages: 2,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 1,
-    hitsPerPage: 20,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       page: 1,
+      hitsPerPage: 20,
+      totalPages: 1,
+    },
+    adaptedPagination: {
+      page: 0,
       hitsPerPage: 20,
       nbPages: 1,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 1,
-    hitsPerPage: 0,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       page: 1,
+      hitsPerPage: 0,
+      totalPages: 0,
+    },
+    adaptedPagination: {
+      page: 0,
       hitsPerPage: 0,
       nbPages: 0,
     },
@@ -150,33 +170,196 @@ const paginateHitsTestsParameters = [
 
   // Page 2
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 2,
-    hitsPerPage: 20,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       page: 2,
+      hitsPerPage: 20,
+      totalPages: 1,
+    },
+    adaptedPagination: {
+      page: 1,
       hitsPerPage: 20,
       nbPages: 1,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 2,
-    hitsPerPage: 20,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      page: 2,
+      hitsPerPage: 20,
+      totalPages: 1,
+    },
+    adaptedPagination: {
       hitsPerPage: 20,
       nbPages: 1,
-      page: 2,
+      page: 1,
     },
   },
   {
-    hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    page: 2,
-    hitsPerPage: 0,
-    returnedPagination: {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       page: 2,
+      hitsPerPage: 0,
+      totalPages: 0,
+    },
+    adaptedPagination: {
+      page: 1,
       nbPages: 0,
       hitsPerPage: 0,
+    },
+  },
+]
+
+const scrollPaginateHitsTestsParameters = [
+  // Empty hits
+  {
+    searchResponse: {
+      hits: [],
+      limit: 0,
+    },
+    searchContext: {
+      hitsPerPage: 20,
+      page: 0,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 0,
+    },
+  },
+  {
+    searchResponse: { hits: [], limit: 0 },
+    searchContext: {
+      hitsPerPage: 0,
+      page: 100,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 0,
+      nbPages: 0,
+    },
+  },
+  {
+    searchResponse: { hits: [], limit: 20 },
+    searchContext: {
+      page: 100,
+      hitsPerPage: 20,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 0,
+    },
+  },
+
+  // Page 0
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      limit: 20,
+    },
+    searchContext: {
+      page: 0,
+      hitsPerPage: 20,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
+  },
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      limit: 0,
+    },
+    searchContext: {
+      page: 0,
+      hitsPerPage: 0,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 0,
+      nbPages: 0,
+    },
+  },
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      limit: 20,
+    },
+    searchContext: {
+      page: 0,
+      hitsPerPage: 20,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 20,
+      nbPages: 1,
+    },
+  },
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      limit: 2,
+    },
+    searchContext: {
+      page: 0,
+      hitsPerPage: 2,
+    },
+    adaptedPagination: {
+      page: 0,
+      hitsPerPage: 2,
+      nbPages: 2,
+    },
+  },
+
+  // Page 1
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      limit: 2,
+    },
+    searchContext: {
+      page: 1,
+      hitsPerPage: 1,
+    },
+    adaptedPagination: {
+      page: 1,
+      hitsPerPage: 1,
+      nbPages: 3,
+    },
+  },
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
+      limit: 5,
+    },
+    searchContext: {
+      page: 1,
+      hitsPerPage: 2,
+    },
+    adaptedPagination: {
+      page: 1,
+      hitsPerPage: 2,
+      nbPages: 3,
+    },
+  },
+
+  // Page 2
+  {
+    searchResponse: {
+      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      limit: 3,
+    },
+    searchContext: {
+      page: 2,
+      hitsPerPage: 1,
+    },
+    adaptedPagination: {
+      page: 2,
+      hitsPerPage: 1,
+      nbPages: 3,
     },
   },
 ]
@@ -191,36 +374,50 @@ describe.each(numberPagesTestParameters)(
   }
 )
 
-describe.each(paginateHitsTestsParameters)(
-  'Paginate hits tests',
-  ({ hits, page, hitsPerPage, returnedPagination }) => {
-    it(`Should return ${JSON.stringify(
-      returnedPagination
+describe.each(finitePaginateHitsTestsParameters)(
+  'Finite paginate hits tests',
+  ({
+    searchResponse: { hits, page, hitsPerPage, totalPages },
+    adaptedPagination,
+  }) => {
+    it(`should return ${JSON.stringify(
+      adaptedPagination
     )} when hitsPerPage is ${hitsPerPage}, number of page is ${page} and when hits is ${JSON.stringify(
       hits
     )}`, () => {
-      const response = adaptPaginationContext(
-        { hits, page: page + 1, hitsPerPage, processingTimeMs: 0, query: '' },
-        { hitsPerPage, page }
+      const response = adaptPaginationParameters(
+        {
+          hits,
+          page: page,
+          hitsPerPage,
+          processingTimeMs: 0,
+          query: '',
+          totalPages,
+        },
+        { hitsPerPage, page, finite: true }
       )
-      expect(response).toEqual(returnedPagination)
+
+      expect(response).toEqual(adaptedPagination)
     })
   }
 )
 
-describe.each(paginateHitsTestsParameters)(
-  'Paginate hits tests',
-  ({ hits, page, hitsPerPage, returnedPagination }) => {
-    it(`Should return ${JSON.stringify(
-      returnedPagination
-    )} when hitsPerPage is ${hitsPerPage}, number of page is ${page} and when hits is ${JSON.stringify(
-      hits
-    )} but there is no page and hitsPerPage fields returned by Meilisearch`, () => {
-      const response = adaptPaginationContext(
-        { hits, processingTimeMs: 0, query: '' },
-        { hitsPerPage, page }
+describe.each(scrollPaginateHitsTestsParameters)(
+  'Finite paginate hits tests',
+  ({
+    searchResponse: { hits, limit },
+    searchContext: { page, hitsPerPage },
+    adaptedPagination,
+  }) => {
+    it(`should return ${JSON.stringify(
+      adaptedPagination
+    )} where limit is ${0} in the response and where the instantsearch pagination context is page: ${page} and hitsPerPage: ${hitsPerPage}`, () => {
+      const response = adaptPaginationParameters(
+        { hits, limit, processingTimeMs: 0, query: '' },
+        { hitsPerPage, page, finite: false }
       )
-      expect(response).toEqual(returnedPagination)
+
+      expect(response).toEqual(adaptedPagination)
     })
   }
 )
@@ -230,9 +427,9 @@ it('Should throw when hitsPerPage is negative', () => {
     const hits: Array<Record<string, any>> = []
     const hitsPerPage = -1
     const page = 0
-    adaptPaginationContext(
+    adaptPaginationParameters(
       { hits, page: page + 1, hitsPerPage, processingTimeMs: 0, query: '' },
-      { hitsPerPage, page }
+      { hitsPerPage, page, finite: true }
     )
   } catch (e: any) {
     expect(e.message).toBe(

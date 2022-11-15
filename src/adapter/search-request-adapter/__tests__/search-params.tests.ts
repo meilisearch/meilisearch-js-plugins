@@ -3,9 +3,8 @@ import { MatchingStrategies } from '../../../types'
 
 const DEFAULT_CONTEXT = {
   indexUid: 'test',
-  pagination: { page: 0, hitsPerPage: 6 },
+  pagination: { page: 0, hitsPerPage: 6, finite: false },
   defaultFacetDistribution: {},
-  finitePagination: false,
 }
 
 describe('Parameters adapter', () => {
@@ -104,38 +103,28 @@ describe('Geo rules adapter', () => {
   })
 })
 
-// TODO: UPDATE
 describe('Pagination adapter', () => {
   test('adapting a searchContext with finite pagination', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      finitePagination: true,
+      pagination: { page: 0, hitsPerPage: 6, finite: true },
     })
 
-    expect(searchParams.limit).toBe(20)
+    expect(searchParams.page).toBe(1)
+    expect(searchParams.hitsPerPage).toBe(6)
   })
 
   test('adapting a searchContext with finite pagination on a later page', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      pagination: { page: 10, hitsPerPage: 6 },
-      finitePagination: true,
+      pagination: { page: 10, hitsPerPage: 6, finite: true },
     })
 
-    expect(searchParams.limit).toBe(20)
+    expect(searchParams.page).toBe(11)
+    expect(searchParams.hitsPerPage).toBe(6)
   })
 
-  test('adapting a searchContext with finite pagination and pagination total hits lower than hitsPerPage', () => {
-    const searchParams = adaptSearchParams({
-      ...DEFAULT_CONTEXT,
-      pagination: { page: 0, hitsPerPage: 6 },
-      finitePagination: true,
-    })
-
-    expect(searchParams.limit).toBe(4)
-  })
-
-  test('adapting a searchContext with no finite pagination', () => {
+  test('adapting a searchContext with no finite pagination on page 1', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
     })
@@ -146,49 +135,32 @@ describe('Pagination adapter', () => {
   test('adapting a searchContext with no finite pagination on page 2', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      pagination: { page: 1, hitsPerPage: 6 },
+      pagination: { page: 1, hitsPerPage: 6, finite: false },
     })
 
     expect(searchParams.limit).toBe(13)
   })
 
-  // test('adapting a searchContext with no finite pagination on page higher than paginationTotalHits', () => {
-  //   const searchParams = adaptSearchParams({
-  //     ...DEFAULT_CONTEXT,
-  //     pagination: { page: 40, hitsPerPage: 6 },
-  //   })
-
-  //   expect(searchParams.limit).toBe(20)
-  // })
-
-  test('adapting a searchContext with no finite pagination and pagination total hits lower than hitsPerPage', () => {
-    const searchParams = adaptSearchParams({
-      ...DEFAULT_CONTEXT,
-      pagination: { page: 0, hitsPerPage: 6 },
-    })
-
-    expect(searchParams.limit).toBe(4)
-  })
-
-  test('adapting a searchContext placeholderSearch set to false', () => {
+  test('adapting a finite pagination with no placeholderSearch', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       query: '',
-      pagination: { page: 0, hitsPerPage: 6 },
+      pagination: { page: 4, hitsPerPage: 6, finite: true },
+      placeholderSearch: false,
+    })
+
+    expect(searchParams.page).toBe(5)
+    expect(searchParams.hitsPerPage).toBe(0)
+  })
+
+  test('adapting a scroll pagination with no placeholderSearch', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      query: '',
+      pagination: { page: 4, hitsPerPage: 6, finite: false },
       placeholderSearch: false,
     })
 
     expect(searchParams.limit).toBe(0)
-  })
-
-  test('adapting a searchContext placeholderSearch set to false', () => {
-    const searchParams = adaptSearchParams({
-      ...DEFAULT_CONTEXT,
-      query: '',
-      pagination: { page: 0, hitsPerPage: 6 },
-      placeholderSearch: true,
-    })
-
-    expect(searchParams.limit).toBe(7)
   })
 })

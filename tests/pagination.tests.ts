@@ -1,4 +1,3 @@
-import { instantMeiliSearch } from '../src'
 import {
   searchClient,
   dataset,
@@ -99,6 +98,4 @@ describe('Pagination browser test', () => {
     expect(hits.length).toBe(0)
     expect(hits).toEqual([])
   })
-
-  // TODO: Add tests on finitepagination
 })
