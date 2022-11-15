@@ -29,7 +29,6 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     highlightPostTag,
     placeholderSearch,
     query,
-    finitePagination,
     sort,
     pagination,
     matchingStrategy,
