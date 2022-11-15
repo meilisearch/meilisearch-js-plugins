@@ -30,10 +30,11 @@ export function SearchResolver(
       const { pagination } = searchContext
 
       // In case we are in a `finitePagination`, only one big request is made
+      // TODO: update
       // containing a total of max the paginationTotalHits (default: 200).
       // Thus we dont want the pagination to impact the cache as every
       // hits are already cached.
-      const paginationCache = searchContext.finitePagination ? {} : pagination
+      // TODO: const paginationCache = searchContext.finitePagination ? {} : pagination
 
       // Create cache key containing a unique set of search parameters
       const key = cache.formatKey([

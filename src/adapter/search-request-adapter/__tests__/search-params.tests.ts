@@ -152,14 +152,14 @@ describe('Pagination adapter', () => {
     expect(searchParams.limit).toBe(13)
   })
 
-  test('adapting a searchContext with no finite pagination on page higher than paginationTotalHits', () => {
-    const searchParams = adaptSearchParams({
-      ...DEFAULT_CONTEXT,
-      pagination: { page: 40, hitsPerPage: 6 },
-    })
+  // test('adapting a searchContext with no finite pagination on page higher than paginationTotalHits', () => {
+  //   const searchParams = adaptSearchParams({
+  //     ...DEFAULT_CONTEXT,
+  //     pagination: { page: 40, hitsPerPage: 6 },
+  //   })
 
-    expect(searchParams.limit).toBe(20)
-  })
+  //   expect(searchParams.limit).toBe(20)
+  // })
 
   test('adapting a searchContext with no finite pagination and pagination total hits lower than hitsPerPage', () => {
     const searchParams = adaptSearchParams({

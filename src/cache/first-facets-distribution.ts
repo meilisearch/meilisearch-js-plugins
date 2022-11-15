@@ -9,9 +9,9 @@ export async function cacheFirstFacetDistribution(
     ...searchContext,
     // placeholdersearch true to ensure a request is made
     placeholderSearch: true,
-    // Set paginationTotalHits to ensure limit is set to 0
+    // TODO: UPDATe
     // in order to retrieve 0 documents during the default search request
-    pagination: { ...searchContext.pagination, paginationTotalHits: 0 },
+    pagination: { ...searchContext.pagination },
     // query set to empty to ensure retrieving the default facetdistribution
     query: '',
   }
