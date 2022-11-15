@@ -1,19 +1,29 @@
-import type { SearchContext } from '../../types'
+import type { SearchContext, MeiliSearchResponse } from '../../types'
 import { adaptFormattedFields } from './format-adapter'
 import { adaptGeoResponse } from './geo-reponse-adapter'
 
 /**
- * @param  {Array<Record<string} hits
+ * @param  {MeiliSearchResponse<Record<string, any>>} searchResponse
  * @param  {SearchContext} searchContext
- * @param  {PaginationContext} paginationContext
- * @returns {any}
+ * @returns {Array<Record<string, any>>}
  */
 export function adaptHits(
-  hits: Array<Record<string, any>>,
+  searchResponse: MeiliSearchResponse<Record<string, any>>,
   searchContext: SearchContext
 ): any {
   const { primaryKey } = searchContext
+  const { hits } = searchResponse
+  const {
+    pagination: { finite, page, hitsPerPage },
+  } = searchContext
 
+  if (!finite) {
+    const deleteCount = page * hitsPerPage
+    hits.splice(0, deleteCount)
+    if (hits.length > hitsPerPage) {
+      hits.splice(hits.length - 1, 1)
+    }
+  }
   let adaptedHits = hits.map((hit: Record<string, any>) => {
     // Creates Hit object compliant with InstantSearch
     if (Object.keys(hit).length > 0) {

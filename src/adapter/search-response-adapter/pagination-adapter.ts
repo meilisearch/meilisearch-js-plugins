@@ -1,22 +1,15 @@
-import type { MeiliSearchResponse, PaginationContext } from '../../types'
-import { ceiledDivision } from '../../utils'
-
-function adaptHitsPerPage(
-  searchResponse: MeiliSearchResponse<Record<string, any>>,
-  paginationContext: PaginationContext
-): number {
-  if (searchResponse.hitsPerPage) {
-    return searchResponse.hitsPerPage
-  }
-
-  return paginationContext.hitsPerPage
-}
+import type {
+  MeiliSearchResponse,
+  PaginationState,
+  InstantSearchPagination,
+} from '../../types'
+import { ceiledDivision, floorDivision } from '../../utils'
 
 function adaptNbPages(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
   hitsPerPage: number
 ): number {
-  if (searchResponse.totalPages) {
+  if (searchResponse.totalPages != null) {
     return searchResponse.totalPages
   }
 
@@ -25,22 +18,31 @@ function adaptNbPages(
 
 function adaptPage(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
-  paginationContext: PaginationContext
+  hitsPerPage: number
 ): number {
-  if (searchResponse.page) {
-    return searchResponse.page - 1
+  const { limit, page } = searchResponse
+  if (page === 0) {
+    return 0
+  }
+  if (page != null) {
+    return page - 1
   }
 
-  return paginationContext.page
+  if (!limit) {
+    return 0
+  } else {
+    return floorDivision(limit, hitsPerPage) - 1
+  }
 }
 
-export function adaptPaginationContext(
+export function adaptPaginationParameters(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
-  paginationContext: PaginationContext
-): PaginationContext & { nbPages: number } {
-  const hitsPerPage = adaptHitsPerPage(searchResponse, paginationContext)
+  paginationState: PaginationState
+): InstantSearchPagination & { nbPages: number } {
+  const hitsPerPage = paginationState.hitsPerPage
   const nbPages = adaptNbPages(searchResponse, hitsPerPage)
-  const page = adaptPage(searchResponse, paginationContext)
+  const page = adaptPage(searchResponse, hitsPerPage)
+
   return {
     page,
     nbPages,

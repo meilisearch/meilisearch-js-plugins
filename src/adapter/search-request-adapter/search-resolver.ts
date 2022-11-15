@@ -27,28 +27,19 @@ export function SearchResolver(
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
       const { placeholderSearch, query } = searchContext
 
-      const { pagination } = searchContext
-
-      // In case we are in a `finitePagination`, only one big request is made
-      // TODO: update
-      // containing a total of max the paginationTotalHits (default: 200).
-      // Thus we dont want the pagination to impact the cache as every
-      // hits are already cached.
-      // TODO: const paginationCache = searchContext.finitePagination ? {} : pagination
-
       // Create cache key containing a unique set of search parameters
       const key = cache.formatKey([
         searchParams,
         searchContext.indexUid,
         searchContext.query,
-        paginationCache,
+        searchContext.pagination,
       ])
       const cachedResponse = cache.getEntry(key)
 
       // Check if specific request is already cached with its associated search response.
       if (cachedResponse) return cachedResponse
 
-      const facetsCache = extractFacets(searchContext, searchParams)
+      const cachedFacets = extractFacets(searchContext, searchParams)
 
       // Make search request
       const searchResponse = await client
@@ -57,7 +48,7 @@ export function SearchResolver(
 
       // Add missing facets back into facetDistribution
       searchResponse.facetDistribution = addMissingFacets(
-        facetsCache,
+        cachedFacets,
         searchResponse.facetDistribution
       )
 

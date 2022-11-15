@@ -60,23 +60,23 @@ export type GeoSearchContext = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type PaginationContext = {
-  finite?: boolean
+// Current state of the pagination
+export type PaginationState = {
+  finite: boolean
   hitsPerPage: number
   page: number
 }
 
-// TODO: why do you exist?
-export type PaginationParams = {
-  finite?: boolean
-  hitsPerPage?: number
-  page?: number
+export type InstantSearchPagination = {
+  hitsPerPage: number
+  page: number
+  nbPages: number
 }
 
 export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
   InstantSearchParams & {
     defaultFacetDistribution: FacetDistribution
-    pagination: PaginationContext
+    pagination: PaginationState
     indexUid: string
     insideBoundingBox?: InsideBoundingBox
     keepZeroFacets?: boolean

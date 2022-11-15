@@ -6,6 +6,41 @@ import {
 } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
+function setScrollPagination(
+  hitsPerPage: number,
+  page: number,
+  query?: string,
+  placeholderSearch?: boolean
+): { limit: number } {
+  if (!placeholderSearch && query === '') {
+    return {
+      limit: 0,
+    }
+  }
+
+  return {
+    limit: (page + 1) * hitsPerPage + 1,
+  }
+}
+
+function setFinitePagination(
+  hitsPerPage: number,
+  page: number,
+  query?: string,
+  placeholderSearch?: boolean
+): { hitsPerPage: number; page: number } {
+  if (!placeholderSearch && query === '') {
+    return {
+      hitsPerPage: 0,
+      page: page + 1,
+    }
+  } else {
+    return {
+      hitsPerPage: hitsPerPage,
+      page: page + 1,
+    }
+  }
+}
 /**
  * Adapts instantsearch.js and instant-meilisearch options
  * to meilisearch search query parameters.
@@ -83,12 +118,23 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addPagination() {
-      if (!placeholderSearch && query === '') {
-        meiliSearchParams.hitsPerPage = 0
-        meiliSearchParams.page = pagination.page + 1
+      if (pagination.finite) {
+        const { hitsPerPage, page } = setFinitePagination(
+          pagination.hitsPerPage,
+          pagination.page,
+          query,
+          placeholderSearch
+        )
+        meiliSearchParams.hitsPerPage = hitsPerPage
+        meiliSearchParams.page = page
       } else {
-        meiliSearchParams.page = pagination.page + 1
-        meiliSearchParams.hitsPerPage = pagination.hitsPerPage
+        const { limit } = setScrollPagination(
+          pagination.hitsPerPage,
+          pagination.page,
+          query,
+          placeholderSearch
+        )
+        meiliSearchParams.limit = limit
       }
     },
     addSort() {

@@ -3,10 +3,9 @@ import {
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   FacetDistribution,
-  MatchingStrategies,
 } from '../types'
 
-import { createPaginationContext } from './pagination-context'
+import { createPaginationState } from './pagination-context'
 
 /**
  * @param  {AlgoliaMultipleQueriesQuery} searchRequest
@@ -22,18 +21,18 @@ export function createSearchContext(
   const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
   const { params: instantSearchParams } = searchRequest
 
-  const pagination = createPaginationContext({
-    finite: !!options.finitePagination,
-    hitsPerPage: instantSearchParams?.hitsPerPage, // 20 by default
-    page: instantSearchParams?.page,
-  })
+  const paginationState = createPaginationState(
+    options.finitePagination,
+    instantSearchParams?.hitsPerPage,
+    instantSearchParams?.page
+  )
 
   const searchContext: SearchContext = {
     ...options,
     ...instantSearchParams,
     sort: sortByArray.join(':') || '',
     indexUid,
-    pagination,
+    pagination: paginationState,
     defaultFacetDistribution: defaultFacetDistribution || {},
     placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
