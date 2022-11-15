@@ -23,7 +23,7 @@ export function createSearchContext(
   const { params: instantSearchParams } = searchRequest
 
   const pagination = createPaginationContext({
-    paginationTotalHits: options.paginationTotalHits,
+    finite: !!options.finitePagination,
     hitsPerPage: instantSearchParams?.hitsPerPage, // 20 by default
     page: instantSearchParams?.page,
   })
@@ -37,7 +37,6 @@ export function createSearchContext(
     defaultFacetDistribution: defaultFacetDistribution || {},
     placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
-    finitePagination: !!options.finitePagination, // false by default
   }
   return searchContext
 }
