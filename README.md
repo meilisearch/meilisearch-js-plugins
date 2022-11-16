@@ -907,9 +907,7 @@ instantsearch.widgets.clearRefinements({
 
 [Pagination references](https://www.algolia.com/doc/api-reference/widgets/pagination/js/)
 
-The `pagination` widget displays a pagination system allowing the user to change the current page.
-
-// TODO: explain what is needed for it to work
+The `pagination` widget displays a pagination system allowing the user to change the current page. It should be used alongside the [`finitePagination`](#finite-pagination) setting to render the correct amount of pages.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ showFirst: Whether to display the first-page link.
