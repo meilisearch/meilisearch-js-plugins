@@ -3,7 +3,6 @@ import type {
   PaginationState,
   InstantSearchPagination,
 } from '../../types'
-import { ceiledDivision, floorDivision } from '../../utils'
 
 function adaptNbPages(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
@@ -12,40 +11,23 @@ function adaptNbPages(
   if (searchResponse.totalPages != null) {
     return searchResponse.totalPages
   }
-
-  return ceiledDivision(searchResponse.hits.length, hitsPerPage)
-}
-
-function adaptPage(
-  searchResponse: MeiliSearchResponse<Record<string, any>>,
-  hitsPerPage: number
-): number {
-  const { limit, page } = searchResponse
-
-  // Finite pagination environment
-  if (page === 0) {
-    // Should not happen but safeguarding in case it does
+  // Avoid dividing by 0
+  if (hitsPerPage === 0) {
     return 0
   }
-  if (page != null) {
-    return page - 1
-  }
 
-  // Scroll pagination environment
-  if (!limit) {
-    return 0
-  } else {
-    return floorDivision(limit, hitsPerPage) - 1
-  }
+  const { limit = 20, offset = 0, hits } = searchResponse
+  const additionalPage = hits.length >= limit ? 1 : 0
+
+  return offset / hitsPerPage + 1 + additionalPage
 }
 
 export function adaptPaginationParameters(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
   paginationState: PaginationState
 ): InstantSearchPagination & { nbPages: number } {
-  const { hitsPerPage } = paginationState
+  const { hitsPerPage, page } = paginationState
   const nbPages = adaptNbPages(searchResponse, hitsPerPage)
-  const page = adaptPage(searchResponse, hitsPerPage)
 
   return {
     page,

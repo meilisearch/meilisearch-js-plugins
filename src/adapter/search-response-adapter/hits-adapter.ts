@@ -14,16 +14,16 @@ export function adaptHits(
   const { primaryKey } = searchContext
   const { hits } = searchResponse
   const {
-    pagination: { finite, page, hitsPerPage },
+    pagination: { finite, hitsPerPage },
   } = searchContext
 
-  if (!finite) {
-    const deleteCount = page * hitsPerPage
-    hits.splice(0, deleteCount)
-    if (hits.length > hitsPerPage) {
-      hits.splice(hits.length - 1, 1)
-    }
+  // if the length of the hits is bigger than the hitsPerPage
+  // It means that there is still pages to come as we append limit by hitsPerPage + 1
+  // In which case we still need to remove the additional hit returned by Meilisearch
+  if (!finite && hits.length > hitsPerPage) {
+    hits.splice(hits.length - 1, 1)
   }
+
   let adaptedHits = hits.map((hit: Record<string, any>) => {
     // Creates Hit object compliant with InstantSearch
     if (Object.keys(hit).length > 0) {

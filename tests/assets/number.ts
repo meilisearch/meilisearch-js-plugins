@@ -10,15 +10,3 @@ export function ceiledDivision(dividend: number, divisor: number): number {
   }
   return 0
 }
-
-/**
- * @param  {number} dividend
- * @param  {number} divisor
- * @returns {number}
- */
-export function floorDivision(dividend: number, divisor: number): number {
-  if (divisor > 0) {
-    return Math.floor(dividend / divisor)
-  }
-  return 0
-}

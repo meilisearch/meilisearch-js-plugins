@@ -11,15 +11,17 @@ function setScrollPagination(
   page: number,
   query?: string,
   placeholderSearch?: boolean
-): { limit: number } {
+): { limit: number; offset: number } {
   if (!placeholderSearch && query === '') {
     return {
       limit: 0,
+      offset: 0,
     }
   }
 
   return {
-    limit: (page + 1) * hitsPerPage + 1,
+    limit: hitsPerPage + 1,
+    offset: page * hitsPerPage,
   }
 }
 
@@ -128,13 +130,14 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.hitsPerPage = hitsPerPage
         meiliSearchParams.page = page
       } else {
-        const { limit } = setScrollPagination(
+        const { limit, offset } = setScrollPagination(
           pagination.hitsPerPage,
           pagination.page,
           query,
           placeholderSearch
         )
         meiliSearchParams.limit = limit
+        meiliSearchParams.offset = offset
       }
     },
     addSort() {

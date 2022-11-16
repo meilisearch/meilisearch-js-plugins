@@ -130,6 +130,7 @@ describe('Pagination adapter', () => {
     })
 
     expect(searchParams.limit).toBe(7)
+    expect(searchParams.offset).toBe(0)
   })
 
   test('adapting a searchContext with no finite pagination on page 2', () => {
@@ -138,7 +139,8 @@ describe('Pagination adapter', () => {
       pagination: { page: 1, hitsPerPage: 6, finite: false },
     })
 
-    expect(searchParams.limit).toBe(13)
+    expect(searchParams.limit).toBe(7)
+    expect(searchParams.offset).toBe(6)
   })
 
   test('adapting a finite pagination with no placeholderSearch', () => {
@@ -162,5 +164,6 @@ describe('Pagination adapter', () => {
     })
 
     expect(searchParams.limit).toBe(0)
+    expect(searchParams.offset).toBe(0)
   })
 })

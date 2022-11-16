@@ -1,5 +1,5 @@
 import { adaptPaginationParameters } from '../pagination-adapter'
-import { ceiledDivision } from '../../../utils'
+import { ceiledDivision } from '../../../../tests/assets/number'
 
 const numberPagesTestParameters = [
   {
@@ -59,7 +59,7 @@ const finitePaginateHitsTestsParameters = [
   {
     searchResponse: { hits: [], page: 100, hitsPerPage: 0, totalPages: 0 },
     adaptedPagination: {
-      page: 99,
+      page: 100,
       hitsPerPage: 0,
       nbPages: 0,
     },
@@ -67,7 +67,7 @@ const finitePaginateHitsTestsParameters = [
   {
     searchResponse: { hits: [], page: 100, hitsPerPage: 20, totalPages: 0 },
     adaptedPagination: {
-      page: 99,
+      page: 100,
       hitsPerPage: 20,
       nbPages: 0,
     },
@@ -136,7 +136,7 @@ const finitePaginateHitsTestsParameters = [
       totalPages: 2,
     },
     adaptedPagination: {
-      page: 0,
+      page: 1,
       hitsPerPage: 2,
       nbPages: 2,
     },
@@ -149,7 +149,7 @@ const finitePaginateHitsTestsParameters = [
       totalPages: 1,
     },
     adaptedPagination: {
-      page: 0,
+      page: 1,
       hitsPerPage: 20,
       nbPages: 1,
     },
@@ -162,7 +162,7 @@ const finitePaginateHitsTestsParameters = [
       totalPages: 0,
     },
     adaptedPagination: {
-      page: 0,
+      page: 1,
       hitsPerPage: 0,
       nbPages: 0,
     },
@@ -177,7 +177,7 @@ const finitePaginateHitsTestsParameters = [
       totalPages: 1,
     },
     adaptedPagination: {
-      page: 1,
+      page: 2,
       hitsPerPage: 20,
       nbPages: 1,
     },
@@ -192,7 +192,7 @@ const finitePaginateHitsTestsParameters = [
     adaptedPagination: {
       hitsPerPage: 20,
       nbPages: 1,
-      page: 1,
+      page: 2,
     },
   },
   {
@@ -203,62 +203,64 @@ const finitePaginateHitsTestsParameters = [
       totalPages: 0,
     },
     adaptedPagination: {
-      page: 1,
+      page: 2,
       nbPages: 0,
       hitsPerPage: 0,
     },
   },
 ]
 
-const scrollPaginateHitsTestsParameters = [
+const lazyPaginateHitsTestsParameters = [
   // Empty hits
   {
     searchResponse: {
       hits: [],
-      limit: 0,
+      limit: 21,
+      offset: 0,
     },
-    searchContext: {
+    paginationState: {
       hitsPerPage: 20,
       page: 0,
     },
     adaptedPagination: {
       page: 0,
       hitsPerPage: 20,
+      nbPages: 1,
+    },
+  },
+  {
+    searchResponse: { hits: [], limit: 0, offset: 0 },
+    paginationState: {
+      page: 100,
+      hitsPerPage: 0,
+    },
+    adaptedPagination: {
+      page: 100,
+      hitsPerPage: 0,
       nbPages: 0,
     },
   },
   {
-    searchResponse: { hits: [], limit: 0 },
-    searchContext: {
-      hitsPerPage: 0,
-      page: 100,
-    },
-    adaptedPagination: {
-      page: 0,
-      hitsPerPage: 0,
-      nbPages: 0,
-    },
-  },
-  {
-    searchResponse: { hits: [], limit: 20 },
-    searchContext: {
+    searchResponse: { hits: [], limit: 21, offset: 0 },
+    paginationState: {
       page: 100,
       hitsPerPage: 20,
     },
     adaptedPagination: {
-      page: 0,
+      page: 100,
       hitsPerPage: 20,
-      nbPages: 0,
+      nbPages: 1,
     },
   },
 
-  // Page 0
+  // // Page 0
   {
     searchResponse: {
       hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-      limit: 20,
+      limit: 21,
+      offset: 0,
     },
-    searchContext: {
+    paginationState: {
       page: 0,
       hitsPerPage: 20,
     },
@@ -272,8 +274,9 @@ const scrollPaginateHitsTestsParameters = [
     searchResponse: {
       hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       limit: 0,
+      offset: 0,
     },
-    searchContext: {
+    paginationState: {
       page: 0,
       hitsPerPage: 0,
     },
@@ -286,9 +289,10 @@ const scrollPaginateHitsTestsParameters = [
   {
     searchResponse: {
       hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-      limit: 20,
+      limit: 21,
+      offset: 0,
     },
-    searchContext: {
+    paginationState: {
       page: 0,
       hitsPerPage: 20,
     },
@@ -301,9 +305,10 @@ const scrollPaginateHitsTestsParameters = [
   {
     searchResponse: {
       hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-      limit: 2,
+      limit: 3,
+      offset: 0,
     },
-    searchContext: {
+    paginationState: {
       page: 0,
       hitsPerPage: 2,
     },
@@ -314,13 +319,14 @@ const scrollPaginateHitsTestsParameters = [
     },
   },
 
-  // Page 1
+  // // Page 1
   {
     searchResponse: {
       hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
       limit: 2,
+      offset: 1,
     },
-    searchContext: {
+    paginationState: {
       page: 1,
       hitsPerPage: 1,
     },
@@ -333,9 +339,10 @@ const scrollPaginateHitsTestsParameters = [
   {
     searchResponse: {
       hits: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
-      limit: 5,
+      limit: 3,
+      offset: 2,
     },
-    searchContext: {
+    paginationState: {
       page: 1,
       hitsPerPage: 2,
     },
@@ -349,10 +356,11 @@ const scrollPaginateHitsTestsParameters = [
   // Page 2
   {
     searchResponse: {
-      hits: [{ id: 1 }, { id: 2 }, { id: 3 }],
-      limit: 3,
+      hits: [{ id: 3 }],
+      limit: 2,
+      offset: 2,
     },
-    searchContext: {
+    paginationState: {
       page: 2,
       hitsPerPage: 1,
     },
@@ -402,18 +410,18 @@ describe.each(finitePaginateHitsTestsParameters)(
   }
 )
 
-describe.each(scrollPaginateHitsTestsParameters)(
-  'Finite paginate hits tests',
+describe.each(lazyPaginateHitsTestsParameters)(
+  'Lazy paginate hits tests',
   ({
-    searchResponse: { hits, limit },
-    searchContext: { page, hitsPerPage },
+    searchResponse: { hits, limit, offset },
+    paginationState: { page, hitsPerPage },
     adaptedPagination,
   }) => {
     it(`should return ${JSON.stringify(
       adaptedPagination
-    )} where limit is ${0} in the response and where the instantsearch pagination context is page: ${page} and hitsPerPage: ${hitsPerPage}`, () => {
+    )} where limit is ${limit} in the response and where the instantsearch pagination context is page: ${page} and hitsPerPage: ${hitsPerPage}`, () => {
       const response = adaptPaginationParameters(
-        { hits, limit, processingTimeMs: 0, query: '' },
+        { hits, limit, offset, processingTimeMs: 0, query: '' },
         { hitsPerPage, page, finite: false }
       )
 
