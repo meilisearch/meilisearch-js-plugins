@@ -6,12 +6,12 @@ export function adaptTotalHits(
   const {
     hitsPerPage = 0,
     totalPages = 0,
-    estimatedTotalHits = undefined,
-    totalHits = undefined,
+    estimatedTotalHits,
+    totalHits,
   } = searchResponse
-  if (estimatedTotalHits !== undefined) {
+  if (estimatedTotalHits != null) {
     return estimatedTotalHits
-  } else if (totalHits !== undefined) {
+  } else if (totalHits != null) {
     return totalHits
   }
 
