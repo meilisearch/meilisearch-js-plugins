@@ -6,6 +6,43 @@ import {
 } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
+function setScrollPagination(
+  hitsPerPage: number,
+  page: number,
+  query?: string,
+  placeholderSearch?: boolean
+): { limit: number; offset: number } {
+  if (!placeholderSearch && query === '') {
+    return {
+      limit: 0,
+      offset: 0,
+    }
+  }
+
+  return {
+    limit: hitsPerPage + 1,
+    offset: page * hitsPerPage,
+  }
+}
+
+function setFinitePagination(
+  hitsPerPage: number,
+  page: number,
+  query?: string,
+  placeholderSearch?: boolean
+): { hitsPerPage: number; page: number } {
+  if (!placeholderSearch && query === '') {
+    return {
+      hitsPerPage: 0,
+      page: page + 1,
+    }
+  } else {
+    return {
+      hitsPerPage: hitsPerPage,
+      page: page + 1,
+    }
+  }
+}
 /**
  * Adapts instantsearch.js and instant-meilisearch options
  * to meilisearch search query parameters.
@@ -29,7 +66,6 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     highlightPostTag,
     placeholderSearch,
     query,
-    finitePagination,
     sort,
     pagination,
     matchingStrategy,
@@ -84,23 +120,24 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addPagination() {
-      // Limit based on pagination preferences
-      if (
-        (!placeholderSearch && query === '') ||
-        pagination.paginationTotalHits === 0
-      ) {
-        meiliSearchParams.limit = 0
-      } else if (finitePagination) {
-        meiliSearchParams.limit = pagination.paginationTotalHits
+      if (pagination.finite) {
+        const { hitsPerPage, page } = setFinitePagination(
+          pagination.hitsPerPage,
+          pagination.page,
+          query,
+          placeholderSearch
+        )
+        meiliSearchParams.hitsPerPage = hitsPerPage
+        meiliSearchParams.page = page
       } else {
-        const limit = (pagination.page + 1) * pagination.hitsPerPage + 1
-        // If the limit is bigger than the total hits accepted
-        // force the limit to that amount
-        if (limit > pagination.paginationTotalHits) {
-          meiliSearchParams.limit = pagination.paginationTotalHits
-        } else {
-          meiliSearchParams.limit = limit
-        }
+        const { limit, offset } = setScrollPagination(
+          pagination.hitsPerPage,
+          pagination.page,
+          query,
+          placeholderSearch
+        )
+        meiliSearchParams.limit = limit
+        meiliSearchParams.offset = offset
       }
     },
     addSort() {

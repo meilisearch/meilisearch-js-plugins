@@ -3,16 +3,16 @@ import type {
   MeiliSearchResponse,
   AlgoliaSearchResponse,
 } from '../../types'
-import { ceiledDivision } from '../../utils'
 import { adaptHits } from './hits-adapter'
+import { adaptTotalHits } from './total-hits-adapter'
+import { adaptPaginationParameters } from './pagination-adapter'
 
 /**
  * Adapt search response from Meilisearch
  * to search response compliant with instantsearch.js
  *
- * @param  {MeiliSearchResponse<Record<string} searchResponse
+ * @param  {MeiliSearchResponse<Record<string>>} searchResponse
  * @param  {SearchContext} searchContext
- * @param  {PaginationContext} paginationContext
  * @returns {{ results: Array<AlgoliaSearchResponse<T>> }}
  */
 export function adaptSearchResponse<T>(
@@ -20,21 +20,15 @@ export function adaptSearchResponse<T>(
   searchContext: SearchContext
 ): { results: Array<AlgoliaSearchResponse<T>> } {
   const searchResponseOptionals: Record<string, any> = {}
+  const { processingTimeMs, query, facetDistribution: facets } = searchResponse
 
-  const facets = searchResponse.facetDistribution
-  const { pagination } = searchContext
-
-  const nbPages = ceiledDivision(
-    searchResponse.hits.length,
-    pagination.hitsPerPage
+  const { hitsPerPage, page, nbPages } = adaptPaginationParameters(
+    searchResponse,
+    searchContext.pagination
   )
-  const hits = adaptHits(searchResponse.hits, searchContext, pagination)
 
-  const estimatedTotalHits = searchResponse.estimatedTotalHits
-  const processingTimeMs = searchResponse.processingTimeMs
-  const query = searchResponse.query
-
-  const { hitsPerPage, page } = pagination
+  const hits = adaptHits(searchResponse, searchContext)
+  const nbHits = adaptTotalHits(searchResponse)
 
   // Create response object compliant with InstantSearch
   const adaptedSearchResponse = {
@@ -43,7 +37,7 @@ export function adaptSearchResponse<T>(
     page,
     facets,
     nbPages,
-    nbHits: estimatedTotalHits,
+    nbHits,
     processingTimeMS: processingTimeMs,
     query,
     hits,

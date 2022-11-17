@@ -1,21 +1,37 @@
-/**
- * Slice the requested hits based on the pagination position.
- *
- * @param  {Record<string} hits
- * @param  {number} page
- * @param  {number} hitsPerPage
- * @returns {Array}
- */
-export function adaptPagination(
-  hits: Record<string, any>,
-  page: number,
+import type {
+  MeiliSearchResponse,
+  PaginationState,
+  InstantSearchPagination,
+} from '../../types'
+
+function adaptNbPages(
+  searchResponse: MeiliSearchResponse<Record<string, any>>,
   hitsPerPage: number
-): Array<Record<string, any>> {
-  if (hitsPerPage < 0) {
-    throw new TypeError(
-      'Value too small for "hitsPerPage" parameter, expected integer between 0 and 9223372036854775807'
-    )
+): number {
+  if (searchResponse.totalPages != null) {
+    return searchResponse.totalPages
   }
-  const start = page * hitsPerPage
-  return hits.slice(start, start + hitsPerPage)
+  // Avoid dividing by 0
+  if (hitsPerPage === 0) {
+    return 0
+  }
+
+  const { limit = 20, offset = 0, hits } = searchResponse
+  const additionalPage = hits.length >= limit ? 1 : 0
+
+  return offset / hitsPerPage + 1 + additionalPage
+}
+
+export function adaptPaginationParameters(
+  searchResponse: MeiliSearchResponse<Record<string, any>>,
+  paginationState: PaginationState
+): InstantSearchPagination & { nbPages: number } {
+  const { hitsPerPage, page } = paginationState
+  const nbPages = adaptNbPages(searchResponse, hitsPerPage)
+
+  return {
+    page,
+    nbPages,
+    hitsPerPage,
+  }
 }

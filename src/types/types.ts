@@ -33,13 +33,12 @@ export const enum MatchingStrategies {
 }
 
 export type InstantMeiliSearchOptions = {
-  paginationTotalHits?: number
   placeholderSearch?: boolean
   primaryKey?: string
   keepZeroFacets?: boolean
-  finitePagination?: boolean
   clientAgents?: string[]
   matchingStrategy?: MatchingStrategies
+  finitePagination?: boolean
 }
 
 export type SearchCacheInterface = {
@@ -61,23 +60,23 @@ export type GeoSearchContext = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type PaginationContext = {
-  paginationTotalHits: number
+// Current state of the pagination
+export type PaginationState = {
+  finite: boolean
   hitsPerPage: number
   page: number
 }
 
-export type PaginationParams = {
-  paginationTotalHits?: number
-  hitsPerPage?: number
-  page?: number
+export type InstantSearchPagination = {
+  hitsPerPage: number
+  page: number
+  nbPages: number
 }
 
 export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
   InstantSearchParams & {
     defaultFacetDistribution: FacetDistribution
-    pagination: PaginationContext
-    finitePagination: boolean
+    pagination: PaginationState
     indexUid: string
     insideBoundingBox?: InsideBoundingBox
     keepZeroFacets?: boolean

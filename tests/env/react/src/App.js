@@ -17,7 +17,6 @@ import './App.css'
 import { instantMeiliSearch } from '../../../../src/index'
 
 const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
-  paginationTotalHits: 60,
   primaryKey: 'id',
 })
 
