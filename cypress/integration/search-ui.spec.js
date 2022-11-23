@@ -38,24 +38,26 @@ describe(`${playground} playground test`, () => {
 
   it('Sort by recommendationCound ascending', () => {
     const select = `.ais-SortBy-select`
-    cy.get(select).select('steam-video-games:recommendationCount:asc')
+    cy.get(select).select('games:recommendationCount:asc')
     cy.wait(1000)
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Deathmatch Classic')
   })
 
   it('Sort by default relevancy', () => {
     const select = `.ais-SortBy-select`
-    cy.get(select).select('steam-video-games')
+    cy.get(select).select('games')
     cy.wait(1000)
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Counter-Strike')
   })
 
-  it('click on facets', () => {
-    const checkbox = `.ais-RefinementList-list .ais-RefinementList-checkbox`
-    cy.get(checkbox).eq(1).click()
+  it('click on facets ensure disjunctive facet search', () => {
+    const facet = `.ais-RefinementList-list`
+    const checkbox = `.ais-RefinementList-checkbox`
+    const facetCount = '.ais-RefinementList-count'
+    cy.get(facet).eq(0).find(checkbox).eq(1).click() // genres > action
     cy.wait(1000)
-    cy.get(HIT_ITEM_CLASS).eq(1).contains('Team Fortress Classic')
-    cy.get(HIT_ITEM_CLASS).eq(1).contains('4.99 $')
+    cy.get(facet).eq(0).find(facetCount).eq(0).contains('5') // genres > action count
+    cy.get(facet).eq(1).find(facetCount).eq(0).contains('4') // players > multiplayer
   })
 
   it('Search', () => {
@@ -78,6 +80,6 @@ describe(`${playground} playground test`, () => {
 
   it('Paginate Search', () => {
     cy.get('.ais-InfiniteHits-loadMore').click()
-    cy.get(HIT_ITEM_CLASS).should('have.length', 11)
+    cy.get(HIT_ITEM_CLASS).should('have.length', 12)
   })
 })

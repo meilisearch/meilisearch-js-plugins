@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "title": "Carol",
+    "genres": [
+      "Romance",
+      "Drama"
+    ],
+    "color": [
+      "red"
+    ],
+    "platforms": [
+      "MacOS",
+      "Linux",
+      "Windows"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Wonder Woman",
+    "genres": [
+      "Action",
+      "Adventure"
+    ],
+    "color": [
+      "green"
+    ],
+    "platforms": [
+      "MacOS"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Life of Pi",
+    "genres": [
+      "Adventure",
+      "Drama"
+    ],
+    "color": [
+      "blue"
+    ],
+    "platforms": [
+      "Windows"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Mad Max: Fury Road",
+    "genres": [
+      "Adventure",
+      "Science Fiction"
+    ],
+    "color": [
+      "red"
+    ],
+    "platforms": [
+      "MacOS",
+      "Linux"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Moana",
+    "genres": [
+      "Fantasy",
+      "Action"
+    ],
+    "color": [
+      "red"
+    ],
+    "platforms": [
+      "Windows"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Philadelphia",
+    "genres": [
+      "Drama"
+    ],
+    "color": [
+      "blue"
+    ],
+    "platforms": [
+      "MacOS",
+      "Linux",
+      "Windows"
+    ]
+  }
+]
