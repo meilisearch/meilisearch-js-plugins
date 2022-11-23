@@ -67,40 +67,46 @@ export function instantMeiliSearch(
       instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
     ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
-        const searchRequest = instantSearchRequests[0]
-        const searchContext: SearchContext = createSearchContext(
-          searchRequest,
-          instantMeiliSearchOptions,
-          defaultFacetDistribution
-        )
-
-        // Adapt search request to Meilisearch compliant search request
-        const adaptedSearchRequest = adaptSearchParams(searchContext)
-
-        // Cache first facets distribution of the instantMeilisearch instance
-        // Needed to add in the facetDistribution the fields that were not returned
-        // When the user sets `keepZeroFacets` to true.
-        if (defaultFacetDistribution === undefined) {
-          defaultFacetDistribution = await cacheFirstFacetDistribution(
-            searchResolver,
-            searchContext
-          )
-          searchContext.defaultFacetDistribution = defaultFacetDistribution
+        const searchResponses: { results: Array<AlgoliaSearchResponse<T>> } = {
+          results: [],
         }
 
-        // Search response from Meilisearch
-        const searchResponse = await searchResolver.searchResponse(
-          searchContext,
-          adaptedSearchRequest
-        )
+        const requests = instantSearchRequests
+        for (const searchRequest of requests) {
+          const searchContext: SearchContext = createSearchContext(
+            searchRequest,
+            instantMeiliSearchOptions,
+            defaultFacetDistribution
+          const adaptedSearchRequest = adaptSearchParams(searchContext)
 
-        // Adapt the Meilisearch responsne to a compliant instantsearch.js response
-        const adaptedSearchResponse = adaptSearchResponse<T>(
-          searchResponse,
-          searchContext
-        )
 
-        return adaptedSearchResponse
+          // Cache first facets distribution of the instantMeilisearch instance
+          // Needed to add in the facetDistribution the fields that were not returned
+          // When the user sets `keepZeroFacets` to true.
+          if (defaultFacetDistribution === undefined) {
+            defaultFacetDistribution = await cacheFirstFacetDistribution(
+              searchResolver,
+              searchContext
+            )
+            searchContext.defaultFacetDistribution = defaultFacetDistribution
+          }
+
+          // Search response from Meilisearch
+          const searchResponse = await searchResolver.searchResponse(
+            searchContext,
+            adaptedSearchRequest
+          )
+
+          // Adapt the Meilisearch responsne to a compliant instantsearch.js response
+          const adaptedSearchResponse = adaptSearchResponse<T>(
+            searchResponse,
+            searchContext
+          )
+
+          searchResponses.results.push(adaptedSearchResponse.results[0])
+        }
+
+        return searchResponses
       } catch (e: any) {
         console.error(e)
         throw new Error(e)
