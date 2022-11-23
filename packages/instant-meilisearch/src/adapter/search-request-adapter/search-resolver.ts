@@ -39,18 +39,20 @@ export function SearchResolver(
       // Check if specific request is already cached with its associated search response.
       if (cachedResponse) return cachedResponse
 
-      const cachedFacets = extractFacets(searchContext, searchParams)
-
       // Make search request
       const searchResponse = await client
         .index(searchContext.indexUid)
         .search(searchContext.query, searchParams)
 
-      // Add missing facets back into facetDistribution
-      searchResponse.facetDistribution = addMissingFacets(
-        cachedFacets,
-        searchResponse.facetDistribution
-      )
+      if (searchContext.keepZeroFacets) {
+        const cachedFacets = extractFacets(searchContext, searchParams)
+
+        // Add missing facets back into facetDistribution
+        searchResponse.facetDistribution = addMissingFacets(
+          cachedFacets,
+          searchResponse.facetDistribution
+        )
+      }
 
       // query can be: empty string, undefined or null
       // all of them are falsy's

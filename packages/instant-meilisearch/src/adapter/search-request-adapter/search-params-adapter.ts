@@ -76,8 +76,10 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       return meiliSearchParams
     },
     addFacets() {
-      if (facets?.length) {
+      if (Array.isArray(facets)) {
         meiliSearchParams.facets = facets
+      } else if (typeof facets === 'string') {
+        meiliSearchParams.facets = [facets]
       }
     },
     addAttributesToCrop() {
