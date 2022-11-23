@@ -77,6 +77,8 @@ export function instantMeiliSearch(
             searchRequest,
             instantMeiliSearchOptions,
             defaultFacetDistribution
+          )
+
           const adaptedSearchRequest = adaptSearchParams(searchContext)
 
 
