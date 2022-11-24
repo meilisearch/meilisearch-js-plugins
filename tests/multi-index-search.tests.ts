@@ -125,6 +125,74 @@ describe('Multi-index search test', () => {
     expect(games.nbPages).toBe(15)
   })
 
+  test.only('searching on two indexes with facet filtering', async () => {
+    const customClient = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey'
+    )
+
+    const response = await customClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          facetFilters: [['genres:Adventure', 'genres:Action'], ['color:blue']],
+          facets: ['genres', 'color', 'platforms'],
+        },
+      },
+      {
+        indexName: 'movies',
+        params: {
+          page: 0,
+          hitsPerPage: 1,
+          facets: 'genres', // find how o ignore error
+          facetFilters: [['color:blue']],
+        },
+      },
+      {
+        indexName: 'movies',
+        params: {
+          page: 0,
+          hitsPerPage: 1,
+          facetFilters: [['genres:Adventure', 'genres:Action']],
+        },
+      },
+      {
+        indexName: 'games',
+        params: {
+          facets: ['genres', 'color', 'platforms'],
+          hitsPerPage: 1,
+        },
+      },
+    ])
+
+    // console.log(JSON.stringify(response, null, 2))
+
+    const moviesMainRes = response.results[0]
+    const moviesColorRes = response.results[1]
+    const moviesGenresRes = response.results[2]
+    const games = response.results[1]
+
+    console.log(moviesColorRes)
+    expect(moviesMainRes.hits.length).toBe(1)
+
+    expect(moviesMainRes.facets).toEqual({
+      color: {
+        blue: 1,
+      },
+      genres: {
+        Adventure: 1,
+        Drama: 1,
+      },
+      platforms: {
+        Windows: 1,
+      },
+    })
+
+    expect(games.hits.length).toBe(1)
+    expect(games.page).toBe(1)
+    expect(games.nbPages).toBe(15)
+  })
+
   test('searching on two indexes with no placeholder search', async () => {
     const customClient = instantMeiliSearch(
       'http://localhost:7700',

@@ -32,6 +32,7 @@ module.exports = {
       displayName: 'dom',
       testPathIgnorePatterns: [...ignoreFiles, '<rootDir>/tests/build*'],
       testMatch: ['**/*.tests.ts', '/tests/**/*.ts'],
+      setupFilesAfterEnv: ['<rootDir>/scripts/jest_teardown.js'],
     },
     {
       globals: {
@@ -44,6 +45,7 @@ module.exports = {
       testEnvironment: 'node',
       testPathIgnorePatterns: [...ignoreFiles],
       testMatch: ['**/*.tests.ts', '/tests/**/*.ts'],
+      setupFilesAfterEnv: ['<rootDir>/scripts/jest_teardown.js'],
     },
   ],
 }
