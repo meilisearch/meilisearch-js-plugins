@@ -270,7 +270,7 @@ List of all the components that are available in [instantSearch](https://github.
 ### Table Of Widgets
 
 - ✅ [InstantSearch](#-instantsearch)
-- ❌ [index](#-index)
+- ✅ [index](#-index)
 - ✅ [SearchBox](#-searchbox)
 - ✅ [Configure](#-configure)
 - ❌ [ConfigureRelatedItems](#-configure-related-items)
@@ -339,13 +339,13 @@ const search = instantsearch({
 })
 ```
 
-### ❌ Index
+### ✅ Index
 
 [Index references](https://www.algolia.com/doc/api-reference/widgets/index-widget/js/)
 
 `Index` is the component that lets you apply widgets to a dedicated index. It’s useful if you want to build an interface that targets multiple indices.
 
-Not compatible as Meilisearch does not support federated search on multiple indexes.
+
 
 If you'd like to see federated search implemented please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/74-multi-index-search?utm_medium=social&utm_source=portal_share).
 
@@ -358,7 +358,7 @@ The `searchBox` widget is used to let the user perform a text-based query.
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ placeholder: Placeholder of the search box.
 - ✅ autofocus: Whether the search box is focused on arrival.
-- ✅ searchAsYouType: Whether result appears as you type or after pressing enter.
+- ✅ searchAsYouType: Whether result appears as you type oxr after pressing enter.
 - ❌ showReset: Does not work with both algoliasearch and instant-meilisearch
 - ❌ showSubmit: Does not work with both algoliasearch and instant-meilisearch
 - ✅ showLoadingIndicator: Whether to show the spinning loader.
