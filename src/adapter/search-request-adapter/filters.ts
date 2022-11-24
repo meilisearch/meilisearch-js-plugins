@@ -81,8 +81,6 @@ export function extractFacets(
   searchContext: SearchContext,
   searchParams: MeiliSearchParams
 ): FacetsCache {
-  // console.log(searchContext.keepZeroFacets)
-
   if (searchContext.keepZeroFacets) {
     return getFacetsFromDefaultDistribution(
       searchContext.defaultFacetDistribution
@@ -108,19 +106,14 @@ export function addMissingFacets(
 ): FacetDistribution {
   distribution = distribution || {}
 
-  // console.log({ distribution })
   // If cachedFacets contains something
   if (cachedFacets && Object.keys(cachedFacets).length > 0) {
     // for all filters in cached filters
     for (const cachedFacet in cachedFacets) {
-      // console.log({ cachedFacet })
-
       // if facet does not exist on returned distribution, add an empty object
       if (!distribution[cachedFacet]) distribution[cachedFacet] = {}
       // for all fields in every filter
       for (const cachedField of cachedFacets[cachedFacet]) {
-        // console.log({ cachedField })
-
         // if the field is not present in the returned distribution
         // set it at 0
         if (!Object.keys(distribution[cachedFacet]).includes(cachedField)) {

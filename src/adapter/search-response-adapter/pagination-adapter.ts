@@ -26,8 +26,6 @@ export function adaptPaginationParameters(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
   paginationState: PaginationState
 ): InstantSearchPagination & { nbPages: number } {
-  // console.log({ paginationState })
-
   const { hitsPerPage, page } = paginationState
   const nbPages = adaptNbPages(searchResponse, hitsPerPage)
 
