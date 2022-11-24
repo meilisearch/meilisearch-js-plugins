@@ -55,6 +55,7 @@ export function instantMeiliSearch(
   // create search resolver with included cache
   const searchResolver = SearchResolver(meilisearchClient, searchCache)
 
+  const currentIndex = ''
   let defaultFacetDistribution: FacetDistribution
 
   return {
@@ -71,16 +72,45 @@ export function instantMeiliSearch(
           results: [],
         }
 
+        const log = false
+
+        // const indexes = new Set()
+        // const requests = instantSearchRequests.filter((obj) => {
+        //   if (indexes.has(obj.indexName)) return false
+        //   return indexes.add(obj.indexName)
+        // })
+        // const requests = [instantSearchRequests[0], instantSearchRequests[2]]
+        // const requests = [instantSearchRequests[0]]
         const requests = instantSearchRequests
+        console.log(JSON.stringify(instantSearchRequests, null, 2))
+
         for (const searchRequest of requests) {
+          if (log) {
+            console.log('@@@@@@')
+            console.log('Instantsearch request')
+            console.log(JSON.stringify(searchRequest, null, 2))
+          }
+          // console.log(searchRequest)
           const searchContext: SearchContext = createSearchContext(
             searchRequest,
             instantMeiliSearchOptions,
             defaultFacetDistribution
           )
 
+          // if (currentIndex !== searchRequest.indexName) {
+          //   currentIndex = searchRequest.indexName
+          //   searchContext.keepZeroFacets = false
+          // } else {
+          //   searchContext.keepZeroFacets =
+          //     instantMeiliSearchOptions.keepZeroFacets
+          // }
+          // Adapt search request to Meilisearch compliant search request
           const adaptedSearchRequest = adaptSearchParams(searchContext)
 
+          if (log) {
+            console.log('Meilisearch request')
+            console.log(adaptedSearchRequest)
+          }
 
           // Cache first facets distribution of the instantMeilisearch instance
           // Needed to add in the facetDistribution the fields that were not returned
@@ -98,15 +128,28 @@ export function instantMeiliSearch(
             searchContext,
             adaptedSearchRequest
           )
+          // console.log('search request')
 
           // Adapt the Meilisearch response to a compliant instantsearch.js response
           const adaptedSearchResponse = adaptSearchResponse<T>(
             searchResponse,
             searchContext
           )
+          if (log) {
+            console.log('Search responses')
+            console.log(adaptedSearchResponse.results[0])
+          }
+
+          // console.log(JSON.stringify(defaultFacetDistribution, null, 2))
 
           searchResponses.results.push(adaptedSearchResponse.results[0])
         }
+        // console.log('Search responses')
+        // console.log(searchResponses)
+        console.log(searchResponses)
+
+        // console.log(searchResponses.results)
+        // console.log('----')
 
         return searchResponses
       } catch (e: any) {

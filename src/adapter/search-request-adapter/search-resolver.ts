@@ -37,7 +37,13 @@ export function SearchResolver(
       const cachedResponse = cache.getEntry(key)
 
       // Check if specific request is already cached with its associated search response.
-      if (cachedResponse) return cachedResponse
+      if (cachedResponse) {
+        // console.log('cache')
+
+        return cachedResponse
+      }
+
+      // console.log('searchRequest')
 
       // Make search request
       const searchResponse = await client
@@ -46,6 +52,7 @@ export function SearchResolver(
 
       if (searchContext.keepZeroFacets) {
         const cachedFacets = extractFacets(searchContext, searchParams)
+        // console.log({ cachedFacets })
         // Add missing facets back into facetDistribution
         searchResponse.facetDistribution = addMissingFacets(
           cachedFacets,
