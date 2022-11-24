@@ -99,7 +99,7 @@ export function instantMeiliSearch(
             adaptedSearchRequest
           )
 
-          // Adapt the Meilisearch responsne to a compliant instantsearch.js response
+          // Adapt the Meilisearch response to a compliant instantsearch.js response
           const adaptedSearchResponse = adaptSearchResponse<T>(
             searchResponse,
             searchContext
