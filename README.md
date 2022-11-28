@@ -85,8 +85,7 @@ const searchClient = instantMeiliSearch(
 `instant-meilisearch` offers some options you can set to further fit your needs.
 
 - [`placeholderSearch`](#placeholder-search): Enable or disable placeholder search (default: `true`).
-- [`paginationTotalHits`](#pagination-total-hits): Maximum total number of hits to create a finite pagination (default: `200`).
-- [`finitePagination`](#finite-pagination): Used to work with the [`pagination`](#-pagination) widget (default: `false`) .
+- [`finitePagination`](#finite-pagination): Enable finite pagination when using the the [`pagination`](#-pagination) widget (default: `false`) .
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 - [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
@@ -100,7 +99,6 @@ const searchClient = instantMeiliSearch(
   'https://integration-demos.meilisearch.com',
   '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
   {
-    paginationTotalHits: 30, // default: 200.
     placeholderSearch: false, // default: true.
     primaryKey: 'id', // default: undefined
     // ...
@@ -117,25 +115,11 @@ When placeholder search is set to `false`, no results appears when searching on 
 { placeholderSearch : true } // default true
 ```
 
-### Pagination total hits
-
-The total (and finite) number of hits (default: `200`) you can browse during pagination when using the [pagination widget](https://www.algolia.com/doc/api-reference/widgets/pagination/js/) or the [`infiniteHits` widget](#-infinitehits). If none of these widgets are used, `paginationTotalHits` is ignored.<br>
-
-For example, using the `infiniteHits` widget, and a `paginationTotalHits` of 9. On the first search request 6 hits are shown, by clicking a second time on `load more` only 3 more hits are added. This is because `paginationTotalHits` is `9`.
-
-Usage:
-
-```js
-{ paginationTotalHits: 50 } // default: 200
-```
-
-`hitsPerPage` has a value of `20` by default and can [be customized](#-hitsperpage).
-
 ### Finite Pagination
 
 Finite pagination is used when you want to add a numbered pagination at the bottom of your hits (for example: `<< < 1, 2, 3 > >>`).
-To be able to know the amount of page numbers you have, a search is done requesting `paginationTotalHits` documents (default: `200`).
-With the amount of documents returned, instantsearch is able to render the correct amount of numbers in the pagination widget.
+
+It requires the usage of the [`Pagination` widget](#-pagination).
 
 Example:
 
@@ -143,8 +127,6 @@ Example:
 { finitePagination: true } // default: false
 ```
 
-⚠️ Meilisearch is not designed for pagination and this can lead to performances issues, so the usage `finitePagination` but also of the pagination widgets are not recommended.<br>
-More information about Meilisearch and the pagination [here](https://github.com/meilisearch/documentation/issues/561).
 
 ### Primary key
 
@@ -274,7 +256,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v0.29.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.29.0).
+This package only guarantees the compatibility with the [version v0.30.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.30.0).
 
 **Node / NPM versions**:
 
@@ -925,9 +907,7 @@ instantsearch.widgets.clearRefinements({
 
 [Pagination references](https://www.algolia.com/doc/api-reference/widgets/pagination/js/)
 
-The `pagination` widget displays a pagination system allowing the user to change the current page.
-
-We do not recommend using this widget as pagination slows the search responses. Instead, the [InfiniteHits](#-infinitehits) component is recommended.
+The `pagination` widget displays a pagination system allowing the user to change the current page. It should be used alongside the [`finitePagination`](#finite-pagination) setting to render the correct amount of pages.
 
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ showFirst: Whether to display the first-page link.
