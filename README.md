@@ -671,7 +671,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ cssClasses: The CSS classes to override.
 
 The `RefinmentList` widget uses the `disjunctive facet search` principle when using the `or` operator. For each different facet category used, an additional http call is made.
-For example, if I ask for `color=green` and `size=2`, three http requests are made. One for the hits, one for the `color` distribution and one for the `size` distribution.
+For example, if I ask for `color=green` and `size=2`, three http requests are made. One for the hits, one for the `color` distribution and one for the `size` distribution. To provide any feedback on the subject, refer to [this discussion](https://github.com/meilisearch/product/issues/54).
 
 The following example will create a UI component with the a list of genres on which you will be able to facet.
 

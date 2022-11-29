@@ -118,7 +118,5 @@ cypress/support
 cypress/plugins
 cypress/fixtures
 
-tests/env/react-hooks-web
-algolia-react
 .vscode
 data.ms
