@@ -21,9 +21,11 @@ const games = require('../../assets/games.json')
     filterableAttributes: ['genres', 'color', 'platforms'],
   })
 
-  await moviesIndex.addDocuments(movies)
-  const response = await gamesIndex.addDocuments(games)
+  const moviesRes = await moviesIndex.addDocuments(movies)
+  const gamesRes = await gamesIndex.addDocuments(games)
 
-  const task = await client.waitForTask(response.taskUid)
-  console.log(task)
+  const moviesTask = await client.waitForTask(moviesRes.taskUid)
+  const gamesTask = await client.waitForTask(gamesRes.taskUid)
+  console.log(moviesTask)
+  console.log(gamesTask)
 })()
