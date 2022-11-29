@@ -72,7 +72,6 @@ export function instantMeiliSearch(
         }
 
         const requests = instantSearchRequests
-        console.log(JSON.stringify(instantSearchRequests, null, 2))
 
         for (const searchRequest of requests) {
           const searchContext: SearchContext = createSearchContext(
