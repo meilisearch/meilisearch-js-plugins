@@ -345,7 +345,7 @@ const search = instantsearch({
 
 `Index` is the component that lets you apply widgets to a dedicated index. It’s useful if you want to build an interface that targets multiple indices.
 
-Using this component, instant-meilisearch does an http-request for each different Index added. More http requests are made when using the [`RefinementList`](#✅-refinementlist) widget.
+Using this component, instant-meilisearch does an http-request for each different `Index` widget added. More http requests are made when using the [`RefinementList`](#✅-refinementlist) widget.
 
 ### ✅ SearchBox
 
@@ -356,7 +356,7 @@ The `searchBox` widget is used to let the user perform a text-based query.
 - ✅ container: The CSS Selector or HTMLElement to insert the widget into. _required_
 - ✅ placeholder: Placeholder of the search box.
 - ✅ autofocus: Whether the search box is focused on arrival.
-- ✅ searchAsYouType: Whether result appears as you type oxr after pressing enter.
+- ✅ searchAsYouType: Whether result appears as you type or after pressing enter.
 - ❌ showReset: Does not work with both algoliasearch and instant-meilisearch
 - ❌ showSubmit: Does not work with both algoliasearch and instant-meilisearch
 - ✅ showLoadingIndicator: Whether to show the spinning loader.
@@ -670,7 +670,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-The `RefinmentList` widget uses the `disjunctive facet search` principle when using the `or` operator. For each different facet category used, an additional http call is made.
+The `RefinementList` widget uses the `disjunctive facet search` principle when using the `or` operator. For each different facet category used, an additional http call is made.
 For example, if I ask for `color=green` and `size=2`, three http requests are made. One for the hits, one for the `color` distribution and one for the `size` distribution. To provide any feedback on the subject, refer to [this discussion](https://github.com/meilisearch/product/issues/54).
 
 The following example will create a UI component with the a list of genres on which you will be able to facet.

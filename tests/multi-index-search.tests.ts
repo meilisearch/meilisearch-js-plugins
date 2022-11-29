@@ -144,7 +144,7 @@ describe('Multi-index search test', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore
+          // @ts-ignore considered a read-only type in instantsearch
           facets: 'genres',
           facetFilters: [['color:blue']],
         },
@@ -154,7 +154,7 @@ describe('Multi-index search test', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore
+          // @ts-ignore considered a read-only type in instantsearch
           facets: 'color',
           facetFilters: [['genres:Adventure', 'genres:Action']],
         },
