@@ -29,7 +29,7 @@ const Hit = ({ hit }) => {
   )
 }
 
-// Issue on two different refinment list
+
 const MultiIndex = () => (
   <div className="ais-InstantSearch">
     <InstantSearch indexName="movies" searchClient={searchClient}>

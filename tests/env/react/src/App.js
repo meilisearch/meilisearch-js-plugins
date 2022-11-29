@@ -5,7 +5,6 @@ import MultiIndex from './components/MultiIndex'
 
 import './App.css'
 
-// Issue on two different refinment list
 const App = () => {
   return (
     <div>
