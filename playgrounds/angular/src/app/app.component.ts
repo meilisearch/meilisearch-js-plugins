@@ -2,8 +2,9 @@ import { Component } from '@angular/core'
 import { instantMeiliSearch } from '../../../../src'
 
 const searchClient = instantMeiliSearch(
-  'https://integration-demos.meilisearch.com',
-  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185'
+  'https://ms-adf78ae33284-106.lon.meilisearch.io',
+  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
+  { finitePagination: true }
 )
 
 @Component({
