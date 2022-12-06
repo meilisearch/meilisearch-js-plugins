@@ -131,6 +131,7 @@ _[Read more about this](https://github.com/meilisearch/integration-guides/blob/m
 
 ⚠️ Before doing anything, make sure you got through the guide about [Releasing an Integration](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md).
 
+#### Version update
 Make a PR modifying the following files with the right version:
 
 [`package.json`](/package.json):
@@ -143,14 +144,17 @@ Make a PR modifying the following files with the right version:
 export const PACKAGE_VERSION = 'X.X.X'
 ```
 
+#### Github Publish
 Once the changes are merged on `main`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Edit` (related to the draft release) > update the description (be sure you apply [these recommendations](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md#writting-the-release-description)) > when you are ready, click on `Publish release`.
 
 GitHub Actions will be triggered and push the package to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
 
+#### Codesandbox update
 Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
 
 - [Meilisearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
-- [Meilisearch + Vue InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
+- [Meilisearch + Vue 2 InstantSearch](https://codesandbox.io/s/ms-vue-is-1d6bi)
+- [Meilisearch + Vue 3 InstantSearch](https://codesandbox.io/s/ms-vue3-is-0293zk)
 - [Meilisearch + React InstantSearch](https://codesandbox.io/s/ms-react-is-sh9ud)
 
 If you don't have the access to do it, please request it internally.
@@ -159,41 +163,32 @@ If you don't have the access to do it, please request it internally.
 
 Here are the steps to release a beta version of this package:
 
-- Create a new branch containing the "beta" changes with the following format `xxx-beta` where `xxx` explains the context.
+1. Create a new branch containing the "beta" changes with the correct format `xxx-beta` where `xxx` explains the context:
+    - **package beta**: create a branch `beta/xx-xx` with the context of your beta.
+      Example: `beta/refactor`.
+    - Meilisearch **pre-release** beta: create a branch originating from `bump-meilisearch-v*.*.*` named `pre-release-beta/v*.*.*`. <br>
+      Example: `pre-release-beta/v0.30.0`
+    - Meilisearch **protype**: create a branch `protoype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
+        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the should be named: `prototype-beta/pagination`
 
-  For example:
-    - When implementing a beta feature, create a branch `my-feature-beta` where you implement the feature.
-      ```bash
-        git checkout -b my-feature-beta
-      ```
-    - During the Meilisearch pre-release, create a branch originating from `bump-meilisearch-v*.*.*` named `bump-meilisearch-v*.*.*-beta`. <br>
-    `v*.*.*` is the next version of the package, NOT the version of Meilisearch!
+2. [Update the version](#version-update) following the correct format (X are numbers):
+    - package beta and prototype: `X.X.X-***.X`
+      example: `0.2.0-new-feature.0`
+    - pre-release: `X.X.X-vX.X.X-pre-release.X`
+      example: `0.2.0-v0.30.0-pre-release.0`
 
-      ```bash
-      git checkout bump-meilisearch-v*.*.*
-      git pull origin bump-meilisearch-v*.*.*
-      git checkout -b bump-meilisearch-v*.*.*-beta
-      ```
 
-- Change the version in [`package.json`](/package.json) and [`src/package-version`](/src/package-version.ts) with `*.*.*-xxx-beta.0` and commit it to the `v*.*.*-beta` branch.
+3. Commit and push your code to the newly created branch (step 1).
 
-- Go to the [GitHub interface for releasing](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Draft a new release`.
+4. Go to the [GitHub interface for releasing](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Draft a new release`.
 
-- Create a GitHub pre-release:
+5. Create a GitHub pre-release:
   - Fill the description with the detailed changelogs
-  - Fill the title with `vX.X.X-beta.0`
-  - Fill the tag with `vX.X.X-beta.0`
-  - ⚠️ Select the `vX.X.X-beta.0` branch and NOT `main`
+  - Fill the title with the version defined on step `2`
+  - Fill the tag with the same version appended with a `v`. Ex: `v0.1.0`
+  - ⚠️ Select the branch created on step `1` and NOT `main`
   - ⚠️ Click on the "This is a pre-release" checkbox
   - Click on "Publish release"
-
-GitHub Actions will be triggered and push the beta version to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
-
-💡 If you need to release a new beta for the same version (i.e. `vX.X.X-beta.1`):
-- merge the change into `bump-meilisearch-v*.*.*`
-- rebase the `vX.X.X-beta.0` branch
-- change the version name in [`package.json`](/package.json) and [`src/package-version`](/src/package-version.ts)
-- creata a pre-release via the GitHub interface
 
 <hr>
 
