@@ -163,12 +163,12 @@ If you don't have the access to do it, please request it internally.
 
 Here are the steps to release a beta version of this package:
 
-1. Create a new branch containing the "beta" changes with the correct format `xxx-beta` where `xxx` explains the context:
-    - **package beta**: create a branch `beta/xx-xx` with the context of your beta.
+1. Create a new branch containing the changes with the correct name format following these rules:
+    - `package beta`: create a branch `beta/xx-xx` with the context of your beta.
       Example: `beta/refactor`.
-    - Meilisearch **pre-release** beta: create a branch originating from `bump-meilisearch-v*.*.*` named `pre-release-beta/v*.*.*`. <br>
+    - Meilisearch `pre-release beta`: create a branch originating from `bump-meilisearch-v*.*.*` named `pre-release-beta/v*.*.*`. <br>
       Example: `pre-release-beta/v0.30.0`
-    - Meilisearch **protype**: create a branch `protoype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
+    - Meilisearch `protype beta`: create a branch `protoype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
         Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the should be named: `prototype-beta/pagination`
 
 2. [Update the version](#version-update) following the correct format (X are numbers):
