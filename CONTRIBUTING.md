@@ -172,9 +172,9 @@ Here are the steps to release a beta version of this package:
         Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the should be named: `prototype-beta/pagination`
 
 2. [Update the version](#version-update) following the correct format (X are numbers):
-    - package beta and prototype: `X.X.X-***.X`
+    - package and prototype beta: `X.X.X-***.X`
       example: `0.2.0-new-feature.0`
-    - pre-release: `X.X.X-vX.X.X-pre-release.X`
+    - pre-release beta: `X.X.X-vX.X.X-pre-release.X`
       example: `0.2.0-v0.30.0-pre-release.0`
 
 
