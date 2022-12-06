@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Checking if current tag matches the package version
-current_tag=$(echo $GITHUB_REF | cut -d '/' -f 3 | tr -d ' ',v)
+current_tag=$(echo $GITHUB_REF | cut -d '/' -f 3 | sed -r 's/^v//')
 
 package_file_tag=$(grep '"version":' package.json | cut -d ':' -f 2- | tr -d ' ' | tr -d '"' | tr -d ',')
 package_file_name='package.json'
