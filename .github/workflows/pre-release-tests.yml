@@ -3,26 +3,31 @@ name: Pre-Release Tests
 
 # Will only run for PRs and pushes to bump-meilisearch-v*
 on:
-  push:
-    branches: [bump-meilisearch-v*]
   pull_request:
-    branches: [bump-meilisearch-v*]
+    branches:
+      - 'bump-meilisearch-v**'
+      - 'pre-release-beta/**'
+  push:
+    branches:
+      - 'bump-meilisearch-v**'
+      - 'pre-release-beta/**'
 
 jobs:
   meilisearch-version:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     outputs:
-      version: ${{ steps.grep-step.outputs.version }}
+      version: ${{ steps.grep-step.outputs.meilisearch_version }}
     steps:
       - uses: actions/checkout@v3
       - name: Grep docker beta version of Meilisearch
         id: grep-step
         run: |
           MEILISEARCH_VERSION=$(curl https://raw.githubusercontent.com/meilisearch/integration-guides/main/scripts/get-latest-meilisearch-rc.sh | sh)
-          echo $MEILISEARCH_VERSION
-          echo ::set-output name=version::$MEILISEARCH_VERSION
+          echo "meilisearch_version=$MEILISEARCH_VERSION" >> $GITHUB_OUTPUT
   cypress-run:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     needs: ['meilisearch-version']
     services:
       meilisearch:
@@ -46,7 +51,7 @@ jobs:
       - name: Setup Meilisearch Index
         run: yarn local:env:setup
       - name: Run local browser tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v2
         with:
           wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
@@ -62,9 +67,9 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
-
   integration_tests:
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     needs: ['meilisearch-version']
     services:
       meilisearch:
