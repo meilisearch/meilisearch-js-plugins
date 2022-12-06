@@ -105,8 +105,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: head ref
-        run: echo $GITHUB_HEAD_REF
       - name: Setup node
         uses: actions/setup-node@v3
         with:
