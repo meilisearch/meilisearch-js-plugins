@@ -184,8 +184,8 @@ Here are the steps to release a beta version of this package:
 
 5. Create a GitHub pre-release:
   - Fill the description with the detailed changelogs
-  - Fill the title with the version defined on step `2`
-  - Fill the tag with the same version appended with a `v`. Ex: `v0.1.0`
+  - Fill the title with the version defined on step `2`, appened with a `v`. Ex: `v0.1.0`
+  - Fill the tag with the same name as the title
   - ⚠️ Select the branch created on step `1` and NOT `main`
   - ⚠️ Click on the "This is a pre-release" checkbox
   - Click on "Publish release"
