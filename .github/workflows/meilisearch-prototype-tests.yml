@@ -23,7 +23,7 @@ jobs:
           MEILISEARCH_VERSION=$(sh .github/scripts/prototype-docker-version.sh $GITHUB_REF_NAME)
           if [ -z "$MEILISEARCH_VERSION" ]
           then
-            echo "Could not find any docker image for this prototype"
+            echo "Could not find any docker image for this prototype: $GITHUB_REF_NAME"
             exit 1
           else
             echo $MEILISEARCH_VERSION
