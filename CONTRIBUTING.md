@@ -161,7 +161,12 @@ If you don't have the access to do it, please request it internally.
 
 #### Release a `beta` Version
 
-Here are the steps to release a beta version of this package:
+This package is able to create multiple types of betas:
+- A standard package beta, working on the latest version of Meilisearch.
+- A beta implementing the changes of a rc version of Meilisearch.
+- A beta implementing a specific feature `prototype` of Meilisearch.
+
+Here are the steps to release a beta version of this package depending on its type:
 
 1. Create a new branch containing the changes with the correct name format following these rules:
     - `package beta`: create a branch `beta/xx-xx` with the context of your beta.
