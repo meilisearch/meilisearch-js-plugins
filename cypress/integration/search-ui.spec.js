@@ -58,7 +58,6 @@ describe(`${playground} playground test`, () => {
     cy.wait(1000)
     cy.get(facet).eq(0).find(facetCount).eq(0).contains('5') // genres > action count
     cy.get(facet).eq(1).find(facetCount).eq(0).contains('4') // players > multiplayer
-    cy.wait(1000)
   })
 
   it('Search', () => {
