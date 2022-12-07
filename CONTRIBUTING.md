@@ -144,7 +144,7 @@ Make a PR modifying the following files with the right version:
 export const PACKAGE_VERSION = 'X.X.X'
 ```
 
-#### Github Publish
+#### Github publish
 Once the changes are merged on `main`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Edit` (related to the draft release) > update the description (be sure you apply [these recommendations](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md#writting-the-release-description)) > when you are ready, click on `Publish release`.
 
 GitHub Actions will be triggered and push the package to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
@@ -168,8 +168,8 @@ Here are the steps to release a beta version of this package:
       Example: `beta/refactor`.
     - Meilisearch `pre-release beta`: create a branch originating from `bump-meilisearch-v*.*.*` named `pre-release-beta/v*.*.*`. <br>
       Example: `pre-release-beta/v0.30.0`
-    - Meilisearch `protype beta`: create a branch `protoype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
-        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the should be named: `prototype-beta/pagination`
+    - Meilisearch `prototype beta`: create a branch `prototype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
+        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the branch should be named: `prototype-beta/pagination`
 
 2. [Update the version](#version-update) following the correct format (X are numbers):
     - package and prototype beta: `X.X.X-***.X`
