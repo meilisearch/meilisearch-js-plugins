@@ -29,7 +29,6 @@ const Hit = ({ hit }) => {
   )
 }
 
-
 const MultiIndex = () => (
   <div className="ais-InstantSearch">
     <InstantSearch indexName="movies" searchClient={searchClient}>
