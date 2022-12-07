@@ -22,7 +22,8 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "resolveJsonModule": true
   },
-  "exclude": ["playgrounds/"]
+  "exclude": ["playgrounds/", "tests/env"]
 }
