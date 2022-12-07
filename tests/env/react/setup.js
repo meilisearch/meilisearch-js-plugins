@@ -18,7 +18,9 @@ const games = require('../../assets/games.json')
     filterableAttributes: ['genres', 'color', 'platforms'],
   })
   await gamesIndex.updateSettings({
-    filterableAttributes: ['genres', 'color', 'platforms'],
+    filterableAttributes: ['genres', 'color', 'platforms', 'misc', 'players'],
+    searchableAttributes: ['name', 'description'],
+    sortableAttributes: ['recommendationCount'],
   })
 
   const moviesRes = await moviesIndex.addDocuments(movies)

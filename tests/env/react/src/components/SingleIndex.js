@@ -31,20 +31,20 @@ const SingleIndex = () => (
       This is not the official Steam dataset but only for demo purpose. Enjoy
       searching with Meilisearch!
     </p>
-    <InstantSearch indexName="steam-video-games" searchClient={searchClient}>
+    <InstantSearch indexName="games" searchClient={searchClient}>
       <Stats />
       <div className="left-panel">
         <ClearRefinements />
         <SortBy
-          defaultRefinement="steam-video-games"
+          defaultRefinement="games"
           items={[
-            { value: 'steam-video-games', label: 'Relevant' },
+            { value: 'games', label: 'Relevant' },
             {
-              value: 'steam-video-games:recommendationCount:desc',
+              value: 'games:recommendationCount:desc',
               label: 'Most Recommended',
             },
             {
-              value: 'steam-video-games:recommendationCount:asc',
+              value: 'games:recommendationCount:asc',
               label: 'Least Recommended',
             },
           ]}
