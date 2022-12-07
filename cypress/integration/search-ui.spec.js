@@ -54,8 +54,8 @@ describe(`${playground} playground test`, () => {
     const facet = `.ais-RefinementList-list`
     const checkbox = `.ais-RefinementList-checkbox`
     const facetCount = '.ais-RefinementList-count'
-    cy.get(facet).eq(0).get(checkbox).eq(1).click() // genres > action
-    cy.get(facet).eq(0).get(facetCount).eq(0).contains('5') // genres > action count
+    cy.get(facet).eq(0).find(checkbox).eq(1).click() // genres > action
+    cy.get(facet).eq(0).find(facetCount).eq(0).contains('5') // genres > action count
 
     cy.get(facet).eq(1).find(facetCount).eq(0).contains('4') // players > multiplayer
     cy.wait(1000)
