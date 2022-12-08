@@ -13,8 +13,16 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
+    # Will not run if the event is a PR to pre-release-beta/*
+    # Will not run if the event is a PR to prototype-beta/*
+    # Will not run if the event is a push on pre-release-beta/*
+    # Will still run for each push to bump-meilisearch-v* and prototype-beta/*
+    if: |
+      github.event_name != 'pull_request' ||
+      !startsWith(github.base_ref, 'bump-meilisearch-v') &&
+      !startsWith(github.base_ref, 'pre-release-beta/') &&
+      !startsWith(github.base_ref, 'prototype-beta/') &&
+      !startsWith(github.head_ref, 'pre-release-beta/')
     services:
       meilisearch:
         image: getmeili/meilisearch:latest
@@ -55,8 +63,16 @@ jobs:
           path: cypress/videos
   integration_tests:
     # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
+    # Will not run if the event is a PR to pre-release-beta/*
+    # Will not run if the event is a PR to prototype-beta/*
+    # Will not run if the event is a push on pre-release-beta/*
+    # Will still run for each push to bump-meilisearch-v* and prototype-beta/*
+    if: |
+      github.event_name != 'pull_request' ||
+      !startsWith(github.base_ref, 'bump-meilisearch-v') &&
+      !startsWith(github.base_ref, 'pre-release-beta/') &&
+      !startsWith(github.base_ref, 'prototype-beta/') &&
+      !startsWith(github.head_ref, 'pre-release-beta/')
     runs-on: ubuntu-latest
     services:
       meilisearch:
@@ -85,9 +101,6 @@ jobs:
       - name: Build project
         run: yarn build
   style_tests:
-    # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     name: style-check
     runs-on: ubuntu-latest
     steps:
@@ -106,9 +119,6 @@ jobs:
         with:
           config_file: .yamllint.yml
   types_tests:
-    # Will not run if the event is a PR to bump-meilisearch-v* (so a pre-release PR)
-    # Will still run for each push to bump-meilisearch-v*
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
     runs-on: ubuntu-latest
     name: types-check
     steps:
