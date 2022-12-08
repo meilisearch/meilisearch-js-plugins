@@ -1,4 +1,9 @@
-import type { MeiliSearchParams, SearchContext } from '../../types'
+import type {
+  MeiliSearchParams,
+  SearchContext,
+  Filter,
+  PaginationState,
+} from '../../types'
 
 import {
   adaptGeoPointsRules,
@@ -6,13 +11,28 @@ import {
 } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
-function setScrollPagination(
-  hitsPerPage: number,
-  page: number,
+function isPaginationRequired(
+  filter: Filter,
   query?: string,
   placeholderSearch?: boolean
+): boolean {
+  // To disable pagination:
+  // placeholderSearch must be disabled
+  // The search query must be empty
+  // There must be no filters
+  if (!placeholderSearch && !query && (!filter || filter.length === 0)) {
+    return false
+  }
+  return true
+}
+
+function setScrollPagination(
+  pagination: PaginationState,
+  paginationRequired: boolean
 ): { limit: number; offset: number } {
-  if (!placeholderSearch && query === '') {
+  const { page, hitsPerPage } = pagination
+
+  if (!paginationRequired) {
     return {
       limit: 0,
       offset: 0,
@@ -26,12 +46,12 @@ function setScrollPagination(
 }
 
 function setFinitePagination(
-  hitsPerPage: number,
-  page: number,
-  query?: string,
-  placeholderSearch?: boolean
+  pagination: PaginationState,
+  paginationRequired: boolean
 ): { hitsPerPage: number; page: number } {
-  if (!placeholderSearch && query === '') {
+  const { page, hitsPerPage } = pagination
+
+  if (!paginationRequired) {
     return {
       hitsPerPage: 0,
       page: page + 1,
@@ -58,9 +78,6 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     attributesToSnippet,
     snippetEllipsisText,
     attributesToRetrieve,
-    filters,
-    numericFilters,
-    facetFilters,
     attributesToHighlight,
     highlightPreTag,
     highlightPostTag,
@@ -69,7 +86,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     sort,
     pagination,
     matchingStrategy,
+    filters,
+    numericFilters,
+    facetFilters,
   } = searchContext
+
+  const meilisearchFilters = adaptFilters(filters, numericFilters, facetFilters)
 
   return {
     getParams() {
@@ -99,9 +121,8 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addFilters() {
-      const filter = adaptFilters(filters, numericFilters, facetFilters)
-      if (filter.length) {
-        meiliSearchParams.filter = filter
+      if (meilisearchFilters.length) {
+        meiliSearchParams.filter = meilisearchFilters
       }
     },
     addAttributesToHighlight() {
@@ -122,21 +143,22 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addPagination() {
+      const paginationRequired = isPaginationRequired(
+        meilisearchFilters,
+        query,
+        placeholderSearch
+      )
       if (pagination.finite) {
         const { hitsPerPage, page } = setFinitePagination(
-          pagination.hitsPerPage,
-          pagination.page,
-          query,
-          placeholderSearch
+          pagination,
+          paginationRequired
         )
         meiliSearchParams.hitsPerPage = hitsPerPage
         meiliSearchParams.page = page
       } else {
         const { limit, offset } = setScrollPagination(
-          pagination.hitsPerPage,
-          pagination.page,
-          query,
-          placeholderSearch
+          pagination,
+          paginationRequired
         )
         meiliSearchParams.limit = limit
         meiliSearchParams.offset = offset
