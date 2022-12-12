@@ -55,7 +55,7 @@ export function instantMeiliSearch(
   // create search resolver with included cache
   const searchResolver = SearchResolver(meilisearchClient, searchCache)
 
-  let defaultFacetDistribution: FacetDistribution
+  let defaultFacetDistribution: Record<string, FacetDistribution>
 
   return {
     clearCache: () => searchCache.clearCache(),
@@ -76,8 +76,7 @@ export function instantMeiliSearch(
         for (const searchRequest of requests) {
           const searchContext: SearchContext = createSearchContext(
             searchRequest,
-            instantMeiliSearchOptions,
-            defaultFacetDistribution
+            instantMeiliSearchOptions
           )
 
           // Adapt search request to Meilisearch compliant search request
@@ -86,12 +85,14 @@ export function instantMeiliSearch(
           // Cache first facets distribution of the instantMeilisearch instance
           // Needed to add in the facetDistribution the fields that were not returned
           // When the user sets `keepZeroFacets` to true.
-          if (defaultFacetDistribution === undefined) {
-            defaultFacetDistribution = await cacheFirstFacetDistribution(
-              searchResolver,
-              searchContext
-            )
-            searchContext.defaultFacetDistribution = defaultFacetDistribution
+          if (
+            !defaultFacetDistribution ||
+            !defaultFacetDistribution[searchRequest.indexName]
+          ) {
+            defaultFacetDistribution = {}
+            defaultFacetDistribution[
+              searchRequest.indexName
+            ] = await cacheFirstFacetDistribution(searchResolver, searchContext)
           }
 
           // Search response from Meilisearch
@@ -103,10 +104,11 @@ export function instantMeiliSearch(
           // Adapt the Meilisearch response to a compliant instantsearch.js response
           const adaptedSearchResponse = adaptSearchResponse<T>(
             searchResponse,
-            searchContext
+            searchContext,
+            defaultFacetDistribution[searchRequest.indexName]
           )
 
-          searchResponses.results.push(adaptedSearchResponse.results[0])
+          searchResponses.results.push(adaptedSearchResponse)
         }
 
         return searchResponses
