@@ -78,11 +78,11 @@ export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
     defaultFacetDistribution: FacetDistribution
     pagination: PaginationState
     indexUid: string
+    placeholderSearch: boolean
+    keepZeroFacets: boolean
     insideBoundingBox?: InsideBoundingBox
-    keepZeroFacets?: boolean
     cropMarker?: string
     sort?: string
-    placeholderSearch?: boolean
     primaryKey?: string
     matchingStrategy?: MatchingStrategies
   }

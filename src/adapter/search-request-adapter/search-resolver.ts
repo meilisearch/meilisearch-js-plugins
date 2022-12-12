@@ -25,8 +25,6 @@ export function SearchResolver(
       searchContext: SearchContext,
       searchParams: MeiliSearchParams
     ): Promise<MeiliSearchResponse<Record<string, any>>> {
-      const { placeholderSearch, query } = searchContext
-
       // Create cache key containing a unique set of search parameters
       const key = cache.formatKey([
         searchParams,
@@ -54,13 +52,9 @@ export function SearchResolver(
         )
       }
 
-      // query can be: empty string, undefined or null
-      // all of them are falsy's
-      if (!placeholderSearch && !query) {
-        searchResponse.hits = []
-      }
       // Cache response
       cache.setEntry<MeiliSearchResponse>(key, searchResponse)
+
       return searchResponse
     },
   }
