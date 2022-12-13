@@ -13,7 +13,7 @@ import {
   SearchResolver,
 } from '../adapter'
 import { createSearchContext } from '../contexts'
-import { SearchCache, cacheFirstFacetDistribution } from '../cache/'
+import { SearchCache, initFacetDistribution } from '../cache/'
 import { constructClientAgents } from './agents'
 import { validateInstantMeiliSearchParams } from '../utils'
 
@@ -55,7 +55,7 @@ export function instantMeiliSearch(
   // create search resolver with included cache
   const searchResolver = SearchResolver(meilisearchClient, searchCache)
 
-  let defaultFacetDistribution: Record<string, FacetDistribution>
+  let initialFacetDistribution: Record<string, FacetDistribution> = {}
 
   return {
     clearCache: () => searchCache.clearCache(),
@@ -82,18 +82,11 @@ export function instantMeiliSearch(
           // Adapt search request to Meilisearch compliant search request
           const adaptedSearchRequest = adaptSearchParams(searchContext)
 
-          // Cache first facets distribution of the instantMeilisearch instance
-          // Needed to add in the facetDistribution the fields that were not returned
-          // When the user sets `keepZeroFacets` to true.
-          if (
-            !defaultFacetDistribution ||
-            !defaultFacetDistribution[searchRequest.indexName]
-          ) {
-            defaultFacetDistribution = {}
-            defaultFacetDistribution[
-              searchRequest.indexName
-            ] = await cacheFirstFacetDistribution(searchResolver, searchContext)
-          }
+          initialFacetDistribution = await initFacetDistribution(
+            searchResolver,
+            searchContext,
+            initialFacetDistribution
+          )
 
           // Search response from Meilisearch
           const searchResponse = await searchResolver.searchResponse(
@@ -105,7 +98,7 @@ export function instantMeiliSearch(
           const adaptedSearchResponse = adaptSearchResponse<T>(
             searchResponse,
             searchContext,
-            defaultFacetDistribution[searchRequest.indexName]
+            initialFacetDistribution[searchRequest.indexName]
           )
 
           searchResponses.results.push(adaptedSearchResponse)
