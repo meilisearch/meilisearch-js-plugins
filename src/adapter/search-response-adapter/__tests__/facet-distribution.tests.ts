@@ -45,7 +45,7 @@ describe('Facet distribution unit tests', () => {
     })
   })
 
-  test('Do not Fill facet values as keepZeroFacets is false', () => {
+  test('Do not fill facet values as keepZeroFacets is false', () => {
     const returnedDistribution = adaptFacetDistribution(
       false,
       ['genre'],
