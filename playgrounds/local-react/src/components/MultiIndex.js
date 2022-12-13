@@ -6,14 +6,16 @@ import {
   Highlight,
   RefinementList,
   Index,
-  Hits,
+  InfiniteHits,
   Pagination,
+  Hits,
 } from 'react-instantsearch-dom'
 import { instantMeiliSearch } from '../../../../../src/index'
 
 const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
   primaryKey: 'id',
   finitePagination: true,
+  keepZeroFacets: true,
 })
 
 const Hit = ({ hit }) => {
@@ -40,7 +42,7 @@ const MultiIndex = () => (
             <h2 style={{ margin: 0 }}>Genres</h2>
             <RefinementList attribute="genres" />
             <h2 style={{ margin: 0 }}>Color</h2>
-            <RefinementList attribute="color" />
+            <RefinementList attribute="color" operator="and" />
             <h2 style={{ margin: 0 }}>Platforms</h2>
             <RefinementList attribute="platforms" />
           </div>
@@ -62,9 +64,8 @@ const MultiIndex = () => (
             <RefinementList attribute="platforms" />
           </div>
           <div className="right-panel">
-            <Hits hitComponent={Hit} />
+            <InfiniteHits hitComponent={Hit} />
           </div>
-          <Pagination />
         </div>
       </Index>
     </InstantSearch>
