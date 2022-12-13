@@ -1,7 +1,7 @@
 import { FacetDistribution, SearchContext } from '../types'
 import { MeiliParamsCreator } from '../adapter'
 
-export async function cacheFirstFacetDistribution(
+async function getIndexFacetDistribution(
   searchResolver: any,
   searchContext: SearchContext
 ): Promise<FacetDistribution> {
@@ -22,4 +22,21 @@ export async function cacheFirstFacetDistribution(
     meilisearchParams.getParams()
   )
   return searchResponse.facetDistribution || {}
+}
+
+export async function initFacetDistribution(
+  searchResolver: any,
+  searchContext: SearchContext,
+  initialFacetDistribution: Record<string, FacetDistribution>
+): Promise<Record<string, FacetDistribution>> {
+  // Fetch the initial facets distribution of an Index
+  // Used to show the facets when `placeholderSearch` is set to true
+  // Used to fill the missing facet values when `keepZeroFacets` is set to true
+  if (!initialFacetDistribution[searchContext.indexUid]) {
+    initialFacetDistribution[
+      searchContext.indexUid
+    ] = await getIndexFacetDistribution(searchResolver, searchContext)
+  }
+
+  return initialFacetDistribution
 }

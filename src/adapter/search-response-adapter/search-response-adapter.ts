@@ -20,7 +20,7 @@ import { adaptFacetDistribution } from './facet-distribution-adapter'
 export function adaptSearchResponse<T>(
   searchResponse: MeiliSearchResponse<Record<string, any>>,
   searchContext: SearchContext,
-  defaultFacetDistribution: FacetDistribution
+  initialFacetDistribution: FacetDistribution
 ): AlgoliaSearchResponse<T> {
   const searchResponseOptionals: Record<string, any> = {}
   const {
@@ -42,7 +42,7 @@ export function adaptSearchResponse<T>(
   const facetDistribution = adaptFacetDistribution(
     keepZeroFacets,
     facets,
-    defaultFacetDistribution,
+    initialFacetDistribution,
     responseFacetDistribution
   )
 

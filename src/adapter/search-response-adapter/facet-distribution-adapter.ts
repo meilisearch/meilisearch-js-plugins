@@ -9,30 +9,30 @@ function getFacetNames(
 }
 
 // Fills the missing facetValue in the current facet distribution if `keepZeroFacet` is true
-// using the initial facet distribution.
-// Ex:
+// using the initial facet distribution. Ex:
+//
 // Initial distribution: { genres: { horror: 10, comedy: 4 } }
 // Current distribution: { genres: { horror: 3 }}
-// returned distribution: { genres: { horror: 3, comedy: 0 }}
+// Returned distribution: { genres: { horror: 3, comedy: 0 }}
 function fillMissingFacetValues(
   facets: SearchContext['facets'] | string,
-  defaultFacetDistribution: FacetDistribution,
-  currentFacetDistribution: FacetDistribution
+  initialFacetDistribution: FacetDistribution,
+  facetDistribution: FacetDistribution
 ): FacetDistribution {
   const facetNames = getFacetNames(facets)
   const filledDistribution: FacetDistribution = {}
 
   for (const facet of facetNames) {
-    for (const facetValue in defaultFacetDistribution[facet]) {
+    for (const facetValue in initialFacetDistribution[facet]) {
       if (!filledDistribution[facet]) {
         // initialize sub object
-        filledDistribution[facet] = currentFacetDistribution[facet] || {}
+        filledDistribution[facet] = facetDistribution[facet] || {}
       }
       if (!filledDistribution[facet][facetValue]) {
         filledDistribution[facet][facetValue] = 0
       } else {
         filledDistribution[facet][facetValue] =
-          currentFacetDistribution[facet][facetValue]
+          facetDistribution[facet][facetValue]
       }
     }
   }
@@ -43,14 +43,14 @@ function fillMissingFacetValues(
 function adaptFacetDistribution(
   keepZeroFacets: boolean,
   facets: SearchContext['facets'] | string,
-  defaultFacetDistribution: FacetDistribution,
+  initialFacetDistribution: FacetDistribution,
   facetDistribution: FacetDistribution | undefined
 ) {
   if (keepZeroFacets) {
     facetDistribution = facetDistribution || {}
     return fillMissingFacetValues(
       facets,
-      defaultFacetDistribution,
+      initialFacetDistribution,
       facetDistribution
     )
   }

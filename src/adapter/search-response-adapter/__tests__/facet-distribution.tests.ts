@@ -1,6 +1,6 @@
 import { adaptFacetDistribution } from '../../search-response-adapter/facet-distribution-adapter'
 
-const facetDistribution = {
+const initialFacetDistribution = {
   movie: {
     genre: { comedy: 3, horror: 2, drama: 4 },
     releaseYear: { '1990': 10, '2001': 30 },
@@ -12,7 +12,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       undefined,
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       { genre: { comedy: 3 } }
     )
 
@@ -23,7 +23,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       'genre',
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       { genre: { comedy: 3 } }
     )
 
@@ -36,7 +36,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       ['genre'],
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       { genre: { comedy: 3 } }
     )
 
@@ -49,7 +49,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       false,
       ['genre'],
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       { genre: { comedy: 3 } }
     )
 
@@ -62,7 +62,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       'genre',
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       {}
     )
 
@@ -75,7 +75,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       'genre',
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       undefined
     )
 
@@ -84,7 +84,7 @@ describe('Facet distribution unit tests', () => {
     })
   })
 
-  test('Fill facet values on empty default distribution and empty distribution', () => {
+  test('Fill facet values on empty initial distribution and empty distribution', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       'genre',
@@ -99,7 +99,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       ['genre', 'releaseYear'],
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       { genre: { comedy: 3 } }
     )
 
@@ -113,7 +113,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       ['genre', 'releaseYear'],
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       { genre: { comedy: 3 }, releaseYear: { '1990': 1 } }
     )
 
@@ -127,7 +127,7 @@ describe('Facet distribution unit tests', () => {
     const returnedDistribution = adaptFacetDistribution(
       true,
       ['genre', 'releaseYear'],
-      facetDistribution.movie,
+      initialFacetDistribution.movie,
       {}
     )
 

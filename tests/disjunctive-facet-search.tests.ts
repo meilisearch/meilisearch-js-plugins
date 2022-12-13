@@ -3,6 +3,8 @@ import { Movies, meilisearchClient } from './assets/utils'
 import movies from './assets/movies.json'
 import games from './assets/games.json'
 
+// TODO: re-read for review
+
 describe('Keep zero facets tests', () => {
   beforeAll(async () => {
     const moviesIndex = meilisearchClient.index('movies')
@@ -68,7 +70,6 @@ describe('Keep zero facets tests', () => {
     const moviesGenresRes = response.results[2]
 
     expect(moviesMainRes.hits.length).toBe(1)
-
     expect(moviesMainRes.facets).toEqual({
       color: {
         green: 1,
@@ -81,14 +82,12 @@ describe('Keep zero facets tests', () => {
         MacOS: 1,
       },
     })
-
     expect(moviesGenresRes.facets).toEqual({
       color: {
         green: 1,
         red: 1,
       },
     })
-
     expect(moviesColorRes.facets).toEqual({
       genres: {
         Adventure: 1,
@@ -193,14 +192,12 @@ describe('Keep zero facets tests', () => {
         MacOS: 1,
       },
     })
-
     expect(moviesGenresRes.facets).toEqual({
       color: {
         green: 1,
         red: 1,
       },
     })
-
     expect(moviesColorRes.facets).toEqual({
       genres: {
         Adventure: 1,
@@ -356,7 +353,6 @@ describe('Keep zero facets tests', () => {
         MacOS: 1,
       },
     })
-
     expect(moviesGenresRes.facets).toEqual({
       color: {
         green: 1,

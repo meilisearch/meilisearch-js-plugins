@@ -1,10 +1,9 @@
 import { adaptSearchParams } from '../search-params-adapter'
-import { MatchingStrategies } from '../../../types'
+import { MatchingStrategies, SearchContext } from '../../../types'
 
-const DEFAULT_CONTEXT = {
+const DEFAULT_CONTEXT: SearchContext = {
   indexUid: 'test',
   pagination: { page: 0, hitsPerPage: 6, finite: false },
-  defaultFacetDistribution: {},
   placeholderSearch: true,
   keepZeroFacets: false,
 }
