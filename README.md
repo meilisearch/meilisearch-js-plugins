@@ -75,6 +75,22 @@ const searchClient = instantMeiliSearch(
 )
 ```
 
+```js
+const query = [{
+  "indexName": "movies",
+  "params": {
+    "facetFilters": [["color:blue"]],
+    "facets": "genres",
+    "hitsPerPage": 0,
+    "maxValuesPerFacet": 10,
+    "page": 0,
+    "query": "Avatar"
+  }
+}]
+
+const { results } = searchClient.search(query)
+```
+
 ### Parameters
 
 - `Host` - URL of Meilisearch instance
