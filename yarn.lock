@@ -4112,10 +4112,10 @@ ini@2.0.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-2.0.0.tgz#e5fd556ecdd5726be978fa1001862eacb0a94bc5"
   integrity sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==
 
-instantsearch.js@^4.49.1:
-  version "4.49.1"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.49.1.tgz#4ee266610f5acdeb81a893cfaa3de26f75a068c9"
-  integrity sha512-iYGRF+UujVaxn/twZXTfYkI+wc1luCiHZ/ozBME5MiVoit0wBvtERGUFR01uauZJSXCCXmjBg/JJojPngf7mAA==
+instantsearch.js@^4.49.3:
+  version "4.49.3"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.49.3.tgz#c0eebd036cf701d0ed2830ed54243e32960ee70b"
+  integrity sha512-pkEfXVkZd37hpMBbawXGyKcxFac1uoDP9/lyjmbZyjsnr8VU02hq6D0aHoJ3iT2kWNIdmEpokY6FSmOQ+IOd3g==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@algolia/ui-components-highlight-vdom" "^1.2.1"
