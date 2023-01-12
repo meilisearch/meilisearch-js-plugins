@@ -4,10 +4,16 @@
     "packages/*",
     "playgrounds/*"
   ],
+  "scripts": {
+    "playground:geosearch": "turbo run dev --filter=@meilisearch/geo-playground --parallel"
+  },
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
   }
 }
