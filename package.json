@@ -5,7 +5,8 @@
     "playgrounds/*"
   ],
   "scripts": {
-    "playground:geosearch": "turbo run dev --filter=@meilisearch/geo-playground --parallel"
+    "playground:geosearch": "turbo run dev --filter=@meilisearch/geo-playground --parallel",
+    "playground:vanilla": "turbo run dev --filter=@meilisearch/vanilla-playground --parallel"
   },
   "private": true,
   "license": "MIT",
