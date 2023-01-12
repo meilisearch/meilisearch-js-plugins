@@ -76,7 +76,7 @@ module.exports = {
        * VUE FILES
        */
 
-      files: ['playgrounds/vue/**/*.vue'],
+      files: ['playgrounds/vue3-ts/**/*.vue'],
       env: {
         browser: true,
         commonjs: true,
