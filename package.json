@@ -6,7 +6,9 @@
   ],
   "scripts": {
     "playground:geosearch": "turbo run dev --filter=@meilisearch/geo-playground --parallel",
-    "playground:vanilla": "turbo run dev --filter=@meilisearch/vanilla-playground --parallel"
+    "playground:vanilla": "turbo run dev --filter=@meilisearch/vanilla-playground --parallel",
+    "playground:angular": "turbo run dev --filter=@meilisearch/angular-playground --parallel",
+    "playground:react": "turbo run dev --filter=@meilisearch/react-playground --parallel"
   },
   "private": true,
   "license": "MIT",
@@ -16,5 +18,8 @@
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "instantsearch.css": "^8.0.0"
   }
 }
