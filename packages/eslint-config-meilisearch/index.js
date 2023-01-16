@@ -1,10 +1,12 @@
+const prettierRules = require('./prettier')
+
 module.exports = {
   overrides: [
     {
       /*
        * REACT
        */
-      files: ['**/*.jsx','**/*.tsx'],
+      files: ['**/*.jsx', '**/*.tsx'],
       env: {
         es2020: true,
         commonjs: true, // Needed to avoid import is reserved error
@@ -28,17 +30,7 @@ module.exports = {
       },
       rules: {
         'react/prop-types': 0,
-        'prettier/prettier': [
-          'error',
-          {
-            "singleQuote": true,
-            "arrowParens": "always",
-            "semi": false,
-            "bracketSpacing": true,
-            "trailingComma": "es5",
-            "printWidth": 80
-          }
-        ]
+        'prettier/prettier': ['error', prettierRules],
       },
       settings: {
         react: {
@@ -79,17 +71,7 @@ module.exports = {
       },
       rules: {
         'cypress/no-unnecessary-waiting': 'off',
-        'prettier/prettier': [
-          'error',
-          {
-            "singleQuote": true,
-            "arrowParens": "always",
-            "semi": false,
-            "bracketSpacing": true,
-            "trailingComma": "es5",
-            "printWidth": 80
-          }
-        ]
+        'prettier/prettier': ['error', prettierRules],
       },
     },
     {
@@ -119,17 +101,7 @@ module.exports = {
       },
       plugins: ['vue', 'jsdoc'],
       rules: {
-        'prettier/prettier': [
-          'error',
-          {
-            "singleQuote": true,
-            "arrowParens": "always",
-            "semi": false,
-            "bracketSpacing": true,
-            "trailingComma": "es5",
-            "printWidth": 80
-          }
-        ]
+        'prettier/prettier': ['error', prettierRules],
       },
     },
     {
@@ -197,17 +169,7 @@ module.exports = {
           },
         ],
         'comma-dangle': 'off',
-        'prettier/prettier': [
-          'error',
-          {
-            "singleQuote": true,
-            "arrowParens": "always",
-            "semi": false,
-            "bracketSpacing": true,
-            "trailingComma": "es5",
-            "printWidth": 80
-          }
-        ]
+        'prettier/prettier': ['error', prettierRules],
       },
     },
   ],
