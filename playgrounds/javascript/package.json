@@ -6,10 +6,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel serve index.html --open --port 2222",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "lint": "eslint --ext .js ."
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1"
+    "@babel/core": "^7.13.1",
+    "eslint-config-meilisearch": "*"
   },
   "browserslist": [
     "defaults"
