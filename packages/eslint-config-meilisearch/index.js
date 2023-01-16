@@ -1,11 +1,10 @@
 module.exports = {
-  root: true,
   overrides: [
     {
       /*
        * REACT
        */
-      files: ['playgrounds/react/**/*.js', 'tests/env/react/**/*.js'],
+      files: ['playgrounds/react/**/*.js', 'playgrounds/local-react/**/*.js'],
       env: {
         es2020: true,
         commonjs: true, // Needed to avoid import is reserved error
@@ -29,6 +28,17 @@ module.exports = {
       },
       rules: {
         'react/prop-types': 0,
+        'prettier/prettier': [
+          'error',
+          {
+            "singleQuote": true,
+            "arrowParens": "always",
+            "semi": false,
+            "bracketSpacing": true,
+            "trailingComma": "es5",
+            "printWidth": 80
+          }
+        ]
       },
       settings: {
         react: {
@@ -69,6 +79,17 @@ module.exports = {
       },
       rules: {
         'cypress/no-unnecessary-waiting': 'off',
+        'prettier/prettier': [
+          'error',
+          {
+            "singleQuote": true,
+            "arrowParens": "always",
+            "semi": false,
+            "bracketSpacing": true,
+            "trailingComma": "es5",
+            "printWidth": 80
+          }
+        ]
       },
     },
     {
@@ -97,7 +118,19 @@ module.exports = {
         },
       },
       plugins: ['vue', 'jsdoc'],
-      rules: {},
+      rules: {
+        'prettier/prettier': [
+          'error',
+          {
+            "singleQuote": true,
+            "arrowParens": "always",
+            "semi": false,
+            "bracketSpacing": true,
+            "trailingComma": "es5",
+            "printWidth": 80
+          }
+        ]
+      },
     },
     {
       /*
@@ -127,7 +160,7 @@ module.exports = {
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
-        project: ['tsconfig.eslint.json'],
+        project: ['tsconfig.json'],
         projectFolderIgnoreList: ['dist'],
       },
 
@@ -164,6 +197,17 @@ module.exports = {
           },
         ],
         'comma-dangle': 'off',
+        'prettier/prettier': [
+          'error',
+          {
+            "singleQuote": true,
+            "arrowParens": "always",
+            "semi": false,
+            "bracketSpacing": true,
+            "trailingComma": "es5",
+            "printWidth": 80
+          }
+        ]
       },
     },
   ],
