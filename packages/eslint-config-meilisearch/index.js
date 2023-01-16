@@ -50,7 +50,7 @@ module.exports = {
       /*
        * JS
        */
-      files: ['**/*.js'],
+      files: ['**/*.js', '**/*.cjs'],
       env: {
         browser: true,
         es2020: true,
@@ -97,7 +97,7 @@ module.exports = {
        * VUE FILES
        */
 
-      files: ['playgrounds/vue3-ts/**/*.vue'],
+      files: ['**/*.vue'],
       env: {
         browser: true,
         commonjs: true,
