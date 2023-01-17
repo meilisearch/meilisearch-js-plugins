@@ -1,12 +1,14 @@
 {
-  "name": "react-playground",
+  "name": "@meilisearch/local-react-playground",
   "version": "0.1.0",
   "description": "React playground for instant-meilisearch",
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "scripts": {
-    "start": "parcel serve index.html --open --port 9999",
+    "predev": "node setup.js",
+    "dev": "parcel serve index.html --open --port 9999",
     "build": "parcel build index.html",
-    "setup": "node setup.js"
+    "setup": "node setup.js",
+    "lint": "eslint --ext .jsx,.js ."
   },
   "keywords": [
     "react",
@@ -17,19 +19,17 @@
   ],
   "author": "",
   "license": "ISC",
-  "resolutions": {
-    "node-forge": "^0.10.0"
-  },
   "dependencies": {
     "instantsearch.css": "^7.4.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-instantsearch-dom": "^6.12.1"
+    "react-instantsearch-dom": "^6.12.1",
+    "@meilisearch/instant-meilisearch": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@babel/plugin-syntax-jsx": "^7.12.13",
     "@babel/preset-react": "^7.12.13",
-    "parcel-bundler": "^1.12.4"
+    "eslint-config-meilisearch": "*"
   }
 }
