@@ -1,11 +1,12 @@
+const prettierRules = require('./prettier')
+
 module.exports = {
-  root: true,
   overrides: [
     {
       /*
        * REACT
        */
-      files: ['playgrounds/react/**/*.js', 'tests/env/react/**/*.js'],
+      files: ['**/*.jsx', '**/*.tsx'],
       env: {
         es2020: true,
         commonjs: true, // Needed to avoid import is reserved error
@@ -29,6 +30,7 @@ module.exports = {
       },
       rules: {
         'react/prop-types': 0,
+        'prettier/prettier': ['error', prettierRules],
       },
       settings: {
         react: {
@@ -40,7 +42,7 @@ module.exports = {
       /*
        * JS
        */
-      files: ['**/*.js'],
+      files: ['**/*.js', '**/*.cjs'],
       env: {
         browser: true,
         es2020: true,
@@ -69,6 +71,7 @@ module.exports = {
       },
       rules: {
         'cypress/no-unnecessary-waiting': 'off',
+        'prettier/prettier': ['error', prettierRules],
       },
     },
     {
@@ -76,7 +79,7 @@ module.exports = {
        * VUE FILES
        */
 
-      files: ['playgrounds/vue3-ts/**/*.vue'],
+      files: ['**/*.vue'],
       env: {
         browser: true,
         commonjs: true,
@@ -97,7 +100,9 @@ module.exports = {
         },
       },
       plugins: ['vue', 'jsdoc'],
-      rules: {},
+      rules: {
+        'prettier/prettier': ['error', prettierRules],
+      },
     },
     {
       /*
@@ -164,6 +169,7 @@ module.exports = {
           },
         ],
         'comma-dangle': 'off',
+        'prettier/prettier': ['error', prettierRules],
       },
     },
   ],

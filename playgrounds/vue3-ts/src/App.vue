@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <h1 class="header-title">PLOUF MeiliSearch + Vue 3 InstantSearch</h1>
+      <h1 class="header-title">MeiliSearch + Vue 3 InstantSearch</h1>
       <p class="header-subtitle">Search in Steam video games 🎮</p>
     </header>
     <p class="disclaimer">
