@@ -14,7 +14,7 @@ import {
 } from 'react-instantsearch-dom'
 
 import './App.css'
-import { instantMeiliSearch } from '../../../../src/index'
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
   primaryKey: 'id',

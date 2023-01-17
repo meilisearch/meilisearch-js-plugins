@@ -7852,7 +7852,7 @@ inquirer@7.3.3:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
-instantsearch.css@^7.3.1:
+instantsearch.css@^7.3.1, instantsearch.css@^7.4.5:
   version "7.4.5"
   resolved "https://registry.yarnpkg.com/instantsearch.css/-/instantsearch.css-7.4.5.tgz#2a521aa634329bf1680f79adf87c79d67669ec8d"
   integrity sha512-iIGBYjCokU93DDB8kbeztKtlu4qVEyTg1xvS6iSO1YvqRwkIZgf0tmsl/GytsLdZhuw8j4wEaeYsCzNbeJ/zEQ==
@@ -11831,7 +11831,7 @@ react-instantsearch-core@6.38.3:
     prop-types "^15.6.2"
     react-fast-compare "^3.0.0"
 
-react-instantsearch-dom@^6.38.3:
+react-instantsearch-dom@^6.12.1, react-instantsearch-dom@^6.38.3:
   version "6.38.3"
   resolved "https://registry.yarnpkg.com/react-instantsearch-dom/-/react-instantsearch-dom-6.38.3.tgz#6e76b9781fda349dc56b086c12de25a4987a95c0"
   integrity sha512-1VQxMq23pAaeJjyBdTuC+U2DHa35ygnKd4fCTWHv0YK/GwneoSOubxKf24QtNLsHfswJ/qjpW21xXv6IVRA90g==
