@@ -1,5 +1,5 @@
 import { adaptPaginationParameters } from '../pagination-adapter'
-import { ceiledDivision } from '../../../../tests/assets/number'
+import { ceiledDivision } from './../__tests__/assets/number'
 
 const numberPagesTestParameters = [
   {
