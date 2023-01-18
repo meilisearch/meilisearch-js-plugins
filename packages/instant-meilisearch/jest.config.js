@@ -1,4 +1,4 @@
-const ignoreFiles = ['<rootDir>/playgrounds', '<rootDir>/tests/assets']
+const ignoreFiles = ['<rootDir>(/.*)*/assets']
 
 module.exports = {
   verbose: true,
@@ -7,14 +7,6 @@ module.exports = {
     'jest-watch-typeahead/testname',
   ],
   collectCoverage: true,
-  coveragePathIgnorePatterns: [
-    'cypress/',
-    'playgrounds/',
-    'scripts',
-    'templates',
-    'tests',
-    '__tests__',
-  ],
   projects: [
     {
       globals: {
@@ -24,8 +16,8 @@ module.exports = {
       },
       preset: 'ts-jest',
       displayName: 'dom',
-      testPathIgnorePatterns: [...ignoreFiles, '<rootDir>/tests/build*'],
-      testMatch: ['**/*.tests.ts', '/tests/**/*.ts'],
+      testPathIgnorePatterns: [...ignoreFiles],
+      coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
     },
     {
       globals: {
@@ -36,8 +28,8 @@ module.exports = {
       preset: 'ts-jest',
       displayName: 'node',
       testEnvironment: 'node',
+      coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
       testPathIgnorePatterns: [...ignoreFiles],
-      testMatch: ['**/*.tests.ts', '/tests/**/*.ts'],
     },
   ],
 }
