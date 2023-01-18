@@ -17,12 +17,6 @@ module.exports = {
   ],
   projects: [
     {
-      displayName: 'build',
-      testEnvironment: 'node',
-      testPathIgnorePatterns: [...ignoreFiles, '<rootDir>/tests/*.ts'],
-      testMatch: ['**/*.tests.js', '/tests/**/*.js'],
-    },
-    {
       globals: {
         'ts-jest': {
           tsconfig: 'tsconfig.test.json',
