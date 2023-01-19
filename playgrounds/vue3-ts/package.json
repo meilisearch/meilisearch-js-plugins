@@ -8,7 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.vue,.js,.cjs .",
-    "types": "yarn tsc"
+    "test:types": "yarn tsc"
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "*",
