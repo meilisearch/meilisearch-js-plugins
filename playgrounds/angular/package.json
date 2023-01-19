@@ -5,7 +5,8 @@
     "ng": "ng",
     "dev": "ng serve --open --watch",
     "build": "ng build",
-    "lint": "eslint --ext .ts,.js ."
+    "lint": "eslint --ext .ts,.js .",
+    "test:types": "yarn tsc"
   },
   "private": true,
   "dependencies": {
