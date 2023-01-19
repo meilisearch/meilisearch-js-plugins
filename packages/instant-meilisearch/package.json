@@ -9,8 +9,6 @@
     "test:watch": "yarn test --watchAll",
     "test": "jest --runInBand --selectProjects dom --selectProjects node",
     "test:build": "yarn build && jest --runInBand --selectProjects build",
-    "test:e2e": "yarn local:env:setup && concurrently --kill-others -s first \"yarn local:env:react\" \"cypress run --env playground=local \"",
-    "test:e2e:watch": "yarn local:env:setup && concurrently --kill-others -s first \"yarn local:env:react\" \"cypress open  --env playground=local\"",
     "test:all": "yarn test:e2e && yarn test && yarn test:build",
     "cy:open": "cypress open",
     "playground:vue": "yarn --cwd ./playgrounds/vue && yarn --cwd ./playgrounds/vue serve",
