@@ -98,7 +98,7 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test
-      - name: Build all the projects
+      - name: Build all the playgrounds and the packages
         run: yarn build
   style_tests:
     name: style-check
