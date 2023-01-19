@@ -8,7 +8,9 @@
     "dev": "parcel serve index.html --open --port 9999",
     "build": "parcel build index.html",
     "setup": "node setup.js",
-    "lint": "eslint --ext .jsx,.js ."
+    "lint": "eslint --ext .jsx,.js .",
+    "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
+    "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\""
   },
   "keywords": [
     "react",
