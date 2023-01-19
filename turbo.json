@@ -12,6 +12,7 @@
       "cache": false
     },
     "test:e2e": {},
-    "test:e2e:watch": {}
+    "test:e2e:watch": {},
+    "test:types": {}
   }
 }
