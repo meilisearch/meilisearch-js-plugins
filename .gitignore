@@ -112,11 +112,12 @@ dist
 ############################
 # CYPRESS
 ############################
-cypress/screenshots
-cypress/videos
-cypress/support
-cypress/plugins
-cypress/fixtures
+# for some reason they are not ignored without the asterix's
+**/cypress/screenshots
+**/cypress/videos
+**/cypress/support
+**/cypress/plugins
+**/cypress/fixtures
 
 .vscode
 data.ms

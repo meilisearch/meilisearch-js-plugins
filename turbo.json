@@ -10,6 +10,8 @@
     "test:watch": {},
     "dev": {
       "cache": false
-    }
+    },
+    "test:e2e": {},
+    "test:e2e:watch": {}
   }
 }
