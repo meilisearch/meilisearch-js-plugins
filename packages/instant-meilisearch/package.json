@@ -6,7 +6,7 @@
   "scripts": {
     "clear_jest": "jest --clearCache",
     "cleanup": "shx rm -rf dist/",
-    "test:watch": "yarn test --watch",
+    "test:watch": "yarn test --watchAll",
     "test": "jest --runInBand --selectProjects dom --selectProjects node",
     "test:build": "yarn build && jest --runInBand --selectProjects build",
     "test:e2e": "yarn local:env:setup && concurrently --kill-others -s first \"yarn local:env:react\" \"cypress run --env playground=local \"",
