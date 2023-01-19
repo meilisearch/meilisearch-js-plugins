@@ -13,6 +13,9 @@
     },
     "test:e2e": {},
     "test:e2e:watch": {},
-    "test:types": {}
+    "test:types": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**"]
+    }
   }
 }
