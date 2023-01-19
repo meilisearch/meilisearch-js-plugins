@@ -98,7 +98,7 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test
-      - name: Build project
+      - name: Build all the projects
         run: yarn build
   style_tests:
     name: style-check
