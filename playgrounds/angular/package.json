@@ -5,7 +5,8 @@
     "ng": "ng",
     "dev": "ng serve --open --watch",
     "build": "ng build",
-    "lint": "eslint --ext .ts,.js ."
+    "lint": "eslint --ext .ts,.js .",
+    "test:types": "yarn tsc"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +19,7 @@
     "@angular/platform-browser-dynamic": "~15.1.0",
     "@angular/router": "~15.1.0",
     "@meilisearch/instant-meilisearch": "*",
-    "algoliasearch": "^4.10.5",
+    "algoliasearch": "^4.14.3",
     "angular-instantsearch": "^4.0.0",
     "instantsearch.js": "^4.14.0",
     "rxjs": "~6.6.0",
@@ -29,8 +30,6 @@
     "@angular-devkit/build-angular": "^15.1.1",
     "@angular/cli": "~15.1.1",
     "@angular/compiler-cli": "~15.1.0",
-    "@types/algoliasearch": "^3.34.11",
-    "@types/algoliasearch-helper": "^2.26.1",
     "@types/node": "^14.14.31",
     "eslint-config-meilisearch": "*",
     "ts-node": "~10.9.1",

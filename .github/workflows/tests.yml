@@ -128,8 +128,6 @@ jobs:
           node-version: 16
           cache: yarn
       - name: Install dependencies
-        run: yarn --dev
-      - name: Build project
-        run: yarn build
+        run: yarn
       - name: Run types check
-        run: yarn types
+        run: yarn test:types
