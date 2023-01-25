@@ -18,7 +18,8 @@
     "test": "turbo test",
     "test:watch": "turbo run test:watch",
     "instant-meilisearch:test:watch": "yarn --cwd ./packages/instant-meilisearch test:watch",
-    "test:types": "turbo run test:types"
+    "test:types": "turbo run test:types",
+    "version": "changeset version && turbo version"
   },
   "private": true,
   "license": "MIT",
@@ -31,6 +32,8 @@
     "turbo": "^1.7.0"
   },
   "dependencies": {
+    "@changesets/cli": "^2.26.0",
     "instantsearch.css": "^8.0.0"
-  }
+  },
+  "version": "0.0.0"
 }
