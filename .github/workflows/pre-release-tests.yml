@@ -47,15 +47,14 @@ jobs:
           node-version: 16
           cache: yarn
       - name: Install dependencies
-        run: yarn --dev && yarn --cwd ./tests/env/react
-      - name: Setup Meilisearch Index
-        run: yarn local:env:setup
+        run: yarn
       - name: Run local browser tests
         uses: cypress-io/github-action@v5
         with:
+          project: ./playgrounds/local-react
           wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
-          start: yarn local:env:react
+          start: yarn playground:local-react
           env: playground=local
       - uses: actions/upload-artifact@v3
         if: failure()
