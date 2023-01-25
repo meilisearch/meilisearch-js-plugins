@@ -23,7 +23,8 @@
     "dev": "rollup -c rollup.config.js --watch",
     "lint": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "eslint --ext .js,.ts,.tsx",
-    "test:types": "yarn tsc"
+    "test:types": "yarn tsc",
+    "version": "node scripts/update_version.js"
   },
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",

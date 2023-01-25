@@ -16,6 +16,7 @@
     "test:types": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**"]
-    }
+    },
+    "version": {}
   }
 }

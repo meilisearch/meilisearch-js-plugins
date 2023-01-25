@@ -103,6 +103,10 @@ As minimal requirements, your commit message should:
 
 We don't follow any other convention, but if you want to use one, we recommend [this one](https://chris.beams.io/posts/git-commit/).
 
+### Changesets <!-- omit in TOC -->
+
+We use [changesets](https://github.com/Noviny/changesets) to do versioning. What that means is that you need to add a changeset by running `yarn changeset` which contains what packages should be bumped, their associated semver bump types and some markdown which will be inserted into changelogs.
+
 ### GitHub Pull Requests <!-- omit in TOC -->
 
 Some notes on GitHub PRs:
@@ -112,6 +116,8 @@ Some notes on GitHub PRs:
 - The branch related to the PR must be **up-to-date with `main`** before merging. Fortunately, this project [integrates a bot](https://github.com/meilisearch/integration-guides/blob/main/resources/bors.md) to automatically enforce this requirement without the PR author having to do it manually.
 - All PRs must be reviewed and approved by at least one maintainer.
 - The PR title should be accurate and descriptive of the changes. The title of the PR will be indeed automatically added to the next [release changelogs](https://github.com/meilisearch/instant-meilisearch/releases/).
+
+
 
 ## Release Process (for the internal team only)
 
