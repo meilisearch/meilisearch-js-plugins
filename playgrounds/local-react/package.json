@@ -1,6 +1,7 @@
 {
   "name": "@meilisearch/local-react-playground",
   "version": "0.1.0",
+  "private": true,
   "description": "React playground for instant-meilisearch",
   "main": "src/index.jsx",
   "scripts": {
