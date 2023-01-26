@@ -3,7 +3,6 @@ const fs = require('fs')
 const path = require('path')
 
 const version = pkg.version
-
 const pckVersion = `export const PACKAGE_VERSION = '${version}'
 `
 
