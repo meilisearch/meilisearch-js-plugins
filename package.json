@@ -19,7 +19,8 @@
     "test:watch": "turbo run test:watch",
     "instant-meilisearch:test:watch": "yarn --cwd ./packages/instant-meilisearch test:watch",
     "test:types": "turbo run test:types",
-    "version": "changeset version && turbo version"
+    "version-packages": "changeset version && turbo version",
+    "release": "yarn build && changeset publish"
   },
   "private": true,
   "license": "MIT",
