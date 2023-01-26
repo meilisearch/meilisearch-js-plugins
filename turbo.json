@@ -6,11 +6,12 @@
       "outputs": ["dist/**", "build/**"]
     },
     "lint": {},
-    "test": {},
-    "test:watch": {},
+    "lint:fix": {},
     "dev": {
       "cache": false
     },
+    "test": {},
+    "test:watch": {},
     "test:e2e": {},
     "test:e2e:watch": {},
     "test:types": {

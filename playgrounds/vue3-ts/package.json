@@ -8,6 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.vue,.js,.cjs .",
+    "lint:fix": "eslint --ext .ts,.vue,.js,.cjs --fix .",
     "test:types": "yarn tsc"
   },
   "dependencies": {
