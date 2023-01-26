@@ -3,10 +3,10 @@ const fs = require('fs')
 const path = require('path')
 
 const version = pkg.version
-const pckVersion = `export const PACKAGE_VERSION = '${version}'
+const fileContents = `export const PACKAGE_VERSION = '${version}'
 `
 
-const p = path.resolve(__dirname, '../src/package-version.ts')
+const filePath = path.resolve(__dirname, '../src/package-version.ts')
 
-console.log(p)
-fs.writeFileSync(p, pckVersion)
+console.log(filePath)
+fs.writeFileSync(filePath, fileContents)
