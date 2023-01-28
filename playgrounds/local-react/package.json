@@ -10,6 +10,7 @@
     "build": "parcel build index.html",
     "setup": "node setup.js",
     "lint": "eslint --ext .jsx,.js .",
+    "lint:fix": "eslint --ext .jsx,.js --fix .",
     "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
     "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\""
   },
@@ -23,16 +24,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@meilisearch/instant-meilisearch": "*",
     "instantsearch.css": "^7.4.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-instantsearch-dom": "^6.12.1",
-    "@meilisearch/instant-meilisearch": "*"
+    "react-instantsearch-dom": "^6.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@babel/plugin-syntax-jsx": "^7.12.13",
     "@babel/preset-react": "^7.12.13",
+    "cypress": "^8.6.0",
     "eslint-config-meilisearch": "*"
   }
 }
