@@ -20,8 +20,11 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - name: Check tag format
+        run: sh .github/scripts/check-tag-format.sh
       - name: Install dependencies
         run: yarn
+      # add an if condition that exit pre-release mode when pushing on main
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
