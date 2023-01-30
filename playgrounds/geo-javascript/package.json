@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/geo-playground",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "description": "Instant-meilisearch playground focussed on GeoSearch written with vanilla javascript",
   "main": "index.js",
