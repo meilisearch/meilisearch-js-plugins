@@ -2,7 +2,17 @@
   "mode": "pre",
   "tag": "turbo-migration",
   "initialVersions": {
-    "@meilisearch/instant-meilisearch": "0.10.1"
+    "@meilisearch/instant-meilisearch": "0.10.1",
+    "eslint-config-meilisearch": "0.0.0",
+    "@meilisearch/angular-playground": "0.0.0",
+    "@meilisearch/geo-playground": "0.0.0",
+    "@meilisearch/vanilla-playground": "0.0.0",
+    "@meilisearch/local-react-playground": "0.0.0",
+    "@meilisearch/react-playground": "0.0.0",
+    "@meilisearch/vue3-ts-playground": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "metal-falcons-shave",
+    "nice-monkeys-rest"
+  ]
 }

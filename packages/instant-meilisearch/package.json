@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.10.1",
+  "version": "0.10.2-turbo-migration.0",
   "private": false,
   "description": "The search client to use Meilisearch with InstantSearch.",
   "scripts": {
