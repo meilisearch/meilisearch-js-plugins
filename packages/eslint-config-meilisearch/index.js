@@ -20,7 +20,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:prettier/recommended',
       ],
-      plugins: ['react', 'import'],
+      plugins: ['react'],
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -170,6 +170,10 @@ module.exports = {
         ],
         'comma-dangle': 'off',
         'prettier/prettier': ['error', prettierRules],
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+        ],
       },
     },
   ],
