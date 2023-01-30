@@ -1,11 +1,16 @@
 #!/bin/sh
 
 # Checking if current tag matches the required formating
-current_tag=$(echo $GITHUB_REF | cut -d '/' -f 3 | tr -d ' ',v)
-echo $current_tag
+# current_tag=$(echo $GITHUB_REF | cut -d '/' -f 3 | tr -d ' ',v)
+echo $GITHUB_REF
+# echo $current_tag
 # if push on not main
 # pre.json should be present
-#
+echo $GITHUB_REF | grep 'beta'
+echo $?
+echo $test
+echo "plouf" | grep 'beta'
+echo $?
 
 # if [ $is_pre_release = false ]; then
 #   # Works with the format vX.X.X, X being numbers

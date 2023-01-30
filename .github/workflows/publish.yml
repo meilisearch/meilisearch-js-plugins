@@ -8,8 +8,6 @@ on:
       - 'beta/**'
       - 'prototype-beta/'
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
   publish-npm:
     name: Release
@@ -25,7 +23,19 @@ jobs:
       - name: Install dependencies
         run: yarn
       # add an if condition that exit pre-release mode when pushing on main
+      - name: Create Beta Release Pull Request or Publish to npm
+        if: contains(github.ref, 'beta')
+        uses: changesets/action@v1
+        with:
+          # https://github.com/changesets/changesets/blob/main/docs/prereleases.md
+          # https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#publish
+          publish: yarn beta-release
+          version: yarn version-packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create Release Pull Request or Publish to npm
+        if: contains(github.ref, 'beta') == false
         uses: changesets/action@v1
         with:
           publish: yarn release
