@@ -396,7 +396,7 @@ describe.each(finitePaginateHitsTestsParameters)(
       const response = adaptPaginationParameters(
         {
           hits,
-          page: page,
+          page,
           hitsPerPage,
           processingTimeMs: 0,
           query: '',

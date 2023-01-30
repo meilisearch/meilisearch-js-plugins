@@ -38,7 +38,7 @@ function setFinitePagination(
     }
   } else {
     return {
-      hitsPerPage: hitsPerPage,
+      hitsPerPage,
       page: page + 1,
     }
   }
