@@ -47,7 +47,7 @@ export function instantMeiliSearch(
 
   const meilisearchClient = new MeiliSearch({
     host: hostUrl,
-    apiKey: apiKey,
+    apiKey,
     clientAgents,
   })
 

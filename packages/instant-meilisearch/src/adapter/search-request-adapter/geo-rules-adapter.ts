@@ -7,12 +7,8 @@ export function adaptGeoPointsRules(
   if (!geoSearchContext) {
     return undefined
   }
-  const {
-    insideBoundingBox,
-    aroundLatLng,
-    aroundRadius,
-    minimumAroundRadius,
-  } = geoSearchContext
+  const { insideBoundingBox, aroundLatLng, aroundRadius, minimumAroundRadius } =
+    geoSearchContext
 
   let middlePoint
   let radius
