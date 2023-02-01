@@ -30,14 +30,13 @@ For general information on how to use Meilisearch—such as our API reference, t
 ### Plugins Found Here
 |                                                    |                                                                                           |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [instant-meilisearch](./packages/instant-meilisearch)  | The search client needed to make Meilisearch work with [instantsearch.js](https://github.com/algolia/instantsearch).                                         |
+| [`instant-meilisearch`](./packages/instant-meilisearch)  | The search client needed to make Meilisearch work with [instantsearch.js](https://github.com/algolia/instantsearch).                                         |
 |                              |                                         |
 
 ### Plugins Found On their Own Repo
 
 |                                                    |                                                                                           |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| [instant-meilisearch](./packages/instant-meilisearch)  | The search client needed to make Meilisearch work with [instantsearch.js](https://github.com/algolia/instantsearch).                                         |
 | [`strapi-plugin-meilisearch`](https://github.com/meilisearch/strapi-plugin-meilisearch)  | A plugin to add and synchronize your [Strapi](https://strapi.io/) data on Meilisearch.                                         |
 | [`Firestore-meilisearch`](https://github.com/meilisearch/firestore-meilisearch/)  | A plugin to synchronize your [firestore](https://firebase.google.com/docs/firestore) data on Meilisearch.                                         |
 | [`gatsby-plugin-meilisearch`](https://github.com/meilisearch/gatsby-plugin-meilisearch/)  | A plugin to index your [Gatsby](https://www.gatsbyjs.com/) content to Meilisearch based on graphQL queries.                                         |

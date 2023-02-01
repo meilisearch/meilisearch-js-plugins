@@ -52,7 +52,6 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 
 For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://docs.meilisearch.com/).
 
-
 ## 🔧 Installation
 
 Use `npm` or `yarn` to install `instant-meilisearch`:
