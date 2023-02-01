@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "suppressImplicitAnyIndexErrors": true,
+  },
+  "include": [
+    "./**/*"
+  ],
+  "exclude": ["playgrounds/angular"]
+}
