@@ -52,33 +52,41 @@ yarn lint:fix
 yarn build
 ```
 
+If you want to test a specific package, from the root directory run any of the above command with the `filter` flag.
+
+Example:
+```
+turbo run test --filter=@meilisearch/instant-meilisearch
+```
+
 ### Playgrounds <!-- omit in TOC -->
 
-To test directly your changes in `instant-meilisearch`, you can run the Vue playground:
+#### @meilisearch/instant-meilisearch playgrounds
 
+To test directly your changes in `instant-meilisearch`, you can run the following playgrounds:
+
+`Vue 3`
 ```bash
 yarn playground:vue
 ```
 
-Or the React playground:
+`React`:
 
 ```bash
 yarn playground:react
 ```
 
-Or the JavaScript playground:
+`Vanilla JS`:
 ```
 yarn playground:javascript
 ```
 
-Or the HTML playground:
+`HTML`:
 ```
 yarn playground:html
 ```
 
-### Geo-Search Playground
-
-A playground is available to try out the [GeoSearch](./README.md/-geo-search) in `instant-meilisearch`.
+An additional playground is provided to test out the [GeoSearch](./packages/instant-meilisearch#-geo-search).
 
 ```bash
 yarn playground:geo-javascript
@@ -105,10 +113,13 @@ We don't follow any other convention, but if you want to use one, we recommend [
 
 ### Changesets <!-- omit in TOC -->
 
-We use [changesets](https://github.com/Noviny/changesets) to do versioning. What that means is that you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `yarn changeset`. The changeset you create contains what packages should be bumped, their associated semver type and the changelogs.
+We use [changesets](https://github.com/Noviny/changesets) to do versioning. What that means is that you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `yarn changeset`. The changeset you create contains which packages should be bumped, their associated semver type and the changelogs.
 
-These changesets are added in the `.changesets` directory at the root of the repository, and should be added in your PR.
-Once there is a [release](#release-on-github-and-npm), these files are automatically removed.
+
+> avant chaque release, les fichiers sont supprimés (voir process qui suit)
+
+These changesets are added to the `.changesets` directory at the root of the repository, and should be added to your PR.
+Before a release, these files are removed (see [process](#release-on-github-and-npm)).
 
 Some changes do [not require a changeset](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md#not-every-change-requires-a-changeset). For example changes that does not impact the packages, e.g. : Updating the README.md or changes in tests files.
 
@@ -131,17 +142,17 @@ Meilisearch tools follow the [Semantic Versioning Convention](https://semver.org
 This project integrates a bot that helps us manage pull requests merging.<br>
 _[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/resources/bors.md)._
 
-### Release on Github and npm
+### Release on GitHub and npm
 
-This repository uses the [changesets](https://github.com/Noviny/changesets) library to handle the version updates and the publishing on Github and `npm`.
+This repository uses the [changesets](https://github.com/Noviny/changesets) library to handle the version updates and the publishing on GitHub and `npm`.
 
-When PR's are merged on `main`, they trigger the [`release` CI](./.github/workflows/publish.yml). This CI creates a PR titled `Version Packages` containing all the version updates and changelogs of the impacted packages. The PR updates the versions and the changelogs based on the `changesets` that were previously pushed on main (see [changeset section](#changesets)).
+When PRs are merged on `main`, they trigger the [`release` CI](./.github/workflows/publish.yml). This CI creates a PR titled `Version Packages` containing all the version updates and changelogs of the impacted packages. The PR updates the versions and the changelogs based on the `changesets` that were previously pushed on main (see [changeset section](#changesets)).
 
-To release on Github and `npm` you must merge the `Version packages` PR. This will trigger the publishing action and create the Github and `npm` releases for all affected packages.
+To release on GitHub and `npm` you must merge the `Version packages` PR. This will trigger the publishing action and create the GitHub and `npm` releases for all affected packages.
 
 See more in depth explaination on [versioning](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#version), [publishing](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#publish) and the [changesets github-action](https://github.com/changesets/action).
 
-If you were previously on `pre-release mode`, do not forget to create a PR exiting the pre-release mode by doing `yarn changeset pre exit` and then merge it to main.
+If you merged a beta branch, that was released, into main, you were probably in the `changesets` [pre-release](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) mode (see section on [releasing a beta](#release-a-beta-version)). If the `pre.json` file is present in the `.changesets` folder, you need to exit that mode. This is possible by running `yarn changeset pre exit`. Once done, create a PR with the changes and merge it to main.
 
 #### Codesandbox update
 Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
@@ -172,11 +183,11 @@ Here are the steps to release a beta version of this package depending on its ty
 
 2. Enable the pre-release mode by running `yarn changeset pre enter [X]`. `X` is the part after the `/` of your beta branch. Example for `beta/refactor`, X would be `refactor`. This will create a `pre.json` file in `.changesets` that must be pushed on your beta branch.
 
-3. Commit and push your related PR's to the newly created branch (step 1).
+3. Commit and push your related PRs to the newly created branch (step 1).
 
 4. When a PR is merged onto your beta branch, the [release CI](./.github/workflows/publish.yml) opens a PR named `Version Packages (X)` (see step 2 for `X`). This PR contains all the changesets and the version update based on the type of changes in the changesets.
 
-5. To publish the release on Github and `npm`, you need to merge the `Version Packages (X)` PR. This will trigger the publishing.
+5. To publish the release on GitHub and `npm`, you need to merge the `Version Packages (X)` PR. This will trigger the publishing.
 
 <hr>
 

@@ -25,7 +25,7 @@
 
 **Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/meilisearch)
 
-This library is a client that establishes communication between your [Meilisearch](https://github.com/meilisearch/meilisearch) instance and [InstantSearch](https://github.com/algolia/instantsearch.js). InstantSearch, an open-source project developed by Algolia, is the tool that renders all the components needed to start searching in your front-end application.
+This library is the search client that you should use to make [Meilisearch](https://github.com/meilisearch/meilisearch) work with [InstantSearch](https://github.com/algolia/instantsearch.js). InstantSearch, an open-source project developed by Algolia, is the tool that renders all the components needed to start searching in your front-end application.
 
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
@@ -39,6 +39,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 
 ## Table of Contents <!-- omit in toc -->
 
+- [📖 Documentation](#-documentation)
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
 - [💅 Customization](#-customization)
@@ -46,6 +47,10 @@ NB: If you don't have any Meilisearch instance running and containing your data,
 - [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
 - [📜 API Resources](#-api-resources)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
+
+## 📖 Documentation
+
+For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://docs.meilisearch.com/).
 
 ## 🔧 Installation
 
