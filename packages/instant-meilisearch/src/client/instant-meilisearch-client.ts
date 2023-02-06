@@ -75,6 +75,8 @@ export function instantMeiliSearch(
     instantMeiliSearchOptions
   )
   return {
+    appId: 'none',
+    transporter: {},
     clearCache: () => searchCache.clearCache(),
     /**
      * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests

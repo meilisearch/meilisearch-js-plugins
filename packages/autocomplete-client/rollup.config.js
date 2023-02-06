@@ -36,7 +36,7 @@ module.exports = [
   {
     input: INPUT, // directory to transpilation of typescript
     output: {
-      name: 'window',
+      name: '@meilisearch/autocomplete-client',
       extend: true,
       file: getOutputFileName(
         // will add .min. in filename if in production env
@@ -47,6 +47,7 @@ module.exports = [
       sourcemap: env === 'production', // create sourcemap for error reporting in production mode
       globals: {
         meilisearch: 'meilisearch',
+        instantMeilisearch: 'instantMeilisearch',
       },
     },
     plugins: [

@@ -1,5 +1,6 @@
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
+
 import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,
@@ -7,7 +8,10 @@ import type {
 } from 'meilisearch'
 
 export type { AlgoliaMultipleQueriesQuery, MultiSearchResult }
-export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
+export type {
+  SearchResponse as AlgoliaSearchResponse,
+  SearchForFacetValuesResponse as AlgoliaSearchForFacetValuesResponse,
+} from '@algolia/client-search'
 
 export type {
   Filter,
@@ -97,6 +101,8 @@ export type InstantSearchGeoParams = {
 }
 
 export type InstantMeiliSearchInstance = SearchClient & {
+  appId: string
+  transporter: any
   clearCache: () => void
 }
 

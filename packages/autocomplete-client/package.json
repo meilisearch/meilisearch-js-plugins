@@ -1,7 +1,7 @@
 {
   "name": "@meilisearch/autocomplete-client",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "description": "The search client to use Meilisearch with autocomplete.js.",
   "scripts": {
     "clear_jest": "jest --clearCache",
@@ -43,9 +43,10 @@
     "url": "https://github.com/meilisearch/instant-meilisearch.git"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.10.1"
+    "@meilisearch/instant-meilisearch": "*"
   },
   "devDependencies": {
+    "@algolia/autocomplete-js": "^1.7.4",
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
