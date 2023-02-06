@@ -45,7 +45,7 @@ jobs:
       - name: Setup Meilisearch Index
         run: yarn local:env:setup
       - name: Run local browser tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
           wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
