@@ -1,5 +1,11 @@
 {
   "name": "root",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meilisearch/instant-meilisearch.git"
+  },
   "workspaces": [
     "packages/*",
     "playgrounds/*"
@@ -24,12 +30,6 @@
     "beta-release": "yarn build && changeset publish --tag beta",
     "release": "yarn build && changeset publish"
   },
-  "private": true,
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/meilisearch/instant-meilisearch.git"
-  },
   "devDependencies": {
     "parcel-bundler": "^1.12.5",
     "turbo": "^1.7.0"
@@ -37,6 +37,5 @@
   "dependencies": {
     "@changesets/cli": "^2.26.0",
     "instantsearch.css": "^8.0.0"
-  },
-  "version": "0.0.0"
+  }
 }
