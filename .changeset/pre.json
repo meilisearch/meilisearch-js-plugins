@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "turbo-migration",
   "initialVersions": {
     "@meilisearch/instant-meilisearch": "0.10.1",
