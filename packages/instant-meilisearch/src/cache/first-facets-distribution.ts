@@ -33,9 +33,8 @@ export async function initFacetDistribution(
   // Used to show the facets when `placeholderSearch` is set to true
   // Used to fill the missing facet values when `keepZeroFacets` is set to true
   if (!initialFacetDistribution[searchContext.indexUid]) {
-    initialFacetDistribution[
-      searchContext.indexUid
-    ] = await getIndexFacetDistribution(searchResolver, searchContext)
+    initialFacetDistribution[searchContext.indexUid] =
+      await getIndexFacetDistribution(searchResolver, searchContext)
   }
 
   return initialFacetDistribution
