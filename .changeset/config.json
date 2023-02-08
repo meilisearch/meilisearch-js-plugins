@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "linked": [],
+  "access": "restricted",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "@meilisearch/geo-playground",
+    "@meilisearch/vanilla-playground",
+    "@meilisearch/angular-playground",
+    "@meilisearch/vue3-ts-playground",
+    "@meilisearch/react-playground",
+    "@meilisearch/local-react-playground"
+  ]
+}

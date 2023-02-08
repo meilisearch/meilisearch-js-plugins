@@ -1,18 +1,19 @@
 {
-  "name": "js-playground",
-  "version": "0.1.0",
+  "name": "@meilisearch/geo-playground",
+  "version": "0.0.0",
+  "private": true,
   "description": "Instant-meilisearch playground focussed on GeoSearch written with vanilla javascript",
   "main": "index.js",
   "scripts": {
-    "start": "parcel serve index.html --open",
-    "build": "parcel build index.html"
+    "dev": "parcel serve index.html --open",
+    "build": "parcel build index.html",
+    "lint": "eslint --ext .js .",
+    "lint:fix": "eslint --ext .js --fix ."
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
-    "parcel-bundler": "^1.12.4"
-  },
-  "resolutions": {
-    "node-forge": "^0.10.0"
+    "@babel/core": "^7.20.12",
+    "@meilisearch/instant-meilisearch": "0.10.2-turbo-migration.0",
+    "eslint-config-meilisearch": "*"
   },
   "browserslist": [
     "defaults"

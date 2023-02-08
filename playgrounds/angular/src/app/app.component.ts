@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { instantMeiliSearch } from '../../../../src'
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',

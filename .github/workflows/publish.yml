@@ -1,32 +1,41 @@
-name: Publish to npm
+name: Release
+
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+      - 'pre-release-beta/**'
+      - 'beta/**'
+      - 'prototype-beta/'
+env:
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   publish-npm:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '16.x'
           registry-url: https://registry.npmjs.org/
-      - name: Check release validity
-        run: sh .github/scripts/check-release.sh
-      - name: Check tag format
-        run: sh .github/scripts/check-tag-format.sh "${{ github.event.release.prerelease }}"
       - name: Install dependencies
-        run: yarn install
-      - name: Build instant-meilisearch
-        run: yarn build
-      - name: Publish with latest tag
-        if: '!github.event.release.prerelease'
-        run: npm publish .
+        run: yarn
+      - name: Create .npmrc file
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            always-auth = true
+          EOF
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - name: Publish with beta tag
-        if: 'github.event.release.prerelease'
-        run: npm publish . --tag beta
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          publish: yarn release
+          version: yarn version-packages
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

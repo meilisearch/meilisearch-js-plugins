@@ -52,33 +52,41 @@ yarn lint:fix
 yarn build
 ```
 
+If you want to test a specific package, from the root directory run any of the above command with the `filter` flag.
+
+Example:
+```
+turbo run test --filter=@meilisearch/instant-meilisearch
+```
+
 ### Playgrounds <!-- omit in TOC -->
 
-To test directly your changes in `instant-meilisearch`, you can run the Vue playground:
+#### @meilisearch/instant-meilisearch playgrounds
 
+To test directly your changes in `instant-meilisearch`, you can run the following playgrounds:
+
+`Vue 3`
 ```bash
 yarn playground:vue
 ```
 
-Or the React playground:
+`React`:
 
 ```bash
 yarn playground:react
 ```
 
-Or the JavaScript playground:
+`Vanilla JS`:
 ```
 yarn playground:javascript
 ```
 
-Or the HTML playground:
+`HTML`:
 ```
 yarn playground:html
 ```
 
-### Geo-Search Playground
-
-A playground is available to try out the [GeoSearch](./README.md/-geo-search) in `instant-meilisearch`.
+An additional playground is provided to test out the [GeoSearch](./packages/instant-meilisearch#-geo-search).
 
 ```bash
 yarn playground:geo-javascript
@@ -103,6 +111,18 @@ As minimal requirements, your commit message should:
 
 We don't follow any other convention, but if you want to use one, we recommend [this one](https://chris.beams.io/posts/git-commit/).
 
+### Changesets <!-- omit in TOC -->
+
+We use [changesets](https://github.com/Noviny/changesets) to do versioning. What that means is that you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `yarn changeset`. The changeset you create contains which packages should be bumped, their associated semver type and the changelogs.
+
+
+> avant chaque release, les fichiers sont supprimés (voir process qui suit)
+
+These changesets are added to the `.changesets` directory at the root of the repository, and should be added to your PR.
+Before a release, these files are removed (see [process](#release-on-github-and-npm)).
+
+Some changes do [not require a changeset](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md#not-every-change-requires-a-changeset). For example changes that does not impact the packages, e.g. : Updating the README.md or changes in tests files.
+
 ### GitHub Pull Requests <!-- omit in TOC -->
 
 Some notes on GitHub PRs:
@@ -122,32 +142,17 @@ Meilisearch tools follow the [Semantic Versioning Convention](https://semver.org
 This project integrates a bot that helps us manage pull requests merging.<br>
 _[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/resources/bors.md)._
 
-### Automated Changelogs <!-- omit in TOC -->
+### Release on GitHub and npm
 
-This project integrates a tool to create automated changelogs.<br>
-_[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/resources/release-drafter.md)._
+This repository uses the [changesets](https://github.com/Noviny/changesets) library to handle the version updates and the publishing on GitHub and `npm`.
 
-### How to Publish the Release <!-- omit in TOC -->
+When PRs are merged on `main`, they trigger the [`release` CI](./.github/workflows/publish.yml). This CI creates a PR titled `Version Packages` containing all the version updates and changelogs of the impacted packages. The PR updates the versions and the changelogs based on the `changesets` that were previously pushed on main (see [changeset section](#changesets)).
 
-⚠️ Before doing anything, make sure you got through the guide about [Releasing an Integration](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md).
+To release on GitHub and `npm` you must merge the `Version packages` PR. This will trigger the publishing action and create the GitHub and `npm` releases for all affected packages.
 
-#### Version update
-Make a PR modifying the following files with the right version:
+See more in depth explaination on [versioning](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#version), [publishing](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#publish) and the [changesets github-action](https://github.com/changesets/action).
 
-[`package.json`](/package.json):
-```javascript
-"version": "X.X.X",
-```
-
-[`src/package-version`](/src/package-version.ts)
-```javascript
-export const PACKAGE_VERSION = 'X.X.X'
-```
-
-#### Github publish
-Once the changes are merged on `main`, you can publish the current draft release via the [GitHub interface](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Edit` (related to the draft release) > update the description (be sure you apply [these recommendations](https://github.com/meilisearch/integration-guides/blob/main/resources/integration-release.md#writting-the-release-description)) > when you are ready, click on `Publish release`.
-
-GitHub Actions will be triggered and push the package to [npm](https://www.npmjs.com/package/@meilisearch/instant-meilisearch).
+If you merged a beta branch, that was released, into main, you were probably in the `changesets` [pre-release](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) mode (see section on [releasing a beta](#release-a-beta-version)). If the `pre.json` file is present in the `.changesets` folder, you need to exit that mode. This is possible by running `yarn changeset pre exit`. Once done, create a PR with the changes and merge it to main.
 
 #### Codesandbox update
 Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
@@ -176,24 +181,13 @@ Here are the steps to release a beta version of this package depending on its ty
     - Meilisearch `prototype beta`: create a branch `prototype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
         Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the branch should be named: `prototype-beta/pagination`
 
-2. [Update the version](#version-update) following the correct format (X are numbers):
-    - package and prototype beta: `X.X.X-***.X`
-      example: `0.2.0-new-feature.0`
-    - pre-release beta: `X.X.X-vX.X.X-pre-release.X`
-      example: `0.2.0-v0.30.0-pre-release.0`
+2. Enable the pre-release mode by running `yarn changeset pre enter [X]`. `X` is the part after the `/` of your beta branch. Example for `beta/refactor`, X would be `refactor`. This will create a `pre.json` file in `.changesets` that must be pushed on your beta branch.
 
+3. Commit and push your related PRs to the newly created branch (step 1).
 
-3. Commit and push your code to the newly created branch (step 1).
+4. When a PR is merged onto your beta branch, the [release CI](./.github/workflows/publish.yml) opens a PR named `Version Packages (X)` (see step 2 for `X`). This PR contains all the changesets and the version update based on the type of changes in the changesets.
 
-4. Go to the [GitHub interface for releasing](https://github.com/meilisearch/instant-meilisearch/releases): on this page, click on `Draft a new release`.
-
-5. Create a GitHub pre-release:
-  - Fill the description with the detailed changelogs
-  - Fill the title with the version defined on step `2`, appened with a `v`. Ex: `v0.1.0`
-  - Fill the tag with the same name as the title
-  - ⚠️ Select the branch created on step `1` and NOT `main`
-  - ⚠️ Click on the "This is a pre-release" checkbox
-  - Click on "Publish release"
+5. To publish the release on GitHub and `npm`, you need to merge the `Version Packages (X)` PR. This will trigger the publishing.
 
 <hr>
 

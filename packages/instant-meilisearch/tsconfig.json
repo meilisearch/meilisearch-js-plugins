@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "noEmit": true,
+    "allowJs": false,
+    "removeComments": false,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist/types",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "lib": [
+      "ES2019",
+      "ESNext",
+      "dom"
+    ],
+    "importHelpers": true,
+    // Enforced typing rules
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+}
