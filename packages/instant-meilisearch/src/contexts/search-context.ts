@@ -18,7 +18,7 @@ export function createSearchContext(
 ): SearchContext {
   // Split index name and possible sorting rules
   const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
-  const { params: instantSearchParams } = searchRequest
+  const { query, params: instantSearchParams } = searchRequest
 
   const paginationState = createPaginationState(
     options.finitePagination,
@@ -30,6 +30,7 @@ export function createSearchContext(
 
   const searchContext: SearchContext = {
     ...options,
+    query,
     ...instantSearchParams,
     sort: sortState,
     indexUid,
