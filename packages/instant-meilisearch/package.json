@@ -8,7 +8,10 @@
   "bugs": {
     "url": "https://github.com/meilisearch/instant-meilisearch/issues"
   },
-  "repository": "meilisearch/instant-meilisearch",
+  "repository": "https://github.com/meilisearch/instant-meilisearch/tree/beta/lerna-migration/packages/instant-meilisearch",
+  "publishConfig": {
+    "access": "public"
+  },
   "author": {
     "name": "Meilisearch",
     "url": "https://meilisearch.com"
