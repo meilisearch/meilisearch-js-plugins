@@ -1,4 +1,4 @@
-import { adaptFacetDistribution } from '../../search-response-adapter/facet-distribution-adapter'
+import { adaptFacetDistribution } from '../facet-distribution-adapter'
 
 const initialFacetDistribution = {
   movie: {
