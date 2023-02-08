@@ -21,7 +21,6 @@
     "instant-meilisearch:test:watch": "yarn --cwd ./packages/instant-meilisearch test:watch",
     "test:types": "turbo run test:types",
     "version-packages": "changeset version && turbo version",
-    "beta-release": "yarn build && changeset publish --tag beta",
     "release": "yarn build && changeset publish"
   },
   "private": true,
