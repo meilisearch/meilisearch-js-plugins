@@ -3,6 +3,21 @@
   "version": "0.10.1",
   "private": false,
   "description": "The search client to use Meilisearch with InstantSearch.",
+  "homepage": "https://github.com/meilisearch/instant-meilisearch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meilisearch/instant-meilisearch/issues"
+  },
+  "repository": "meilisearch/instant-meilisearch",
+  "author": {
+    "name": "Meilisearch",
+    "url": "https://meilisearch.com"
+  },
+  "keywords": [
+    "search",
+    "instantsearch",
+    "client"
+  ],
   "scripts": {
     "clear_jest": "jest --clearCache",
     "cleanup": "shx rm -rf dist/",
@@ -23,25 +38,11 @@
   "typings": "./dist/types/index.d.ts",
   "types": "./dist/types/index.d.ts",
   "sideEffects": false,
-  "bugs": {
-    "url": "https://github.com/meilisearch/instant-meilisearch/issues"
-  },
   "files": [
     "dist",
     "src",
     "templates"
   ],
-  "keywords": [
-    "search",
-    "instantsearch",
-    "client"
-  ],
-  "author": "Clementine Urquizar",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/meilisearch/instant-meilisearch.git"
-  },
   "dependencies": {
     "meilisearch": "^0.31.1"
   },
