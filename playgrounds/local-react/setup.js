@@ -1,6 +1,6 @@
 const { MeiliSearch } = require('meilisearch')
-const movies = require('../../assets/movies.json')
-const games = require('../../assets/games.json')
+const movies = require('./assets/movies.json')
+const games = require('./assets/games.json')
 
 ;(async () => {
   const client = new MeiliSearch({
