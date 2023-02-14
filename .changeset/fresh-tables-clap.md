@@ -11,12 +11,12 @@
 Currently, for each `facet value` selected in a different `facet` a separate request is made to Meilisearch. Plus, an additional one containing all the facets filters. It results in tedious search requests and a high bandwidth cost.
 For example, if I select `Adventure` on genres and `Multiplayer` on players, one request is made with both facet filters, one with only `genres=Adventure` and one with only `players=Multiplayer`
 
-In the next release of Meilisearch, the `multi-index` route should be released (see [PR](https://github.com/meilisearch/meilisearch/pull/3417)). When it is released, the work-around will be removed and only one request will be done in all cases!
+In the next release of Meilisearch, a new `multi-search` API route is planned to be released (see [PR](https://github.com/meilisearch/meilisearch/pull/3417)). When it is released, the work-around will be removed and only one HTTP request will be done in all cases!
 
 
-## Explaination
+## Explanation
 
-The way the `facet distribution` is calculated changed. The `facet distribution` shows the numbers of hits for each facet. For example:
+The way the `facetDistribution` is calculated changed. The `facetDistribution` shows the numbers of hits for each facet. For example:
 
 Given the following facet:
 
@@ -25,7 +25,7 @@ Genres
 - [ ] Adventure 7
 ```
 
-The `facet distribution` provides the information that there are 7 hits containing the adventure genre.
+The `facetDistribution` provides the information that there are `7` hits containing the adventure genre.
 
 For the example, let's take the following facets:
 
@@ -50,7 +50,7 @@ Players
 - [ ] Single player 3
 ```
 
-In the new behavior the distribution number are not changed when facet values are selected inside the same facet.
+With the new behavior, the distributed number are not changed when facet values are selected inside the same facet because a facet distribution is computed with a dedicated search request.
 
 ```
 Genres
@@ -74,4 +74,4 @@ Players
 
 This is the conventional way of calculating the facet distribution. Similar to Algolia's behavior. If you prefer the old behavior, please consider opening an issue.
 
-See [complete explaination here](https://github.com/meilisearch/instant-meilisearch/issues/884)
+See [complete explanation here](https://github.com/meilisearch/instant-meilisearch/issues/884)
