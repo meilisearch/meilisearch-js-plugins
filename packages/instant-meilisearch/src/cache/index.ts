@@ -1,2 +1,2 @@
 export * from './search-cache'
-export * from './first-facets-distribution'
+export * from './init-facets-distribution'

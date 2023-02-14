@@ -1,7 +1,4 @@
-import type {
-  SearchResponse as MeiliSearchResponse,
-  FacetDistribution,
-} from 'meilisearch'
+import type { SearchResponse as MeiliSearchResponse } from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
@@ -17,15 +14,6 @@ export type {
 } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
-
-export type FacetsCache = {
-  [category: string]: string[]
-}
-
-export type ParsedFilter = {
-  filterName: string
-  value: string
-}
 
 export const enum MatchingStrategies {
   ALL = 'all',
@@ -73,16 +61,17 @@ export type InstantSearchPagination = {
   nbPages: number
 }
 
+export type Facets = string | string[] | undefined
+
 export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
   InstantSearchParams & {
-    defaultFacetDistribution: FacetDistribution
     pagination: PaginationState
     indexUid: string
+    placeholderSearch: boolean
+    keepZeroFacets: boolean
     insideBoundingBox?: InsideBoundingBox
-    keepZeroFacets?: boolean
     cropMarker?: string
     sort?: string
-    placeholderSearch?: boolean
     primaryKey?: string
     matchingStrategy?: MatchingStrategies
   }

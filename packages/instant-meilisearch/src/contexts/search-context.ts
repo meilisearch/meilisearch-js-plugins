@@ -2,7 +2,6 @@ import {
   InstantMeiliSearchOptions,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
-  FacetDistribution,
 } from '../types'
 
 import { createPaginationState } from './pagination-context'
@@ -14,8 +13,7 @@ import { createPaginationState } from './pagination-context'
  */
 export function createSearchContext(
   searchRequest: AlgoliaMultipleQueriesQuery,
-  options: InstantMeiliSearchOptions,
-  defaultFacetDistribution: FacetDistribution
+  options: InstantMeiliSearchOptions
 ): SearchContext {
   // Split index name and possible sorting rules
   const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
@@ -33,7 +31,6 @@ export function createSearchContext(
     sort: sortByArray.join(':') || '',
     indexUid,
     pagination: paginationState,
-    defaultFacetDistribution: defaultFacetDistribution || {},
     placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
   }

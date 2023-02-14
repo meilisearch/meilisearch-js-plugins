@@ -18,6 +18,7 @@ module.exports = {
       displayName: 'dom',
       testPathIgnorePatterns: [...ignoreFiles],
       coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
+      setupFilesAfterEnv: ['<rootDir>/scripts/jest_teardown.js'],
     },
     {
       globals: {
@@ -28,8 +29,9 @@ module.exports = {
       preset: 'ts-jest',
       displayName: 'node',
       testEnvironment: 'node',
-      coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
       testPathIgnorePatterns: [...ignoreFiles],
+      coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
+      setupFilesAfterEnv: ['<rootDir>/scripts/jest_teardown.js'],
     },
   ],
 }

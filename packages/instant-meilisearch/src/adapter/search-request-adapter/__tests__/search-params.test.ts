@@ -1,10 +1,11 @@
 import { adaptSearchParams } from '../search-params-adapter'
-import { MatchingStrategies } from '../../../types'
+import { MatchingStrategies, SearchContext } from '../../../types'
 
-const DEFAULT_CONTEXT = {
+const DEFAULT_CONTEXT: SearchContext = {
   indexUid: 'test',
   pagination: { page: 0, hitsPerPage: 6, finite: false },
-  defaultFacetDistribution: {},
+  placeholderSearch: true,
+  keepZeroFacets: false,
 }
 
 describe('Parameters adapter', () => {
@@ -155,6 +156,31 @@ describe('Pagination adapter', () => {
     expect(searchParams.hitsPerPage).toBe(0)
   })
 
+  test('adapting a finite pagination with no placeholderSearch and a query', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      query: 'a',
+      pagination: { page: 4, hitsPerPage: 6, finite: true },
+      placeholderSearch: false,
+    })
+
+    expect(searchParams.page).toBe(5)
+    expect(searchParams.hitsPerPage).toBeGreaterThan(0)
+  })
+
+  test('adapting a finite pagination with no placeholderSearch and a facetFilter', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      query: '',
+      pagination: { page: 4, hitsPerPage: 6, finite: true },
+      placeholderSearch: false,
+      facetFilters: ['genres:Action'],
+    })
+
+    expect(searchParams.page).toBe(5)
+    expect(searchParams.hitsPerPage).toBeGreaterThan(0)
+  })
+
   test('adapting a scroll pagination with no placeholderSearch', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
@@ -165,5 +191,30 @@ describe('Pagination adapter', () => {
 
     expect(searchParams.limit).toBe(0)
     expect(searchParams.offset).toBe(0)
+  })
+
+  test('adapting a scroll pagination with no placeholderSearch and a query', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      query: 'a',
+      pagination: { page: 4, hitsPerPage: 6, finite: false },
+      placeholderSearch: false,
+    })
+
+    expect(searchParams.limit).toBeGreaterThan(0)
+    expect(searchParams.offset).toBeGreaterThan(0)
+  })
+
+  test('adapting a scroll pagination with no placeholderSearch and a facetFilter', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      query: 'a',
+      pagination: { page: 4, hitsPerPage: 6, finite: false },
+      placeholderSearch: false,
+      facetFilters: ['genres:Action'],
+    })
+
+    expect(searchParams.limit).toBeGreaterThan(0)
+    expect(searchParams.offset).toBeGreaterThan(0)
   })
 })

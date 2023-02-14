@@ -275,7 +275,7 @@ List of all the components that are available in [instantSearch](https://github.
 ### Table Of Widgets
 
 - ✅ [InstantSearch](#-instantsearch)
-- ❌ [index](#-index)
+- ✅ [index](#-index)
 - ✅ [SearchBox](#-searchbox)
 - ✅ [Configure](#-configure)
 - ❌ [ConfigureRelatedItems](#-configure-related-items)
@@ -344,15 +344,13 @@ const search = instantsearch({
 })
 ```
 
-### ❌ Index
+### ✅ Index
 
 [Index references](https://www.algolia.com/doc/api-reference/widgets/index-widget/js/)
 
 `Index` is the component that lets you apply widgets to a dedicated index. It’s useful if you want to build an interface that targets multiple indices.
 
-Not compatible as Meilisearch does not support federated search on multiple indexes.
-
-If you'd like to see federated search implemented please vote for it in the [roadmap](https://roadmap.meilisearch.com/c/74-multi-index-search?utm_medium=social&utm_source=portal_share).
+Using this component, instant-meilisearch does an http-request for each different `Index` widget added. More http requests are made when using the [`RefinementList`](#✅-refinementlist) widget.
 
 ### ✅ SearchBox
 
@@ -676,6 +674,9 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ transformItems: A function to transform the items passed to the templates.
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
+
+The `RefinementList` widget uses the `disjunctive facet search` principle when using the `or` operator. For each different facet category used, an additional http call is made.
+For example, if I ask for `color=green` and `size=2`, three http requests are made. One for the hits, one for the `color` facet distribution, and one for the `size` facet distribution. To provide feedback on the subject, refer to [this discussion](https://github.com/meilisearch/product/issues/54).
 
 The following example will create a UI component with the a list of genres on which you will be able to facet.
 
