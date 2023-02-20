@@ -75,8 +75,8 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
-  'https://integration-demos.meilisearch.com', // Host
-  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185' // API key
+  'https://ms-adf78ae33284-106.lon.meilisearch.io', // Host
+  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303' // API key
 )
 ```
 
@@ -101,8 +101,8 @@ The options are added as the third parameter of the `instantMeilisearch` functio
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch(
-  'https://integration-demos.meilisearch.com',
-  '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
+  'https://ms-adf78ae33284-106.lon.meilisearch.io',
+  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
   {
     placeholderSearch: false, // default: true.
     primaryKey: 'id', // default: undefined
@@ -212,8 +212,8 @@ In `app.js`:
 const search = instantsearch({
   indexName: 'steam-video-games',
   searchClient: instantMeiliSearch(
-    'https://integration-demos.meilisearch.com',
-    '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185'
+    'https://ms-adf78ae33284-106.lon.meilisearch.io',
+    'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
   ),
 })
 
@@ -333,8 +333,8 @@ List of all the components that are available in [instantSearch](https://github.
 const search = instantsearch({
   indexName: 'instant_search',
   searchClient: instantMeiliSearch(
-    'https://integration-demos.meilisearch.com',
-    '99d1e034ed32eb569f9edc27962cccf90b736e4c5a70f7f5e76b9fab54d6a185',
+    'https://ms-adf78ae33284-106.lon.meilisearch.io',
+    'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
     {
       // ... InstantMeiliSearch options
     }
