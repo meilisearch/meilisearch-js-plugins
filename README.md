@@ -261,7 +261,7 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 **Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v1.0.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v1.0.0).
+This package guarantees compatibility with [version v1.x of Meilisearch](https://github.com/meilisearch/meilisearch/releases/latest), but some features may not be present. Please check the [issues](https://github.com/meilisearch/instant-meilisearch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+label%3Aenhancement) for more info.
 
 **Node / NPM versions**:
 
