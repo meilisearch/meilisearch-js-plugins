@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.11.1
+
+### Patch Changes
+
+- 8ad13aa: Fix the initial facet distribution cache when performing a sort-by
+
 ## 0.11.0
 
 ### Minor Changes
