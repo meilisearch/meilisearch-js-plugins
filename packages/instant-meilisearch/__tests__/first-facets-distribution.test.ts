@@ -5,9 +5,10 @@ describe('Default facet distribution', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
     await meilisearchClient.waitForTask(deleteTask.taskUid)
-    await meilisearchClient
-      .index('movies')
-      .updateFilterableAttributes(['genres'])
+    await meilisearchClient.index('movies').updateSettings({
+      filterableAttributes: ['genres', 'release_date'],
+      sortableAttributes: ['release_date'],
+    })
     const documentsTask = await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
@@ -98,6 +99,133 @@ describe('Default facet distribution', () => {
     expect(response2.results[0].facets).toEqual({
       genres: {},
     })
+  })
+
+  test('creation of facet distribution when using indexes with sort-by', async () => {
+    const searchClient = instantMeiliSearch(HOST, API_KEY)
+    const releaseDateDistribution = {
+      release_date: {
+        '1065744000': 1,
+        '233366400': 1,
+        '593395200': 1,
+        '750643200': 1,
+        '818467200': 1,
+        '819676800': 1,
+      },
+    }
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+      {
+        indexName: 'movies:release_date:asc',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+      {
+        indexName: 'movies:release_date:desc',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+    ])
+
+    expect(response.results[0].facets).toEqual(releaseDateDistribution)
+    expect(response.results[1].facets).toEqual(releaseDateDistribution)
+    expect(response.results[2].facets).toEqual(releaseDateDistribution)
+  })
+
+  test('creation of facet distribution when using indexes with sort-by and keepZeroFacets', async () => {
+    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+      keepZeroFacets: true,
+    })
+    const releaseDateDistribution = {
+      release_date: {
+        '1065744000': 1,
+        '233366400': 1,
+        '593395200': 1,
+        '750643200': 1,
+        '818467200': 1,
+        '819676800': 1,
+      },
+    }
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+      {
+        indexName: 'movies:release_date:asc',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+      {
+        indexName: 'movies:release_date:desc',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+    ])
+
+    expect(response.results[0].facets).toEqual(releaseDateDistribution)
+    expect(response.results[1].facets).toEqual(releaseDateDistribution)
+    expect(response.results[2].facets).toEqual(releaseDateDistribution)
+  })
+
+  test('creation of facet distribution when using indexes with sort-by and no placeholdersearch', async () => {
+    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+      placeholderSearch: false,
+    })
+    const releaseDateDistribution = {
+      release_date: {
+        '1065744000': 1,
+        '233366400': 1,
+        '593395200': 1,
+        '750643200': 1,
+        '818467200': 1,
+        '819676800': 1,
+      },
+    }
+    const response = await searchClient.search([
+      {
+        indexName: 'movies',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+      {
+        indexName: 'movies:release_date:asc',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+      {
+        indexName: 'movies:release_date:desc',
+        params: {
+          facets: ['release_date'],
+          query: '',
+        },
+      },
+    ])
+
+    expect(response.results[0].facets).toEqual(releaseDateDistribution)
+    expect(response.results[1].facets).toEqual(releaseDateDistribution)
+    expect(response.results[2].facets).toEqual(releaseDateDistribution)
   })
 
   // With facets

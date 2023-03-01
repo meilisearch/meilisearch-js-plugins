@@ -98,7 +98,7 @@ export function instantMeiliSearch(
           const adaptedSearchResponse = adaptSearchResponse<T>(
             searchResponse,
             searchContext,
-            initialFacetDistribution[searchRequest.indexName]
+            initialFacetDistribution[searchContext.indexUid]
           )
 
           searchResponses.results.push(adaptedSearchResponse)
