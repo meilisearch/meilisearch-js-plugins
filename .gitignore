@@ -120,6 +120,7 @@ dist
 **/cypress/fixtures
 
 .vscode
+.idea
 data.ms
 .turbo
 

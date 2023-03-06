@@ -166,7 +166,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     },
     addSort() {
       if (sort?.length) {
-        meiliSearchParams.sort = [sort]
+        meiliSearchParams.sort = sort;
       }
     },
     addGeoSearchRules() {

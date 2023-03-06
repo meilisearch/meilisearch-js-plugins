@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meilisearch/instant-meilisearch.git"
+    "url": "git@github.com:kirimgan/instant-meilisearch.git"
   },
   "workspaces": [
     "packages/*",

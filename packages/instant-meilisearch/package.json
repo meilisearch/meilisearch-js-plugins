@@ -1,9 +1,9 @@
 {
-  "name": "@meilisearch/instant-meilisearch",
-  "version": "0.11.1",
+  "name": "@kirimgan/instant-meilisearch",
+  "version": "0.11.2",
   "private": false,
   "description": "The search client to use Meilisearch with InstantSearch.",
-  "homepage": "https://github.com/meilisearch/instant-meilisearch",
+  "homepage": "https://github.com/kirimgan/instant-meilisearch",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/meilisearch/instant-meilisearch/issues"
