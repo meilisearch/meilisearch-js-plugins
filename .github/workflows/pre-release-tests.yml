@@ -13,9 +13,10 @@ on:
       - 'pre-release-beta/**'
 
 jobs:
+
   meilisearch-version:
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
+    if: github.event_name != 'pull_request' || startsWith(github.base_ref, 'bump-meilisearch-v') || startsWith(github.base_ref, 'pre-release-beta')
     outputs:
       version: ${{ steps.grep-step.outputs.meilisearch_version }}
     steps:
@@ -27,7 +28,7 @@ jobs:
           echo "meilisearch_version=$MEILISEARCH_VERSION" >> $GITHUB_OUTPUT
   cypress-run:
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
+    if: github.event_name != 'pull_request' || startsWith(github.base_ref, 'bump-meilisearch-v') || startsWith(github.base_ref, 'pre-release-beta')
     needs: ['meilisearch-version']
     services:
       meilisearch:
@@ -68,7 +69,7 @@ jobs:
           path: cypress/videos
   integration_tests:
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || !startsWith(github.base_ref, 'bump-meilisearch-v')
+    if: github.event_name != 'pull_request' || startsWith(github.base_ref, 'bump-meilisearch-v') || startsWith(github.base_ref, 'pre-release-beta')
     needs: ['meilisearch-version']
     services:
       meilisearch:
