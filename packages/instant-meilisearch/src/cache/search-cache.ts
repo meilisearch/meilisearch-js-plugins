@@ -9,12 +9,12 @@ export function SearchCache(
 ): SearchCacheInterface {
   let searchCache = cache
   return {
-    getEntry: function (key: string) {
+    getEntry: function <T>(key: string): T | undefined {
       if (searchCache[key]) {
         try {
           return JSON.parse(searchCache[key])
         } catch (_) {
-          return searchCache[key]
+          return undefined
         }
       }
       return undefined

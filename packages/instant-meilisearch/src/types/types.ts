@@ -1,17 +1,21 @@
-import type { SearchResponse as MeiliSearchResponse } from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
-export type { AlgoliaMultipleQueriesQuery }
-export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
+import type {
+  SearchParams as MeiliSearchParams,
+  SearchResponse as MeiliSearchResponse,
+  MultiSearchResponse as MeilisearchMultiSearchResponse,
+} from 'meilisearch'
 
 export type {
-  Filter,
-  FacetDistribution,
-  SearchResponse as MeiliSearchResponse,
-  SearchParams as MeiliSearchParams,
-  MeiliSearch,
-} from 'meilisearch'
+  AlgoliaMultipleQueriesQuery,
+  MeilisearchMultiSearchResponse,
+  MeiliSearchParams,
+  MeiliSearchResponse,
+}
+export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
+
+export type { Filter, FacetDistribution, MeiliSearch } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
 
@@ -29,8 +33,17 @@ export type InstantMeiliSearchOptions = {
   finitePagination?: boolean
 }
 
+export type InstantMeiliSearchConfig = {
+  placeholderSearch: boolean
+  keepZeroFacets: boolean
+  clientAgents: string[]
+  finitePagination: boolean
+  primaryKey?: string
+  matchingStrategy?: MatchingStrategies
+}
+
 export type SearchCacheInterface = {
-  getEntry: (key: string) => MeiliSearchResponse | undefined
+  getEntry: <T>(key: string) => T | undefined
   formatKey: (components: any[]) => string
   setEntry: <T>(key: string, searchResponse: T) => void
   clearCache: () => void
@@ -63,6 +76,16 @@ export type InstantSearchPagination = {
 
 export type Facets = string | string[] | undefined
 
+export type MeiliSearchMultiSearchParams = MeiliSearchParams & {
+  indexUid: string
+}
+
+export type MeilisearchMultiSearchResult<T = Record<string, any>> =
+  MeiliSearchResponse<T> & {
+    indexUid: string
+    pagination: PaginationState
+  }
+
 export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
   InstantSearchParams & {
     pagination: PaginationState
@@ -78,4 +101,11 @@ export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
 
 export type InstantMeiliSearchInstance = SearchClient & {
   clearCache: () => void
+}
+
+export type MultiSearchResolver = {
+  multiSearch: (
+    searchQueries: MeiliSearchMultiSearchParams[],
+    instantSearchPagination: PaginationState[]
+  ) => Promise<MeilisearchMultiSearchResult[]>
 }

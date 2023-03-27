@@ -1,8 +1,8 @@
 import type {
-  MeiliSearchParams,
   SearchContext,
   Filter,
   PaginationState,
+  MeiliSearchMultiSearchParams,
 } from '../../types'
 
 import {
@@ -72,7 +72,7 @@ function setFinitePagination(
  * @returns {MeiliSearchParams}
  */
 export function MeiliParamsCreator(searchContext: SearchContext) {
-  const meiliSearchParams: Record<string, any> = {}
+  const meiliSearchParams: any = {}
   const {
     facets,
     attributesToSnippet,
@@ -89,13 +89,20 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     filters,
     numericFilters,
     facetFilters,
+    indexUid,
   } = searchContext
 
   const meilisearchFilters = adaptFilters(filters, numericFilters, facetFilters)
 
   return {
-    getParams() {
+    getParams(): MeiliSearchMultiSearchParams {
       return meiliSearchParams
+    },
+    addQuery() {
+      meiliSearchParams.q = query
+    },
+    addIndexUid() {
+      meiliSearchParams.indexUid = indexUid
     },
     addFacets() {
       if (Array.isArray(facets)) {
@@ -194,12 +201,14 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
  * to search request compliant with Meilisearch
  *
  * @param  {SearchContext} searchContext
- * @returns {MeiliSearchParams}
+ * @returns {MeiliSearchMultiSearchParams}
  */
 export function adaptSearchParams(
   searchContext: SearchContext
-): MeiliSearchParams {
+): MeiliSearchMultiSearchParams {
   const meilisearchParams = MeiliParamsCreator(searchContext)
+  meilisearchParams.addQuery()
+  meilisearchParams.addIndexUid()
   meilisearchParams.addFacets()
   meilisearchParams.addAttributesToHighlight()
   meilisearchParams.addPreTag()
