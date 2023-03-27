@@ -8,6 +8,7 @@ import { adaptHits } from './hits-adapter'
 import { adaptTotalHits } from './total-hits-adapter'
 import { adaptPaginationParameters } from './pagination-adapter'
 import { adaptFacetDistribution } from './facet-distribution-adapter'
+import { adaptFacetStats } from './adapt-facet-stats'
 
 /**
  * Adapt multiple search results from Meilisearch
@@ -54,6 +55,7 @@ export function adaptSearchResult<T>(
     query,
     indexUid,
     facetDistribution: responseFacetDistribution = {},
+    facetStats = {},
   } = meiliSearchResult
 
   const facets = Object.keys(responseFacetDistribution)
@@ -86,6 +88,7 @@ export function adaptSearchResult<T>(
     hits,
     params: '',
     exhaustiveNbHits: false,
+    facets_stats: adaptFacetStats(facetStats),
   }
   return adaptedSearchResult
 }

@@ -15,7 +15,12 @@ export type {
 }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
 
-export type { Filter, FacetDistribution, MeiliSearch } from 'meilisearch'
+export type {
+  Filter,
+  FacetDistribution,
+  MeiliSearch,
+  FacetStats as MeiliFacetStats,
+} from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
 
@@ -109,3 +114,25 @@ export type MultiSearchResolver = {
     instantSearchPagination: PaginationState[]
   ) => Promise<MeilisearchMultiSearchResult[]>
 }
+
+export type AlgoliaFacetStats = Record<
+  string,
+  {
+    /**
+     * The minimum value in the result set.
+     */
+    min: number
+    /**
+     * The maximum value in the result set.
+     */
+    max: number
+    /**
+     * The average facet value in the result set.
+     */
+    avg: number
+    /**
+     * The sum of all values in the result set.
+     */
+    sum: number
+  }
+>
