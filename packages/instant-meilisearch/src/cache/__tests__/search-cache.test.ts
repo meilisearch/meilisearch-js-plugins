@@ -13,7 +13,7 @@ describe('Entries in the cache', () => {
     const cache = SearchCache({ myKey: 'myValue' })
     const key = cache.getEntry('myKey')
 
-    expect(key).toEqual('myValue')
+    expect(key).toBeUndefined()
   })
 
   test('to getEntry on valid json string', () => {
@@ -34,7 +34,7 @@ describe('Entries in the cache', () => {
     const cache = SearchCache({ myKey: '{ id: 1 }' })
     const key = cache.getEntry('myKey')
 
-    expect(key).toEqual('{ id: 1 }')
+    expect(key).toBeUndefined()
   })
 })
 

@@ -1,9 +1,9 @@
 import {
-  SearchContext,
   MeiliSearch,
-  MeiliSearchResponse,
   SearchCacheInterface,
-  MeiliSearchParams,
+  MeiliSearchMultiSearchParams,
+  MeilisearchMultiSearchResult,
+  PaginationState,
 } from '../../types'
 
 /**
@@ -14,37 +14,35 @@ export function SearchResolver(
   cache: SearchCacheInterface
 ) {
   return {
-    /**
-     * @param  {SearchContext} searchContext
-     * @param  {MeiliSearchParams} searchParams
-     * @param  {MeiliSearch} client
-     * @returns {Promise}
-     */
-    searchResponse: async function (
-      searchContext: SearchContext,
-      searchParams: MeiliSearchParams
-    ): Promise<MeiliSearchResponse<Record<string, any>>> {
-      // Create cache key containing a unique set of search parameters
-      const key = cache.formatKey([
-        searchParams,
-        searchContext.indexUid,
-        searchContext.query,
-        searchContext.pagination,
-      ])
-      const cachedResponse = cache.getEntry(key)
+    multiSearch: async function (
+      searchQueries: MeiliSearchMultiSearchParams[],
+      instantSearchPagination: PaginationState[]
+    ): Promise<MeilisearchMultiSearchResult[]> {
+      const key = cache.formatKey([searchQueries])
+
+      const cachedResponse = cache.getEntry<MeilisearchMultiSearchResult[]>(key)
 
       // Check if specific request is already cached with its associated search response.
       if (cachedResponse) return cachedResponse
 
-      // Make search request
-      const searchResponse = await client
-        .index(searchContext.indexUid)
-        .search(searchContext.query, searchParams)
+      const searchResponses = await client.multiSearch({
+        queries: searchQueries,
+      })
 
+      const responseWithPagination = searchResponses.results.map(
+        (response, index) => ({
+          ...response,
+          // TODO: should be removed at one point
+          pagination: instantSearchPagination[index] || {},
+        })
+      )
       // Cache response
-      cache.setEntry<MeiliSearchResponse>(key, searchResponse)
+      cache.setEntry<MeilisearchMultiSearchResult[]>(
+        key,
+        responseWithPagination
+      )
 
-      return searchResponse
+      return responseWithPagination
     },
   }
 }

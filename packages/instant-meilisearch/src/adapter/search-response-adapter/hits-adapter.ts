@@ -1,26 +1,30 @@
-import type { SearchContext, MeiliSearchResponse } from '../../types'
+import type {
+  PaginationState,
+  MeilisearchMultiSearchResult,
+  InstantMeiliSearchConfig,
+} from '../../types'
 import { adaptFormattedFields } from './format-adapter'
 import { adaptGeoResponse } from './geo-reponse-adapter'
 
 /**
- * @param  {MeiliSearchResponse<Record<string, any>>} searchResponse
+ * @param  {MeilisearchMultiSearchResult} searchResult
  * @param  {SearchContext} searchContext
  * @returns {Array<Record<string, any>>}
  */
 export function adaptHits(
-  searchResponse: MeiliSearchResponse<Record<string, any>>,
-  searchContext: SearchContext
+  searchResponse: MeilisearchMultiSearchResult & {
+    pagination: PaginationState
+  },
+  config: InstantMeiliSearchConfig
 ): any {
-  const { primaryKey } = searchContext
   const { hits } = searchResponse
-  const {
-    pagination: { finite, hitsPerPage },
-  } = searchContext
+  const { hitsPerPage } = searchResponse.pagination
+  const { finitePagination, primaryKey } = config // Needs: finite, hitsPerPage
 
   // if the length of the hits is bigger than the hitsPerPage
   // It means that there is still pages to come as we append limit by hitsPerPage + 1
   // In which case we still need to remove the additional hit returned by Meilisearch
-  if (!finite && hits.length > hitsPerPage) {
+  if (!finitePagination && hits.length > hitsPerPage) {
     hits.splice(hits.length - 1, 1)
   }
 

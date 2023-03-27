@@ -6,22 +6,25 @@ import {
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   FacetDistribution,
+  PaginationState,
 } from '../types'
 import {
-  adaptSearchResponse,
+  getApiKey,
+  getInstantMeilisearchConfig,
+  validateInstantMeiliSearchParams,
+} from './config'
+import {
+  adaptSearchResults,
   adaptSearchParams,
   SearchResolver,
 } from '../adapter'
 import { createSearchContext } from '../contexts'
-import { SearchCache, initFacetDistribution } from '../cache/'
+import {
+  SearchCache,
+  initFacetDistribution,
+  getParametersWithoutFilters,
+} from '../cache/'
 import { constructClientAgents } from './agents'
-import { validateInstantMeiliSearchParams } from '../utils'
-
-/**
- * apiKey callback definition
- * @callback apiKeyCallback
- * @returns {string} - The apiKey to use
- */
 
 /**
  * Instantiate SearchClient required by instantsearch.js.
@@ -57,6 +60,9 @@ export function instantMeiliSearch(
 
   let initialFacetDistribution: Record<string, FacetDistribution> = {}
 
+  const instantMeilisearchConfig = getInstantMeilisearchConfig(
+    instantMeiliSearchOptions
+  )
   return {
     clearCache: () => searchCache.clearCache(),
     /**
@@ -67,44 +73,49 @@ export function instantMeiliSearch(
       instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
     ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
       try {
-        const searchResponses: { results: Array<AlgoliaSearchResponse<T>> } = {
-          results: [],
-        }
+        const meilisearchRequests = []
+        const instantSearchPagination: PaginationState[] = []
+        const initialFacetDistributionsRequests = []
 
-        const requests = instantSearchRequests
-
-        for (const searchRequest of requests) {
+        for (const searchRequest of instantSearchRequests) {
           const searchContext: SearchContext = createSearchContext(
             searchRequest,
             instantMeiliSearchOptions
           )
 
-          // Adapt search request to Meilisearch compliant search request
-          const adaptedSearchRequest = adaptSearchParams(searchContext)
+          // Adapt the search parameters provided by instantsearch to
+          // search parameters that are compliant with Meilisearch
+          const meilisearchSearchQuery = adaptSearchParams(searchContext)
+          meilisearchRequests.push(meilisearchSearchQuery)
 
-          initialFacetDistribution = await initFacetDistribution(
-            searchResolver,
-            searchContext,
-            initialFacetDistribution
-          )
+          // Create a parameter without any filters to be able to store the default facet distribution
+          const defaultSearchQuery = getParametersWithoutFilters(searchContext)
+          initialFacetDistributionsRequests.push(defaultSearchQuery)
 
-          // Search response from Meilisearch
-          const searchResponse = await searchResolver.searchResponse(
-            searchContext,
-            adaptedSearchRequest
-          )
-
-          // Adapt the Meilisearch response to a compliant instantsearch.js response
-          const adaptedSearchResponse = adaptSearchResponse<T>(
-            searchResponse,
-            searchContext,
-            initialFacetDistribution[searchContext.indexUid]
-          )
-
-          searchResponses.results.push(adaptedSearchResponse)
+          // Keep information about the pagination parameters of instantsearch as
+          // they are needed to adapt the search response of Meilisearch
+          instantSearchPagination.push(searchContext.pagination)
         }
 
-        return searchResponses
+        initialFacetDistribution = await initFacetDistribution(
+          searchResolver,
+          initialFacetDistributionsRequests,
+          initialFacetDistribution
+        )
+
+        // Search request to Meilisearch happens here
+        const meilisearchResults = await searchResolver.multiSearch(
+          meilisearchRequests,
+          instantSearchPagination // Create issue on pagination
+        )
+
+        const instantSearchResponse = adaptSearchResults<T>(
+          meilisearchResults,
+          initialFacetDistribution,
+          instantMeilisearchConfig
+        )
+
+        return instantSearchResponse
       } catch (e: any) {
         console.error(e)
         throw new Error(e)
@@ -119,25 +130,4 @@ export function instantMeiliSearch(
       })
     },
   }
-}
-
-/**
- * Resolves apiKey if it is a function
- * @param  {string | apiKeyCallback} apiKey
- * @returns {string} api key value
- */
-function getApiKey(apiKey: string | (() => string)): string {
-  // If apiKey is function, call it to get the apiKey
-  if (typeof apiKey === 'function') {
-    const apiKeyFnValue = apiKey()
-    if (typeof apiKeyFnValue !== 'string') {
-      throw new TypeError(
-        'Provided apiKey function (2nd parameter) did not return a string, expected string'
-      )
-    }
-
-    return apiKeyFnValue
-  }
-
-  return apiKey
 }

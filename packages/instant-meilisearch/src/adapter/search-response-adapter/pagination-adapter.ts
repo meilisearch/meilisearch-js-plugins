@@ -1,7 +1,7 @@
 import type {
   MeiliSearchResponse,
-  PaginationState,
   InstantSearchPagination,
+  PaginationState,
 } from '../../types'
 
 function adaptNbPages(
