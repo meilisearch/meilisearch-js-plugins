@@ -19,7 +19,7 @@ describe('Sort browser test', () => {
     await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
   })
 
-  test('sort-by one fields', async () => {
+  test('sort-by one field', async () => {
     const response = await searchClient.search<Movies>([
       {
         indexName: 'movies:release_date:desc',
