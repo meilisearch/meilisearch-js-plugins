@@ -1032,6 +1032,19 @@ Example:
 
 In this scenario, in the `clothes` index, we want the price to be sorted in an ascending way. For this formula to be valid, `price` must be added to the `sortableAttributes` settings of the `clothes` index.
 
+#### Sort by multiple attributes
+When sorting by mutiple fields sort formula is expressed like this: `index:attribute:order,attribute2:order`. 
+
+Example:
+```js
+[
+  { label: 'Sort By Price And Title', value: 'clothes:price:asc,title:asc' }
+]
+```
+
+⚠️ Attributes with comma in their name are not allowed.
+
+
 #### Relevancy
 
 The impact sorting has on the returned hits is determined by the [`ranking-rules`](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#ranking-rules) ordered list of each index. The `sort` ranking-rule position in the list makes sorting documents more or less important than other rules. If you want to change the sort impact on the relevancy, it is possible to change it in the [ranking-rule setting](https://docs.meilisearch.com/learn/core_concepts/relevancy.html#relevancy). For example, to favor exhaustivity over relevancy.
