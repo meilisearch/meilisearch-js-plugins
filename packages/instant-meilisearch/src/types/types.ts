@@ -2,17 +2,11 @@ import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
 import type {
-  SearchParams as MeiliSearchParams,
-  SearchResponse as MeiliSearchResponse,
-  MultiSearchResponse as MeilisearchMultiSearchResponse,
+  MultiSearchQuery as MeiliSearchMultiSearchParams,
+  MultiSearchResult,
 } from 'meilisearch'
 
-export type {
-  AlgoliaMultipleQueriesQuery,
-  MeilisearchMultiSearchResponse,
-  MeiliSearchParams,
-  MeiliSearchResponse,
-}
+export type { AlgoliaMultipleQueriesQuery, MultiSearchResult }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
 
 export type {
@@ -20,6 +14,7 @@ export type {
   FacetDistribution,
   MeiliSearch,
   FacetStats as MeiliFacetStats,
+  MultiSearchQuery as MeiliSearchMultiSearchParams,
 } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
@@ -79,15 +74,8 @@ export type InstantSearchPagination = {
   nbPages: number
 }
 
-export type Facets = string | string[] | undefined
-
-export type MeiliSearchMultiSearchParams = MeiliSearchParams & {
-  indexUid: string
-}
-
 export type MeilisearchMultiSearchResult<T = Record<string, any>> =
-  MeiliSearchResponse<T> & {
-    indexUid: string
+  MultiSearchResult<T> & {
     pagination: PaginationState
   }
 

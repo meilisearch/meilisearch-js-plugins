@@ -68,8 +68,6 @@ function setFinitePagination(
  * to meilisearch search query parameters.
  *
  * @param  {SearchContext} searchContext
- *
- * @returns {MeiliSearchParams}
  */
 export function MeiliParamsCreator(searchContext: SearchContext) {
   const meiliSearchParams: any = {}
