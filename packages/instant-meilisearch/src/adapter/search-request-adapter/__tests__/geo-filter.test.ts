@@ -1,4 +1,4 @@
-import { adaptGeoPointsRules } from '../geo-rules-adapter'
+import { adaptGeoPointsRules } from '../geo-filter-adapter'
 
 test('Adapt geoPoints rules without a boundingBox', () => {
   const rules = adaptGeoPointsRules()

@@ -5,10 +5,7 @@ import type {
   MeiliSearchMultiSearchParams,
 } from '../../types'
 
-import {
-  adaptGeoPointsRules,
-  createGeoSearchContext,
-} from './geo-rules-adapter'
+import { adaptGeoFilter } from './geo-filter-adapter'
 import { adaptFilters } from './filter-adapter'
 
 function isPaginationRequired(
@@ -177,14 +174,16 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addGeoSearchRules() {
-      const geoSearchContext = createGeoSearchContext(searchContext)
-      const geoRules = adaptGeoPointsRules(geoSearchContext)
+      // Missing support for
+      // - https://www.algolia.com/doc/api-reference/api-methods/search/#method-response-aroundlatlng
+      // - https://www.algolia.com/doc/api-reference/api-methods/search/#method-response-automaticradius
+      const filter = adaptGeoFilter(searchContext)
 
-      if (geoRules?.filter) {
+      if (filter) {
         if (meiliSearchParams.filter) {
-          meiliSearchParams.filter.unshift(geoRules.filter)
+          meiliSearchParams.filter.unshift(filter)
         } else {
-          meiliSearchParams.filter = [geoRules.filter]
+          meiliSearchParams.filter = [filter]
         }
       }
     },
