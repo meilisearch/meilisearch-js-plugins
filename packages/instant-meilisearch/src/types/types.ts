@@ -71,7 +71,7 @@ export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
     keepZeroFacets: boolean
     insideBoundingBox?: InsideBoundingBox
     cropMarker?: string
-    sort?: string
+    sort?: string | string[]
     primaryKey?: string
     matchingStrategy?: MatchingStrategies
   }

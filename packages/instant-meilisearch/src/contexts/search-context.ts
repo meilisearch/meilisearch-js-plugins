@@ -5,6 +5,7 @@ import {
 } from '../types'
 
 import { createPaginationState } from './pagination-context'
+import { createSortState } from './sort-context'
 
 /**
  * @param  {AlgoliaMultipleQueriesQuery} searchRequest
@@ -25,10 +26,12 @@ export function createSearchContext(
     instantSearchParams?.page
   )
 
+  const sortState = createSortState(sortByArray.join(':'))
+
   const searchContext: SearchContext = {
     ...options,
     ...instantSearchParams,
-    sort: sortByArray.join(':') || '',
+    sort: sortState,
     indexUid,
     pagination: paginationState,
     placeholderSearch: options.placeholderSearch !== false, // true by default
