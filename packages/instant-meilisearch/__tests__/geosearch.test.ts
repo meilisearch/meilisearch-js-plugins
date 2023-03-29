@@ -51,7 +51,7 @@ describe('Instant Meilisearch Browser test', () => {
     ])
 
     const hits = response.results[0].hits
-    expect(hits.length).toEqual(7)
+    expect(hits.length).toEqual(5)
     expect(hits[0].city).toEqual('Lille')
   })
 
@@ -68,8 +68,8 @@ describe('Instant Meilisearch Browser test', () => {
     ])
 
     const hits = response.results[0].hits
-    expect(hits.length).toEqual(4)
-    expect(hits[0].city).toEqual('Ghent')
+    expect(hits.length).toEqual(2)
+    expect(hits[0].city).toEqual('Brussels')
   })
 
   test('insideBoundingBox and aroundRadius in geo search', async () => {
@@ -86,8 +86,8 @@ describe('Instant Meilisearch Browser test', () => {
     ])
 
     const hits = response.results[0].hits
-    expect(hits.length).toEqual(4)
-    expect(hits[0].city).toEqual('Ghent')
+    expect(hits.length).toEqual(2)
+    expect(hits[0].city).toEqual('Brussels')
   })
 
   test('insideBoundingBox and aroundLatLng in geo search', async () => {
@@ -104,7 +104,7 @@ describe('Instant Meilisearch Browser test', () => {
     ])
 
     const hits = response.results[0].hits
-    expect(hits.length).toEqual(4)
-    expect(hits[0].city).toEqual('Ghent')
+    expect(hits.length).toEqual(2)
+    expect(hits[0].city).toEqual('Brussels')
   })
 })

@@ -5,7 +5,7 @@ import type {
   MeiliSearchMultiSearchParams,
 } from '../../types'
 
-import { adaptGeoFilter } from './geo-filter-adapter'
+import { adaptGeoSearch } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
 function isPaginationRequired(
@@ -173,11 +173,20 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.sort = [sort]
       }
     },
-    addGeoSearchRules() {
-      // Missing support for
-      // - https://www.algolia.com/doc/api-reference/api-methods/search/#method-response-aroundlatlng
-      // - https://www.algolia.com/doc/api-reference/api-methods/search/#method-response-automaticradius
-      const filter = adaptGeoFilter(searchContext)
+    addGeoSearchFilter() {
+      const {
+        insideBoundingBox,
+        aroundLatLng,
+        aroundRadius,
+        minimumAroundRadius,
+      } = searchContext
+
+      const filter = adaptGeoSearch({
+        insideBoundingBox,
+        aroundLatLng,
+        aroundRadius,
+        minimumAroundRadius,
+      })
 
       if (filter) {
         if (meiliSearchParams.filter) {
@@ -218,7 +227,7 @@ export function adaptSearchParams(
   meilisearchParams.addPagination()
   meilisearchParams.addFilters()
   meilisearchParams.addSort()
-  meilisearchParams.addGeoSearchRules()
+  meilisearchParams.addGeoSearchFilter()
   meilisearchParams.addMatchingStrategy()
 
   return meilisearchParams.getParams()
