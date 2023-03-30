@@ -5,10 +5,7 @@ import type {
   MeiliSearchMultiSearchParams,
 } from '../../types'
 
-import {
-  adaptGeoPointsRules,
-  createGeoSearchContext,
-} from './geo-rules-adapter'
+import { adaptGeoSearch } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
 function isPaginationRequired(
@@ -174,15 +171,26 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.sort = Array.isArray(sort) ? sort : [sort]
       }
     },
-    addGeoSearchRules() {
-      const geoSearchContext = createGeoSearchContext(searchContext)
-      const geoRules = adaptGeoPointsRules(geoSearchContext)
+    addGeoSearchFilter() {
+      const {
+        insideBoundingBox,
+        aroundLatLng,
+        aroundRadius,
+        minimumAroundRadius,
+      } = searchContext
 
-      if (geoRules?.filter) {
+      const filter = adaptGeoSearch({
+        insideBoundingBox,
+        aroundLatLng,
+        aroundRadius,
+        minimumAroundRadius,
+      })
+
+      if (filter) {
         if (meiliSearchParams.filter) {
-          meiliSearchParams.filter.unshift(geoRules.filter)
+          meiliSearchParams.filter.unshift(filter)
         } else {
-          meiliSearchParams.filter = [geoRules.filter]
+          meiliSearchParams.filter = [filter]
         }
       }
     },
@@ -217,7 +225,7 @@ export function adaptSearchParams(
   meilisearchParams.addPagination()
   meilisearchParams.addFilters()
   meilisearchParams.addSort()
-  meilisearchParams.addGeoSearchRules()
+  meilisearchParams.addGeoSearchFilter()
   meilisearchParams.addMatchingStrategy()
 
   return meilisearchParams.getParams()

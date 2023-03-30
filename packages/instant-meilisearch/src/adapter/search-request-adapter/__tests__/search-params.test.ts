@@ -44,8 +44,8 @@ describe('Parameters adapter', () => {
   })
 })
 
-describe('Geo rules adapter', () => {
-  test('adapting a searchContext with filters, sort and geo rules ', () => {
+describe('Geo filter adapter', () => {
+  test('adapting a searchContext with filters, sort and geo filters ', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
@@ -54,7 +54,7 @@ describe('Geo rules adapter', () => {
     })
 
     expect(searchParams.filter).toStrictEqual([
-      '_geoRadius(0.00000, 0.00000, 0)',
+      '_geoBoundingBox([0, 0], [0, 0])',
       ['genres="Drama"', 'genres="Thriller"'],
       ['title="Ariel"'],
     ])
@@ -63,7 +63,7 @@ describe('Geo rules adapter', () => {
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
 
-  test('adapting a searchContext with only facetFilters and geo rules ', () => {
+  test('adapting a searchContext with only facetFilters and geo filters ', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       facetFilters: [['genres:Drama', 'genres:Thriller'], ['title:Ariel']],
@@ -71,7 +71,7 @@ describe('Geo rules adapter', () => {
     })
 
     expect(searchParams.filter).toEqual([
-      '_geoRadius(0.00000, 0.00000, 0)',
+      '_geoBoundingBox([0, 0], [0, 0])',
       ['genres="Drama"', 'genres="Thriller"'],
       ['title="Ariel"'],
     ])
@@ -79,26 +79,26 @@ describe('Geo rules adapter', () => {
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
 
-  test('adapting a searchContext with only sort and geo rules ', () => {
+  test('adapting a searchContext with only sort and geo filters ', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       insideBoundingBox: '0,0,0,0',
       sort: 'id < 1',
     })
 
-    expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
+    expect(searchParams.filter).toEqual(['_geoBoundingBox([0, 0], [0, 0])'])
     expect(searchParams.sort).toStrictEqual(['id < 1'])
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
 
-  test('adapting a searchContext with no sort and no filters and geo rules ', () => {
+  test('adapting a searchContext with no sort and no filters and geo filters ', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       insideBoundingBox: '0,0,0,0',
     })
 
-    expect(searchParams.filter).toEqual(['_geoRadius(0.00000, 0.00000, 0)'])
+    expect(searchParams.filter).toEqual(['_geoBoundingBox([0, 0], [0, 0])'])
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
   })
