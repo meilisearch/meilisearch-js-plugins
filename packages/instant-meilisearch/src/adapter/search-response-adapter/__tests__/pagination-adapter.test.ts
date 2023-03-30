@@ -401,6 +401,7 @@ describe.each(finitePaginateHitsTestsParameters)(
           processingTimeMs: 0,
           query: '',
           totalPages,
+          indexUid: '',
         },
         { hitsPerPage, page, finite: true }
       )
@@ -421,7 +422,7 @@ describe.each(lazyPaginateHitsTestsParameters)(
       adaptedPagination
     )} where limit is ${limit} in the response and where the instantsearch pagination context is page: ${page} and hitsPerPage: ${hitsPerPage}`, () => {
       const response = adaptPaginationParameters(
-        { hits, limit, offset, processingTimeMs: 0, query: '' },
+        { hits, limit, offset, processingTimeMs: 0, query: '', indexUid: '' },
         { hitsPerPage, page, finite: false }
       )
 
@@ -436,7 +437,14 @@ it('Should throw when hitsPerPage is negative', () => {
     const hitsPerPage = -1
     const page = 0
     adaptPaginationParameters(
-      { hits, page: page + 1, hitsPerPage, processingTimeMs: 0, query: '' },
+      {
+        hits,
+        page: page + 1,
+        hitsPerPage,
+        processingTimeMs: 0,
+        query: '',
+        indexUid: '',
+      },
       { hitsPerPage, page, finite: true }
     )
   } catch (e: any) {

@@ -1,7 +1,7 @@
-import type { MeiliSearchResponse } from '../../types'
+import type { MultiSearchResult } from '../../types'
 
 export function adaptTotalHits(
-  searchResponse: MeiliSearchResponse<Record<string, any>>
+  searchResponse: MultiSearchResult<Record<string, any>>
 ): number {
   const {
     hitsPerPage = 0,
