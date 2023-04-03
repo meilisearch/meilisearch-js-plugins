@@ -47,7 +47,7 @@
     "templates"
   ],
   "dependencies": {
-    "meilisearch": "^0.31.1"
+    "meilisearch": "^0.32.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
