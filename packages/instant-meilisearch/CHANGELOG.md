@@ -1,5 +1,18 @@
 # @meilisearch/instant-meilisearch
 
+## 0.12.0
+
+### Minor Changes
+
+- 3be2aaf: Replaces search with multiSearch API.
+- 3098d6c: Add support for multiple sort attributes
+
+### Patch Changes
+
+- c6b3c09: Use the `_geoBoundingBox` filter to adapt the `insideBoundingBox`parameter
+- 0211825: Add the facetStats of numeric facets, giving access to the min and max value of these facets.
+  The following widgets are now compatible with Meilisearch: `RangeSlider` and `RangeInput`
+
 ## 0.11.1
 
 ### Patch Changes
