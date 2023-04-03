@@ -7994,10 +7994,10 @@ instantsearch.css@^8.0.0:
   resolved "https://registry.yarnpkg.com/instantsearch.css/-/instantsearch.css-8.0.0.tgz#66a56b52400c7a14f678859e35a12eb32696a417"
   integrity sha512-yU63cF9KdkyFFh7ynYQy39nh1MD1eVDHIaa/gdm8a/O9dTG/5P6hBF1ONoIbKTtjlxxsHS2S8MarCZZ0l31ajg==
 
-instantsearch.js@4.50.3, instantsearch.js@^4.14.0, instantsearch.js@^4.48.1, instantsearch.js@^4.49.4:
-  version "4.50.3"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.50.3.tgz#3b810fed3b52f0b887c3ae458cd9054433872742"
-  integrity sha512-xfVKe7/uAzxnSJeUI2M4RQZycnggx+jtKB6ZCp10Q2FGsPn0pwf2kHO1r0oy05SFYj/UmRf6NXV6h7GjR+ctKg==
+instantsearch.js@4.53.0, instantsearch.js@^4.14.0, instantsearch.js@^4.48.1, instantsearch.js@^4.49.4:
+  version "4.53.0"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.53.0.tgz#8dffe121681f514363762a4c70bc4c4344b9775d"
+  integrity sha512-YsKZo8yF/2/lc1FHwyP73k8IoIMPesP+8R4VSmWDf/No8EgELgpC7qgZOlQl/vLIoAAaDrKD/BfstposfMF8KQ==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@algolia/ui-components-highlight-vdom" "^1.2.1"
@@ -14157,12 +14157,12 @@ vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.6.0:
     esquery "^1.4.0"
     lodash "^4.17.15"
 
-vue-instantsearch@^4.7.2:
-  version "4.8.3"
-  resolved "https://registry.yarnpkg.com/vue-instantsearch/-/vue-instantsearch-4.8.3.tgz#20479213851397b5ef5027c7dba59f79c076183a"
-  integrity sha512-a7zPcuDlzr/kpeC1uETv/03tjhQ9liZq2PBIq5HGFOgov4oFbCB7AVRyHT5I/E9gmMlA+ltbz0+Ls/hA38i7kA==
+vue-instantsearch@^4.8.8:
+  version "4.8.8"
+  resolved "https://registry.yarnpkg.com/vue-instantsearch/-/vue-instantsearch-4.8.8.tgz#68350799b9c9a6d953ba2aaa60ada9c0439a8995"
+  integrity sha512-cQylbVL5sdtSe1ZSh8BfuHtIXqMscI5dXvMs+i88ZaDLdNf+TZ9sWQ1dnl5fZUqRKMEYrjGuOLc/+UiR8GF6jg==
   dependencies:
-    instantsearch.js "4.50.3"
+    instantsearch.js "4.53.0"
     mitt "^2.1.0"
 
 vue-template-compiler@^2.7.14:
