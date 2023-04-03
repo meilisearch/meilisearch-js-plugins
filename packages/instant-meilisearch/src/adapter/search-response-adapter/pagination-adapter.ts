@@ -1,11 +1,11 @@
 import type {
-  MeiliSearchResponse,
-  PaginationState,
+  MultiSearchResult,
   InstantSearchPagination,
+  PaginationState,
 } from '../../types'
 
 function adaptNbPages(
-  searchResponse: MeiliSearchResponse<Record<string, any>>,
+  searchResponse: MultiSearchResult<Record<string, any>>,
   hitsPerPage: number
 ): number {
   if (searchResponse.totalPages != null) {
@@ -23,7 +23,7 @@ function adaptNbPages(
 }
 
 export function adaptPaginationParameters(
-  searchResponse: MeiliSearchResponse<Record<string, any>>,
+  searchResponse: MultiSearchResult<Record<string, any>>,
   paginationState: PaginationState
 ): InstantSearchPagination & { nbPages: number } {
   const { hitsPerPage, page } = paginationState

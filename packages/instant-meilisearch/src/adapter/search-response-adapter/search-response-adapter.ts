@@ -1,54 +1,83 @@
 import type {
-  SearchContext,
-  MeiliSearchResponse,
   AlgoliaSearchResponse,
   FacetDistribution,
+  InstantMeiliSearchConfig,
+  MeilisearchMultiSearchResult,
 } from '../../types'
 import { adaptHits } from './hits-adapter'
 import { adaptTotalHits } from './total-hits-adapter'
 import { adaptPaginationParameters } from './pagination-adapter'
 import { adaptFacetDistribution } from './facet-distribution-adapter'
+import { adaptFacetStats } from './adapt-facet-stats'
 
 /**
- * Adapt search response from Meilisearch
- * to search response compliant with instantsearch.js
+ * Adapt multiple search results from Meilisearch
+ * to search results compliant with instantsearch.js
  *
- * @param  {MeiliSearchResponse<Record<string>>} searchResponse
- * @param  {SearchContext} searchContext
+ * @param  {Array<MeilisearchMultiSearchResult<T>>} searchResponse
+ * @param  {Record<string, FacetDistribution>} initialFacetDistribution
+ * @param  {InstantMeiliSearchConfig} config
  * @returns {{ results: Array<AlgoliaSearchResponse<T>> }}
  */
-export function adaptSearchResponse<T>(
-  searchResponse: MeiliSearchResponse<Record<string, any>>,
-  searchContext: SearchContext,
-  initialFacetDistribution: FacetDistribution
+export function adaptSearchResults<T = Record<string, any>>(
+  meilisearchResults: MeilisearchMultiSearchResult[],
+  initialFacetDistribution: Record<string, FacetDistribution>,
+  config: InstantMeiliSearchConfig
+): { results: Array<AlgoliaSearchResponse<T>> } {
+  const instantSearchResult: Array<AlgoliaSearchResponse<T>> =
+    meilisearchResults.map((meilisearchResult) => {
+      return adaptSearchResult<T>(
+        meilisearchResult,
+        initialFacetDistribution[meilisearchResult.indexUid],
+        config
+      )
+    })
+
+  return { results: instantSearchResult }
+}
+
+/**
+ * Adapt search result from Meilisearch
+ * to search result compliant with instantsearch.js
+ *
+ * @param  {MeilisearchMultiSearchResult<Record<string>>} searchResponse
+ * @param  {Record<string, FacetDistribution>} initialFacetDistribution
+ * @param  {InstantMeiliSearchConfig} config
+ * @returns {AlgoliaSearchResponse<T>}
+ */
+export function adaptSearchResult<T>(
+  meiliSearchResult: MeilisearchMultiSearchResult,
+  initialFacetDistribution: FacetDistribution,
+  config: InstantMeiliSearchConfig
 ): AlgoliaSearchResponse<T> {
-  const searchResponseOptionals: Record<string, any> = {}
   const {
     processingTimeMs,
     query,
-    facetDistribution: responseFacetDistribution,
-  } = searchResponse
+    indexUid,
+    facetDistribution: responseFacetDistribution = {},
+    facetStats = {},
+  } = meiliSearchResult
 
-  const { keepZeroFacets, facets } = searchContext
+  const facets = Object.keys(responseFacetDistribution)
 
   const { hitsPerPage, page, nbPages } = adaptPaginationParameters(
-    searchResponse,
-    searchContext.pagination
+    meiliSearchResult,
+    meiliSearchResult.pagination
   )
 
-  const hits = adaptHits(searchResponse, searchContext)
-  const nbHits = adaptTotalHits(searchResponse)
+  const hits = adaptHits(meiliSearchResult, config)
+  const nbHits = adaptTotalHits(meiliSearchResult)
 
   const facetDistribution = adaptFacetDistribution(
-    keepZeroFacets,
+    config.keepZeroFacets,
     facets,
     initialFacetDistribution,
     responseFacetDistribution
   )
 
-  // Create response object compliant with InstantSearch
-  const adaptedSearchResponse = {
-    index: searchContext.indexUid,
+  // Create result object compliant with InstantSearch
+  const adaptedSearchResult = {
+    index: indexUid,
     hitsPerPage,
     page,
     facets: facetDistribution,
@@ -59,7 +88,7 @@ export function adaptSearchResponse<T>(
     hits,
     params: '',
     exhaustiveNbHits: false,
-    ...searchResponseOptionals,
+    facets_stats: adaptFacetStats(facetStats),
   }
-  return adaptedSearchResponse
+  return adaptedSearchResult
 }

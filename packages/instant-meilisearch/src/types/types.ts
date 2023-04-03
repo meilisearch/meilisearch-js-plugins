@@ -1,16 +1,20 @@
-import type { SearchResponse as MeiliSearchResponse } from 'meilisearch'
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 
-export type { AlgoliaMultipleQueriesQuery }
+import type {
+  MultiSearchQuery as MeiliSearchMultiSearchParams,
+  MultiSearchResult,
+} from 'meilisearch'
+
+export type { AlgoliaMultipleQueriesQuery, MultiSearchResult }
 export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
 
 export type {
   Filter,
   FacetDistribution,
-  SearchResponse as MeiliSearchResponse,
-  SearchParams as MeiliSearchParams,
   MeiliSearch,
+  FacetStats as MeiliFacetStats,
+  MultiSearchQuery as MeiliSearchMultiSearchParams,
 } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
@@ -29,24 +33,23 @@ export type InstantMeiliSearchOptions = {
   finitePagination?: boolean
 }
 
+export type InstantMeiliSearchConfig = {
+  placeholderSearch: boolean
+  keepZeroFacets: boolean
+  clientAgents: string[]
+  finitePagination: boolean
+  primaryKey?: string
+  matchingStrategy?: MatchingStrategies
+}
+
 export type SearchCacheInterface = {
-  getEntry: (key: string) => MeiliSearchResponse | undefined
+  getEntry: <T>(key: string) => T | undefined
   formatKey: (components: any[]) => string
   setEntry: <T>(key: string, searchResponse: T) => void
   clearCache: () => void
 }
 
 export type InsideBoundingBox = string | ReadonlyArray<readonly number[]>
-
-export type GeoSearchContext = {
-  aroundLatLng?: string
-  aroundLatLngViaIP?: boolean
-  aroundRadius?: number | 'all'
-  aroundPrecision?: number
-  minimumAroundRadius?: number
-  insideBoundingBox?: InsideBoundingBox
-  insidePolygon?: ReadonlyArray<readonly number[]>
-}
 
 // Current state of the pagination
 export type PaginationState = {
@@ -61,7 +64,10 @@ export type InstantSearchPagination = {
   nbPages: number
 }
 
-export type Facets = string | string[] | undefined
+export type MeilisearchMultiSearchResult<T = Record<string, any>> =
+  MultiSearchResult<T> & {
+    pagination: PaginationState
+  }
 
 export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
   InstantSearchParams & {
@@ -76,6 +82,45 @@ export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
     matchingStrategy?: MatchingStrategies
   }
 
+export type InstantSearchGeoParams = {
+  aroundLatLng?: string
+  aroundLatLngViaIP?: boolean
+  aroundRadius?: number | 'all'
+  aroundPrecision?: number
+  minimumAroundRadius?: number
+  insideBoundingBox?: InsideBoundingBox
+  insidePolygon?: ReadonlyArray<readonly number[]>
+}
+
 export type InstantMeiliSearchInstance = SearchClient & {
   clearCache: () => void
 }
+
+export type MultiSearchResolver = {
+  multiSearch: (
+    searchQueries: MeiliSearchMultiSearchParams[],
+    instantSearchPagination: PaginationState[]
+  ) => Promise<MeilisearchMultiSearchResult[]>
+}
+
+export type AlgoliaFacetStats = Record<
+  string,
+  {
+    /**
+     * The minimum value in the result set.
+     */
+    min: number
+    /**
+     * The maximum value in the result set.
+     */
+    max: number
+    /**
+     * The average facet value in the result set.
+     */
+    avg: number
+    /**
+     * The sum of all values in the result set.
+     */
+    sum: number
+  }
+>

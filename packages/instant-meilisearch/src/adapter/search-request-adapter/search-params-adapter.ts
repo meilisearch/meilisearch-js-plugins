@@ -1,14 +1,11 @@
 import type {
-  MeiliSearchParams,
   SearchContext,
   Filter,
   PaginationState,
+  MeiliSearchMultiSearchParams,
 } from '../../types'
 
-import {
-  adaptGeoPointsRules,
-  createGeoSearchContext,
-} from './geo-rules-adapter'
+import { adaptGeoSearch } from './geo-rules-adapter'
 import { adaptFilters } from './filter-adapter'
 
 function isPaginationRequired(
@@ -68,11 +65,9 @@ function setFinitePagination(
  * to meilisearch search query parameters.
  *
  * @param  {SearchContext} searchContext
- *
- * @returns {MeiliSearchParams}
  */
 export function MeiliParamsCreator(searchContext: SearchContext) {
-  const meiliSearchParams: Record<string, any> = {}
+  const meiliSearchParams: any = {}
   const {
     facets,
     attributesToSnippet,
@@ -89,13 +84,20 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     filters,
     numericFilters,
     facetFilters,
+    indexUid,
   } = searchContext
 
   const meilisearchFilters = adaptFilters(filters, numericFilters, facetFilters)
 
   return {
-    getParams() {
+    getParams(): MeiliSearchMultiSearchParams {
       return meiliSearchParams
+    },
+    addQuery() {
+      meiliSearchParams.q = query
+    },
+    addIndexUid() {
+      meiliSearchParams.indexUid = indexUid
     },
     addFacets() {
       if (Array.isArray(facets)) {
@@ -169,15 +171,26 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.sort = Array.isArray(sort) ? sort : [sort]
       }
     },
-    addGeoSearchRules() {
-      const geoSearchContext = createGeoSearchContext(searchContext)
-      const geoRules = adaptGeoPointsRules(geoSearchContext)
+    addGeoSearchFilter() {
+      const {
+        insideBoundingBox,
+        aroundLatLng,
+        aroundRadius,
+        minimumAroundRadius,
+      } = searchContext
 
-      if (geoRules?.filter) {
+      const filter = adaptGeoSearch({
+        insideBoundingBox,
+        aroundLatLng,
+        aroundRadius,
+        minimumAroundRadius,
+      })
+
+      if (filter) {
         if (meiliSearchParams.filter) {
-          meiliSearchParams.filter.unshift(geoRules.filter)
+          meiliSearchParams.filter.unshift(filter)
         } else {
-          meiliSearchParams.filter = [geoRules.filter]
+          meiliSearchParams.filter = [filter]
         }
       }
     },
@@ -194,12 +207,14 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
  * to search request compliant with Meilisearch
  *
  * @param  {SearchContext} searchContext
- * @returns {MeiliSearchParams}
+ * @returns {MeiliSearchMultiSearchParams}
  */
 export function adaptSearchParams(
   searchContext: SearchContext
-): MeiliSearchParams {
+): MeiliSearchMultiSearchParams {
   const meilisearchParams = MeiliParamsCreator(searchContext)
+  meilisearchParams.addQuery()
+  meilisearchParams.addIndexUid()
   meilisearchParams.addFacets()
   meilisearchParams.addAttributesToHighlight()
   meilisearchParams.addPreTag()
@@ -210,7 +225,7 @@ export function adaptSearchParams(
   meilisearchParams.addPagination()
   meilisearchParams.addFilters()
   meilisearchParams.addSort()
-  meilisearchParams.addGeoSearchRules()
+  meilisearchParams.addGeoSearchFilter()
   meilisearchParams.addMatchingStrategy()
 
   return meilisearchParams.getParams()

@@ -350,8 +350,6 @@ const search = instantsearch({
 
 `Index` is the component that lets you apply widgets to a dedicated index. It’s useful if you want to build an interface that targets multiple indices.
 
-Using this component, instant-meilisearch does an http-request for each different `Index` widget added. More http requests are made when using the [`RefinementList`](#✅-refinementlist) widget.
-
 ### ✅ SearchBox
 
 [SearchBox references](https://www.algolia.com/doc/api-reference/widgets/search-box/js/)
@@ -675,9 +673,6 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-The `RefinementList` widget uses the `disjunctive facet search` principle when using the `or` operator. For each different facet category used, an additional http call is made.
-For example, if I ask for `color=green` and `size=2`, three http requests are made. One for the hits, one for the `color` facet distribution, and one for the `size` facet distribution. To provide feedback on the subject, refer to [this discussion](https://github.com/meilisearch/product/issues/54).
-
 The following example will create a UI component with the a list of genres on which you will be able to facet.
 
 ```js
@@ -746,54 +741,14 @@ The `rangeSlider` widget provides a user-friendly way to filter the results, bas
 - ✅ attribute: The name of the attribute in the document. _required_.
 - ✅ min: The minimum value for the input. _required_
 - ✅ max: The maximum value for the input. _required_
-- ❌ precision: The number of digits after the decimal point to use. Not compatible as only integers work with `rangeSlider`.
+- ✅ precision: The number of digits after the decimal point to use. Not compatible as only integers work with `rangeSlider`.
 - ✅ step: The number of steps between each handle move.
 - ✅ pips: Whether to show slider pips (ruler marks).
 - ✅ tooltips: Whether to show tooltips. The default tooltips show the raw value.
 - ✅ cssClasses: The CSS classes to override.
 
-#### ⚠️ The component is compatible but only by applying the following requirements:
+To be able to use the `rangeSlider` on an attribute, the attribute must be in the[`filterableAttributes`](https://docs.meilisearch.com/reference/features/filtering_and_faceted_search.html#configuring-filters) and must contain numeric values.
 
-#### 1. Manual Min Max
-
-Min and max of attributes are not returned from Meilisearch and thus **must be set manually**.
-
-```js
-  instantsearch.widgets.rangeSlider({
-    // ...
-    min: 0,
-    max: 100000,
-  }),
-```
-
-#### 2. Attribute must be in `filterableAttributes`
-
-If the attribute is not in the [`filterableAttributes`](https://docs.meilisearch.com/reference/features/filtering_and_faceted_search.html#configuring-filters) setting list, filtering on this attribute is not possible.
-
-Example:
-Given the attribute `id` that has not been added in `filterableAttributes`:
-
-```js
-  instantsearch.widgets.rangeSlider({
-    attribute: 'id',
-    // ...
-  }),
-```
-
-The widget throws the following error:
-
-```json
-{
-  "message": "  .. attribute `id` is not filterable, available filterable attributes are: author, price, genres",
-  "errorCode": "bad_request",
-  "errorType": "invalid_request_error",
-  "errorLink": "https://docs.meilisearch.com/errors#bad_request"
-}
-```
-
-To avoid this error, the attribute must be added to the [`filterableAttributes` setting](https://docs.meilisearch.com/reference/api/filterable_attributes.html#get-filterable-attributes).
-
-After these steps, `rangeSlider` becomes compatible.
 
 ### ✅ Menu
 
@@ -837,7 +792,7 @@ The `rangeInput` widget allows a user to select a numeric range using a minimum 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-⚠️ Not compatible with Meilisearch by default, needs a workaround. See workaround in [RangeSlider](#-rangeslider) section.
+To be able to use the `RangeInput` on an attribute, the attribute must be in the[`filterableAttributes`](https://docs.meilisearch.com/reference/features/filtering_and_faceted_search.html#configuring-filters) and must contain numeric values.
 
 ### ✅ MenuSelect
 
