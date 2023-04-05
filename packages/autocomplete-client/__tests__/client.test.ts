@@ -1,12 +1,9 @@
-import { searchClient, getMeilisearchResults } from '../src'
-import {
-  autocomplete,
-  // AutocompleteComponents,
-  // getAlgoliaResults,
-  // getMeilisearchResults,
-} from '@algolia/autocomplete-js'
+import { meilisearchClient, getMeilisearchResults } from '../src'
+import { MeiliSearch } from 'meilisearch'
+import { basicClient } from './test.utils'
+import products from './assets/products.json'
 
-console.log(searchClient)
+console.log(meilisearchClient)
 export const searchResponse = {
   hits: [],
   query: '',
@@ -17,11 +14,66 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
+beforeAll(async () => {
+  const client = new MeiliSearch({
+    host: 'http://localhost:7700',
+    apiKey: 'masterKey',
+  })
+  const task = await client.index('products').addDocuments(products)
+  await client.waitForTask(task.taskUid)
+})
 describe('Autocomplete search client tests', () => {
   afterEach(() => {})
 
-  test('the same search parameters twice', async () => {
-    console.log(searchClient)
-    console.log(getMeilisearchResults)
+  test('Creating the requester', () => {
+    const query = {
+      indexName: 'products',
+      query: 'test',
+      params: {
+        hitsPerPage: 10,
+        attributesToSnippet: ['name:10', 'description:35'],
+        snippetEllipsisText: '…',
+      },
+    }
+    const requester = getMeilisearchResults({
+      searchClient: basicClient,
+      queries: [query],
+    })
+
+    expect(Object.keys(requester)).toEqual([
+      'requesterId',
+      'execute',
+      'transformResponse',
+      'searchClient',
+      'queries',
+    ])
+    expect(requester.queries).toEqual([query])
+  })
+
+  test('Search with the request', async () => {
+    const query = {
+      indexName: 'products',
+      query: 'test',
+      params: {
+        hitsPerPage: 5,
+        attributesToSnippet: ['name:10', 'description:35'],
+        snippetEllipsisText: '…',
+      },
+    }
+    const requester = getMeilisearchResults({
+      searchClient: basicClient,
+      queries: [query],
+    })
+
+    // const a = requester.searchClient.search([{ indexName: }])
+    console.log(requester.queries)
+    expect(Object.keys(requester)).toEqual([
+      'requesterId',
+      'execute',
+      'transformResponse',
+      'searchClient',
+      'queries',
+    ])
+    expect(requester.queries).toEqual([query])
   })
 })

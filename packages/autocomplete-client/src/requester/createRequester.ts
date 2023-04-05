@@ -5,14 +5,15 @@ import {
   AlgoliaSearchForFacetValuesResponse,
   InstantMeiliSearchInstance,
 } from '@meilisearch/instant-meilisearch'
-// import type {
-//   AlgoliaMultipleQueriesQuery,
-//   AlgoliaSearchForFacetValuesResponse,
-//   AlgoliaSearchResponse,
-//   InstantMeiliSearchInstance,
-// } from '../types'
+// All types copied from: autocomplete/packages/autocomplete-preset-algolia/src/requester/createRequester.ts
+// As most of the types are not exported and we need to be able to provide our own Fetcher
 
 type Fetcher = typeof fetchMeilisearchResults
+
+export type FetcherParams = Pick<
+  Parameters<Fetcher>[0],
+  'searchClient' | 'queries'
+>
 
 type FacetHit = {
   label: string
@@ -23,12 +24,6 @@ type FacetHit = {
     }
   }
 }
-
-export type FetcherParams = Pick<
-  Parameters<Fetcher>[0],
-  'searchClient' | 'queries'
->
-
 type TransformResponseParams<THit> = {
   results: Array<
     AlgoliaSearchResponse<THit> | AlgoliaSearchForFacetValuesResponse
@@ -112,7 +107,7 @@ export type RequesterDescription<THit> = {
 
 export function createRequester(fetcher: Fetcher, requesterId?: string) {
   function execute<THit>(fetcherParams: ExecuteParams<THit>) {
-    console.log({ fetcherParams })
+    // console.log({ fetcherParams })
 
     return fetcher<THit>({
       searchClient: fetcherParams.searchClient,
@@ -121,11 +116,11 @@ export function createRequester(fetcher: Fetcher, requesterId?: string) {
       responses.map((response, index) => {
         const { sourceId, transformResponse } = fetcherParams.requests[index]
 
-        console.log({
-          items: response,
-          sourceId,
-          transformResponse,
-        })
+        // console.log({
+        //   items: response,
+        //   sourceId,
+        //   transformResponse,
+        // })
 
         return {
           items: response,

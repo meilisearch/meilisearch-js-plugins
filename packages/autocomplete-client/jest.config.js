@@ -1,4 +1,4 @@
-const ignoreFiles = ['<rootDir>(/.*)*/assets']
+const ignoreFiles = ['<rootDir>(/.*)*/assets', 'test.utils']
 
 module.exports = {
   verbose: true,

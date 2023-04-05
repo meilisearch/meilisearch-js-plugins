@@ -45,6 +45,9 @@
   "dependencies": {
     "@meilisearch/instant-meilisearch": "*"
   },
+  "peerDependencies": {
+    "@algolia/autocomplete-js": "^1.7.4"
+  },
   "devDependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
     "@babel/cli": "^7.19.3",

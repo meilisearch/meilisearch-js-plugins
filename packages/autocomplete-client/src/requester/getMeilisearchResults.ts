@@ -1,7 +1,7 @@
 import { createMeilisearchRequester } from './createMeilisearchRequester'
 
 /**
- * Retrieves Algolia results from multiple indices.
+ * Retrieves Meilisearch results from multiple indices.
  */
 export const getMeilisearchResults = createMeilisearchRequester({
   transformResponse: (response) => response.hits,

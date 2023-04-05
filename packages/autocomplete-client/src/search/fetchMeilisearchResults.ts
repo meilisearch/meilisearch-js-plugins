@@ -38,10 +38,10 @@ interface SearchParams {
 export function fetchMeilisearchResults<TRecord>({
   searchClient,
   queries,
-}: // userAgents = [],
-SearchParams): Promise<
+}: SearchParams): Promise<
   Array<AlgoliaSearchResponse<TRecord> | AlgoliaSearchForFacetValuesResponse>
 > {
+  console.log('SEARCH')
   // TODO: adapt to im
   // if (typeof searchClient.addAlgoliaAgent === 'function') {
   //   const algoliaAgents: UserAgent[] = [...coreUserAgents, ...userAgents];
@@ -54,6 +54,7 @@ SearchParams): Promise<
   return searchClient
     .search<TRecord>(
       queries.map((searchParameters) => {
+        console.log(searchParameters)
         const { params, ...headers } = searchParameters
 
         return {
