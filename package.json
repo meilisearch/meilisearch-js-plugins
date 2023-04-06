@@ -17,6 +17,7 @@
     "playground:vue3": "turbo run dev --filter=@meilisearch/vue3-ts-playground --parallel",
     "playground:react": "turbo run dev --filter=@meilisearch/react-playground --parallel",
     "playground:local-react": "turbo run dev --filter=@meilisearch/local-react-playground --parallel",
+    "playground:node": "turbo run dev --filter=@meilisearch/node-playground --parallel",
     "test:e2e": "turbo run test:e2e",
     "test:e2e:watch": "turbo run test:e2e:watch",
     "lint": "turbo lint",

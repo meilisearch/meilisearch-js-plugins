@@ -35,6 +35,7 @@ module.exports = [
   // browser-friendly IIFE build
   {
     input: INPUT, // directory to transpilation of typescript
+    external: ['cross-fetch', 'cross-fetch/polyfill'],
     output: {
       name: 'window',
       extend: true,
