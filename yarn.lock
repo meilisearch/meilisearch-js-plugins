@@ -8045,10 +8045,29 @@ instantsearch.css@^8.0.0:
   resolved "https://registry.yarnpkg.com/instantsearch.css/-/instantsearch.css-8.0.0.tgz#66a56b52400c7a14f678859e35a12eb32696a417"
   integrity sha512-yU63cF9KdkyFFh7ynYQy39nh1MD1eVDHIaa/gdm8a/O9dTG/5P6hBF1ONoIbKTtjlxxsHS2S8MarCZZ0l31ajg==
 
-instantsearch.js@4.50.3, instantsearch.js@^4.14.0, instantsearch.js@^4.48.1, instantsearch.js@^4.49.4:
+instantsearch.js@4.50.3:
   version "4.50.3"
   resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.50.3.tgz#3b810fed3b52f0b887c3ae458cd9054433872742"
   integrity sha512-xfVKe7/uAzxnSJeUI2M4RQZycnggx+jtKB6ZCp10Q2FGsPn0pwf2kHO1r0oy05SFYj/UmRf6NXV6h7GjR+ctKg==
+  dependencies:
+    "@algolia/events" "^4.0.1"
+    "@algolia/ui-components-highlight-vdom" "^1.2.1"
+    "@algolia/ui-components-shared" "^1.2.1"
+    "@types/dom-speech-recognition" "^0.0.1"
+    "@types/google.maps" "^3.45.3"
+    "@types/hogan.js" "^3.0.0"
+    "@types/qs" "^6.5.3"
+    algoliasearch-helper "^3.11.3"
+    hogan.js "^3.0.2"
+    htm "^3.0.0"
+    preact "^10.10.0"
+    qs "^6.5.1 < 6.10"
+    search-insights "^2.1.0"
+
+instantsearch.js@^4.48.1, instantsearch.js@^4.54.0:
+  version "4.54.0"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.54.0.tgz#a2ad27ce46abb337bf068790de98ebf1f187198e"
+  integrity sha512-MU6ciQ3BAEVan/aZArSMk7Xz89XTsda5NRbOczNOF2z1oaVreF3XaF8oX0Kaj9APMm5/3d/PNB74rACNdkeRrw==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@algolia/ui-components-highlight-vdom" "^1.2.1"
