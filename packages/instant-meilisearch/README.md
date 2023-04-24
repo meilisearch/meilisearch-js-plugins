@@ -182,7 +182,7 @@ The other strategy is `all`, where both `hello` and `world` **must** be present 
 
 ### Request Config
 
-You can provide a custom request configuration. Available field can be [found here](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.requestinit.html).
+You can provide a custom request configuration. Available field can be [found here](https://fetch.spec.whatwg.org/#requestinit).
 
 for example, with custom headers.
 
