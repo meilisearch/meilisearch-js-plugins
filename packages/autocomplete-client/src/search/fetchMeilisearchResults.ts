@@ -1,60 +1,28 @@
-// import {
-//   userAgents as coreUserAgents,
-//   UserAgent,
-// } from '@algolia/autocomplete-shared'
-
-import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../constants'
-// import type {
-//   AlgoliaMultipleQueriesQuery,
-//   SearchForFacetValuesResponse,
-//   SearchResponse,
-//   SearchClient,
-// } from '../types'
-
 import {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
-  AlgoliaSearchForFacetValuesResponse,
-  InstantMeiliSearchInstance,
 } from '@meilisearch/instant-meilisearch'
+import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../constants'
+import { AutocompleteSearchClient } from '../types/AutocompleteSearchClient'
 
 interface SearchParams {
   /**
-   * The initialized Algolia search client.
+   * The initialized Meilisearch search client.
    */
-  searchClient: InstantMeiliSearchInstance
+  searchClient: AutocompleteSearchClient
   /**
    * A list of queries to execute.
    */
   queries: AlgoliaMultipleQueriesQuery[]
-  /**
-   * A list of user agents to add to the search client.
-   *
-   * This is useful to track usage of an integration.
-   */
-  // userAgents?: UserAgent[]
 }
 
-export function fetchMeilisearchResults<TRecord>({
+export function fetchMeilisearchResults<TRecord = Record<string, any>>({
   searchClient,
   queries,
-}: SearchParams): Promise<
-  Array<AlgoliaSearchResponse<TRecord> | AlgoliaSearchForFacetValuesResponse>
-> {
-  console.log('SEARCH')
-  // TODO: adapt to im
-  // if (typeof searchClient.addAlgoliaAgent === 'function') {
-  //   const algoliaAgents: UserAgent[] = [...coreUserAgents, ...userAgents];
-
-  //   algoliaAgents.forEach(({ segment, version }) => {
-  //     searchClient.addAlgoliaAgent(segment, version);
-  //   });
-  // }
-
+}: SearchParams): Promise<Array<AlgoliaSearchResponse<TRecord>>> {
   return searchClient
     .search<TRecord>(
       queries.map((searchParameters) => {
-        console.log(searchParameters)
         const { params, ...headers } = searchParameters
 
         return {
@@ -68,7 +36,9 @@ export function fetchMeilisearchResults<TRecord>({
         }
       })
     )
-    .then((response) => {
-      return response.results
-    })
+    .then(
+      (response: Awaited<ReturnType<typeof searchClient.search<TRecord>>>) => {
+        return response.results
+      }
+    )
 }

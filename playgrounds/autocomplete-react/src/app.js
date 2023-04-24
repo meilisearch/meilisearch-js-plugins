@@ -1,12 +1,15 @@
 import { autocomplete } from '@algolia/autocomplete-js'
 import {
-  meilisearchClient,
+  meilisearchAutocompleteClient,
   getMeilisearchResults,
 } from '@meilisearch/autocomplete-client'
 
 import '@algolia/autocomplete-theme-classic'
 
-const client = meilisearchClient('http://localhost:7700', 'masterKey')
+const client = meilisearchAutocompleteClient(
+  'http://localhost:7700',
+  'masterKey'
+)
 
 autocomplete({
   container: '#autocomplete',
@@ -15,12 +18,11 @@ autocomplete({
   debug: true,
   // plugins: [querySuggestionsPlugin],
   getSources({ query }) {
-    // console.log({ query })
     return [
       {
         sourceId: 'products',
         getItems() {
-          const response = getMeilisearchResults({
+          const description = getMeilisearchResults({
             searchClient: client,
             queries: [
               {
@@ -35,7 +37,7 @@ autocomplete({
             ],
           })
 
-          return response
+          return description
         },
         templates: {
           item({ item, components, html }) {

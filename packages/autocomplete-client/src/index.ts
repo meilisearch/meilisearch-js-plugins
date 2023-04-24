@@ -1,4 +1,4 @@
-export { instantMeiliSearch as meilisearchClient } from '@meilisearch/instant-meilisearch'
 export * from '@meilisearch/instant-meilisearch'
-export * from './requester'
+export * from './client'
+export * from './requesters'
 export * from './search'

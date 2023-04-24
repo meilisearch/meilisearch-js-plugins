@@ -45,10 +45,6 @@ module.exports = [
       ),
       format: 'umd',
       sourcemap: env === 'production', // create sourcemap for error reporting in production mode
-      globals: {
-        meilisearch: 'meilisearch',
-        instantMeilisearch: 'instantMeilisearch',
-      },
     },
     plugins: [
       ...PLUGINS,
@@ -59,7 +55,6 @@ module.exports = [
       }),
       commonjs(),
       babel(),
-      // json(),
       env === 'production' ? terser() : {}, // will minify the file in production mode
     ],
   },

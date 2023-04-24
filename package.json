@@ -33,6 +33,10 @@
     "release": "yarn build && changeset publish"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@types/jest": "^29.5.1",
+    "@types/jest-diff": "^24.3.0",
     "parcel-bundler": "^1.12.5",
     "turbo": "^1.8.5"
   },

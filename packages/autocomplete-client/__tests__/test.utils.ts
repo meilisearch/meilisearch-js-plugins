@@ -1,6 +1,10 @@
-import { meilisearchClient } from '../src'
+import { meilisearchAutocompleteClient } from '../src'
 
+const dataset = [
+  { id: 1, label: 'Hit 1' },
+  { id: 2, label: 'Hit 2' },
+]
 const HOST = 'http://localhost:7700'
 const API_KEY = 'masterKey'
-const basicClient = meilisearchClient(HOST, API_KEY)
-export { HOST, API_KEY, basicClient }
+const searchClient = meilisearchAutocompleteClient(HOST, API_KEY)
+export { HOST, API_KEY, searchClient, dataset }

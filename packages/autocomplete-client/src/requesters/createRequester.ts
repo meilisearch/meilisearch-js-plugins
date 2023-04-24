@@ -3,8 +3,9 @@ import {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
   AlgoliaSearchForFacetValuesResponse,
-  InstantMeiliSearchInstance,
 } from '@meilisearch/instant-meilisearch'
+import { AutocompleteSearchClient } from '../types/AutocompleteSearchClient'
+
 // All types copied from: autocomplete/packages/autocomplete-preset-algolia/src/requester/createRequester.ts
 // As most of the types are not exported and we need to be able to provide our own Fetcher
 
@@ -55,7 +56,7 @@ type FetcherParamsQuery<THit> = {
 }
 
 type ExecuteParams<THit> = {
-  searchClient: InstantMeiliSearchInstance
+  searchClient: AutocompleteSearchClient
   requests: Array<FetcherParamsQuery<THit>>
 }
 
@@ -82,7 +83,7 @@ export type RequesterDescription<THit> = {
   /**
    * The search client used for this request. Multiple queries with the same client are batched (if `requesterId` is also the same).
    */
-  searchClient: InstantMeiliSearchInstance
+  searchClient: any
   /**
    * Identifies requesters to confirm their queries should be batched.
    * This ensures that requesters with the same client but different
@@ -107,20 +108,12 @@ export type RequesterDescription<THit> = {
 
 export function createRequester(fetcher: Fetcher, requesterId?: string) {
   function execute<THit>(fetcherParams: ExecuteParams<THit>) {
-    // console.log({ fetcherParams })
-
     return fetcher<THit>({
       searchClient: fetcherParams.searchClient,
       queries: fetcherParams.requests.map((x) => x.query),
     }).then((responses) =>
       responses.map((response, index) => {
         const { sourceId, transformResponse } = fetcherParams.requests[index]
-
-        // console.log({
-        //   items: response,
-        //   sourceId,
-        //   transformResponse,
-        // })
 
         return {
           items: response,

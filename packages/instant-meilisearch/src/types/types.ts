@@ -101,8 +101,6 @@ export type InstantSearchGeoParams = {
 }
 
 export type InstantMeiliSearchInstance = SearchClient & {
-  appId: string
-  transporter: any
   clearCache: () => void
 }
 

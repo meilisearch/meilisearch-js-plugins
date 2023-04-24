@@ -7,6 +7,7 @@ module.exports = {
     'jest-watch-typeahead/testname',
   ],
   collectCoverage: true,
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   projects: [
     {
       globals: {
