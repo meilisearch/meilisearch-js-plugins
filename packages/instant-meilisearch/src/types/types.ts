@@ -1,9 +1,9 @@
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
-
 import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,
+  Config as MeilisearchConfig,
 } from 'meilisearch'
 
 export type { AlgoliaMultipleQueriesQuery, MultiSearchResult }
@@ -15,6 +15,7 @@ export type {
   MeiliSearch,
   FacetStats as MeiliFacetStats,
   MultiSearchQuery as MeiliSearchMultiSearchParams,
+  Config as MeilisearchConfig,
 } from 'meilisearch'
 
 export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
@@ -24,7 +25,10 @@ export const enum MatchingStrategies {
   LAST = 'last',
 }
 
-export type InstantMeiliSearchOptions = {
+export type InstantMeiliSearchOptions = Pick<
+  MeilisearchConfig,
+  'requestConfig' | 'httpClient'
+> & {
   placeholderSearch?: boolean
   primaryKey?: string
   keepZeroFacets?: boolean

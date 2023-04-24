@@ -40,4 +40,58 @@ describe('InstantMeiliSearch instantiation', () => {
       })
     }).toThrow(TypeError)
   })
+
+  test('instantiation with custom request config with correct type', () => {
+    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+      requestConfig: {},
+    })
+
+    expect(searchClient).toBeTruthy()
+  })
+
+  test('instantiation with custom request config set to undefined', () => {
+    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+      requestConfig: undefined,
+    })
+
+    expect(searchClient).toBeTruthy()
+  })
+
+  test('instantiation with custom request config set to a string', () => {
+    expect(() => {
+      instantMeiliSearch('http://localhost:7700', '', {
+        // @ts-expect-error
+        requestConfig: '',
+      })
+    }).toThrow('Provided requestConfig should be an object')
+  })
+
+  test('instantiation with custom HTTP client with correct type', () => {
+    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+      httpClient: async () => {
+        return new Promise((resolve) => {
+          resolve({})
+        })
+      },
+    })
+
+    expect(searchClient).toBeTruthy()
+  })
+
+  test('instantiation with custom HTTP client set to undefined', () => {
+    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+      httpClient: undefined,
+    })
+
+    expect(searchClient).toBeTruthy()
+  })
+
+  test('instantiation with custom HTTP client set to a string', () => {
+    expect(() => {
+      instantMeiliSearch('http://localhost:7700', '', {
+        // @ts-expect-error
+        httpClient: 'wrong type',
+      })
+    }).toThrow('Provided custom httpClient should be a function')
+  })
 })

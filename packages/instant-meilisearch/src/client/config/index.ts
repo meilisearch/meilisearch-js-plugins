@@ -2,6 +2,7 @@ import {
   InstantMeiliSearchOptions,
   InstantMeiliSearchConfig,
 } from '../../types'
+import { isPureObject } from '../../utils/object'
 
 /**
  * Get the configuration of instant meilisearch
@@ -54,8 +55,10 @@ export function getApiKey(apiKey: string | (() => string)): string {
  */
 export function validateInstantMeiliSearchParams(
   hostUrl: string,
-  apiKey: string | (() => string)
+  apiKey: string | (() => string),
+  instantMeiliSearchOptions: InstantMeiliSearchOptions
 ) {
+  const { requestConfig, httpClient } = instantMeiliSearchOptions
   // Validate host url
   if (typeof hostUrl !== 'string') {
     throw new TypeError(
@@ -68,5 +71,15 @@ export function validateInstantMeiliSearchParams(
     throw new TypeError(
       'Provided apiKey value (2nd parameter) is not a string or a function, expected string or function'
     )
+  }
+
+  // Validate requestConfig
+  if (requestConfig !== undefined && !isPureObject(requestConfig)) {
+    throw new TypeError('Provided requestConfig should be an object')
+  }
+
+  // Validate custom HTTP client
+  if (httpClient && typeof httpClient !== 'function') {
+    throw new TypeError('Provided custom httpClient should be a function')
   }
 }

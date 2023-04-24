@@ -7,6 +7,7 @@ import {
   SearchContext,
   FacetDistribution,
   PaginationState,
+  MeilisearchConfig,
 } from '../types'
 import {
   getApiKey,
@@ -39,7 +40,7 @@ export function instantMeiliSearch(
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
 ): InstantMeiliSearchInstance {
   // Validate parameters
-  validateInstantMeiliSearchParams(hostUrl, apiKey)
+  validateInstantMeiliSearchParams(hostUrl, apiKey, instantMeiliSearchOptions)
 
   // Resolve possible function to get apiKey
   apiKey = getApiKey(apiKey)
@@ -48,11 +49,21 @@ export function instantMeiliSearch(
     instantMeiliSearchOptions.clientAgents
   )
 
-  const meilisearchClient = new MeiliSearch({
+  const meilisearchConfig: MeilisearchConfig = {
     host: hostUrl,
     apiKey,
     clientAgents,
-  })
+  }
+
+  if (instantMeiliSearchOptions.httpClient !== undefined) {
+    meilisearchConfig.httpClient = instantMeiliSearchOptions.httpClient
+  }
+
+  if (instantMeiliSearchOptions.requestConfig !== undefined) {
+    meilisearchConfig.requestConfig = instantMeiliSearchOptions.requestConfig
+  }
+
+  const meilisearchClient = new MeiliSearch(meilisearchConfig)
 
   const searchCache = SearchCache()
   // create search resolver with included cache
