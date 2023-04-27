@@ -1,5 +1,15 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.0
+
+### Minor Changes
+
+- f205acd: Makes the umd build work in a nodeJs environment
+
+### Patch Changes
+
+- d47cd27: Add the possibility to provide a custom HTTP request and custom requests configurations
+
 ## 0.12.0
 
 ### Minor Changes
