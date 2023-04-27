@@ -94,6 +94,8 @@ const searchClient = instantMeiliSearch(
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 - [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
+- [`requestConfig`](#request-config): Use custom request configurations.
+- ['httpClient'](#custom-http-client): Use a custom HTTP client.
 
 The options are added as the third parameter of the `instantMeilisearch` function.
 
@@ -175,6 +177,41 @@ The other strategy is `all`, where both `hello` and `world` **must** be present 
 ```js
 {
   matchingStrategy: 'all' // default last
+}
+```
+
+### Request Config
+
+You can provide a custom request configuration. Available field can be [found here](https://fetch.spec.whatwg.org/#requestinit).
+
+for example, with custom headers.
+
+```ts
+{
+  requestConfig: {
+    headers: {
+      Authorization: AUTH_TOKEN
+    },
+    credentials: 'include'
+  }
+}
+```
+
+### Custom HTTP client
+
+You can use your own HTTP client, for example, with [`axios`](https://github.com/axios/axios).
+
+```ts
+{
+  httpClient: async (url, opts) => {
+    const response = await $axios.request({
+      url,
+      data: opts?.body,
+      headers: opts?.headers,
+      method: (opts?.method?.toLocaleUpperCase() as Method) ?? 'GET'
+    })
+    return response.data
+  }
 }
 ```
 
