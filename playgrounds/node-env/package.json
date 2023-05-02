@@ -5,7 +5,7 @@
   "description": "Instant-meilisearch playground written in node",
   "main": "index.js",
   "scripts": {
-    "build": "node index.js"
+    "dev": "node index.js"
   },
   "devDependencies": {
     "eslint-config-meilisearch": "*"
