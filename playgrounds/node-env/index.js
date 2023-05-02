@@ -22,6 +22,7 @@ const msClient = new MeiliSearch({ host: 'http://localhost:7700', apiKey: 'maste
     await msClient.waitForTask(task2.taskUid)
     process.exit(0)
   } catch(e) {
+    console.log(e)
     console.error('Could not run the `umd` build in a node environment')
     process.exit(1)
   }
