@@ -99,6 +99,8 @@ jobs:
         run: yarn test
       - name: Build all the playgrounds and the packages
         run: yarn build
+      - name: Run the node playground
+        run: yarn playground:node
   style_tests:
     name: style-check
     runs-on: ubuntu-latest
