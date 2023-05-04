@@ -29,10 +29,12 @@ body {
   overflow: hidden;
   margin: 0 auto;
 }
+
 .ais-InfiniteHits-item {
   margin-bottom: 1em;
   width: calc(50% - 1rem);
 }
+
 .ais-Hits-item {
   margin-bottom: 1em;
   width: calc(50% - 1rem);

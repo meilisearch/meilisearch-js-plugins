@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "React playground for instant-meilisearch",
-  "main": "src/index.jsx",
   "scripts": {
     "dev": "parcel serve index.html --open --port 1111",
     "build": "parcel build index.html",
@@ -20,15 +19,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@meilisearch/instant-meilisearch": "0.13.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-instantsearch-dom": "^6.39.1",
-    "@meilisearch/instant-meilisearch": "0.13.0"
+    "react-instantsearch-dom": "^6.39.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
-    "@babel/plugin-syntax-jsx": "^7.12.13",
-    "@babel/preset-react": "^7.12.13",
     "eslint-config-meilisearch": "*"
   }
 }

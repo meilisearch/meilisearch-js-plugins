@@ -44,6 +44,7 @@
     "babel-jest": "^27.2.2",
     "concurrently": "^8.0.1",
     "cssnano": "^6.0.1",
+    "cypress": "8.6.0",
     "instantsearch.css": "^8.0.0",
     "jest": "^27.2.2",
     "jest-watch-typeahead": "^2.2.2",

@@ -1,10 +1,10 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import injectScript from 'scriptjs'
-
-const GOOGLE_API = process.env.GOOGLE_API
+import './index.css'
+import './app.css'
 
 injectScript(
-  `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
+  `https://maps.googleapis.com/maps/api/js?v=quarterly&key=AIzaSyDOaUaar4GL0i99LpN2zQHzfWXL1wu_JQo`,
   () => {
     const search = instantsearch({
       indexName: 'world_cities',

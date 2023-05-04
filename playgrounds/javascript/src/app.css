@@ -32,7 +32,7 @@ body {
 
 .ais-Hits-item {
   margin-bottom: 1em;
-  width: calc(50% - 1rem);
+  width: calc(50% - 1rem) !important;
 }
 
 .ais-Hits-item img {

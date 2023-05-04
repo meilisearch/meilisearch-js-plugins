@@ -1,4 +1,6 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import './app.css'
+import './index.css'
 
 const search = instantsearch({
   indexName: 'steam-video-games',
