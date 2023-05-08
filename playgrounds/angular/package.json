@@ -22,7 +22,7 @@
     "@meilisearch/instant-meilisearch": "0.13.0",
     "algoliasearch": "^4.14.3",
     "angular-instantsearch": "^4.0.0",
-    "instantsearch.js": "^4.14.0",
+    "instantsearch.js": "^4.55.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
