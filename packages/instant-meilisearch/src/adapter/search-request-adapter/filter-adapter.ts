@@ -1,26 +1,41 @@
 import type { Filter, SearchContext } from '../../types'
-import { replaceColonByEqualSign } from '../../utils'
 
 /**
- * Transform InstantSearch filter to Meilisearch filter.
- * Change sign from `:` to `=` in nested filter object.
- * example: [`genres:comedy`] becomes [`genres=comedy`]
+ * Transform InstantSearch filter to Meilisearch compatible filter format.
+ * Change sign from `:` to `=`
+ * "facet:facetValue" becomes "facet=facetValue"
+ *
+ * Wrap both the facet and its facet value between quotes.
+ * This avoid formating issues on facets containing multiple words.
+ *
+ * 'My facet:My facet value' becomes '"My facet":"My facet value"'
+ *
+ * @param  {string} filter?
+ * @returns {Filter}
+ */
+function transformFilter(filter: string): string {
+  return filter.replace(/(.*):(.*)/i, '"$1"="$2"')
+}
+
+/**
+ * Itterate over all filters.
+ * Return the filters in a Meilisearch compatible format.
  *
  * @param  {SearchContext['facetFilters']} filters?
  * @returns {Filter}
  */
-function transformFilter(filters?: SearchContext['facetFilters']): Filter {
+function transformFilters(filters?: SearchContext['facetFilters']): Filter {
   if (typeof filters === 'string') {
-    return replaceColonByEqualSign(filters)
+    return transformFilter(filters)
   } else if (Array.isArray(filters))
     return filters
       .map((filter) => {
         if (Array.isArray(filter))
           return filter
-            .map((nestedFilter) => replaceColonByEqualSign(nestedFilter))
+            .map((nestedFilter) => transformFilter(nestedFilter))
             .filter((elem) => elem)
         else {
-          return replaceColonByEqualSign(filter)
+          return transformFilter(filter)
         }
       })
       .filter((elem) => elem)
@@ -89,8 +104,8 @@ export function adaptFilters(
   numericFilters: SearchContext['numericFilters'],
   facetFilters: SearchContext['facetFilters']
 ): Filter {
-  const transformedFilter = transformFilter(facetFilters || [])
-  const transformedNumericFilter = transformFilter(numericFilters || [])
+  const transformedFilter = transformFilters(facetFilters || [])
+  const transformedNumericFilter = transformFilters(numericFilters || [])
 
   return mergeFilters(
     transformedFilter,
