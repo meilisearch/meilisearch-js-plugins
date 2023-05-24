@@ -26,12 +26,23 @@ describe('Parameters adapter', () => {
     })
 
     expect(searchParams.filter).toStrictEqual([
-      ['genres="Drama"', 'genres="Thriller"'],
-      ['title="Ariel"'],
+      ['"genres"="Drama"', '"genres"="Thriller"'],
+      ['"title"="Ariel"'],
     ])
     expect(searchParams.sort).toStrictEqual(['id < 1'])
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
+  })
+
+  test('adapting multi-word filters', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      facetFilters: [['My Genre:Science Fiction']],
+    })
+
+    expect(searchParams.filter).toStrictEqual([
+      ['"My Genre"="Science Fiction"'],
+    ])
   })
 
   test('adapting a searchContext with matching strategy', () => {
@@ -55,8 +66,8 @@ describe('Geo filter adapter', () => {
 
     expect(searchParams.filter).toStrictEqual([
       '_geoBoundingBox([0, 0], [0, 0])',
-      ['genres="Drama"', 'genres="Thriller"'],
-      ['title="Ariel"'],
+      ['"genres"="Drama"', '"genres"="Thriller"'],
+      ['"title"="Ariel"'],
     ])
     expect(searchParams.sort).toStrictEqual(['id < 1'])
     expect(searchParams.attributesToHighlight).toContain('*')
@@ -72,8 +83,8 @@ describe('Geo filter adapter', () => {
 
     expect(searchParams.filter).toEqual([
       '_geoBoundingBox([0, 0], [0, 0])',
-      ['genres="Drama"', 'genres="Thriller"'],
-      ['title="Ariel"'],
+      ['"genres"="Drama"', '"genres"="Thriller"'],
+      ['"title"="Ariel"'],
     ])
     expect(searchParams.attributesToHighlight).toContain('*')
     expect(searchParams.attributesToHighlight?.length).toBe(1)
