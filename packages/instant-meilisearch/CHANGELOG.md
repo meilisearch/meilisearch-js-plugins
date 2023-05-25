@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.1
+
+### Patch Changes
+
+- bcf09c9: Fixes a bug where if a facet contained multiple words it failed
+
 ## 0.13.0
 
 ### Minor Changes
