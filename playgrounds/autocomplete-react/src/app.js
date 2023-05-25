@@ -12,19 +12,19 @@ const client = meilisearchAutocompleteClient(
 
 autocomplete({
   container: '#autocomplete',
-  placeholder: 'Search for products',
+  placeholder: 'Search for games',
   openOnFocus: true,
   debug: true,
   getSources({ query }) {
     return [
       {
-        sourceId: 'products',
+        sourceId: 'steam-video-games',
         getItems() {
           const description = getMeilisearchResults({
             searchClient: client,
             queries: [
               {
-                indexName: 'products',
+                indexName: 'steam-video-games',
                 query,
                 params: {
                   hitsPerPage: 10,
