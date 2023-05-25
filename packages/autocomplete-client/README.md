@@ -25,13 +25,6 @@
 
 This library is the search client that you should use to make [Meilisearch](https://github.com/meilisearch/meilisearch) work with [autocomplete](https://github.com/algolia/autocomplete). Autocomplete, an open-source project developed by Algolia, is a JavaScript library that lets you quickly build an autocomplete experiences.
 
-<div align="center">
-<!-- TODO: provide our own code-sandbox -->
-  <a href="https://codesandbox.io/s/github/algolia/autocomplete/tree/next/examples/playground?file=/app.tsx">
-    <img src="./media/autocomplete-example.png" alt="Screenshot" width="600px">
-  </a>
-</div>
-
 Since `autocomplete.js` provides the possibility to use a custom `data source`, we are able to plug into it. Nonetheless, it has been created by Algolia and thus some of its components only works with Algolia.
 
 
@@ -40,10 +33,9 @@ Since `autocomplete.js` provides the possibility to use a custom `data source`, 
 - [📖 Documentation](#-documentation)
 - [🔧 Installation](#-installation)
 - [🎬 Usage](#-usage)
+- [🎬 Getting started](#-getting-started)
 - [💅 Customization](#-customization)
-- [🪡 Example with InstantSearch](#-example-with-instantsearch)
-- [🤖 Compatibility with Meilisearch and InstantSearch](#-compatibility-with-meilisearch-and-instantsearch)
-- [📜 API Resources](#-api-resources)
+- [🤖 Compatibility with Meilisearch and Autocomplete](#-compatibility-with-meilisearch-and-autocomplete)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
 
 
@@ -67,13 +59,19 @@ To be able to use both, you need to [install `autocomplete`](https://www.algolia
 ## 🎬 Usage
 
 The Meilisearch Autocomplete client provides 2 methods:
-- `meilisearchAutocompleteClient`: the search client.
-- `getMeilisearchResults`: The data source handler.
+- `meilisearchAutocompleteClient({ host, url, options? })`: The search client.
+  - `url`: The URL to your Meilisearch instance.
+  - `apiKey`: A valid API key with enough rights to search. ⚠️ Avoid using the admin key or master key
+  - `options`: Additional options. See [this section](#-customization)
+- `getMeilisearchResults(searchClient, queries)`: The data source handler.
+  - `searchClient`: The client created with `meilisearchAutocompleteClient`
+  - `queries`: An array of queries. See [this documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/getAlgoliaResults/#param-queries-2) on what `queries` accepts.
 
-## Getting started
 
-In the following
+## 🎬 Getting started
 
+To make `autocomplete` work with meilisearch, create the `autocompleteSearchClient` and provide it to the `getMeilisearchResults` method as the searchClient.
+The following code provides a basic working code example.
 
 ```js
 import { autocomplete } from '@algolia/autocomplete-js'
@@ -120,3 +118,152 @@ autocomplete({
 })
 
 ```
+
+## 💅 Customization
+
+The `options` field in the `meilisearchAutocompleteClient` function provides the possibility to alter the default behavior of the search.
+
+- [`placeholderSearch`](#placeholder-search): Enable or disable placeholder search (default: `true`).
+- [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
+- [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
+- [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
+- [`requestConfig`](#request-config): Use custom request configurations.
+- ['httpClient'](#custom-http-client): Use a custom HTTP client.
+
+```js
+const client = meilisearchAutocompleteClient({
+  url: 'http://localhost:7700',
+  apiKey: 'searchKey',
+  options: {
+    placeholderSearch: false,
+  },
+})
+
+```
+
+### Placeholder Search
+
+Placeholders search means showing results even when the search query is empty. By default it is `true`.
+When placeholder search is set to `false`, no results appears when the search box is empty.
+
+```js
+{ placeholderSearch : true } // default true
+```
+
+### Primary key
+
+Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field) (`undefined` by default). By adding this option, we avoid errors that are thrown in some environments. For example, In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
+
+```js
+{ primaryKey : 'id' } // default: undefined
+```
+
+### Keep zero facets
+
+`keepZeroFacets` set to `true` keeps the facets even when they have 0 matching documents (default `false`).
+
+If in your autocomplete implementation you are showing the facet values distribution, same values may completely disapear when they have no matching documents in the current filtering state.
+
+by setting this option to `true`, the facet values do not disapear and instead are given the distribution `0`.
+
+With `keepZeroFacets` set to `true`:
+
+genres:
+  - [x] horror (2000)
+  - [x] thriller (214)
+  - [ ] comedy (0)
+
+With `keepZeroFacets` set to `false`, `comedy` disapears:
+
+genres:
+  - [x] horror (2000)
+  - [x] thriller (214)
+
+```js
+{ keepZeroFacets : true } // default: false
+```
+
+### Matching strategy
+
+`matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words, see [documentation](https://docs.meilisearch.com/reference/api/search.html#matching-strategy).
+
+For example, if your query is `hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
+The other strategy is `all`, where both `hello` and `world` **must** be present in a document for it to be returned.
+
+
+```js
+{
+  matchingStrategy: 'all' // default last
+}
+```
+
+### Request Config
+
+You can provide a custom request configuration. Available field can be [found here](https://fetch.spec.whatwg.org/#requestinit).
+
+for example, with custom headers.
+
+```ts
+{
+  requestConfig: {
+    headers: {
+      Authorization: AUTH_TOKEN
+    },
+    credentials: 'include'
+  }
+}
+```
+
+
+### Custom HTTP client
+
+You can use your own HTTP client, for example, with [`axios`](https://github.com/axios/axios).
+
+```ts
+{
+  httpClient: async (url, opts) => {
+    const response = await $axios.request({
+      url,
+      data: opts?.body,
+      headers: opts?.headers,
+      method: (opts?.method?.toLocaleUpperCase() as Method) ?? 'GET'
+    })
+    return response.data
+  }
+}
+```
+
+## More Documentation
+
+- The open-source `autocomplete` library is widely used and well documented in the [Algolia documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/). It provides all the necessery information to set up your autocomplete experience.
+- The [Meilisearch documentation](https://docs.meilisearch.com/).
+
+## 🤖 Compatibility with Meilisearch and Autocomplete
+
+**Supported autocomplete versions**:
+
+This package only guarantees the compatibility with the [version v1.x.x of Autocomplete](https://github.com/algolia/autocomplete). It may work with older or newer versions, but these are not tested nor officially supported at this time.
+
+**API compatibility with `autocomplete`**
+Some `autocomplete` parameters are not working using the meilisearch autocomplete client.
+
+- The autocomplete [insights] parameters (https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/autocomplete/#param-insights)
+- The [autocomplete-plugin-algolia-insights](https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-plugin-algolia-insights/) plugin
+
+**Supported Meilisearch versions**:
+
+This package only guarantees the compatibility with the [version v1.0.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v1.0.0).
+
+**Node / NPM versions**:
+
+- NodeJS >= 14 <= 18
+
+## ⚙️ Development Workflow and Contributing
+
+Any new contribution is more than welcome in this project!
+
+If you want to know more about the development workflow or want to contribute, please visit our [contributing guidelines](../../CONTRIBUTING.md) for detailed instructions!
+
+<hr>
+
+**Meilisearch** provides and maintains many **SDKs and Integration tools** like this one. We want to provide everyone with an **amazing search experience for any kind of project**. If you want to contribute, make suggestions, or just know what's going on right now, visit us in the [integration-guides](https://github.com/meilisearch/integration-guides) repository.

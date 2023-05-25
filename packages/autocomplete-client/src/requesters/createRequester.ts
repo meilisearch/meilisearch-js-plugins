@@ -4,7 +4,7 @@ import {
   AlgoliaSearchResponse,
   AlgoliaSearchForFacetValuesResponse,
 } from '@meilisearch/instant-meilisearch'
-import { AutocompleteSearchClient } from '../types/AutocompleteSearchClient'
+import { SearchClient as MeilisearchClient } from '../types/SearchClient'
 
 // All types copied from: autocomplete/packages/autocomplete-preset-algolia/src/requester/createRequester.ts
 // As most of the types are not exported and we need to be able to provide our own Fetcher
@@ -56,7 +56,7 @@ type FetcherParamsQuery<THit> = {
 }
 
 type ExecuteParams<THit> = {
-  searchClient: AutocompleteSearchClient
+  searchClient: MeilisearchClient
   requests: Array<FetcherParamsQuery<THit>>
 }
 

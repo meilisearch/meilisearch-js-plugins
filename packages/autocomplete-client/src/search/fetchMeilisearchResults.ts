@@ -3,13 +3,13 @@ import {
   AlgoliaSearchResponse,
 } from '@meilisearch/instant-meilisearch'
 import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../constants'
-import { AutocompleteSearchClient } from '../types/AutocompleteSearchClient'
+import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
 
 interface SearchParams {
   /**
    * The initialized Meilisearch search client.
    */
-  searchClient: AutocompleteSearchClient
+  searchClient: MeilisearchSearchClient
   /**
    * A list of queries to execute.
    */
