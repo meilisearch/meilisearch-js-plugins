@@ -1,7 +1,8 @@
-import { createSearchClient } from './createAutocompleteClient'
+import { PACKAGE_VERSION } from '../package-version'
+import { createSearchClient } from './createSearchClient'
 
 /**
- * Create meilisearch autocomplete client
+ * Create searchClient instance for autocomplete
  */
-
-export const meilisearchAutocompleteClient = createSearchClient()
+const userAgent = `Meilisearch autocomplete-client (v${PACKAGE_VERSION})`
+export const meilisearchAutocompleteClient = createSearchClient({ userAgent })

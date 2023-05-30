@@ -8,9 +8,6 @@ import '@algolia/autocomplete-theme-classic'
 const client = meilisearchAutocompleteClient({
   url: 'http://localhost:7700',
   apiKey: 'masterKey',
-  options: {
-    placeholderSearch: false,
-  },
 })
 
 autocomplete({
@@ -40,9 +37,6 @@ autocomplete({
 
           return description
         },
-        // getItemUrl({ item }) {
-        //   return item.image
-        // },
         templates: {
           item({ item, components, html }) {
             return html`<div class="aa-ItemWrapper">
@@ -60,6 +54,7 @@ autocomplete({
                     ${components.Highlight({
                       hit: item,
                       attribute: 'name',
+                      tagName: 'test',
                     })}
                   </div>
                   <div class="aa-ItemContentDescription">

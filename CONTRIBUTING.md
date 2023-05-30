@@ -63,7 +63,7 @@ turbo run test --filter=@meilisearch/instant-meilisearch
 
 #### @meilisearch/instant-meilisearch playgrounds
 
-To test directly your changes in `instant-meilisearch`, you can run the following playgrounds:
+To test directly your changes in `@meilisearch/instant-meilisearch`, you can run the following playgrounds:
 
 `Vue 3`
 ```bash
@@ -93,6 +93,14 @@ yarn playground:geo-javascript
 ```
 
 Note: If the Google Maps stopped working, please create a new [Google Api Key](https://developers.google.com/maps/documentation/javascript/get-api-key) and add it in the `.env` file at the root of the playground: `/playgrounds/geo-javascript`
+
+#### @meilisearch/instant-meilisearch playgrounds
+
+To test directly your changes made in `@meilisearch/autocomplete-client`, you can run the following playground:
+
+```
+yarn playground:autocomplete
+```
 
 ## Git Guidelines
 

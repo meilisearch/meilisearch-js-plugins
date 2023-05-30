@@ -1,6 +1,5 @@
 import type { SearchClient } from 'instantsearch.js'
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
-
 import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,
