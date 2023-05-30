@@ -3656,10 +3656,10 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-angular-instantsearch@^4.0.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/angular-instantsearch/-/angular-instantsearch-4.4.0.tgz#ce3ddc8f5424b8c65943580b0fbeb41ac73743e8"
-  integrity sha512-NhxaYKpnKz6lIMXR6r/7HXNbm0S8c4zUQH4mGVpjp9oKLxEyWq3C4IdnARof0qWa6mdlLaCBf5ImrzBUJ1wHyA==
+angular-instantsearch@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/angular-instantsearch/-/angular-instantsearch-4.4.1.tgz#273f47d19ac62a88957cc706bf914f62196cdb28"
+  integrity sha512-nPh5WWxIIY42EYG2lM2W95p2PBcpDBBSX+fruKdZH/ibzJSx7fpePXGtfF4MnZa1LbuxkKRdVO8d0nMJ3MNfew==
   dependencies:
     instantsearch.css "^7.3.1"
     instantsearch.js "^4.48.1"
