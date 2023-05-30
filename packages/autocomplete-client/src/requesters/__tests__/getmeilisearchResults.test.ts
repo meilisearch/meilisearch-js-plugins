@@ -2,7 +2,7 @@ import { getMeilisearchResults } from '../'
 import { searchClient } from '../../../__tests__/test.utils'
 
 describe('getMeilisearchResults', () => {
-  test('returns the description', () => {
+  test('the the fields in the returned description object', () => {
     const description = getMeilisearchResults({
       searchClient,
       queries: [
@@ -35,7 +35,7 @@ describe('getMeilisearchResults', () => {
     })
   })
 
-  test('defaults transformItems to retrieve hits', () => {
+  test('the default transformItems method on the retrieved hits', () => {
     const description = getMeilisearchResults<{ label: string }>({
       searchClient,
       queries: [

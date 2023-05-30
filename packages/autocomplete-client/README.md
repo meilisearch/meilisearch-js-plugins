@@ -43,6 +43,8 @@ Since `autocomplete.js` provides the possibility to use a custom `data source`, 
 
 For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://docs.meilisearch.com/).
 
+For information on how to use the `autocomplete` library refer to its [documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/). It provides all the necessery information to set up your autocomplete experience.
+
 ## 🔧 Installation
 
 Use `npm` or `yarn` to install the autocomplete client for Meilisearch.
@@ -70,7 +72,7 @@ The Meilisearch Autocomplete client provides 2 methods:
 
 ## 🎬 Getting started
 
-To make `autocomplete` work with meilisearch, create the `autocompleteSearchClient` and provide it to the `getMeilisearchResults` method as the searchClient.
+To make `autocomplete` work with Meilisearch, create the `autocompleteSearchClient` and provide it to the `getMeilisearchResults` method as the `searchClient`.
 The following code provides a basic working code example.
 
 ```js
@@ -106,7 +108,7 @@ autocomplete({
         },
         templates: {
           item({ item, components, html }) {
-            return html` <div>
+            return html`<div>
               <div>${item.name}</div>
               <div>${item.description}</div>
             </div>`
@@ -138,7 +140,6 @@ const client = meilisearchAutocompleteClient({
     placeholderSearch: false,
   },
 })
-
 ```
 
 ### Placeholder Search
@@ -192,9 +193,7 @@ The other strategy is `all`, where both `hello` and `world` **must** be present 
 
 
 ```js
-{
-  matchingStrategy: 'all' // default last
-}
+{ matchingStrategy: 'all' }  // default last
 ```
 
 ### Request Config
@@ -233,11 +232,6 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 }
 ```
 
-## More Documentation
-
-- The open-source `autocomplete` library is widely used and well documented in the [Algolia documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/). It provides all the necessery information to set up your autocomplete experience.
-- The [Meilisearch documentation](https://docs.meilisearch.com/).
-
 ## 🤖 Compatibility with Meilisearch and Autocomplete
 
 **Supported autocomplete versions**:
@@ -247,12 +241,12 @@ This package only guarantees the compatibility with the [version v1.x.x of Autoc
 **API compatibility with `autocomplete`**
 Some `autocomplete` parameters are not working using the meilisearch autocomplete client.
 
-- The autocomplete [insights] parameters (https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/autocomplete/#param-insights)
+- The autocomplete [insights parameter](https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-js/autocomplete/#param-insights)
 - The [autocomplete-plugin-algolia-insights](https://www.algolia.com/doc/ui-libraries/autocomplete/api-reference/autocomplete-plugin-algolia-insights/) plugin
 
 **Supported Meilisearch versions**:
 
-This package only guarantees the compatibility with the [version v1.0.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v1.0.0).
+This package guarantees compatibility with [version v1.x of Meilisearch](https://github.com/meilisearch/meilisearch/releases/latest), but some features may not be present. Please check the [issues](https://github.com/meilisearch/instant-meilisearch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+label%3Aenhancement) for more info.
 
 **Node / NPM versions**:
 

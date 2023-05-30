@@ -2,7 +2,11 @@ import {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
 } from '@meilisearch/instant-meilisearch'
-import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../constants'
+import {
+  HIGHLIGHT_PRE_TAG,
+  HIGHLIGHT_POST_TAG,
+  HITS_PER_PAGE,
+} from '../constants'
 import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
 
 interface SearchParams {
@@ -28,7 +32,7 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
         return {
           ...headers,
           params: {
-            hitsPerPage: 5,
+            hitsPerPage: HITS_PER_PAGE,
             highlightPreTag: HIGHLIGHT_PRE_TAG,
             highlightPostTag: HIGHLIGHT_POST_TAG,
             ...params,

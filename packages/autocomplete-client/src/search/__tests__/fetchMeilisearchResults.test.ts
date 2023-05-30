@@ -1,14 +1,18 @@
 import { fetchMeilisearchResults } from '../fetchMeilisearchResults'
-import { searchClient, dataset } from '../../../__tests__/test.utils'
-import { MeiliSearch } from 'meilisearch'
+import {
+  searchClient,
+  dataset,
+  meilisearchClient,
+} from '../../../__tests__/test.utils'
 
 beforeAll(async () => {
-  const client = new MeiliSearch({
-    host: 'http://localhost:7700',
-    apiKey: 'masterKey',
-  })
-  const task = await client.index('testUid').addDocuments(dataset)
-  await client.waitForTask(task.taskUid)
+  await meilisearchClient.deleteIndex('testUid')
+  const task = await meilisearchClient.index('testUid').addDocuments(dataset)
+  await meilisearchClient.waitForTask(task.taskUid)
+})
+
+afterAll(async () => {
+  await meilisearchClient.deleteIndex('testUid')
 })
 
 describe('fetchMeilisearchResults', () => {
