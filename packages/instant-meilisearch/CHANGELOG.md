@@ -110,7 +110,7 @@
 
   This is the conventional way of calculating the facet distribution. Similar to Algolia's behavior. If you prefer the old behavior, please consider opening an issue.
 
-  See [complete explanation here](https://github.com/meilisearch/instant-meilisearch/issues/884)
+  See [complete explanation here](https://github.com/meilisearch/meilisearch-js-plugins/issues/884)
 
 - 72de4c8: - Compatibility with the `Index` widget is added.
 

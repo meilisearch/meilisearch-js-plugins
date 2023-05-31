@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meilisearch/instant-meilisearch.git"
+    "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
   "workspaces": [
     "packages/*",
