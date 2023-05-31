@@ -43,7 +43,7 @@ Since `autocomplete.js` provides the possibility to use a custom `data source`, 
 
 For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://docs.meilisearch.com/).
 
-For information on how to use the `autocomplete` library refer to its [documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/). It provides all the necessery information to set up your autocomplete experience.
+For information on how to use the `autocomplete` library refer to its [documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/). It provides all the necessary information to set up your autocomplete experience.
 
 ## 🔧 Installation
 
@@ -165,7 +165,7 @@ Specify the field in your documents containing the [unique identifier](https://d
 
 If in your autocomplete implementation you are showing the facet values distribution, same values may completely disapear when they have no matching documents in the current filtering state.
 
-by setting this option to `true`, the facet values do not disapear and instead are given the distribution `0`.
+By setting this option to `true`, the facet values do not disapear and instead are given the distribution `0`.
 
 With `keepZeroFacets` set to `true`:
 
@@ -200,7 +200,7 @@ The other strategy is `all`, where both `hello` and `world` **must** be present 
 
 You can provide a custom request configuration. Available field can be [found here](https://fetch.spec.whatwg.org/#requestinit).
 
-for example, with custom headers.
+For example, with custom headers:
 
 ```ts
 {

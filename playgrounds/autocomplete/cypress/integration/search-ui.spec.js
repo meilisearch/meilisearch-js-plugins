@@ -26,7 +26,7 @@ describe(`${playground} playground test`, () => {
     cy.get(HIT_TITLE).eq(0).contains('Counter-Strike')
   })
 
-  it('Snippet and highlight component compatibility', () => {
+  it('Should ensure the snippet and highlight component are rendered correctly', () => {
     cy.get('#autocomplete-0-input').type('Counter-Strike')
     cy.wait(1000)
     cy.get(HIT_TITLE).eq(0).children('test').eq(0).contains('Counter')
