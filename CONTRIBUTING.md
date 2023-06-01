@@ -179,7 +179,7 @@ Here are the steps to release a beta version of this package depending on its ty
     - Meilisearch `pre-release beta`: create a branch originating from `bump-meilisearch-v*.*.*` named `pre-release-beta/v*.*.*`. <br>
       Example: `pre-release-beta/v0.30.0`
     - Meilisearch `prototype beta`: create a branch `prototype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
-        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `v0.29.0-pagination.beta.2`, the branch should be named: `prototype-beta/pagination`
+        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `prototype-multi-search-0`, the branch should be named: `prototype-beta/prototype-multi-search`
 
 2. Enable the pre-release mode by running `yarn changeset pre enter [X]`. `X` is the part after the `/` of your beta branch. Example for `beta/refactor`, X would be `refactor`. This will create a `pre.json` file in `.changesets` that must be pushed on your beta branch.
 
