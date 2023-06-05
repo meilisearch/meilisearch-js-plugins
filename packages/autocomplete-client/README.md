@@ -6,11 +6,11 @@
 
 <h4 align="center">
   <a href="https://github.com/meilisearch/meilisearch">Meilisearch</a> |
-  <a href="https://docs.meilisearch.com">Documentation</a> |
+  <a href="https://www.meilisearch.com/docs">Documentation</a> |
   <a href="https://discord.meilisearch.com">Discord</a> |
   <a href="https://roadmap.meilisearch.com/tabs/1-under-consideration">Roadmap</a> |
   <a href="https://www.meilisearch.com">Website</a> |
-  <a href="https://docs.meilisearch.com/faq">FAQ</a>
+  <a href="https://www.meilisearch.com/docs/faq">FAQ</a>
 </h4>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 **Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/meilisearch)
 
-This library is the search client that you should use to make [Meilisearch](https://github.com/meilisearch/meilisearch) work with [autocomplete](https://github.com/algolia/autocomplete). Autocomplete, an open-source project developed by Algolia, is a JavaScript library that lets you quickly build an autocomplete experiences.
+This library is the search client that you should use to make [Meilisearch](https://github.com/meilisearch/meilisearch) work with [autocomplete](https://github.com/algolia/autocomplete). Autocomplete, an open-source project developed by Algolia, is a library that lets you quickly build an autocomplete experience.
 
 Since `autocomplete.js` provides the possibility to use a custom `data source`, we are able to plug into it. Nonetheless, it has been created by Algolia and thus some of its components only works with Algolia.
 
@@ -41,7 +41,7 @@ Since `autocomplete.js` provides the possibility to use a custom `data source`, 
 
 ## 📖 Documentation
 
-For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://docs.meilisearch.com/).
+For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://www.meilisearch.com/docs/).
 
 For information on how to use the `autocomplete` library refer to its [documentation](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/). It provides all the necessary information to set up your autocomplete experience.
 
@@ -153,7 +153,7 @@ When placeholder search is set to `false`, no results appears when the search bo
 
 ### Primary key
 
-Specify the field in your documents containing the [unique identifier](https://docs.meilisearch.com/learn/core_concepts/documents.html#primary-field) (`undefined` by default). By adding this option, we avoid errors that are thrown in some environments. For example, In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
+Specify the field in your documents containing the [unique identifier](https://www.meilisearch.com/docs/learn/core_concepts/documents#primary-field) (`undefined` by default). By adding this option, we avoid errors that are thrown in some environments. For example, In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
 
 ```js
 { primaryKey : 'id' } // default: undefined
@@ -186,7 +186,7 @@ genres:
 
 ### Matching strategy
 
-`matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words, see [documentation](https://docs.meilisearch.com/reference/api/search.html#matching-strategy).
+`matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words, see [documentation](https://www.meilisearch.com/docs/reference/api/search#matching-strategy).
 
 For example, if your query is `hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
 The other strategy is `all`, where both `hello` and `world` **must** be present in a document for it to be returned.
