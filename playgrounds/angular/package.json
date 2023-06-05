@@ -30,7 +30,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.1",
     "@angular/cli": "~15.1.1",
-    "@angular/compiler-cli": "~15.1.0",
+    "@angular/compiler-cli": "~15.2.5",
     "@types/node": "^20.2.5",
     "eslint-config-meilisearch": "*",
     "ts-node": "~10.9.1",
