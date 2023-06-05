@@ -4,7 +4,8 @@ status = [
   'integration-tests (Node.js 14)',
   'integration-tests (Node.js 16)',
   'integration-tests (Node.js 18)',
-  'end-to-end-tests'
+  'autocomplete-client end-to-end-tests',
+  'instant-meilisearch end-to-end-tests',
 ]
 # 1 hour timeout
 timeout-sec = 3600
