@@ -214,7 +214,7 @@ describe('Snippet Browser test', () => {
       {
         indexName: 'movies',
         params: {
-          query: 'm',
+          query: 'night',
           attributesToSnippet: ['overview:1', 'title:1'],
           snippetEllipsisText: '…',
         },
@@ -223,16 +223,16 @@ describe('Snippet Browser test', () => {
 
     const firstHit = response.results[0]?.hits[0]?._snippetResult
     expect(firstHit).toHaveProperty('title', {
-      value: '__ais-highlight__M__/ais-highlight__agnetic…',
+      value: '…__ais-highlight__Night__/ais-highlight__',
     })
-    expect(firstHit).toHaveProperty('overview', { value: '' })
+    expect(firstHit).toHaveProperty('overview', { value: 'While…' })
 
     const secondHit = response.results[0].hits[1]._snippetResult
     expect(secondHit).toHaveProperty('title', {
-      value: 'Judgment…',
+      value: 'Four…',
     })
     expect(secondHit).toHaveProperty('overview', {
-      value: '…__ais-highlight__m__/ais-highlight__atch…',
+      value: '…__ais-highlight__night__/ais-highlight__…',
     })
   })
 

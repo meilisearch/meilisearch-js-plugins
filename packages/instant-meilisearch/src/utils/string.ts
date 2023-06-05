@@ -7,15 +7,6 @@ export function isString(str: any): boolean {
 }
 
 /**
- * @param  {string} filter
- * @returns {string}
- */
-export function replaceColonByEqualSign(filter: string): string {
-  // will only change first occurence of `:`
-  return filter.replace(/:(.*)/i, '="$1"')
-}
-
-/**
  * @param  {any[]} arr
  * @returns {string}
  */
