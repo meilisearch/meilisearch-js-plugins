@@ -35,3 +35,5 @@ updates:
       - dependency-name: "shx*"
       - dependency-name: "@vue/*"
       - dependency-name: "concurrently"
+      - dependency-name: "@types/jest*"
+      - dependency-name: "@testing-library/*"

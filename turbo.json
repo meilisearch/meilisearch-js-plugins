@@ -10,7 +10,10 @@
     "dev": {
       "cache": false
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**"]
+    },
     "test:watch": {},
     "test:e2e": {},
     "test:e2e:watch": {},

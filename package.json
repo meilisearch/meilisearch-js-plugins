@@ -18,6 +18,7 @@
     "playground:react": "turbo run dev --filter=@meilisearch/react-playground --parallel",
     "playground:local-react": "turbo run dev --filter=@meilisearch/local-react-playground --parallel",
     "playground:node": "turbo run dev --filter=@meilisearch/node-playground --parallel",
+    "playground:autocomplete": "turbo run dev --filter=@meilisearch/autocomplete-playground --parallel",
     "test:e2e": "turbo run test:e2e",
     "test:e2e:watch": "turbo run test:e2e:watch",
     "lint": "turbo lint",
@@ -26,11 +27,16 @@
     "test": "turbo test",
     "test:watch": "turbo run test:watch",
     "instant-meilisearch:test:watch": "yarn --cwd ./packages/instant-meilisearch test:watch",
+    "autocomplete:test:watch": "yarn --cwd ./packages/autocomplete-client test:watch",
     "test:types": "turbo run test:types",
     "version-packages": "changeset version && turbo version",
     "release": "yarn build && changeset publish"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@types/jest": "^29.5.1",
+    "@types/jest-diff": "^24.3.0",
     "parcel-bundler": "^1.12.5",
     "turbo": "^1.8.5"
   },

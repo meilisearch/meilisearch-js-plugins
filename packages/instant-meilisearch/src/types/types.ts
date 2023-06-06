@@ -7,7 +7,10 @@ import type {
 } from 'meilisearch'
 
 export type { AlgoliaMultipleQueriesQuery, MultiSearchResult }
-export type { SearchResponse as AlgoliaSearchResponse } from '@algolia/client-search'
+export type {
+  SearchResponse as AlgoliaSearchResponse,
+  SearchForFacetValuesResponse as AlgoliaSearchForFacetValuesResponse,
+} from '@algolia/client-search'
 
 export type {
   Filter,
