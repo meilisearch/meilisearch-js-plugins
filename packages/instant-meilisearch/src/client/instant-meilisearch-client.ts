@@ -8,6 +8,8 @@ import {
   FacetDistribution,
   PaginationState,
   MeilisearchConfig,
+  AlgoliaSearchForFacetValuesRequest,
+  AlgoliaSearchForFacetValuesResponse,
 } from '../types'
 import {
   getApiKey,
@@ -132,13 +134,38 @@ export function instantMeiliSearch(
         throw new Error(e)
       }
     },
-    searchForFacetValues: async function (_: any) {
-      return await new Promise((resolve, reject) => {
-        reject(
-          new Error('SearchForFacetValues is not compatible with Meilisearch')
-        )
-        resolve([]) // added here to avoid compilation error
-      })
+    searchForFacetValues: async function (
+      requests: AlgoliaSearchForFacetValuesRequest
+    ): Promise<AlgoliaSearchForFacetValuesResponse[]> {
+      console.log(requests)
+
+      const results = []
+      for (const request of requests) {
+        const index = request.indexName
+        const meilisearchRequest = {
+          facetQuery: request.params.facetQuery,
+          facetName: request.params.facetName,
+        }
+
+        const meilisearchResponse = await meilisearchClient
+          .index(index)
+          .searchForFacetValues(meilisearchRequest)
+
+        const facetHits = meilisearchResponse.facetHits.map((facetHit) => ({
+          ...facetHit,
+          // not currently supported
+          highlighted: facetHit.value,
+        }))
+        const result = {
+          facetHits,
+          exhaustiveFacetsCount: false,
+          processingTimeMS: meilisearchResponse.processingTimeMs,
+        }
+
+        results.push(result)
+      }
+
+      return results
     },
   }
 }

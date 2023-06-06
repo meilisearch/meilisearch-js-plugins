@@ -1,5 +1,9 @@
 import type { SearchClient } from 'instantsearch.js'
-import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
+import type {
+  MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
+  SearchForFacetValuesQueryParams as AlgoliaSearchForFacetValuesQueryParams,
+  SearchOptions as AlgoliaSearchOptions,
+} from '@algolia/client-search'
 import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,
@@ -11,6 +15,11 @@ export type {
   SearchResponse as AlgoliaSearchResponse,
   SearchForFacetValuesResponse as AlgoliaSearchForFacetValuesResponse,
 } from '@algolia/client-search'
+
+export type AlgoliaSearchForFacetValuesRequest = Array<{
+  readonly indexName: string
+  readonly params: AlgoliaSearchForFacetValuesQueryParams & AlgoliaSearchOptions
+}>
 
 export type {
   Filter,

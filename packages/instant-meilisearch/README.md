@@ -701,11 +701,11 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
-- ❌ searchable: Whether to add a search input to let the user search for more facet values. Not supported by Meilisearch. If you'd like to see it implemented [please vote](https://roadmap.meilisearch.com/c/64-search-for-facet-values?utm_medium=social&utm_source=portal_share).
-- ❌ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
-- ❌ searchableIsAlwaysActive: When false, disables the facet search input. Not supported, see `searchable`.
-- ❌ searchableEscapeFacetValues: When true, escapes the facet values. Not supported, see `searchable`.
-- ❌ sortBy: Not supported natively but can be implemented manually using `transformItems` options.
+- ✅ searchable: Whether to add a search input to let the user search for more facet values. Not supported by Meilisearch. If you'd like to see it implemented [please vote](https://roadmap.meilisearch.com/c/64-search-for-facet-values?utm_medium=social&utm_source=portal_share).
+- ✅ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
+- ✅ searchableIsAlwaysActive: When false, disables the facet search input. Not supported, see `searchable`.
+- ❌ searchableEscapeFacetValues: When true, escapes the facet values.
+- ❌ sortBy: Not supported but can be implemented manually using `transformItems` options.
 - ✅ transformItems: A function to transform the items passed to the templates.
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
