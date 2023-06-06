@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.2
+
+### Patch Changes
+
+- 0f44764: Export a new type `AlgoliaSearchForFacetValuesResponse`
+
 ## 0.13.1
 
 ### Patch Changes
