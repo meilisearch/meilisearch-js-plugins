@@ -18,7 +18,7 @@
     "@angular/forms": "~15.1.0",
     "@angular/platform-browser": "~15.1.0",
     "@angular/platform-browser-dynamic": "~15.1.0",
-    "@angular/router": "~15.1.0",
+    "@angular/router": "~16.0.4",
     "@meilisearch/instant-meilisearch": "0.13.1",
     "algoliasearch": "^4.14.3",
     "angular-instantsearch": "^4.4.1",
