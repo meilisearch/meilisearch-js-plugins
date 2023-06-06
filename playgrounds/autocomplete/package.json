@@ -23,7 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@algolia/autocomplete-core": "1.7.4",
-    "@algolia/autocomplete-plugin-query-suggestions": "^1.7.4",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.9.2",
     "@algolia/autocomplete-plugin-tags": "^1.9.2",
     "@algolia/autocomplete-theme-classic": "^1.7.4",
     "@meilisearch/autocomplete-client": "*"
