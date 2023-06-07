@@ -1,5 +1,11 @@
 # @meilisearch/autocomplete-client
 
+## 0.2.1
+
+### Patch Changes
+
+- 753e9ba: Fix the getting started wrongly instanciating the autocomplete client
+
 ## 0.2.0
 
 ### Minor Changes
