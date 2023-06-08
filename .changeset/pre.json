@@ -12,5 +12,5 @@
     "@meilisearch/react-playground": "0.0.0",
     "@meilisearch/vue3-ts-playground": "0.0.0"
   },
-  "changesets": []
+  "changesets": ["sharp-wasps-exist"]
 }

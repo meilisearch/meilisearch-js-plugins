@@ -141,11 +141,21 @@ export function instantMeiliSearch(
 
       const results = []
       for (const request of requests) {
+        const searchContext: SearchContext = createSearchContext(
+          request,
+          instantMeiliSearchOptions
+        )
+
+        const meilisearchSearchQuery = adaptSearchParams(searchContext)
+
         const index = request.indexName
-        const meilisearchRequest = {
+        const meilisearchRequest: any = {
+          ...meilisearchSearchQuery,
           facetQuery: request.params.facetQuery,
           facetName: request.params.facetName,
         }
+
+        delete meilisearchRequest.indexUid
 
         const meilisearchResponse = await meilisearchClient
           .index(index)
