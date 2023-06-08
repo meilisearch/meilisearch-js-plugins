@@ -8,7 +8,7 @@ import {
   FacetDistribution,
   PaginationState,
   MeilisearchConfig,
-  AlgoliaSearchForFacetValuesRequest,
+  AlgoliaSearchForFacetValuesRequests,
   AlgoliaSearchForFacetValuesResponse,
 } from '../types'
 import {
@@ -21,7 +21,7 @@ import {
   adaptSearchParams,
   SearchResolver,
 } from '../adapter'
-import { createSearchContext } from '../contexts'
+import { createSearchContext, createFacetSearchContext } from '../contexts'
 import {
   SearchCache,
   initFacetDistribution,
@@ -135,13 +135,13 @@ export function instantMeiliSearch(
       }
     },
     searchForFacetValues: async function (
-      requests: AlgoliaSearchForFacetValuesRequest
+      requests: AlgoliaSearchForFacetValuesRequests
     ): Promise<AlgoliaSearchForFacetValuesResponse[]> {
       console.log(requests)
 
       const results = []
       for (const request of requests) {
-        const searchContext: SearchContext = createSearchContext(
+        const searchContext: SearchContext = createFacetSearchContext(
           request,
           instantMeiliSearchOptions
         )

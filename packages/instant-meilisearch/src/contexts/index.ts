@@ -1,1 +1,1 @@
-export { createSearchContext } from './search-context'
+export { createSearchContext, createFacetSearchContext } from './search-context'
