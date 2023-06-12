@@ -2,9 +2,11 @@
   "mode": "pre",
   "tag": "prototype-search-for-facet-values",
   "initialVersions": {
+    "@meilisearch/autocomplete-client": "0.2.1",
     "eslint-config-meilisearch": "0.0.0",
-    "@meilisearch/instant-meilisearch": "0.13.1",
+    "@meilisearch/instant-meilisearch": "0.13.2",
     "@meilisearch/angular-playground": "0.0.0",
+    "@meilisearch/autocomplete-playground": "0.0.0",
     "@meilisearch/geo-playground": "0.0.0",
     "@meilisearch/vanilla-playground": "0.0.0",
     "@meilisearch/local-react-playground": "0.0.0",
@@ -12,5 +14,7 @@
     "@meilisearch/react-playground": "0.0.0",
     "@meilisearch/vue3-ts-playground": "0.0.0"
   },
-  "changesets": ["sharp-wasps-exist"]
+  "changesets": [
+    "sharp-wasps-exist"
+  ]
 }
