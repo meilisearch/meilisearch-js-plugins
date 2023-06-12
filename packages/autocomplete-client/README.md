@@ -23,7 +23,7 @@
 
 **Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/meilisearch)
 
-This library is the search client that you should use to make [Meilisearch](https://github.com/meilisearch/meilisearch) work with [autocomplete](https://github.com/algolia/autocomplete). Autocomplete, an open-source project developed by Algolia, is a JavaScript library that lets you quickly build an autocomplete experiences.
+This library is the search client that you should use to make [Meilisearch](https://github.com/meilisearch/meilisearch) work with [autocomplete](https://github.com/algolia/autocomplete). Autocomplete, an open-source project developed by Algolia, is a library that lets you quickly build an autocomplete experience.
 
 Since `autocomplete.js` provides the possibility to use a custom `data source`, we are able to plug into it. Nonetheless, it has been created by Algolia and thus some of its components only works with Algolia.
 
@@ -83,10 +83,10 @@ import {
 } from '@meilisearch/autocomplete-client'
 import '@algolia/autocomplete-theme-classic'
 
-const searchClient = meilisearchAutocompleteClient(
-  'https://ms-adf78ae33284-106.lon.meilisearch.io', // Host
-  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'  // API key
-)
+const searchClient = meilisearchAutocompleteClient({
+  url: 'https://ms-adf78ae33284-106.lon.meilisearch.io', // Host
+  apiKey: 'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'  // API key
+})
 
 autocomplete({
   container: '#autocomplete',
@@ -110,7 +110,6 @@ autocomplete({
           item({ item, components, html }) {
             return html`<div>
               <div>${item.name}</div>
-              <div>${item.description}</div>
             </div>`
           },
         },

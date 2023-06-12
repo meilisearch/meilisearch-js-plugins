@@ -1,9 +1,12 @@
 {
   "name": "@meilisearch/autocomplete-client",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": false,
   "description": "The search client to use Meilisearch with autocomplete.js.",
   "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/autocomplete-client",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clear_jest": "jest --clearCache",
     "cleanup": "shx rm -rf dist/",
@@ -45,9 +48,6 @@
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "*"
-  },
-  "peerDependencies": {
-    "@algolia/autocomplete-js": "^1.7.4"
   },
   "devDependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
