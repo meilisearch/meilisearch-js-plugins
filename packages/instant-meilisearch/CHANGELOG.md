@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.3-prototype-search-for-facet-values.0
+
+### Patch Changes
+
+- 458bbf3: Add compatibility with the `searchable` parameter of the [`RefinementList`](https://www.algolia.com/doc/api-reference/widgets/refinement-list/js/) widget
+
 ## 0.13.2
 
 ### Patch Changes

@@ -15,6 +15,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "*"
+    "@meilisearch/instant-meilisearch": "0.13.3-prototype-search-for-facet-values.0"
   }
 }
