@@ -3,12 +3,15 @@
   "version": "0.13.2",
   "private": false,
   "description": "The search client to use Meilisearch with InstantSearch.",
-  "homepage": "https://github.com/meilisearch/instant-meilisearch",
+  "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/instant-meilisearch",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/meilisearch/instant-meilisearch/issues"
+    "url": "https://github.com/meilisearch/meilisearch-js-plugins/issues"
   },
-  "repository": "https://github.com/meilisearch/instant-meilisearch/tree/main/packages/instant-meilisearch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
+  },
   "publishConfig": {
     "access": "public"
   },

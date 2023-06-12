@@ -15,8 +15,8 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@meilisearch/instant-meilisearch"><img src="https://img.shields.io/npm/v/@meilisearch/instant-meilisearch.svg" alt="npm version"></a>
-  <a href="https://github.com/meilisearch/instant-meilisearch/actions"><img src="https://github.com/meilisearch/instant-meilisearch/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
-  <a href="https://github.com/meilisearch/instant-meilisearch/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
+  <a href="https://github.com/meilisearch/meilisearch-js-plugins/actions"><img src="https://github.com/meilisearch/meilisearch-js-plugins/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
+  <a href="https://github.com/meilisearch/meilisearch-js-plugins/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
   <a href="https://github.com/meilisearch/meilisearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
   <a href="https://ms-bors.herokuapp.com/repositories/48"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
 </p>
@@ -419,7 +419,7 @@ instantsearch.widgets.searchBox({
 The `configure` widget lets you provide raw search parameters to the Algolia API without rendering anything.
 
 Because these are the search parameters of AlgoliaSearch and not the InstantSearch parameters, some of them are ignored by InstantSearch.<br>
-Since we do not act as AlgoliaSearch on search parameters, detailed compatibility can be found in [this issue](https://github.com/meilisearch/instant-meilisearch/issues/389).<br>
+Since we do not act as AlgoliaSearch on search parameters, detailed compatibility can be found in [this issue](https://github.com/meilisearch/meilisearch-js-plugins/issues/389).<br>
 This component should only be used if no other component provides the same configuration.
 
 We also suggest looking at [Meilisearch's search parameters](https://www.meilisearch.com/docs/reference/api/search#search-parameters) to determine how they act.
@@ -468,7 +468,7 @@ The `voiceSearch` widget lets the user perform a voice-based query.
 
 Search Insights lets you report click, conversion and view metrics.
 
-More details about the subject are [given in this issue](https://github.com/meilisearch/instant-meilisearch/issues/410).
+More details about the subject are [given in this issue](https://github.com/meilisearch/meilisearch-js-plugins/issues/410).
 
 Requires InstantSearch v4.8.3 or later.
 

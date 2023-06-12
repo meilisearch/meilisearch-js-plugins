@@ -15,8 +15,8 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@meilisearch/autocomplete-client"><img src="https://img.shields.io/npm/v/@meilisearch/autocomplete-client.svg" alt="npm version"></a>
-  <a href="https://github.com/meilisearch/instant-meilisearch/actions"><img src="https://github.com/meilisearch/instant-meilisearch/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
-  <a href="https://github.com/meilisearch/instant-meilisearch/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
+  <a href="https://github.com/meilisearch/meilisearch-js-plugins/actions"><img src="https://github.com/meilisearch/meilisearch-js-plugins/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
+  <a href="https://github.com/meilisearch/meilisearch-js-plugins/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
   <a href="https://github.com/meilisearch/meilisearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
   <a href="https://ms-bors.herokuapp.com/repositories/48"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
 </p>
@@ -245,7 +245,7 @@ Some `autocomplete` parameters are not working using the meilisearch autocomplet
 
 **Supported Meilisearch versions**:
 
-This package guarantees compatibility with [version v1.x of Meilisearch](https://github.com/meilisearch/meilisearch/releases/latest), but some features may not be present. Please check the [issues](https://github.com/meilisearch/instant-meilisearch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+label%3Aenhancement) for more info.
+This package guarantees compatibility with [version v1.x of Meilisearch](https://github.com/meilisearch/meilisearch/releases/latest), but some features may not be present. Please check the [issues](https://github.com/meilisearch/meilisearch-js-plugins/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+label%3Aenhancement) for more info.
 
 **Node / NPM versions**:
 
