@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@babel/plugin-syntax-jsx": "^7.22.5",
-    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-react": "^7.22.5",
     "eslint-config-meilisearch": "*"
   }
 }
