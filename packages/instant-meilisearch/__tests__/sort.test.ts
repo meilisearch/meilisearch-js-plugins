@@ -5,6 +5,8 @@ import {
   meilisearchClient,
 } from './assets/utils'
 
+import { splitSortString } from '../src/contexts/sort-context'
+
 describe('Sort browser test', () => {
   beforeAll(async () => {
     const deleteTask = await meilisearchClient.deleteIndex('movies')
@@ -47,5 +49,29 @@ describe('Sort browser test', () => {
 
     const hits = response.results[0].hits
     expect(hits.length).toBe(1)
+  })
+
+  test('split multiple sorting rules', () => {
+    const sortRules = splitSortString(
+      '_geoPoint(37.8153, -122.4784):asc,title:asc,description:desc'
+    )
+
+    expect(sortRules).toEqual([
+      '_geoPoint(37.8153, -122.4784):asc',
+      'title:asc',
+      'description:desc',
+    ])
+  })
+
+  test('split one sorting rule', () => {
+    const sortRules = splitSortString('_geoPoint(37.8153, -122.4784):asc')
+
+    expect(sortRules).toEqual(['_geoPoint(37.8153, -122.4784):asc'])
+  })
+
+  test.only('split no sorting rule', () => {
+    const sortRules = splitSortString('')
+
+    expect(sortRules).toEqual([])
   })
 })
