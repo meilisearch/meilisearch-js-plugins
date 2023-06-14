@@ -3,9 +3,25 @@ import {
   AlgoliaMultipleQueriesQuery,
   SearchContext,
 } from '../types'
-
+import { splitSortString } from './sort-context'
 import { createPaginationState } from './pagination-context'
-import { createSortState } from './sort-context'
+
+function separateIndexFromSortRules(indexName: string): {
+  indexUid: string
+  sortBy: string
+} {
+  const colonIndex = indexName.indexOf(':')
+  if (colonIndex === -1) {
+    return {
+      indexUid: indexName,
+      sortBy: '',
+    }
+  }
+  return {
+    indexUid: indexName.substring(0, colonIndex),
+    sortBy: indexName.substring(colonIndex + 1),
+  }
+}
 
 /**
  * @param  {AlgoliaMultipleQueriesQuery} searchRequest
@@ -16,9 +32,9 @@ export function createSearchContext(
   searchRequest: AlgoliaMultipleQueriesQuery,
   options: InstantMeiliSearchOptions
 ): SearchContext {
+  const { query, indexName, params: instantSearchParams } = searchRequest
   // Split index name and possible sorting rules
-  const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
-  const { query, params: instantSearchParams } = searchRequest
+  const { indexUid, sortBy } = separateIndexFromSortRules(indexName)
 
   const paginationState = createPaginationState(
     options.finitePagination,
@@ -26,13 +42,11 @@ export function createSearchContext(
     instantSearchParams?.page
   )
 
-  const sortState = createSortState(sortByArray.join(':'))
-
   const searchContext: SearchContext = {
     ...options,
     query,
     ...instantSearchParams,
-    sort: sortState,
+    sort: splitSortString(sortBy),
     indexUid,
     pagination: paginationState,
     placeholderSearch: options.placeholderSearch !== false, // true by default
