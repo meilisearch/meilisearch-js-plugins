@@ -66,14 +66,12 @@ describe('Sort browser test', () => {
   test('split one sorting rule', () => {
     const sortRules = splitSortString('_geoPoint(37.8153, -122.4784):asc')
 
-    console.log()
     expect(sortRules).toEqual(['_geoPoint(37.8153, -122.4784):asc'])
   })
 
   test.only('split no sorting rule', () => {
     const sortRules = splitSortString('')
 
-    console.log()
     expect(sortRules).toEqual([])
   })
 })
