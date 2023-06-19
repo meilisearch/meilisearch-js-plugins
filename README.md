@@ -4,6 +4,16 @@
 
 <h1 align="center">Meilisearch Javascript plugins</h1>
 
+<h4 align="center">
+  <a href="https://github.com/meilisearch/meilisearch">Meilisearch</a> |
+  <a href="https://www.meilisearch.com/pricing?utm_campaign=oss&utm_source=integration&utm_medium=meilisearch-js-plugins">Meilisearch Cloud</a> |
+  <a href="https://docs.meilisearch.com">Documentation</a> |
+  <a href="https://discord.meilisearch.com">Discord</a> |
+  <a href="https://roadmap.meilisearch.com/tabs/1-under-consideration">Roadmap</a> |
+  <a href="https://www.meilisearch.com">Website</a> |
+  <a href="https://docs.meilisearch.com/faq">FAQ</a>
+</h4>
+
 <p align="center">
   <a href="https://github.com/meilisearch/meilisearch-js-plugins/actions"><img src="https://github.com/meilisearch/meilisearch-js-plugins/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
   <a href="https://github.com/meilisearch/meilisearch-js-plugins/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
@@ -18,12 +28,17 @@ This repository contains clients and plugins to use Meilisearch with third party
 ## Table of Contents <!-- omit in toc -->
 
 - [📖 Documentation](#-documentation)
+- [⚡ Supercharge your Meilisearch experience](#-supercharge-your-meilisearch-experience)
 - [🐱 Plugins](#-plugins)
 - [⚙️ Development Workflow and Contributing](#️-development-workflow-and-contributing)
 
 ## 📖 Documentation
 
 For general information on how to use Meilisearch—such as our API reference, tutorials, guides, and in-depth articles—refer to our [main documentation website](https://docs.meilisearch.com/).
+
+## ⚡ Supercharge your Meilisearch experience
+
+Say goodbye to server deployment and manual updates with [Meilisearch Cloud](https://www.meilisearch.com/pricing?utm_campaign=oss&utm_source=integration&utm_medium=meilisearch-js-plugins). No credit card required.
 
 ## 🐱 Plugins
 
