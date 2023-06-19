@@ -8459,10 +8459,10 @@ instantsearch.js@4.50.3:
     qs "^6.5.1 < 6.10"
     search-insights "^2.1.0"
 
-instantsearch.js@^4.48.1, instantsearch.js@^4.56.1:
-  version "4.56.1"
-  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.56.1.tgz#ddff17fea5ed8d8a0e14e66a977f107f7143adef"
-  integrity sha512-4BQdnMEDWP9IRF12xninO/yR1f7F+mE935X0eVKuhUqitZF7GvUsL93MysXxHyPJnrbC6o0Aofc3kNcTKteKWw==
+instantsearch.js@^4.48.1, instantsearch.js@^4.56.2:
+  version "4.56.2"
+  resolved "https://registry.yarnpkg.com/instantsearch.js/-/instantsearch.js-4.56.2.tgz#ccd82da0d1c883283e9b3cd2c4ee4b5d0189f3ef"
+  integrity sha512-hHudd6fKA30MFnxshin6Zj2Gm/JPgq231nR0zdxJ+S/bCMWuDQv/iGKHPE/98tEykwkuLg2b/TnUR+iqzHj9pg==
   dependencies:
     "@algolia/events" "^4.0.1"
     "@algolia/ui-components-highlight-vdom" "^1.2.1"
