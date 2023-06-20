@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.3
+
+### Patch Changes
+
+- 93812d5: Fix bug where sort-by failed on geo_points
+
 ## 0.13.2
 
 ### Patch Changes
