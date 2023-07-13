@@ -76,7 +76,7 @@ export function createFacetSearchContext(
     instantSearchParams?.page
   )
 
-  const sortState = createSortState(sortByArray.join(':'))
+  const sortState = splitSortString(sortByArray.join(':'))
 
   const searchContext: SearchContext = {
     ...options,

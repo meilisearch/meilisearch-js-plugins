@@ -137,8 +137,6 @@ export function instantMeiliSearch(
     searchForFacetValues: async function (
       requests: AlgoliaSearchForFacetValuesRequests
     ): Promise<AlgoliaSearchForFacetValuesResponse[]> {
-      console.log(requests)
-
       const results = []
       for (const request of requests) {
         const searchContext: SearchContext = createFacetSearchContext(
@@ -149,6 +147,7 @@ export function instantMeiliSearch(
         const meilisearchSearchQuery = adaptSearchParams(searchContext)
 
         const index = request.indexName
+
         const meilisearchRequest: any = {
           ...meilisearchSearchQuery,
           facetQuery: request.params.facetQuery,
@@ -166,6 +165,7 @@ export function instantMeiliSearch(
           // not currently supported
           highlighted: facetHit.value,
         }))
+
         const result = {
           facetHits,
           exhaustiveFacetsCount: false,

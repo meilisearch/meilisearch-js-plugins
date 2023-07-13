@@ -1,12 +1,5 @@
 # @meilisearch/autocomplete-client
 
-## 0.2.2-prototype-search-for-facet-values.0
-
-### Patch Changes
-
-- Updated dependencies [458bbf3]
-  - @meilisearch/instant-meilisearch@0.13.3-prototype-search-for-facet-values.0
-
 ## 0.2.1
 
 ### Patch Changes
