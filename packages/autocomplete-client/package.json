@@ -3,7 +3,7 @@
   "version": "0.2.2-prototype-search-for-facet-values.0",
   "private": false,
   "description": "The search client to use Meilisearch with autocomplete.js.",
-  "homepage": "https://github.com/meilisearch/instant-meilisearch/tree/main/packages/autocomplete-client",
+  "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/autocomplete-client",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,7 @@
   "types": "./dist/types/index.d.ts",
   "sideEffects": false,
   "bugs": {
-    "url": "https://github.com/meilisearch/instant-meilisearch/issues"
+    "url": "https://github.com/meilisearch/meilisearch-js-plugins/issues"
   },
   "files": [
     "dist",
@@ -44,7 +44,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meilisearch/instant-meilisearch.git"
+    "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.13.3-prototype-search-for-facet-values.0"
@@ -61,7 +61,7 @@
     "concurrently": "^7.1.0",
     "cssnano": "^4.1.10",
     "eslint-config-meilisearch": "*",
-    "instantsearch.js": "^4.49.4",
+    "instantsearch.js": "^4.56.2",
     "jest": "^27.2.2",
     "jest-watch-typeahead": "^0.6.3",
     "regenerator-runtime": "^0.13.7",

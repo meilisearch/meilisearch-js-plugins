@@ -1,10 +1,10 @@
 # @meilisearch/instant-meilisearch
 
-## 0.13.3-prototype-search-for-facet-values.0
+## 0.13.3
 
 ### Patch Changes
 
-- 458bbf3: Add compatibility with the `searchable` parameter of the [`RefinementList`](https://www.algolia.com/doc/api-reference/widgets/refinement-list/js/) widget
+- 93812d5: Fix bug where sort-by failed on geo_points
 
 ## 0.13.2
 
@@ -122,7 +122,7 @@
 
   This is the conventional way of calculating the facet distribution. Similar to Algolia's behavior. If you prefer the old behavior, please consider opening an issue.
 
-  See [complete explanation here](https://github.com/meilisearch/instant-meilisearch/issues/884)
+  See [complete explanation here](https://github.com/meilisearch/meilisearch-js-plugins/issues/884)
 
 - 72de4c8: - Compatibility with the `Index` widget is added.
 
