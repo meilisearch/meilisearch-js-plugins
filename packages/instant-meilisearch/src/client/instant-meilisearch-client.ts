@@ -8,6 +8,8 @@ import {
   FacetDistribution,
   PaginationState,
   MeilisearchConfig,
+  AlgoliaSearchForFacetValuesRequests,
+  AlgoliaSearchForFacetValuesResponse,
 } from '../types'
 import {
   getApiKey,
@@ -19,7 +21,7 @@ import {
   adaptSearchParams,
   SearchResolver,
 } from '../adapter'
-import { createSearchContext } from '../contexts'
+import { createSearchContext, createFacetSearchContext } from '../contexts'
 import {
   SearchCache,
   initFacetDistribution,
@@ -132,13 +134,48 @@ export function instantMeiliSearch(
         throw new Error(e)
       }
     },
-    searchForFacetValues: async function (_: any) {
-      return await new Promise((resolve, reject) => {
-        reject(
-          new Error('SearchForFacetValues is not compatible with Meilisearch')
+    searchForFacetValues: async function (
+      requests: AlgoliaSearchForFacetValuesRequests
+    ): Promise<AlgoliaSearchForFacetValuesResponse[]> {
+      console.log(requests)
+
+      const results = []
+      for (const request of requests) {
+        const searchContext: SearchContext = createFacetSearchContext(
+          request,
+          instantMeiliSearchOptions
         )
-        resolve([]) // added here to avoid compilation error
-      })
+
+        const meilisearchSearchQuery = adaptSearchParams(searchContext)
+
+        const index = request.indexName
+        const meilisearchRequest: any = {
+          ...meilisearchSearchQuery,
+          facetQuery: request.params.facetQuery,
+          facetName: request.params.facetName,
+        }
+
+        delete meilisearchRequest.indexUid
+
+        const meilisearchResponse = await meilisearchClient
+          .index(index)
+          .searchForFacetValues(meilisearchRequest)
+
+        const facetHits = meilisearchResponse.facetHits.map((facetHit) => ({
+          ...facetHit,
+          // not currently supported
+          highlighted: facetHit.value,
+        }))
+        const result = {
+          facetHits,
+          exhaustiveFacetsCount: false,
+          processingTimeMS: meilisearchResponse.processingTimeMs,
+        }
+
+        results.push(result)
+      }
+
+      return results
     },
   }
 }
