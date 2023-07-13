@@ -38,7 +38,7 @@ For general information on how to use Meilisearch—such as our API reference, t
 
 ## ⚡ Supercharge your Meilisearch experience
 
-Say goodbye to server deployment and manual updates with [Meilisearch Cloud](https://www.meilisearch.com/pricing?utm_campaign=oss&utm_source=integration&utm_medium=meilisearch-js-plugins). Get started with a 14-day free trial! No credit card required.
+Say goodbye to server deployment and manual updates with [Meilisearch Cloud](https://www.meilisearch.com/pricing?utm_campaign=oss&utm_source=integration&utm_medium=meilisearch-js-plugins). No credit card required.
 
 ## 🐱 Plugins
 
