@@ -56,7 +56,6 @@ export function createSearchContext(
   return searchContext
 }
 
-// TODO: avoid code duplication
 /**
  * @param  {AlgoliaMultipleQueriesQuery} searchRequest
  * @param  {Context} options
