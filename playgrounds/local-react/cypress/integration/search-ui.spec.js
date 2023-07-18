@@ -38,7 +38,9 @@ describe(`${playground} playground test`, () => {
 
   it('Sort by recommendationCound ascending', () => {
     const select = `.ais-SortBy-select`
-    cy.get(select).select('games:recommendationCount:asc')
+    cy.get(select)
+      .select('games:recommendationCount:asc')
+      .should('have.value', 'games:recommendationCount:asc')
     cy.wait(1000)
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Deathmatch Classic')
   })
@@ -61,7 +63,10 @@ describe(`${playground} playground test`, () => {
   })
 
   it('Search', () => {
-    cy.get('.ais-SearchBox-input').type('Half-Life')
+    cy.get('.right-panel')
+      .find('.ais-SearchBox-input')
+      .type('Half-Life')
+      .should('have.value', 'Half-Life')
     cy.wait(1000)
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Half-Life')
   })
