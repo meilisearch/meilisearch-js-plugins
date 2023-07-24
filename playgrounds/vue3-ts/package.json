@@ -14,7 +14,7 @@
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.13.3",
     "vue": "^3.2.45",
-    "vue-instantsearch": "^4.7.2"
+    "vue-instantsearch": "^4.10.7"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
