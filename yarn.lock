@@ -50,10 +50,10 @@
     "@algolia/autocomplete-preset-algolia" "1.9.3"
     "@algolia/autocomplete-shared" "1.9.3"
 
-"@algolia/autocomplete-plugin-tags@^1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-tags/-/autocomplete-plugin-tags-1.9.2.tgz#10df8fca899f0e5d1fc8b8405914a8854de0d500"
-  integrity sha512-FE4RBisLZ8+kOAbZOkltpnyZbxvMKF8W+YVuL/Ii4LBQ58yS/j+9AATd+DdQbDdIjML/Iw33xG6tznpqQmo5iQ==
+"@algolia/autocomplete-plugin-tags@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-tags/-/autocomplete-plugin-tags-1.10.0.tgz#8bdc879458ebfcd3e8b252c17c55e4eed98963b0"
+  integrity sha512-TvrXrU5fVRgV1GNk3YBBCn/ctYvi4ck78ArHMf74iBhtnQetcj01+Nhjb6PiVDoA5DHg38LZ9T8NCaErM1JO9w==
 
 "@algolia/autocomplete-preset-algolia@1.9.3":
   version "1.9.3"
