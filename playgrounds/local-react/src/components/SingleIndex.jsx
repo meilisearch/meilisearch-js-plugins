@@ -50,9 +50,9 @@ const SingleIndex = () => (
           ]}
         />
         <h2>Genres</h2>
-        <RefinementList attribute="genres" />
+        <RefinementList attribute="genres" searchable={true} />
         <h2>Players</h2>
-        <RefinementList attribute="players" />
+        <RefinementList attribute="players" searchable={true} />
         <h2>Platforms</h2>
         <RefinementList attribute="platforms" />
         <h2>Misc</h2>
