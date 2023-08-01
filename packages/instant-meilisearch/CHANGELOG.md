@@ -1,5 +1,12 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.4
+
+### Patch Changes
+
+- 04326fe: Make instant-meilisearch templates available again on npm package
+- 7e62f88: Add compatibility with the `searchable` parameter of the [`RefinementList`](https://www.algolia.com/doc/api-reference/widgets/refinement-list/js/) widget
+
 ## 0.13.3
 
 ### Patch Changes
