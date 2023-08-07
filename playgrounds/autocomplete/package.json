@@ -29,7 +29,7 @@
     "@meilisearch/autocomplete-client": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
+    "@babel/core": "^7.22.9",
     "eslint-config-meilisearch": "*",
     "parcel-bundler": "^1.12.5"
   }
