@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.5
+
+### Patch Changes
+
+- ddf98c6: Fixes bug where search on facets would fail when using the sortBy widget
+
 ## 0.13.4
 
 ### Patch Changes
