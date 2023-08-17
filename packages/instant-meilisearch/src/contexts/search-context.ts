@@ -66,7 +66,9 @@ export function createFacetSearchContext(
   options: InstantMeiliSearchOptions
 ): SearchContext {
   // Split index name and possible sorting rules
-  const [indexUid, ...sortByArray] = searchRequest.indexName.split(':')
+  const { indexUid, sortBy } = separateIndexFromSortRules(
+    searchRequest.indexName
+  )
   const { params: instantSearchParams } = searchRequest
 
   const paginationState = createPaginationState(
@@ -75,16 +77,15 @@ export function createFacetSearchContext(
     instantSearchParams?.page
   )
 
-  const sortState = splitSortString(sortByArray.join(':'))
-
   const searchContext: SearchContext = {
     ...options,
     ...instantSearchParams,
-    sort: sortState,
+    sort: splitSortString(sortBy),
     indexUid,
     pagination: paginationState,
     placeholderSearch: options.placeholderSearch !== false, // true by default
     keepZeroFacets: !!options.keepZeroFacets, // false by default
   }
+
   return searchContext
 }
