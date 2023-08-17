@@ -36,13 +36,24 @@ describe(`${playground} playground test`, () => {
     cy.get(HIT_ITEM_CLASS).eq(0).contains('9.99 $')
   })
 
-  it('Sort by recommendationCound ascending', () => {
+  it('Sort by recommendationCount ascending', () => {
     const select = `.ais-SortBy-select`
     cy.get(select)
       .select('games:recommendationCount:asc')
       .should('have.value', 'games:recommendationCount:asc')
     cy.wait(1000)
+    cy.contains('Most Recommended')
     cy.get(HIT_ITEM_CLASS).eq(0).contains('Deathmatch Classic')
+  })
+
+  it('Facet search on genres when sorting by recommendationCount', () => {
+    cy.get('.left-panel')
+      .find('.ais-SearchBox-input')
+      .first()
+      .type('drama')
+      .should('have.value', 'drama')
+
+    cy.get('.left-panel .ais-RefinementList-labelText').eq(0).contains('Drama')
   })
 
   it('Sort by default relevancy', () => {

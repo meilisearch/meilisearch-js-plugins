@@ -146,8 +146,6 @@ export function instantMeiliSearch(
 
         const meilisearchSearchQuery = adaptSearchParams(searchContext)
 
-        const index = request.indexName
-
         const meilisearchRequest: any = {
           ...meilisearchSearchQuery,
           facetQuery: request.params.facetQuery,
@@ -157,7 +155,7 @@ export function instantMeiliSearch(
         delete meilisearchRequest.indexUid
 
         const meilisearchResponse = await meilisearchClient
-          .index(index)
+          .index(searchContext.indexUid)
           .searchForFacetValues(meilisearchRequest)
 
         const facetHits = meilisearchResponse.facetHits.map((facetHit) => ({
