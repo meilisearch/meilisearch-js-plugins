@@ -11,7 +11,7 @@
     "lint:fix": "eslint --ext .js --fix ."
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/core": "^7.22.10",
     "@meilisearch/instant-meilisearch": "0.13.5",
     "eslint-config-meilisearch": "*"
   },

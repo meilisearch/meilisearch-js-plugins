@@ -26,7 +26,7 @@
     "@meilisearch/instant-meilisearch": "0.13.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
+    "@babel/core": "^7.22.10",
     "@babel/plugin-syntax-jsx": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
     "eslint-config-meilisearch": "*"
