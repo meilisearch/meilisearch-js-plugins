@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.22.9",
-    "@babel/core": "^7.20.12",
+    "@babel/core": "^7.22.11",
     "@babel/preset-env": "^7.21.4",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",

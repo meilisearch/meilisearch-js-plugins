@@ -52,7 +52,7 @@
   "devDependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
     "@babel/cli": "^7.22.9",
-    "@babel/core": "^7.20.5",
+    "@babel/core": "^7.22.11",
     "@babel/preset-env": "^7.20.2",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
