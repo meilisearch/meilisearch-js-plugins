@@ -8,7 +8,7 @@ import {
   Highlight,
   ClearRefinements,
   RefinementList,
-} from 'react-instantsearch-dom'
+} from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
