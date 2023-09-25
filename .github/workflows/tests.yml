@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Run local browser tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           project: ./playgrounds/autocomplete
           wait-on: 'http://localhost:7700'
@@ -93,7 +93,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Run local browser tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           project: ./playgrounds/local-react
           wait-on: 'http://localhost:7700'
