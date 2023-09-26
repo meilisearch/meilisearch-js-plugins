@@ -1,5 +1,12 @@
 # @meilisearch/instant-meilisearch
 
+## 0.13.6
+
+### Patch Changes
+
+- abd298e: Fix HierarchicalMenu when keepZeroFacets is set to true
+- 52c3d9b: Update the meilisearch-js version
+
 ## 0.13.5
 
 ### Patch Changes
