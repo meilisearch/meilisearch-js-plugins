@@ -20,7 +20,7 @@ jobs:
     outputs:
       version: ${{ steps.grep-step.outputs.meilisearch_version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Grep docker beta version of Meilisearch
         id: grep-step
         run: |
@@ -41,7 +41,7 @@ jobs:
     name: autocomplete-client end-to-end-tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -82,7 +82,7 @@ jobs:
     name: instant-meilisearch end-to-end-tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -126,7 +126,7 @@ jobs:
         node: ['14', '16', '18']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup node
         uses: actions/setup-node@v3
         with:
