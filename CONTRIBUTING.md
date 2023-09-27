@@ -163,7 +163,7 @@ This repository uses the [changesets](https://github.com/Noviny/changesets) libr
 
 ⚠️ Each PR merged on `main` involving a change in the package(s) should contain modifications in the `.changeset` folder. See [changeset section](#versioning-with-changesets).
 
-Each merge `main` triggers the [`release` CI](./.github/workflows/publish.yml) generating a PR titled `Version Packages`. This PR updates the versions and contains changelogs of the impacted packages based on the `yarn changesets` commands you ran on each PR.
+Each merge on `main` triggers the [`release` CI](./.github/workflows/publish.yml) generating a PR titled `Version Packages`. This PR updates the versions and contains changelogs of the impacted packages based on the `yarn changesets` commands you ran on each PR.
 
 To release on GitHub and `npm` you must merge this `Version packages` PR. This will trigger the publishing action and create the GitHub and `npm` releases for all affected packages.
 
