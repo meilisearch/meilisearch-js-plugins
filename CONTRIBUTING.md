@@ -1,4 +1,4 @@
-# Contributing <!-- omit in TOC -->
+# Contributing
 
 First of all, thank you for contributing to Meilisearch! The goal of this document is to provide everything you need to know in order to contribute to Meilisearch and its different integrations.
 
@@ -26,13 +26,13 @@ First of all, thank you for contributing to Meilisearch! The goal of this docume
 
 ## Development Workflow
 
-### Setup <!-- omit in TOC -->
+### Setup
 
 ```bash
 yarn --dev
 ```
 
-### Tests and Linter <!-- omit in TOC -->
+### Tests and Linter
 
 Each PR should pass the tests and the linter to be accepted.
 
@@ -59,7 +59,26 @@ Example:
 turbo run test --filter=@meilisearch/instant-meilisearch
 ```
 
-### Playgrounds <!-- omit in TOC -->
+### Versioning with Changesets
+
+⚠️ This step is crucial to merge a PR containing impacting changes for the package(s)! ⚠️
+
+💡 Example of PR that does [NOT require a changeset](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md#not-every-change-requires-a-changeset): updating the README.md or changes in tests files.
+
+We use [changesets](https://github.com/Noviny/changesets) to do versioning.
+
+For each PR that changes something in the package(s), you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `yarn changeset`.
+
+This command will run questions:
+- select the packages concerned by the PR changes
+- indicate how these changes impact the version (press enter to skip the question if you don't want to upgrade the `major` or the `minor`)
+- Write a brief summary of the changes
+
+Modification will be applied to the `.changesets` directory. These changes should added to your PR.
+
+Before the release, the new files in `.changesets` will be automatically removed. See our [release process](release-on-github-and-npm).
+
+### Playgrounds
 
 #### @meilisearch/instant-meilisearch playgrounds
 
@@ -104,12 +123,12 @@ yarn playground:autocomplete
 
 ## Git Guidelines
 
-### Git Branches <!-- omit in TOC -->
+### Git Branches
 
 All changes must be made in a branch and submitted as PR.
 We do not enforce any branch naming style, but please use something descriptive of your changes.
 
-### Git Commits <!-- omit in TOC -->
+### Git Commits
 
 As minimal requirements, your commit message should:
 - be capitalized
@@ -119,19 +138,7 @@ As minimal requirements, your commit message should:
 
 We don't follow any other convention, but if you want to use one, we recommend [this one](https://chris.beams.io/posts/git-commit/).
 
-### Changesets <!-- omit in TOC -->
-
-We use [changesets](https://github.com/Noviny/changesets) to do versioning. What that means is that you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `yarn changeset`. The changeset you create contains which packages should be bumped, their associated semver type and the changelogs.
-
-
-> avant chaque release, les fichiers sont supprimés (voir process qui suit)
-
-These changesets are added to the `.changesets` directory at the root of the repository, and should be added to your PR.
-Before a release, these files are removed (see [process](#release-on-github-and-npm)).
-
-Some changes do [not require a changeset](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md#not-every-change-requires-a-changeset). For example changes that does not impact the packages, e.g. : Updating the README.md or changes in tests files.
-
-### GitHub Pull Requests <!-- omit in TOC -->
+### GitHub Pull Requests
 
 Some notes on GitHub PRs:
 
@@ -145,7 +152,7 @@ Some notes on GitHub PRs:
 
 Meilisearch tools follow the [Semantic Versioning Convention](https://semver.org/).
 
-### Automation to Rebase and Merge the PRs <!-- omit in TOC -->
+### Automation to Rebase and Merge the PRs
 
 This project integrates a bot that helps us manage pull requests merging.<br>
 _[Read more about this](https://github.com/meilisearch/integration-guides/blob/main/resources/bors.md)._
@@ -154,15 +161,18 @@ _[Read more about this](https://github.com/meilisearch/integration-guides/blob/m
 
 This repository uses the [changesets](https://github.com/Noviny/changesets) library to handle the version updates and the publishing on GitHub and `npm`.
 
-When PRs are merged on `main`, they trigger the [`release` CI](./.github/workflows/publish.yml). This CI creates a PR titled `Version Packages` containing all the version updates and changelogs of the impacted packages. The PR updates the versions and the changelogs based on the `changesets` that were previously pushed on main (see [changeset section](#changesets)).
+⚠️ Each PR merged on `main` involving a change in the package(s) should contain modifications in the `.changeset` folder. See [changeset section](#versioning-with-changesets).
 
-To release on GitHub and `npm` you must merge the `Version packages` PR. This will trigger the publishing action and create the GitHub and `npm` releases for all affected packages.
+Each merge `main` triggers the [`release` CI](./.github/workflows/publish.yml) generating a PR titled `Version Packages`. This PR updates the versions and contains changelogs of the impacted packages based on the `yarn changesets` commands you ran on each PR.
+
+To release on GitHub and `npm` you must merge this `Version packages` PR. This will trigger the publishing action and create the GitHub and `npm` releases for all affected packages.
 
 See more in depth explaination on [versioning](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#version), [publishing](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#publish) and the [changesets github-action](https://github.com/changesets/action).
 
 If you merged a beta branch, that was released, into main, you were probably in the `changesets` [pre-release](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) mode (see section on [releasing a beta](#release-a-beta-version)). If the `pre.json` file is present in the `.changesets` folder, you need to exit that mode. This is possible by running `yarn changeset pre exit`. Once done, create a PR with the changes and merge it to main.
 
 #### Codesandbox update
+
 Once the version is available on npm, please update the instant-meilisearch version used in the different Code-Sandboxes we provide:
 
 - [Meilisearch + InstantSearch](https://codesandbox.io/s/ms-is-mese9)
