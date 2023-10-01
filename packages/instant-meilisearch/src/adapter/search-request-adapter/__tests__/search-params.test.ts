@@ -1,11 +1,18 @@
+import { MatchingStrategies } from 'meilisearch'
 import { adaptSearchParams } from '../search-params-adapter'
-import { MatchingStrategies, SearchContext } from '../../../types'
+import {
+  OverridableMeiliSearchSearchParameters,
+  SearchContext,
+} from '../../../types'
 
 const DEFAULT_CONTEXT: SearchContext = {
   indexUid: 'test',
   pagination: { page: 0, hitsPerPage: 6, finite: false },
   placeholderSearch: true,
   keepZeroFacets: false,
+  attributesToHighlight: ['*'],
+  highlightPreTag: '<mark>',
+  highlightPostTag: '</mark>',
 }
 
 describe('Parameters adapter', () => {
@@ -45,13 +52,31 @@ describe('Parameters adapter', () => {
     ])
   })
 
-  test('adapting a searchContext with matching strategy', () => {
+  test('adapting a searchContext with overridden Meilisearch parameters', () => {
+    const meiliSearchParams: OverridableMeiliSearchSearchParameters = {
+      attributesToHighlight: ['movies', 'genres'],
+      highlightPreTag: '<em>',
+      highlightPostTag: '</em>',
+      matchingStrategy: MatchingStrategies.ALL,
+    }
+
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      matchingStrategy: MatchingStrategies.ALL,
+      meiliSearchParams,
     })
 
-    expect(searchParams.matchingStrategy).toEqual('all')
+    expect(searchParams.attributesToHighlight).toEqual(
+      meiliSearchParams.attributesToHighlight
+    )
+    expect(searchParams.highlightPreTag).toEqual(
+      meiliSearchParams.highlightPreTag
+    )
+    expect(searchParams.highlightPostTag).toEqual(
+      meiliSearchParams.highlightPostTag
+    )
+    expect(searchParams.matchingStrategy).toEqual(
+      meiliSearchParams.matchingStrategy
+    )
   })
 })
 

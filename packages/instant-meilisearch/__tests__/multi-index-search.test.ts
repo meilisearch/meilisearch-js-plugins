@@ -25,7 +25,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -53,7 +53,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with scroll pagination', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -88,7 +88,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with page selection pagination', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -126,7 +126,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with facet filtering', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -144,8 +144,7 @@ describe('Multi-index search test', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: [['color:blue']],
         },
       },
@@ -154,8 +153,7 @@ describe('Multi-index search test', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'color',
+          facets: ['color'],
           facetFilters: [['genres:Adventure', 'genres:Action']],
         },
       },
@@ -224,7 +222,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with no placeholder search', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {

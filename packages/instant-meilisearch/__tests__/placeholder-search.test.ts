@@ -15,7 +15,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch set to true', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -34,7 +34,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch set to false', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -53,7 +53,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch with query', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -75,7 +75,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch set to false with filter', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {

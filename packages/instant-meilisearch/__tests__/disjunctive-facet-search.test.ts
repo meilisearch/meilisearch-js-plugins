@@ -27,7 +27,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on one index with facet filtering', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -48,8 +48,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: [['color:green']],
         },
       },
@@ -58,8 +57,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'color',
+          facets: ['color'],
           facetFilters: [['genres:Fantasy', 'genres:Action']],
         },
       },
@@ -97,7 +95,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on two indexes with facet filtering', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -118,8 +116,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'color',
+          facets: ['color'],
           facetFilters: [['genres:Action']],
         },
       },
@@ -128,8 +125,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: [['color:green']],
         },
       },
@@ -149,8 +145,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: [['color:red'], ['platforms:Linux']],
         },
       },
@@ -159,8 +154,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'color',
+          facets: ['color'],
           facetFilters: [['genres:Fantasy'], ['platforms:Linux']],
         },
       },
@@ -169,8 +163,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'platforms',
+          facets: ['platforms'],
           facetFilters: [['genres:Fantasy'], ['color:red']],
         },
       },
@@ -250,7 +243,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on two indexes with facet filtering and keep zero facets', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -271,8 +264,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'color',
+          facets: ['color'],
           facetFilters: [['genres:Action']],
         },
       },
@@ -281,8 +273,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: [['color:green']],
         },
       },
@@ -302,8 +293,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: [['color:red'], ['platforms:Linux']],
         },
       },
@@ -312,8 +302,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'color',
+          facets: ['color'],
           facetFilters: [['genres:Fantasy'], ['platforms:Linux']],
         },
       },
@@ -322,8 +311,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'platforms',
+          facets: ['platforms'],
           facetFilters: [['genres:Fantasy'], ['color:red']],
         },
       },
@@ -425,7 +413,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on an index with facet filtering with some and operators', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -446,8 +434,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: ['color:green'],
         },
       },
@@ -477,7 +464,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on an index with facet filtering with some and operators with keep zero facets', async () => {
-    const customClient = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -498,8 +485,7 @@ describe('Keep zero facets tests', () => {
         params: {
           page: 0,
           hitsPerPage: 1,
-          // @ts-ignore considered a read-only type in instantsearch
-          facets: 'genres',
+          facets: ['genres'],
           facetFilters: ['color:green'],
         },
       },

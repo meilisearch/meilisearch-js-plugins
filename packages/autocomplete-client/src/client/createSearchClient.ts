@@ -16,7 +16,7 @@ export function createSearchClient({ userAgent }: { userAgent: string }) {
     options = { clientAgents: [] },
   }: ClientConfig): SearchClient => {
     const clientAgents = options.clientAgents || []
-    const searchClient = instantMeiliSearch(url, apiKey, {
+    const { searchClient } = instantMeiliSearch(url, apiKey, {
       ...options,
       clientAgents: concatUserAgents([userAgent, ...clientAgents]),
     })

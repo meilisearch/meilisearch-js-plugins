@@ -3,6 +3,7 @@ import type {
   Filter,
   PaginationState,
   MeiliSearchMultiSearchParams,
+  Mutable,
 } from '../../types'
 
 import { adaptGeoSearch } from './geo-rules-adapter'
@@ -17,10 +18,7 @@ function isPaginationRequired(
   // placeholderSearch must be disabled
   // The search query must be empty
   // There must be no filters
-  if (!placeholderSearch && !query && (!filter || filter.length === 0)) {
-    return false
-  }
-  return true
+  return !(!placeholderSearch && !query && (!filter || filter.length === 0))
 }
 
 function setScrollPagination(
@@ -67,25 +65,26 @@ function setFinitePagination(
  * @param  {SearchContext} searchContext
  */
 export function MeiliParamsCreator(searchContext: SearchContext) {
-  const meiliSearchParams: any = {}
   const {
+    query,
+    indexUid,
     facets,
     attributesToSnippet,
     snippetEllipsisText,
+    filters,
+    numericFilters,
+    facetFilters,
     attributesToRetrieve,
     attributesToHighlight,
     highlightPreTag,
     highlightPostTag,
     placeholderSearch,
-    query,
-    sort,
     pagination,
-    matchingStrategy,
-    filters,
-    numericFilters,
-    facetFilters,
-    indexUid,
+    sort,
+    restrictSearchableAttributes,
+    meiliSearchParams: overrideParams,
   } = searchContext
+  const meiliSearchParams: MeiliSearchMultiSearchParams = { indexUid }
 
   const meilisearchFilters = adaptFilters(filters, numericFilters, facetFilters)
 
@@ -96,30 +95,31 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     addQuery() {
       meiliSearchParams.q = query
     },
-    addIndexUid() {
-      meiliSearchParams.indexUid = indexUid
-    },
     addFacets() {
-      if (Array.isArray(facets)) {
-        meiliSearchParams.facets = facets
-      } else if (typeof facets === 'string') {
-        meiliSearchParams.facets = [facets]
+      const value = <Mutable<typeof facets>>facets
+      if (value !== undefined) {
+        // TODO: remove deprecated instantsearch packages support and remove string check
+        meiliSearchParams.facets = typeof value === 'string' ? [value] : value
       }
     },
     addAttributesToCrop() {
-      if (attributesToSnippet) {
-        meiliSearchParams.attributesToCrop = attributesToSnippet
+      const value =
+        overrideParams?.attributesToCrop ??
+        <Mutable<typeof attributesToSnippet>>attributesToSnippet
+      if (value !== undefined) {
+        meiliSearchParams.attributesToCrop = value
+      }
+    },
+    addCropLength() {
+      const value = overrideParams?.cropLength
+      if (value !== undefined) {
+        meiliSearchParams.cropLength = value
       }
     },
     addCropMarker() {
-      // Attributes To Crop marker
-      if (snippetEllipsisText != null) {
-        meiliSearchParams.cropMarker = snippetEllipsisText
-      }
-    },
-    addAttributesToRetrieve() {
-      if (attributesToRetrieve) {
-        meiliSearchParams.attributesToRetrieve = attributesToRetrieve
+      const value = overrideParams?.cropMarker ?? snippetEllipsisText
+      if (value !== undefined) {
+        meiliSearchParams.cropMarker = value
       }
     },
     addFilters() {
@@ -127,22 +127,30 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.filter = meilisearchFilters
       }
     },
+    addAttributesToRetrieve() {
+      const value =
+        overrideParams?.attributesToRetrieve ??
+        <Mutable<typeof attributesToRetrieve>>attributesToRetrieve
+      if (value !== undefined) {
+        meiliSearchParams.attributesToRetrieve = value
+      }
+    },
     addAttributesToHighlight() {
-      meiliSearchParams.attributesToHighlight = attributesToHighlight || ['*']
+      meiliSearchParams.attributesToHighlight =
+        overrideParams?.attributesToHighlight ??
+          <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
     },
     addPreTag() {
-      if (highlightPreTag) {
-        meiliSearchParams.highlightPreTag = highlightPreTag
-      } else {
-        meiliSearchParams.highlightPreTag = '__ais-highlight__'
-      }
+      meiliSearchParams.highlightPreTag =
+        overrideParams?.highlightPreTag ??
+        highlightPreTag ??
+        '__ais-highlight__'
     },
     addPostTag() {
-      if (highlightPostTag) {
-        meiliSearchParams.highlightPostTag = highlightPostTag
-      } else {
-        meiliSearchParams.highlightPostTag = '__/ais-highlight__'
-      }
+      meiliSearchParams.highlightPostTag =
+        overrideParams?.highlightPostTag ??
+        highlightPostTag ??
+        '__/ais-highlight__'
     },
     addPagination() {
       const paginationRequired = isPaginationRequired(
@@ -186,17 +194,41 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         minimumAroundRadius,
       })
 
-      if (filter) {
-        if (meiliSearchParams.filter) {
+      if (filter !== undefined) {
+        if (Array.isArray(meiliSearchParams.filter)) {
           meiliSearchParams.filter.unshift(filter)
         } else {
           meiliSearchParams.filter = [filter]
         }
       }
     },
+    addShowMatchesPosition() {
+      const value = overrideParams?.showMatchesPosition
+      if (value !== undefined) {
+        meiliSearchParams.showMatchesPosition = value
+      }
+    },
     addMatchingStrategy() {
-      if (matchingStrategy) {
-        meiliSearchParams.matchingStrategy = matchingStrategy
+      const value = overrideParams?.matchingStrategy
+      if (value !== undefined) {
+        meiliSearchParams.matchingStrategy = value
+      }
+    },
+    addShowRankingScore() {
+      const value = overrideParams?.showRankingScore
+      if (value !== undefined) {
+        meiliSearchParams.showRankingScore = value
+      }
+    },
+    addAttributesToSearchOn() {
+      const value =
+        overrideParams?.attributesToSearchOn !== undefined
+          ? overrideParams.attributesToSearchOn
+          : <Mutable<typeof restrictSearchableAttributes>>(
+              restrictSearchableAttributes
+            )
+      if (value !== undefined) {
+        meiliSearchParams.attributesToSearchOn = value
       }
     },
   }
@@ -214,19 +246,22 @@ export function adaptSearchParams(
 ): MeiliSearchMultiSearchParams {
   const meilisearchParams = MeiliParamsCreator(searchContext)
   meilisearchParams.addQuery()
-  meilisearchParams.addIndexUid()
   meilisearchParams.addFacets()
+  meilisearchParams.addAttributesToCrop()
+  meilisearchParams.addCropLength()
+  meilisearchParams.addCropMarker()
+  meilisearchParams.addFilters()
+  meilisearchParams.addAttributesToRetrieve()
   meilisearchParams.addAttributesToHighlight()
   meilisearchParams.addPreTag()
   meilisearchParams.addPostTag()
-  meilisearchParams.addAttributesToRetrieve()
-  meilisearchParams.addAttributesToCrop()
-  meilisearchParams.addCropMarker()
   meilisearchParams.addPagination()
-  meilisearchParams.addFilters()
   meilisearchParams.addSort()
   meilisearchParams.addGeoSearchFilter()
+  meilisearchParams.addShowMatchesPosition()
   meilisearchParams.addMatchingStrategy()
+  meilisearchParams.addShowRankingScore()
+  meilisearchParams.addAttributesToSearchOn()
 
   return meilisearchParams.getParams()
 }

@@ -1,6 +1,7 @@
 import {
   InstantMeiliSearchOptions,
   InstantMeiliSearchConfig,
+  ApiKeyCallback,
 } from '../../types'
 import { isPureObject } from '../../utils/object'
 
@@ -29,10 +30,10 @@ export function getInstantMeilisearchConfig(
 
 /**
  * Resolves apiKey if it is a function
- * @param  {string | apiKeyCallback} apiKey
+ * @param  {string | ApiKeyCallback} apiKey
  * @returns {string} api key value
  */
-export function getApiKey(apiKey: string | (() => string)): string {
+export function getApiKey(apiKey: string | ApiKeyCallback): string {
   // If apiKey is function, call it to get the apiKey
   if (typeof apiKey === 'function') {
     const apiKeyFnValue = apiKey()

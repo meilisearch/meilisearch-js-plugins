@@ -19,7 +19,6 @@ export function getParametersWithoutFilters(
   }
   const meilisearchParams = MeiliParamsCreator(defaultSearchContext)
   meilisearchParams.addFacets()
-  meilisearchParams.addIndexUid()
   meilisearchParams.addPagination()
 
   return meilisearchParams.getParams()

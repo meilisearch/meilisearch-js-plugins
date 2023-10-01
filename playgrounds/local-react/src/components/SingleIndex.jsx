@@ -14,9 +14,11 @@ import {
 } from 'react-instantsearch-dom'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey', {
-  primaryKey: 'id',
-})
+const { searchClient } = instantMeiliSearch(
+  'http://localhost:7700',
+  'masterKey',
+  { primaryKey: 'id' }
+)
 
 const SingleIndex = () => (
   <div className="ais-InstantSearch">
