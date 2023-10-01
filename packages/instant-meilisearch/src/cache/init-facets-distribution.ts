@@ -3,6 +3,7 @@ import {
   SearchContext,
   MeiliSearchMultiSearchParams,
   MultiSearchResolver,
+  MeilisearchMultiSearchResult,
 } from '../types'
 import { MeiliParamsCreator } from '../adapter'
 import { removeDuplicate } from '../utils'
@@ -50,5 +51,18 @@ export async function initFacetDistribution(
       searchResult.facetDistribution || {}
   }
 
+  return initialFacetDistribution
+}
+
+export function fillMissingFacets(
+  initialFacetDistribution: Record<string, FacetDistribution>,
+  meilisearchResults: MeilisearchMultiSearchResult[]
+) {
+  for (const searchResult of meilisearchResults) {
+    initialFacetDistribution[searchResult.indexUid] = {
+      ...(searchResult.facetDistribution || {}),
+      ...(initialFacetDistribution[searchResult.indexUid] || {}),
+    }
+  }
   return initialFacetDistribution
 }

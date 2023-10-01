@@ -27,6 +27,7 @@ import {
   SearchCache,
   initFacetDistribution,
   getParametersWithoutFilters,
+  fillMissingFacets,
 } from '../cache/'
 import { constructClientAgents } from './agents'
 
@@ -134,6 +135,12 @@ export function instantMeiliSearch(
           const meilisearchResults = await searchResolver.multiSearch(
             meilisearchRequests,
             instantSearchPagination // Create issue on pagination
+          )
+
+          // Fill the missing facet values if keepZeroFacets is true
+          initialFacetDistribution = fillMissingFacets(
+            initialFacetDistribution,
+            meilisearchResults
           )
 
           const instantSearchResponse = adaptSearchResults<T>(

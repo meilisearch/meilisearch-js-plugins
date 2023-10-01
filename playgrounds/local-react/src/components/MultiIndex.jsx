@@ -9,7 +9,7 @@ import {
   InfiniteHits,
   Pagination,
   Hits,
-} from 'react-instantsearch-dom'
+} from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const { searchClient } = instantMeiliSearch(
