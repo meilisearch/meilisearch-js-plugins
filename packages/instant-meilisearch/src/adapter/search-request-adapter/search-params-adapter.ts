@@ -98,7 +98,8 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     addFacets() {
       const value = <Mutable<typeof facets>>facets
       if (value !== undefined) {
-        // TODO: remove deprecated instantsearch packages support and remove string check
+        // despite Instantsearch.js typing it as `string[]`,
+        // it still can send `string`
         meiliSearchParams.facets = typeof value === 'string' ? [value] : value
       }
     },
