@@ -25,6 +25,7 @@ const dataset = [
       name: 'One two',
     },
     nullField: null,
+    'escape_\\_"me"': 'escape \\"me too"',
   },
   {
     id: 5,
