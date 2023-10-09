@@ -63,7 +63,7 @@ export default {
         {
           finitePagination: true,
         }
-      ),
+      ).searchClient,
     }
   },
 }

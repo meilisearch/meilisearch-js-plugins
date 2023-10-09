@@ -226,7 +226,7 @@ const { searchClient } = instantMeiliSearch(
   'http://localhost:7700',
   'masterKey'
 )
-const wrongSearchClient = instantMeiliSearch(
+const { searchClient: wrongSearchClient } = instantMeiliSearch(
   'http://localhost:7777',
   'masterKey'
 )

@@ -13,7 +13,7 @@ landing_getting_started_1: |-
         searchClient: instantMeiliSearch(
           'http://localhost:7700',
           'searchKey'
-        ),
+        ).searchClient,
       })
 
       search.addWidgets([
@@ -59,7 +59,7 @@ getting_started_front_end_integration_md: |-
         indexName: "movies",
         searchClient: instantMeiliSearch(
           "http://localhost:7700"
-        )
+        ).searchClient
         });
         search.addWidgets([
           instantsearch.widgets.searchBox({
