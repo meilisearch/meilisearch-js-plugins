@@ -3,7 +3,7 @@ import type { Filter, SearchContext } from '../../types'
 const filterEscapeRegExp = /([\\"])/g
 
 function getValueWithEscapedBackslashesAndQuotes(value: string): string {
-  return value.replaceAll(filterEscapeRegExp, '\\$1')
+  return value.replace(filterEscapeRegExp, '\\$1')
 }
 
 /**
