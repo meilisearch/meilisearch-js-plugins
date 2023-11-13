@@ -25,7 +25,8 @@ const dataset = [
       name: 'One two',
     },
     nullField: null,
-    'escape_\\_"me"': 'escape \\"me too"',
+    'crazy_\\_"field"': 'real \\"crazy"',
+    numberField: 5,
   },
   {
     id: 5,
@@ -47,6 +48,7 @@ const dataset = [
       name: 'One two',
     },
     nullField: null,
+    numberField: 10,
   },
   {
     id: 6,
@@ -68,6 +70,7 @@ const dataset = [
       name: 'One two',
     },
     nullField: null,
+    numberField: 15,
   },
   {
     id: 11,
@@ -220,6 +223,8 @@ export type Movies = {
     name?: string
   }
   nullField?: null
+  'crazy_\\_"field"'?: string
+  numberField?: number
   _highlightResult?: Movies
 }
 

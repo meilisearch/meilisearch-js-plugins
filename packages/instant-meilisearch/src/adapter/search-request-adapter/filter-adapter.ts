@@ -47,7 +47,7 @@ const numericSplitRegExp = /(?<!(?:[<!>]?=|<|>|:).*)([<!>]?=|<|>|:)/
  * @returns {string}
  */
 function transformNumericFilter(filter: string): string {
-  // TODO: What if escape facet values is enabled?
+  // TODO: Warn users to not enable facet values escape for negative numbers.
   //       https://github.com/algolia/instantsearch/blob/da701529ed325bb7a1d782e80cb994711e20d94a/packages/instantsearch.js/src/lib/utils/escapeFacetValue.ts#L13-L21
   const [attribute, operator, value] = filter.split(numericSplitRegExp)
   const escapedAttribute = getValueWithEscapedBackslashesAndQuotes(attribute)
@@ -59,8 +59,6 @@ function transformNumericFilter(filter: string): string {
 /**
  * Iterate over all filters.
  * Return the filters in a Meilisearch compatible format.
- * Can return empty string or empty array, but not an array of empty strings
- * or empty arrays.
  *
  * @param  {(filter: string) => string} transformCallback
  * @param  {SearchContext['facetFilters']} filters
@@ -70,31 +68,13 @@ function transformFilters(
   transformCallback: (filter: string) => string,
   filters: NonNullable<SearchContext['facetFilters']>
 ): Filter {
-  // Note on `Array.isArray`:
-  // https://github.com/microsoft/TypeScript/issues/17002
-  // Typescript has problems with readonly, which makes it undesirable in
-  // most situations, the crux of the issue being that `Array.isArray`
-  // will return true for mutable arrays as well as immutable ones. Since Instantsearch.js
-  // decided to use readonly, we have to type cast, while keeping as much of the type
-  // safety as possible.
   return typeof filters === 'string'
     ? transformCallback(filters)
-    : filters
-        .map((filter) =>
-          (<(value: readonly any[] | any) => value is readonly any[]>(
-            Array.isArray
-          ))(filter)
-            ? filter
-                .map((nestedFilter) => transformCallback(nestedFilter))
-                // TODO: Do these filters have any purpose? Can we actually get empty strings? Should we handle empty strings?
-                //       Maybe handling these should be the responsibility of instantsearch.js and/or the user and their input.
-                //       Instead of these empty filters quietly being swallowed, they might even get us an error message, and
-                //       we might know something is wrong?
-                .filter((elem) => elem !== '')
-            : transformCallback(filter)
-        )
-        // works on strings too, as they're somewhat of an array
-        .filter((elem) => elem.length !== 0)
+    : filters.map((filter) =>
+        typeof filter === 'string'
+          ? transformCallback(filter)
+          : filter.map((nestedFilter) => transformCallback(nestedFilter))
+      )
 }
 
 /**
@@ -130,26 +110,24 @@ function mergeFilters(
   transformedNumericFilters?: Filter,
   transformedFacetFilters?: Filter
 ): Filter {
-  // TODO: If we are trimming this, shouldn't we trim the other ones too?
-  const adaptedFilters = filters?.trim()
   const adaptedNumericFilters = nonEmptyFilterToArray(transformedNumericFilters)
   const adaptedFacetFilters = nonEmptyFilterToArray(transformedFacetFilters)
 
-  const adaptedFilter: Filter = []
+  const adaptedFilters: Filter = []
 
-  if (adaptedFilters !== undefined && adaptedFilters !== '') {
-    adaptedFilter.push(adaptedFilters)
+  if (filters !== undefined) {
+    adaptedFilters.push(filters)
   }
 
   if (adaptedNumericFilters !== undefined) {
-    adaptedFilter.push(...adaptedNumericFilters)
+    adaptedFilters.push(...adaptedNumericFilters)
   }
 
   if (adaptedFacetFilters !== undefined) {
-    adaptedFilter.push(...adaptedFacetFilters)
+    adaptedFilters.push(...adaptedFacetFilters)
   }
 
-  return adaptedFilter
+  return adaptedFilters
 }
 
 /**

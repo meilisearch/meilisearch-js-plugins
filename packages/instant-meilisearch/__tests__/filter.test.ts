@@ -14,8 +14,8 @@ describe('Instant Meilisearch Browser test', () => {
       .updateFilterableAttributes([
         'genres',
         'title',
-        'release_date',
-        'escape_\\_"me"',
+        'numberField',
+        'crazy_\\_"field"',
       ])
     const documentsTask = await meilisearchClient
       .index('movies')
@@ -149,21 +149,90 @@ describe('Instant Meilisearch Browser test', () => {
   })
 
   test('numeric filter', async () => {
-    const params = {
-      indexName: 'movies',
-      params: {
-        query: '',
-        numericFilters: 'release_date:593395200 TO 818467200',
-      },
+    const expectArrayEquivalence = <T>(actual: T[], expected: T[]) => {
+      expect(actual).toEqual(expect.arrayContaining(expected))
+      expect(expected).toEqual(expect.arrayContaining(actual))
     }
 
-    const response = await searchClient.search<Movies>([params])
-
-    const hits = response.results[0].hits
-    expect(hits.length).toEqual(3)
-    expect(hits.map((v) => v.release_date).sort()).toEqual([
-      593395200, 750643200, 818467200,
+    const response1 = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          numericFilters: 'numberField:5 TO 15',
+        },
+      },
     ])
+    expectArrayEquivalence(
+      response1.results.flatMap((result) =>
+        result.hits.map((hit) => hit.numberField)
+      ),
+      [5, 10, 15]
+    )
+
+    const response2 = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          numericFilters: ['numberField > 5', 'numberField < 15'],
+        },
+      },
+    ])
+    expectArrayEquivalence(
+      response2.results.flatMap((result) =>
+        result.hits.map((hit) => hit.numberField)
+      ),
+      [10]
+    )
+
+    const response3 = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          numericFilters: ['numberField >= 5', 'numberField <= 15'],
+        },
+      },
+    ])
+    expectArrayEquivalence(
+      response3.results.flatMap((result) =>
+        result.hits.map((hit) => hit.numberField)
+      ),
+      [5, 10, 15]
+    )
+
+    const response4 = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          numericFilters: 'numberField = 5',
+        },
+      },
+    ])
+    expectArrayEquivalence(
+      response4.results.flatMap((result) =>
+        result.hits.map((hit) => hit.numberField)
+      ),
+      [5]
+    )
+
+    const response5 = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: {
+          query: '',
+          numericFilters: 'numberField != 5',
+        },
+      },
+    ])
+    expectArrayEquivalence(
+      response5.results.flatMap((result) =>
+        result.hits.map((hit) => hit.numberField).filter((v) => v !== undefined)
+      ),
+      [10, 15]
+    )
   })
 
   test('quotation marks and backslashes', () => {
@@ -171,7 +240,7 @@ describe('Instant Meilisearch Browser test', () => {
       indexName: 'movies',
       params: {
         query: '',
-        facetFilters: 'escape_\\_"me":escape \\"me too"',
+        facetFilters: 'crazy_\\_"field":real \\"crazy"',
       },
     }
 
