@@ -84,16 +84,8 @@ function transformFilters(
  * @param  {Filter} [filter]
  * @returns {Array|undefined}
  */
-function nonEmptyFilterToArray(
-  filter?: Filter
-): Array<string | string[]> | undefined {
-  return filter !== undefined && filter.length !== 0
-    ? // Filter is a string
-      typeof filter === 'string'
-      ? [filter]
-      : // Filter is either a one- or two-dimensional array of strings
-        filter
-    : undefined
+function filterToArray(filter?: Filter): Array<string | string[]> | undefined {
+  return typeof filter === 'string' ? [filter] : filter
 }
 
 /**
@@ -110,8 +102,8 @@ function mergeFilters(
   transformedNumericFilters?: Filter,
   transformedFacetFilters?: Filter
 ): Filter {
-  const adaptedNumericFilters = nonEmptyFilterToArray(transformedNumericFilters)
-  const adaptedFacetFilters = nonEmptyFilterToArray(transformedFacetFilters)
+  const adaptedNumericFilters = filterToArray(transformedNumericFilters)
+  const adaptedFacetFilters = filterToArray(transformedFacetFilters)
 
   const adaptedFilters: Filter = []
 
