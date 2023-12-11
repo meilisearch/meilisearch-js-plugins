@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/autocomplete-client",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": false,
   "description": "The search client to use Meilisearch with autocomplete.js.",
   "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/autocomplete-client",
