@@ -46,7 +46,7 @@ describe('Cached search tests', () => {
         query: '',
       },
     }
-    const searchClient = instantMeiliSearch('http://localhost:7700')
+    const { searchClient } = instantMeiliSearch('http://localhost:7700')
     await searchClient.search<Movies>([searchParameters])
     await searchClient.search<Movies>([searchParameters])
 
@@ -72,7 +72,7 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const searchClient = instantMeiliSearch('http://localhost:7700')
+    const { searchClient } = instantMeiliSearch('http://localhost:7700')
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
 
@@ -98,7 +98,7 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const searchClient = instantMeiliSearch('http://localhost:7700')
+    const { searchClient } = instantMeiliSearch('http://localhost:7700')
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
@@ -125,7 +125,7 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const searchClient = instantMeiliSearch('http://localhost:7700')
+    const { searchClient } = instantMeiliSearch('http://localhost:7700')
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
@@ -161,7 +161,7 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const searchClient = instantMeiliSearch('http://localhost:7700')
+    const { searchClient } = instantMeiliSearch('http://localhost:7700')
     await searchClient.search<Movies>(searchParameters1)
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>(searchParameters1)

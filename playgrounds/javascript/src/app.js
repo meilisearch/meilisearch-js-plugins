@@ -8,7 +8,7 @@ const search = instantsearch({
     {
       finitePagination: true,
     }
-  ),
+  ).searchClient,
 })
 
 search.addWidgets([

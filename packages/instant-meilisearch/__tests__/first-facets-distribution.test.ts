@@ -20,7 +20,7 @@ describe('Default facet distribution', () => {
   // With placeholderSearch
   // With empty query
   test('creation of facet distribution without facets', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY)
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY)
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -38,7 +38,7 @@ describe('Default facet distribution', () => {
   // With placeholderSearch
   // With empty query
   test('creation of facet distribution without facets and with keepZeroFacets to true', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
     })
     const response = await searchClient.search([
@@ -58,7 +58,7 @@ describe('Default facet distribution', () => {
   // without placeholderSearch
   // With multiple searchs
   test('creation of facet distribution with facets, with keepZeroFacets to false and placeholdersearch to false', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: false,
       placeholderSearch: false, // only test false since `true` is default value
     })
@@ -102,7 +102,7 @@ describe('Default facet distribution', () => {
   })
 
   test('creation of facet distribution when using indexes with sort-by', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY)
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY)
     const releaseDateDistribution = {
       release_date: {
         '1065744000': 1,
@@ -143,7 +143,7 @@ describe('Default facet distribution', () => {
   })
 
   test('creation of facet distribution when using indexes with sort-by and keepZeroFacets', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
     })
     const releaseDateDistribution = {
@@ -186,7 +186,7 @@ describe('Default facet distribution', () => {
   })
 
   test('creation of facet distribution when using indexes with sort-by and no placeholdersearch', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       placeholderSearch: false,
     })
     const releaseDateDistribution = {
@@ -233,7 +233,7 @@ describe('Default facet distribution', () => {
   // with placeholderSearch
   // With empty query
   test('creation of facet distribution with facets', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY)
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY)
     const response = await searchClient.search([
       {
         indexName: 'movies',
@@ -277,7 +277,7 @@ describe('Default facet distribution', () => {
   // with placeholderSearch
   // With multiple search (empty and no results expected)
   test('Ensure cached facetDistribution works between two searches when keepZeroFacets is true', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
     })
     const response = await searchClient.search([
@@ -331,7 +331,7 @@ describe('Default facet distribution', () => {
   // without placeholderSearch
   // With multiple search (empty and no results expected)
   test('ensure cached facetDistribution works between two calls when placeholderSearch is false', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
       placeholderSearch: false,
     })
@@ -389,7 +389,7 @@ describe('Default facet distribution', () => {
   // Without multiple search
   // Without query expecting no results
   test('creation of facet distribution with facets, keepZeroFacets to true, and query', async () => {
-    const searchClient = instantMeiliSearch(HOST, API_KEY, {
+    const { searchClient } = instantMeiliSearch(HOST, API_KEY, {
       keepZeroFacets: true,
     })
     const response = await searchClient.search([

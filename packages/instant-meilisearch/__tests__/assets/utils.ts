@@ -228,8 +228,11 @@ export type Movies = {
   _highlightResult?: Movies
 }
 
-const searchClient = instantMeiliSearch('http://localhost:7700', 'masterKey')
-const wrongSearchClient = instantMeiliSearch(
+const { searchClient } = instantMeiliSearch(
+  'http://localhost:7700',
+  'masterKey'
+)
+const { searchClient: wrongSearchClient } = instantMeiliSearch(
   'http://localhost:7777',
   'masterKey'
 )

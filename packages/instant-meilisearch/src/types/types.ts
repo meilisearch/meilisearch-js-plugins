@@ -9,6 +9,9 @@ import type {
   Config as MeilisearchConfig,
 } from 'meilisearch'
 
+// Turns readonly types into mutable ones
+export type Mutable<TVal> = { -readonly [TKey in keyof TVal]: TVal[TKey] }
+
 export type { AlgoliaMultipleQueriesQuery, MultiSearchResult }
 export type {
   SearchResponse as AlgoliaSearchResponse,
@@ -31,33 +34,49 @@ export type {
   Config as MeilisearchConfig,
 } from 'meilisearch'
 
-export type InstantSearchParams = AlgoliaMultipleQueriesQuery['params']
+export type ApiKeyCallback = () => string
 
-export const enum MatchingStrategies {
-  ALL = 'all',
-  LAST = 'last',
+export type InstantSearchParams = NonNullable<
+  AlgoliaMultipleQueriesQuery['params']
+>
+
+export type OverridableMeiliSearchSearchParameters = Pick<
+  MeiliSearchMultiSearchParams,
+  | 'attributesToRetrieve'
+  | 'attributesToCrop'
+  | 'cropLength'
+  | 'cropMarker'
+  | 'attributesToHighlight'
+  | 'highlightPreTag'
+  | 'highlightPostTag'
+  | 'showMatchesPosition'
+  | 'matchingStrategy'
+  | 'showRankingScore'
+  | 'attributesToSearchOn'
+>
+
+type BaseInstantMeiliSearchOptions = {
+  placeholderSearch?: boolean
+  primaryKey?: string
+  keepZeroFacets?: boolean
+  clientAgents?: string[]
+  finitePagination?: boolean
+  meiliSearchParams?: OverridableMeiliSearchSearchParameters
 }
 
 export type InstantMeiliSearchOptions = Pick<
   MeilisearchConfig,
   'requestConfig' | 'httpClient'
-> & {
-  placeholderSearch?: boolean
-  primaryKey?: string
-  keepZeroFacets?: boolean
-  clientAgents?: string[]
-  matchingStrategy?: MatchingStrategies
-  finitePagination?: boolean
-}
+> &
+  BaseInstantMeiliSearchOptions
 
-export type InstantMeiliSearchConfig = {
-  placeholderSearch: boolean
-  keepZeroFacets: boolean
-  clientAgents: string[]
-  finitePagination: boolean
-  primaryKey?: string
-  matchingStrategy?: MatchingStrategies
-}
+export type InstantMeiliSearchConfig = Required<
+  Pick<
+    InstantMeiliSearchOptions,
+    'placeholderSearch' | 'keepZeroFacets' | 'clientAgents' | 'finitePagination'
+  >
+> &
+  BaseInstantMeiliSearchOptions
 
 export type SearchCacheInterface = {
   getEntry: <T>(key: string) => T | undefined
@@ -86,17 +105,11 @@ export type MeilisearchMultiSearchResult<T = Record<string, any>> =
     pagination: PaginationState
   }
 
-export type SearchContext = Omit<InstantSearchParams, 'insideBoundingBox'> &
+export type SearchContext = InstantMeiliSearchOptions &
   InstantSearchParams & {
     pagination: PaginationState
     indexUid: string
-    placeholderSearch: boolean
-    keepZeroFacets: boolean
-    insideBoundingBox?: InsideBoundingBox
-    cropMarker?: string
     sort?: string | string[]
-    primaryKey?: string
-    matchingStrategy?: MatchingStrategies
   }
 
 export type InstantSearchGeoParams = {
@@ -111,6 +124,11 @@ export type InstantSearchGeoParams = {
 
 export type InstantMeiliSearchInstance = SearchClient & {
   clearCache: () => void
+}
+
+export type InstantMeiliSearchObject = {
+  setMeiliSearchParams: (params: OverridableMeiliSearchSearchParameters) => void
+  searchClient: InstantMeiliSearchInstance
 }
 
 export type MultiSearchResolver = {

@@ -80,11 +80,13 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 ```js
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeiliSearch(
+const { searchClient, setMeiliSearchParams } = instantMeiliSearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io', // Host
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303' // API key
 )
 ```
+
+where `searchClient` is to be passed to instantsearch.js or its many framework adaptations, and [`setMeiliSearchParams`](#modify-meilisearch-search-parameters) is a function used to set/modify certain Meilisearch search parameters to be overridden.
 
 ### Parameters
 
@@ -96,19 +98,19 @@ const searchClient = instantMeiliSearch(
 `instant-meilisearch` offers some options you can set to further fit your needs.
 
 - [`placeholderSearch`](#placeholder-search): Enable or disable placeholder search (default: `true`).
-- [`finitePagination`](#finite-pagination): Enable finite pagination when using the the [`pagination`](#-pagination) widget (default: `false`) .
+- [`finitePagination`](#finite-pagination): Enable finite pagination when using the [`pagination`](#-pagination) widget (default: `false`) .
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
-- [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
 - [`requestConfig`](#request-config): Use custom request configurations.
-- ['httpClient'](#custom-http-client): Use a custom HTTP client.
+- [`httpClient`](#custom-http-client): Use a custom HTTP client.
+- [`meiliSearchParams`](#meilisearch-search-parameters): Override a selection of Meilisearch search parameters (default `undefined`).
 
 The options are added as the third parameter of the `instantMeilisearch` function.
 
 ```js
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
-const searchClient = instantMeiliSearch(
+const { searchClient } = instantMeiliSearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
   {
@@ -172,20 +174,6 @@ genres:
 { keepZeroFacets : true } // default: false
 ```
 
-### Matching strategy
-
-`matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words, see [documentation](https://www.meilisearch.com/docs/reference/api/search#matching-strategy).
-
-For example, if your query is `hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
-The other strategy is `all`, where both `hello` and `world` **must** be present in a document for it to be returned.
-
-
-```js
-{
-  matchingStrategy: 'all' // default last
-}
-```
-
 ### Request Config
 
 You can provide a custom request configuration. Available field can be [found here](https://fetch.spec.whatwg.org/#requestinit).
@@ -221,6 +209,66 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 }
 ```
 
+### Meilisearch search parameters
+
+`meiliSearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
+The following options can be overridden:
+[`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search#attributes-to-retrieve),
+[`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search#attributes-to-crop),
+[`cropLength`](https://www.meilisearch.com/docs/reference/api/search#crop-length),
+[`cropMarker`](https://www.meilisearch.com/docs/reference/api/search#crop-marker),
+[`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search#attributes-to-highlight),
+[`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search#highlight-tags),
+[`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search#show-matches-position),
+[`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search#matching-strategy),
+[`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search#ranking-score),
+[`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search#customize-attributes-to-search-on-at-search-time).
+
+```js
+instantMeiliSearch(
+  // ...
+  {
+    meiliSearchParams: {
+      attributesToHighlight: ['overview'],
+      highlightPreTag: '<em>',
+      highlightPostTag: '</em>',
+      attributesToSearchOn: ['overview'],
+    },
+  }
+)
+```
+
+### Modify Meilisearch search parameters
+
+`instantMeiliSearch` returns an instance with two properties on it, one of them being `setMeiliSearchParams`.
+
+```js
+const { searchClient, setMeiliSearchParams } = instantMeiliSearch(/*...*/)
+```
+
+It modifies (or sets if not already set) the [overridden Meilisearch search parameters](#meilisearch-search-parameters).
+It only modifies parameters that are defined on the provided object, the following will not change `attributesToHighlight`.
+
+```js
+const { setMeiliSearchParams } = instantMeiliSearch(
+  // ...
+  {
+    meiliSearchParams: {
+      attributesToHighlight: ['overview'],
+      highlightPreTag: '<em>',
+      highlightPostTag: '</em>',
+      attributesToSearchOn: ['overview'],
+    },
+  }
+)
+
+setMeiliSearchParams({
+  highlightPreTag: '<mark>',
+  highlightPostTag: '</mark>',
+  attributesToSearchOn: ['overview', 'title'],
+})
+```
+
 ## 🪡 Example with InstantSearch
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
@@ -252,12 +300,14 @@ In `index.html`:
 In `app.js`:
 
 ```js
+const { searchClient } = instantMeiliSearch(
+  'https://ms-adf78ae33284-106.lon.meilisearch.io',
+  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
+)
+
 const search = instantsearch({
   indexName: 'steam-video-games',
-  searchClient: instantMeiliSearch(
-    'https://ms-adf78ae33284-106.lon.meilisearch.io',
-    'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
-  ),
+  searchClient,
 })
 
 search.addWidgets([
@@ -381,7 +431,7 @@ const search = instantsearch({
     {
       // ... InstantMeiliSearch options
     }
-  ),
+  ).searchClient,
   // ... InstantSearch options
   routing: true // for example
 })

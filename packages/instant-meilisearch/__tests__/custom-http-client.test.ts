@@ -18,7 +18,7 @@ describe('Custom HTTP client tests', () => {
       return await result.json()
     })
 
-    const searchClient = instantMeiliSearch(
+    const { searchClient } = instantMeiliSearch(
       'http://localhost:7700',
       'masterKey',
       {
