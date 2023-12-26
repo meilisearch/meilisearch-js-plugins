@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "1.0.0",
+  "version": "0.14.0",
   "private": false,
   "description": "The search client to use Meilisearch with InstantSearch.",
   "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/instant-meilisearch",
