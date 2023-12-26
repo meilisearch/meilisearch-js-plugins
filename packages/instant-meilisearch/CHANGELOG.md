@@ -4,49 +4,47 @@
 
 ### Minor Changes
 
-- ed8b6a3: ### Major Changes
+- 5b6be19 & ed8b6a3: Added ability to override a selection of Meilisearch search parameters.
 
-  - 5b6be19: Added ability to override a selection of Meilisearch search parameters.
+  ⚠️ The returned value of the core `instantMeiliSearch` function has changed!
 
-    ⚠️ The returned value of the core `instantMeiliSearch` function has changed!
+  This change was necessary for the aforementioned ability to be implemented and
+  applied in a clean manner.
+  The necessary migration should be of minimal impact.
 
-    This change was necessary for the aforementioned ability to be implemented and
-    applied in a clean manner.
-    The necessary migration should be of minimal impact.
+  ### Migration
 
-    ### Migration
+  Change the following
 
-    Change the following
+  ```js
+  // 1.
+  const client = instantMeiliSearch(/*...*/);
+  // 2.
+  const searchClient = instantMeiliSearch(/*...*/);
+  // 3.
+  instantsearch({
+    indexName: "movies",
+    searchClient: instantMeiliSearch(/*...*/),
+  });
+  ```
 
-    ```js
-    // 1.
-    const client = instantMeiliSearch(/*...*/);
-    // 2.
-    const searchClient = instantMeiliSearch(/*...*/);
-    // 3.
-    instantsearch({
-      indexName: "movies",
-      searchClient: instantMeiliSearch(/*...*/),
-    });
-    ```
+  to the following
 
-    to the following
+  ```js
+  // 1.
+  const { searchClient: client } = instantMeiliSearch(/*...*/);
+  // 2.
+  const { searchClient } = instantMeiliSearch(/*...*/);
+  // 3.
+  instantsearch({
+    indexName: "movies",
+    searchClient: instantMeiliSearch(/*...*/).searchClient,
+  });
+  ```
 
-    ```js
-    // 1.
-    const { searchClient: client } = instantMeiliSearch(/*...*/);
-    // 2.
-    const { searchClient } = instantMeiliSearch(/*...*/);
-    // 3.
-    instantsearch({
-      indexName: "movies",
-      searchClient: instantMeiliSearch(/*...*/).searchClient,
-    });
-    ```
+### Patch Changes
 
-  ### Patch Changes
-
-  - 06377ef: Fixes issue where backslashes ("\") and quotes (`"`) are not escaped in filters.
+- 06377ef: Fixes issue where backslashes ("\") and quotes (`"`) are not escaped in filters.
 
 ## [DEPRECATED] 1.0.0
 
