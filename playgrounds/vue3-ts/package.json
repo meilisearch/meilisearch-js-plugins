@@ -12,7 +12,7 @@
     "test:types": "yarn tsc"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.14.0",
+    "@meilisearch/instant-meilisearch": "0.13.6",
     "vue": "^3.2.45",
     "vue-instantsearch": "^4.10.8"
   },
