@@ -44,19 +44,22 @@ function transformFacetFilter(filter: string): string {
  * @returns {string}
  */
 function transformNumericFilter(filter: string): string {
-  const splitNumericFilter = ():[string, string, string] => {
-    const attributeMatch = filter.match(/^([^<!>:=]*)([<!>:=]+)(.*)$/);
+  const splitNumericFilter = (): [string, string, string] => {
+    const attributeMatch = filter.match(/^([^<!>:=]*)([<!>:=]+)(.*)$/)
 
     if (attributeMatch) {
-      const [attribute, dirtyOperator, valueEnd] = attributeMatch.slice(1);
-      const operatorMatch = dirtyOperator.match(/^([<!>]?=|<|>|:){1}(.*)/) || ["",""]
-      const [operator, valueStart] = operatorMatch.slice(1);
-      const cleanedValue = valueStart + valueEnd;
+      const [attribute, dirtyOperator, valueEnd] = attributeMatch.slice(1)
+      const operatorMatch = dirtyOperator.match(/^([<!>]?=|<|>|:){1}(.*)/) || [
+        '',
+        '',
+      ]
+      const [operator, valueStart] = operatorMatch.slice(1)
+      const cleanedValue = valueStart + valueEnd
 
-      return [attribute, operator, cleanedValue];
+      return [attribute, operator, cleanedValue]
     }
 
-    return [filter, "", ""];
+    return [filter, '', '']
   }
 
   const [attribute, operator, value] = splitNumericFilter()
