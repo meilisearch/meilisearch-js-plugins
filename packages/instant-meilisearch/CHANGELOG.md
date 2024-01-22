@@ -1,5 +1,12 @@
 # @meilisearch/instant-meilisearch
 
+## 0.15.0
+
+### Minor Changes
+
+- 72726ac: Update meilisearch-js version
+- 36b5a62: Fixed RegExp in filter-adapter.ts and sort-context.ts to work in Safari
+
 ## 0.14.0
 
 ### Minor Changes
