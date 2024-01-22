@@ -29,9 +29,6 @@ function transformFacetFilter(filter: string): string {
   return `"${attribute}"="${value}"`
 }
 
-// Matches first occurrence of an operator
-const numericSplitRegExp = /(?<!(?:[<!>]?=|<|>|:).*)([<!>]?=|<|>|:)/
-
 /**
  * Transform InstantSearch [numeric filter](https://www.algolia.com/doc/api-reference/api-parameters/numericFilters/)
  * to Meilisearch compatible filter format.
@@ -47,9 +44,25 @@ const numericSplitRegExp = /(?<!(?:[<!>]?=|<|>|:).*)([<!>]?=|<|>|:)/
  * @returns {string}
  */
 function transformNumericFilter(filter: string): string {
-  // TODO: Warn users to not enable facet values escape for negative numbers.
-  //       https://github.com/algolia/instantsearch/blob/da701529ed325bb7a1d782e80cb994711e20d94a/packages/instantsearch.js/src/lib/utils/escapeFacetValue.ts#L13-L21
-  const [attribute, operator, value] = filter.split(numericSplitRegExp)
+  const splitNumericFilter = (): [string, string, string] => {
+    const attributeMatch = filter.match(/^([^<!>:=]*)([<!>:=]+)(.*)$/)
+
+    if (attributeMatch) {
+      const [attribute, dirtyOperator, valueEnd] = attributeMatch.slice(1)
+      const operatorMatch = dirtyOperator.match(/^([<!>]?=|<|>|:){1}(.*)/) || [
+        '',
+        '',
+      ]
+      const [operator, valueStart] = operatorMatch.slice(1)
+      const cleanedValue = valueStart + valueEnd
+
+      return [attribute, operator, cleanedValue]
+    }
+
+    return [filter, '', '']
+  }
+
+  const [attribute, operator, value] = splitNumericFilter()
   const escapedAttribute = getValueWithEscapedBackslashesAndQuotes(attribute)
   return `"${escapedAttribute.trim()}"${
     operator === ':' ? ' ' : operator

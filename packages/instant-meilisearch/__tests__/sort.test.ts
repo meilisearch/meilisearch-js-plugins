@@ -63,6 +63,18 @@ describe('Sort browser test', () => {
     ])
   })
 
+  test('split multiple sorting rules in different order', () => {
+    const sortRules = splitSortString(
+      'title:asc,_geoPoint(37.8153, -122.4784):asc,description:desc'
+    )
+
+    expect(sortRules).toEqual([
+      'title:asc',
+      '_geoPoint(37.8153, -122.4784):asc',
+      'description:desc',
+    ])
+  })
+
   test('split one sorting rule', () => {
     const sortRules = splitSortString('_geoPoint(37.8153, -122.4784):asc')
 
