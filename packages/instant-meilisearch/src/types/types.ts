@@ -53,6 +53,7 @@ export type OverridableMeiliSearchSearchParameters = Pick<
   | 'matchingStrategy'
   | 'showRankingScore'
   | 'attributesToSearchOn'
+  | 'hybrid'
 >
 
 type BaseInstantMeiliSearchOptions = {

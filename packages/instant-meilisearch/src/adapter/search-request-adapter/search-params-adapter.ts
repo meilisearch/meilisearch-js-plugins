@@ -232,6 +232,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.attributesToSearchOn = value
       }
     },
+    addHybridSearch() {
+      const value = overrideParams?.hybrid
+      if (value !== undefined) {
+        meiliSearchParams.hybrid = value
+      }
+    },
   }
 }
 
@@ -263,6 +269,7 @@ export function adaptSearchParams(
   meilisearchParams.addMatchingStrategy()
   meilisearchParams.addShowRankingScore()
   meilisearchParams.addAttributesToSearchOn()
+  meilisearchParams.addHybridSearch()
 
   return meilisearchParams.getParams()
 }
