@@ -79,9 +79,11 @@ export function instantMeiliSearch(
   const instantMeilisearchConfig = getInstantMeilisearchConfig(
     instantMeiliSearchOptions
   )
+
   return {
     setMeiliSearchParams: (params): void => {
       const { meiliSearchParams } = instantMeiliSearchOptions
+
       instantMeiliSearchOptions.meiliSearchParams =
         meiliSearchParams === undefined
           ? params

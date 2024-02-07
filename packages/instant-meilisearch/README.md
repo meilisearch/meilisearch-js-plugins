@@ -222,7 +222,8 @@ The following options can be overridden:
 [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search#show-matches-position),
 [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search#matching-strategy),
 [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search#ranking-score),
-[`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search#customize-attributes-to-search-on-at-search-time).
+[`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search#customize-attributes-to-search-on-at-search-time),
+[`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
 
 ```js
 instantMeiliSearch(
