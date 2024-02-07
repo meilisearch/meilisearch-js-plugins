@@ -78,6 +78,22 @@ describe('Parameters adapter', () => {
       meiliSearchParams.matchingStrategy
     )
   })
+
+  test('hybrid can be overriden in the search parameters', () => {
+    const hybridSearchConfig = {
+      semanticRatio: 0,
+      embedder: 'default',
+    }
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        hybrid: hybridSearchConfig,
+      },
+    })
+
+    expect(searchParams.hybrid).toBe(hybridSearchConfig)
+  })
 })
 
 describe('Geo filter adapter', () => {
