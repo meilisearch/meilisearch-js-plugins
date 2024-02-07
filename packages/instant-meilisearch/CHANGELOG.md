@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.16.0
+
+### Minor Changes
+
+- b1343c1: Enable experimental hybrid search
+
 ## 0.15.0
 
 ### Minor Changes

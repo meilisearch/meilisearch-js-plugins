@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~15.1.0",
     "@angular/platform-browser-dynamic": "~15.1.0",
     "@angular/router": "~15.1.0",
-    "@meilisearch/instant-meilisearch": "0.15.0",
+    "@meilisearch/instant-meilisearch": "0.16.0",
     "algoliasearch": "^4.17.2",
     "angular-instantsearch": "^4.4.1",
     "instantsearch.js": "^4.56.2",
