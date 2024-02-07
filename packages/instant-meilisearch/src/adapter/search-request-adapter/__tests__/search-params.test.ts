@@ -79,7 +79,7 @@ describe('Parameters adapter', () => {
     )
   })
 
-  test('hybrid can be overriden in the search parameters', () => {
+  test('hybrid search configuration can be set via search parameters', () => {
     const hybridSearchConfig = {
       semanticRatio: 0,
       embedder: 'default',
