@@ -1,5 +1,11 @@
 # @meilisearch/autocomplete-client
 
+## 0.3.0
+
+### Minor Changes
+
+- 00f30c9: Remove node 14 and 16 from workflow
+
 ## 0.2.2
 
 ### Patch Changes
