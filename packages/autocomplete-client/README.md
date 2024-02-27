@@ -255,7 +255,7 @@ This package guarantees compatibility with [version v1.x of Meilisearch](https:/
 
 **Node / NPM versions**:
 
-- NodeJS >= 14 <= 18
+- NodeJS >= 18
 
 ## ⚙️ Development Workflow and Contributing
 

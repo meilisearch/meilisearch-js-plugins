@@ -16,7 +16,13 @@
  */
 export function splitSortString(sortStr: string): string[] {
   if (!sortStr) return []
-  const sortRules = sortStr.split(/,(?=\w+:(?:asc|desc))/)
+  const regex = /[^:]+:(?:asc|desc)/g
+  const sortRules: string[] = []
 
-  return sortRules
+  let match
+  while ((match = regex.exec(sortStr)) !== null) {
+    sortRules.push(match[0])
+  }
+
+  return sortRules.map((str) => str.replace(/^,+|,+$/, ''))
 }

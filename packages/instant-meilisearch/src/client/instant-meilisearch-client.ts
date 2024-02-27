@@ -84,6 +84,7 @@ export function instantMeiliSearch(
     meiliSearchInstance: meilisearchClient,
     setMeiliSearchParams: (params): void => {
       const { meiliSearchParams } = instantMeiliSearchOptions
+
       instantMeiliSearchOptions.meiliSearchParams =
         meiliSearchParams === undefined
           ? params
