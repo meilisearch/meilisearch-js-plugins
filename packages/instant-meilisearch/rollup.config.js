@@ -1,6 +1,6 @@
+import { resolve } from 'node:path'
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
-import { resolve } from 'path'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
@@ -14,7 +14,8 @@ const env = process.env.NODE_ENV || 'development'
 const ROOT = resolve(__dirname, '.')
 const INPUT = 'src/index.ts'
 
-const PLUGINS = [
+/** @type {import('rollup').Plugin[]} */
+const COMMON_PLUGINS = [
   typescript({
     useTsconfigDeclarationDir: true,
     tsconfigOverride: {
@@ -31,7 +32,9 @@ const PLUGINS = [
     },
   }),
 ]
-module.exports = [
+
+/** @type {import('rollup').RollupOptions[]} */
+const ROLLUP_OPTIONS = [
   // browser-friendly IIFE build
   {
     input: INPUT, // directory to transpilation of typescript
@@ -51,7 +54,7 @@ module.exports = [
       },
     },
     plugins: [
-      ...PLUGINS,
+      ...COMMON_PLUGINS,
       nodeResolve({
         mainFields: ['jsnext', 'browser', 'main'],
         preferBuiltins: true,
@@ -89,7 +92,9 @@ module.exports = [
     ],
     plugins: [
       env === 'production' ? terser() : {}, // will minify the file in production mode
-      ...PLUGINS,
+      ...COMMON_PLUGINS,
     ],
   },
 ]
+
+module.exports = ROLLUP_OPTIONS

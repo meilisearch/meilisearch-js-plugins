@@ -7,6 +7,7 @@ import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,
   Config as MeilisearchConfig,
+  MeiliSearch,
 } from 'meilisearch'
 
 // Turns readonly types into mutable ones
@@ -128,6 +129,7 @@ export type InstantMeiliSearchInstance = SearchClient & {
 }
 
 export type InstantMeiliSearchObject = {
+  meiliSearchInstance: MeiliSearch
   setMeiliSearchParams: (params: OverridableMeiliSearchSearchParameters) => void
   searchClient: InstantMeiliSearchInstance
 }

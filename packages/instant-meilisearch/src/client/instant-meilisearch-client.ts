@@ -81,6 +81,7 @@ export function instantMeiliSearch(
   )
 
   return {
+    meiliSearchInstance: meilisearchClient,
     setMeiliSearchParams: (params): void => {
       const { meiliSearchParams } = instantMeiliSearchOptions
 
