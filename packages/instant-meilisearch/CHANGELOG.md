@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.18.0
+
+### Minor Changes
+
+- 12b2fe8: Update minimum meilisearch version to v0.39.0
+
 ## 0.17.0
 
 ### Minor Changes
