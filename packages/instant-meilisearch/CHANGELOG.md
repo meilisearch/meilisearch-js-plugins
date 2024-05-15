@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.18.1
+
+### Patch Changes
+
+- ac74ef7: Update meilisearch-js dependency to v0.40 (ignore previous version v0.39)
+
 ## 0.18.0
 
 ### Minor Changes
