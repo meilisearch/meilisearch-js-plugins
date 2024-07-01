@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.19.0
+
+### Minor Changes
+
+- 7c4ecf6: Update meilisearch dependency version to v0.41.0
+
 ## 0.18.1
 
 ### Patch Changes
