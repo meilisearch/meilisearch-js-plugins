@@ -42,6 +42,10 @@ export function adaptHits(
         adaptFormattedFields(formattedHit)
       )
 
+      if (config?.meiliSearchParams?.showMatchesPosition) {
+        adaptedHit._matchesPosition = _matchesPosition
+      }
+
       if (primaryKey) {
         adaptedHit.objectID = hit[primaryKey]
       }
