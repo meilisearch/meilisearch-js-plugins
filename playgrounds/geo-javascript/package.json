@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
-    "@meilisearch/instant-meilisearch": "0.19.0",
+    "@meilisearch/instant-meilisearch": "0.19.1",
     "eslint-config-meilisearch": "*"
   },
   "browserslist": [
