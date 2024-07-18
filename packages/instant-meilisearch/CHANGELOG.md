@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.19.1
+
+### Patch Changes
+
+- 114aece: Fix \_matchesPosition not being included in hits
+
 ## 0.19.0
 
 ### Minor Changes
