@@ -55,6 +55,7 @@ export type OverridableMeiliSearchSearchParameters = Pick<
   | 'showRankingScore'
   | 'attributesToSearchOn'
   | 'hybrid'
+  | 'distinct'
 >
 
 type BaseInstantMeiliSearchOptions = {
@@ -104,15 +105,15 @@ export type InstantSearchPagination = {
 
 export type MeilisearchMultiSearchResult<T = Record<string, any>> =
   MultiSearchResult<T> & {
-    pagination: PaginationState
-  }
+  pagination: PaginationState
+}
 
 export type SearchContext = InstantMeiliSearchOptions &
   InstantSearchParams & {
-    pagination: PaginationState
-    indexUid: string
-    sort?: string | string[]
-  }
+  pagination: PaginationState
+  indexUid: string
+  sort?: string | string[]
+}
 
 export type InstantSearchGeoParams = {
   aroundLatLng?: string

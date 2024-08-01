@@ -139,7 +139,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     addAttributesToHighlight() {
       meiliSearchParams.attributesToHighlight =
         overrideParams?.attributesToHighlight ??
-          <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
+        <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
     },
     addPreTag() {
       meiliSearchParams.highlightPreTag =
@@ -226,8 +226,8 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.attributesToSearchOn !== undefined
           ? overrideParams.attributesToSearchOn
           : <Mutable<typeof restrictSearchableAttributes>>(
-              restrictSearchableAttributes
-            )
+            restrictSearchableAttributes
+          )
       if (value !== undefined) {
         meiliSearchParams.attributesToSearchOn = value
       }
@@ -236,6 +236,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       const value = overrideParams?.hybrid
       if (value !== undefined) {
         meiliSearchParams.hybrid = value
+      }
+    },
+    addDistinct() {
+      const value = overrideParams?.distinct
+      if (value !== undefined) {
+        meiliSearchParams.distinct = value
       }
     },
   }
@@ -270,6 +276,7 @@ export function adaptSearchParams(
   meilisearchParams.addShowRankingScore()
   meilisearchParams.addAttributesToSearchOn()
   meilisearchParams.addHybridSearch()
+  meilisearchParams.addDistinct()
 
   return meilisearchParams.getParams()
 }

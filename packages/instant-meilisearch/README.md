@@ -160,15 +160,15 @@ Nonetheless you might want to still showcase them even if they have 0 matched do
 
 Without `keepZeroFacets` set to `true`:
 genres:
-  - [x] horror (2000)
-  - [x] thriller (214)
-  - [ ] comedy (0)
+- [x] horror (2000)
+- [x] thriller (214)
+- [ ] comedy (0)
 
 With `keepZeroFacets` set to `false`, `comedy` disapears:
 
 genres:
-  - [x] horror (2000)
-  - [x] thriller (214)
+- [x] horror (2000)
+- [x] thriller (214)
 
 ```js
 { keepZeroFacets : true } // default: false
@@ -224,6 +224,7 @@ The following options can be overridden:
 [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search#ranking-score),
 [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search#customize-attributes-to-search-on-at-search-time),
 [`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
+[`distinct`](https://www.meilisearch.com/docs/learn/relevancy/distinct_attribute)
 
 ```js
 instantMeiliSearch(
@@ -281,20 +282,20 @@ In `index.html`:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+</head>
 
-  <body>
-    <div>
-      <div id="searchbox"></div>
-      <div id="hits"></div>
-    </div>
+<body>
+<div>
+  <div id="searchbox"></div>
+  <div id="hits"></div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-    <script src="./app.js"></script>
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script src="./app.js"></script>
+</body>
 </html>
 ```
 
@@ -682,11 +683,11 @@ import injectScript from 'scriptjs'
 injectScript(
   `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
-      const search = instantsearch({
+    const search = instantsearch({
       indexName: 'geo',
       // ...
-      })
-      // ...
+    })
+    // ...
   })
 ```
 
@@ -700,9 +701,9 @@ The classic usage, with only the `required` elements, renders an embedded Google
 
 ```js
   instantsearch.widgets.geoSearch({
-    container: '#maps',
-    googleReference: window.google,
-  }),
+  container: '#maps',
+  googleReference: window.google,
+}),
 ```
 
 For further customization, for example to determine an initial position for the map. Contrary to `initialZoom` and `initialPosition`, triggers a search request with the provided information.
@@ -718,13 +719,13 @@ For exemple, by adding `boundingBox` in the [`instantSearch`](#-instantsearch) w
 
 ```js
   initialUiState: {
-    geo: {
-      geoSearch: {
-        boundingBox:
-          '50.680720183653065, 3.273798366642514,50.55969330590075, 2.9625244444490253',
-      },
+  geo: {
+    geoSearch: {
+      boundingBox:
+        '50.680720183653065, 3.273798366642514,50.55969330590075, 2.9625244444490253',
     },
   },
+},
 ```
 Without providing this parameter, Google Maps will default to a window containing all markers from the provided search results.
 
@@ -732,10 +733,10 @@ Alternatively, the parameters can be passed through the [`searchFunction`](https
 
 ```js
   searchFunction: function (helper) {
-    helper.setQueryParameter('aroundRadius', 75000)
-    helper.setQueryParameter('aroundLatLng', '51.1241999, 9.662499900000057');
-    helper.search()
-  },
+  helper.setQueryParameter('aroundRadius', 75000)
+  helper.setQueryParameter('aroundLatLng', '51.1241999, 9.662499900000057');
+  helper.search()
+},
 ```
 
 [Read the guide on how GeoSearch works in Meilisearch](https://www.meilisearch.com/docs/learn/getting_started/filtering_and_sorting#geosearch).
@@ -805,12 +806,12 @@ Example:
 Give the following document structure:
 ```json
 {
-    "id": 1,
-    "name": "Basic T-shirt",
-    "categories.lvl0": "Men",
-    "categories.lvl1": "Men > clothes",
-    "categories.lvl2": "Men > clothes > t-shirt"
-  }
+  "id": 1,
+  "name": "Basic T-shirt",
+  "categories.lvl0": "Men",
+  "categories.lvl1": "Men > clothes",
+  "categories.lvl2": "Men > clothes > t-shirt"
+}
 ```
 
 You have to add the fields `categories.lvl0`, `categories.lvl1` and `categories.lvl2` in the `filterableAttributes` in your Meilisearch settings.
@@ -953,8 +954,8 @@ The `clearRefinement` widget displays a button that lets the user clean every re
 
 ```js
 instantsearch.widgets.clearRefinements({
-    container: '#clear-refinements',
-  }),
+  container: '#clear-refinements',
+}),
 ```
 
 ### ✅ Pagination
@@ -1060,8 +1061,8 @@ The usage of the `SortBy` widget differs from the one found in Algolia's documen
 - Different `sort` rules on the same index.
 
 The items list is composed of objects containing every sort possibility you want to provide to your user. Each object must contain two fields:
-  - `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
-  - `value`: The sort formula.
+- `label`: What is showcased on the user interface ex: `Sort by Ascending Price`
+- `value`: The sort formula.
 
 #### Sort formula
 
@@ -1090,23 +1091,23 @@ See [relevancy guide](https://www.meilisearch.com/docs/learn/core_concepts/relev
 
 ```js
   instantsearch.widgets.sortBy({
-    container: '#sort-by',
-    items: [
-      { value: 'clothes', label: 'Relevant' }, // default index
-      {
-        value: 'clothes:price:desc', // Sort on descending price
-        label: 'Ascending price using query time sort',
-      },
-      {
-        value: 'clothes:price:asc', // Sort on ascending price
-        label: 'Descending price using query time sort',
-      },
-      {
-        value: 'clothes-sorted', // different index with different ranking rules.
-        label: 'Custom sort using a different index',
-      },
-    ],
-  }),
+  container: '#sort-by',
+  items: [
+    { value: 'clothes', label: 'Relevant' }, // default index
+    {
+      value: 'clothes:price:desc', // Sort on descending price
+      label: 'Ascending price using query time sort',
+    },
+    {
+      value: 'clothes:price:asc', // Sort on ascending price
+      label: 'Descending price using query time sort',
+    },
+    {
+      value: 'clothes-sorted', // different index with different ranking rules.
+      label: 'Custom sort using a different index',
+    },
+  ],
+}),
 ```
 
 ### ❌ RelevantSort
