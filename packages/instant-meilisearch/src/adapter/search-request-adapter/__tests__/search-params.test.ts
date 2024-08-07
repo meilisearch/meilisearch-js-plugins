@@ -94,6 +94,19 @@ describe('Parameters adapter', () => {
 
     expect(searchParams.hybrid).toBe(hybridSearchConfig)
   })
+
+  test('distinct search configuration can be set via search parameters', () => {
+    const distinctSearchConfig = 'title'
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        distinct: distinctSearchConfig,
+      },
+    })
+
+    expect(searchParams.distinct).toBe(distinctSearchConfig)
+  })
 })
 
 describe('Geo filter adapter', () => {

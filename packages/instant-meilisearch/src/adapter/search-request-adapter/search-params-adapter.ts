@@ -238,6 +238,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.hybrid = value
       }
     },
+    addDistinct() {
+      const value = overrideParams?.distinct
+      if (value !== undefined) {
+        meiliSearchParams.distinct = value
+      }
+    },
   }
 }
 
@@ -270,6 +276,7 @@ export function adaptSearchParams(
   meilisearchParams.addShowRankingScore()
   meilisearchParams.addAttributesToSearchOn()
   meilisearchParams.addHybridSearch()
+  meilisearchParams.addDistinct()
 
   return meilisearchParams.getParams()
 }

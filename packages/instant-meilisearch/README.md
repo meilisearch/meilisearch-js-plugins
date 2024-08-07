@@ -224,6 +224,7 @@ The following options can be overridden:
 [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search#ranking-score),
 [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search#customize-attributes-to-search-on-at-search-time),
 [`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
+[`distinct`](https://www.meilisearch.com/docs/learn/relevancy/distinct_attribute)
 
 ```js
 instantMeiliSearch(

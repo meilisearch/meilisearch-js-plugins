@@ -55,6 +55,7 @@ export type OverridableMeiliSearchSearchParameters = Pick<
   | 'showRankingScore'
   | 'attributesToSearchOn'
   | 'hybrid'
+  | 'distinct'
 >
 
 type BaseInstantMeiliSearchOptions = {
