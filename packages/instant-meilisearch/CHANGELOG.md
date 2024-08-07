@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.19.2
+
+### Patch Changes
+
+- f2bb298: Add support for distinct attribute
+
 ## 0.19.1
 
 ### Patch Changes
