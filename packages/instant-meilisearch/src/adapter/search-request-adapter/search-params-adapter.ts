@@ -139,7 +139,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     addAttributesToHighlight() {
       meiliSearchParams.attributesToHighlight =
         overrideParams?.attributesToHighlight ??
-        <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
+          <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
     },
     addPreTag() {
       meiliSearchParams.highlightPreTag =
@@ -226,8 +226,8 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.attributesToSearchOn !== undefined
           ? overrideParams.attributesToSearchOn
           : <Mutable<typeof restrictSearchableAttributes>>(
-            restrictSearchableAttributes
-          )
+              restrictSearchableAttributes
+            )
       if (value !== undefined) {
         meiliSearchParams.attributesToSearchOn = value
       }
