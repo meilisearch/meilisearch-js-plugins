@@ -108,7 +108,7 @@ yarn playground:html
 An additional playground is provided to test out the [GeoSearch](./packages/instant-meilisearch#-geo-search).
 
 ```bash
-yarn playground:geo-javascript
+yarn playground:geosearch
 ```
 
 Note: If the Google Maps stopped working, please create a new [Google Api Key](https://developers.google.com/maps/documentation/javascript/get-api-key) and add it in the `.env` file at the root of the playground: `/playgrounds/geo-javascript`
