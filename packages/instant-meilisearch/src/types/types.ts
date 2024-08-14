@@ -43,19 +43,20 @@ export type InstantSearchParams = NonNullable<
 
 export type OverridableMeiliSearchSearchParameters = Pick<
   MeiliSearchMultiSearchParams,
-  | 'attributesToRetrieve'
   | 'attributesToCrop'
+  | 'attributesToRetrieve'
+  | 'attributesToSearchOn'
   | 'cropLength'
   | 'cropMarker'
   | 'attributesToHighlight'
+  | 'distinct'
   | 'highlightPreTag'
   | 'highlightPostTag'
-  | 'showMatchesPosition'
-  | 'matchingStrategy'
-  | 'showRankingScore'
-  | 'attributesToSearchOn'
   | 'hybrid'
-  | 'distinct'
+  | 'matchingStrategy'
+  | 'rankingScoreThreshold'
+  | 'showMatchesPosition'
+  | 'showRankingScore'
 >
 
 type BaseInstantMeiliSearchOptions = {
