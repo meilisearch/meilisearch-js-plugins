@@ -244,6 +244,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.distinct = value
       }
     },
+    addRankingScoreThreshold() {
+      const value = overrideParams?.rankingScoreThreshold
+      if (value !== undefined) {
+        meiliSearchParams.rankingScoreThreshold = value
+      }
+    },
   }
 }
 
@@ -277,6 +283,7 @@ export function adaptSearchParams(
   meilisearchParams.addAttributesToSearchOn()
   meilisearchParams.addHybridSearch()
   meilisearchParams.addDistinct()
+  meilisearchParams.addRankingScoreThreshold()
 
   return meilisearchParams.getParams()
 }
