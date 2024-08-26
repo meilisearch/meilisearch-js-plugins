@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.20.0
+
+### Minor Changes
+
+- 1885691: Update meilisearch version to v0.42.0
+
 ## 0.19.3
 
 ### Patch Changes
