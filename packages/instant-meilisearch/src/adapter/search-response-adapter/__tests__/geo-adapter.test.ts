@@ -49,4 +49,29 @@ describe('Geopoint adapter', () => {
     expect(adaptedHits[1]._formatted._geoloc).toBeUndefined()
     expect(adaptedHits[1]._formatted._geo).toBeUndefined()
   })
+
+  test('hits with _geoloc field should have randomly generated `objectID` property', () => {
+    const hits = [
+      {
+        id: 2,
+        _geo: {
+          lat: 1,
+          lng: 2,
+        },
+        _formatted: {
+          _geo: {
+            lat: 1,
+            lng: 2,
+          },
+        },
+      },
+    ]
+
+    const adaptedHits = adaptGeoResponse(hits)
+
+    expect(adaptedHits[0]).toHaveProperty('_geoloc')
+    expect(adaptedHits[0]).toHaveProperty('_geo')
+    expect(adaptedHits[0]).toHaveProperty('objectID')
+    expect(typeof adaptedHits[0].objectID === 'string').toBeTruthy()
+  })
 })
