@@ -50,9 +50,10 @@ describe('Geopoint adapter', () => {
     expect(adaptedHits[1]._formatted._geo).toBeUndefined()
   })
 
-  test('hits with _geoloc field should have randomly generated `objectID` property', () => {
+  test('hits with _geoloc field should not overwrite `objectID` property', () => {
     const hits = [
       {
+        objectID: '2',
         id: 2,
         _geo: {
           lat: 1,
@@ -69,9 +70,8 @@ describe('Geopoint adapter', () => {
 
     const adaptedHits = adaptGeoResponse(hits)
 
-    expect(adaptedHits[0]).toHaveProperty('_geoloc')
-    expect(adaptedHits[0]).toHaveProperty('_geo')
-    expect(adaptedHits[0]).toHaveProperty('objectID')
-    expect(typeof adaptedHits[0].objectID === 'string').toBeTruthy()
+    expect(adaptedHits[0]._geoloc).toEqual(hits[0]._geo)
+    expect(adaptedHits[0]._geo).toEqual(hits[0]._geo)
+    expect(adaptedHits[0].objectID).toEqual(hits[0].objectID)
   })
 })
