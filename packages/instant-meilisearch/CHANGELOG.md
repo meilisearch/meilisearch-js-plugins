@@ -1,5 +1,23 @@
 # @meilisearch/instant-meilisearch
 
+## 0.20.0
+
+### Minor Changes
+
+- 1885691: Update meilisearch version to v0.42.0
+
+## 0.19.3
+
+### Patch Changes
+
+- d167b70: Add support for [ranking score threshold](https://www.meilisearch.com/docs/reference/api/search#ranking-score-threshold?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch)
+
+## 0.19.2
+
+### Patch Changes
+
+- f2bb298: Add support for distinct attribute
+
 ## 0.19.1
 
 ### Patch Changes

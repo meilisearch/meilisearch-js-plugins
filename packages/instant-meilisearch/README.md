@@ -213,17 +213,19 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 
 `meiliSearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
 The following options can be overridden:
-[`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search#attributes-to-retrieve),
-[`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search#attributes-to-crop),
-[`cropLength`](https://www.meilisearch.com/docs/reference/api/search#crop-length),
-[`cropMarker`](https://www.meilisearch.com/docs/reference/api/search#crop-marker),
-[`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search#attributes-to-highlight),
-[`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search#highlight-tags),
-[`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search#show-matches-position),
-[`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search#matching-strategy),
-[`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search#ranking-score),
-[`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search#customize-attributes-to-search-on-at-search-time),
-[`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
+- [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
+- [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
+- [`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-retrieve)
+- [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#customize-attributes-to-search-on-at-search-time)
+- [`cropLength`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-length)
+- [`cropMarker`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-marker)
+- [`distinct`](https://www.meilisearch.com/docs/learn/relevancy/distinct_attribute)
+- [`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#highlight-tags)
+- [`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
+- [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
+- [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
+- [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
+- [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
 ```js
 instantMeiliSearch(

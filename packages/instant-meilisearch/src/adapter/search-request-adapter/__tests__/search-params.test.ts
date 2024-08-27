@@ -94,6 +94,32 @@ describe('Parameters adapter', () => {
 
     expect(searchParams.hybrid).toBe(hybridSearchConfig)
   })
+
+  test('ranking score threshold can be set via search parameters', () => {
+    const rankingScoreThreshold = 0.974
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        rankingScoreThreshold,
+      },
+    })
+
+    expect(searchParams.rankingScoreThreshold).toBe(rankingScoreThreshold)
+  })
+
+  test('distinct search configuration can be set via search parameters', () => {
+    const distinctSearchConfig = 'title'
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        distinct: distinctSearchConfig,
+      },
+    })
+
+    expect(searchParams.distinct).toBe(distinctSearchConfig)
+  })
 })
 
 describe('Geo filter adapter', () => {
