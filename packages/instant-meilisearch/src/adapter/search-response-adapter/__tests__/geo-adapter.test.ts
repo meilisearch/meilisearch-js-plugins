@@ -49,4 +49,29 @@ describe('Geopoint adapter', () => {
     expect(adaptedHits[1]._formatted._geoloc).toBeUndefined()
     expect(adaptedHits[1]._formatted._geo).toBeUndefined()
   })
+
+  test('hits with _geoloc field should not overwrite `objectID` property', () => {
+    const hits = [
+      {
+        objectID: '2',
+        id: 2,
+        _geo: {
+          lat: 1,
+          lng: 2,
+        },
+        _formatted: {
+          _geo: {
+            lat: 1,
+            lng: 2,
+          },
+        },
+      },
+    ]
+
+    const adaptedHits = adaptGeoResponse(hits)
+
+    expect(adaptedHits[0]._geoloc).toEqual(hits[0]._geo)
+    expect(adaptedHits[0]._geo).toEqual(hits[0]._geo)
+    expect(adaptedHits[0].objectID).toEqual(hits[0].objectID)
+  })
 })
