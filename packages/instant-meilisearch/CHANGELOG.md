@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.20.1
+
+### Patch Changes
+
+- fa02104: Don't write objectID property if it already exists when adapting geosearch.
+
 ## 0.20.0
 
 ### Minor Changes
