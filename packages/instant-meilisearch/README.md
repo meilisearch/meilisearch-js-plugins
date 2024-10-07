@@ -30,7 +30,6 @@ This library is the search client that you should use to make [Meilisearch](http
 
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
-<!-- @TODO -->
 If you use Angular, React, or Vue, you might want to check out these repositories:
 
 - [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
@@ -403,7 +402,6 @@ search.start()
 - The [Meilisearch documentation](https://www.meilisearch.com/docs/).
 - If you use React, check out [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - If you use Vue, check out [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
-<!-- @TODO -->
 - If you use Angular, check out [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
 
 
