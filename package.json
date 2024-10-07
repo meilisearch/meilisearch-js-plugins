@@ -36,6 +36,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@types/jest": "^29.5.1",
     "@types/jest-diff": "^24.3.0",
+    "buffer": "^5.5.0||^6.0.0",
     "crypto-browserify": "^3.12.0",
     "parcel": "^2.12.0",
     "process": "^0.11.10",
@@ -47,6 +48,10 @@
   "dependencies": {
     "@changesets/cli": "^2.26.1",
     "instantsearch.css": "^8.0.0"
+  },
+  "alias": {
+    "node:crypto": false,
+    "node:buffer": false
   },
   "packageManager": "yarn@1.22.22"
 }
