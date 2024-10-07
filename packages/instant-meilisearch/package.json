@@ -28,7 +28,7 @@
     "clear_jest": "jest --clearCache",
     "cleanup": "shx rm -rf dist/",
     "test:watch": "yarn test --watchAll",
-    "test": "jest --runInBand --selectProjects dom --selectProjects node --verbose",
+    "test": "jest --runInBand --selectProjects dom --selectProjects node",
     "build": "yarn cleanup && rollup -c rollup.config.js && rollup --environment NODE_ENV:production -c rollup.config.js",
     "dev": "rollup -c rollup.config.js --watch",
     "lint": "eslint --ext .js,.ts,.tsx .",
