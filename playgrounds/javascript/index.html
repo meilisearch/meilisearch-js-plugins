@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#000000" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+    />
+    <link rel="stylesheet" href="./src/index.css" />
+    <link rel="stylesheet" href="./src/app.css" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css" />
-  <link rel="stylesheet" href="./src/index.css" />
-  <link rel="stylesheet" href="./src/app.css" />
+    <title>Meilisearch + InstantSearch</title>
+  </head>
 
-  <title>Meilisearch + InstantSearch</title>
-</head>
+  <body>
+    <div class="ais-InstantSearch">
+      <h1>Meilisearch + InstantSearch.js</h1>
+      <h2>Search in Steam video games 🎮</h2>
+      <p>
+        This is not the official Steam dataset but only for demo purpose. Enjoy
+        searching with Meilisearch!
+      </p>
 
-<body>
-  <div class="ais-InstantSearch">
-    <h1>Meilisearch + InstantSearch.js</h1>
-    <h2>Search in Steam video games 🎮</h2>
-    <p>
-      This is not the official Steam dataset but only for demo purpose. Enjoy
-      searching with Meilisearch!
-    </p>
+      <div class="left-panel">
+        <div id="clear-refinements"></div>
+        <div id="sort-by"></div>
+        <h2>Genres</h2>
+        <div id="genres-list"></div>
+        <h2>Players</h2>
+        <div id="players-list"></div>
+        <h2>Platforms</h2>
+        <div id="platforms-list"></div>
+        <h2>Misc</h2>
+        <div id="misc-list"></div>
+      </div>
 
-    <div class="left-panel">
-      <div id="clear-refinements"></div>
-      <div id="sort-by"></div>
-      <h2>Genres</h2>
-      <div id="genres-list"></div>
-      <h2>Players</h2>
-      <div id="players-list"></div>
-      <h2>Platforms</h2>
-      <div id="platforms-list"></div>
-      <h2>Misc</h2>
-      <div id="misc-list"></div>
+      <div class="right-panel">
+        <div id="searchbox" class="ais-SearchBox"></div>
+        <div id="hits"></div>
+        <div id="pagination"></div>
+      </div>
     </div>
 
-    <div class="right-panel">
-      <div id="searchbox" class="ais-SearchBox"></div>
-      <div id="hits"></div>
-      <div id="pagination"></div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-  <script src="/src/app.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <script type="module" src="./src/app.js"></script>
+  </body>
 </html>

@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "Instant-meilisearch playground focussed on GeoSearch written with vanilla javascript",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel serve index.html --open",
     "build": "parcel build index.html",
@@ -12,7 +11,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
-    "@meilisearch/instant-meilisearch": "0.20.1",
     "eslint-config-meilisearch": "*"
   },
   "browserslist": [
@@ -20,6 +18,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@meilisearch/instant-meilisearch": "0.20.1",
     "scriptjs": "^2.5.9"
   }
 }
