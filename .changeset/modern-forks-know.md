@@ -1,7 +1,7 @@
 ---
 "@meilisearch/instant-meilisearch": minor
 "eslint-config-meilisearch": patch
-"@meilisearch/autocomplete-client": patch
+"@meilisearch/autocomplete-client": minor
 ---
 
 - update `meilisearch` js client
