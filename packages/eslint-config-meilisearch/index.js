@@ -57,7 +57,6 @@ module.exports = {
         browser: true, // for jest/puppeteer tests in tests/env/express
         context: true, // for jest/puppeteer tests in tests/env/express
         jestPuppeteer: true, // for jest/puppeteer tests in tests/env/express
-        jasmine: true, // for angular e2e tests in playground/angular
       },
       extends: [
         'standard',
@@ -120,7 +119,6 @@ module.exports = {
         browser: true, // for jest/puppeteer tests in tests/env/express
         context: true, // for jest/puppeteer tests in tests/env/express
         jestPuppeteer: true, // for jest/puppeteer tests in tests/env/express
-        jasmine: true, // for angular e2e tests in playground/angular
       },
       extends: [
         'standard',

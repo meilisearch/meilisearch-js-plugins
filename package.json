@@ -13,7 +13,6 @@
   "scripts": {
     "playground:geosearch": "turbo run dev --filter=@meilisearch/geo-playground --parallel",
     "playground:vanilla": "turbo run dev --filter=@meilisearch/vanilla-playground --parallel",
-    "playground:angular": "turbo run dev --filter=@meilisearch/angular-playground --parallel",
     "playground:vue3": "turbo run dev --filter=@meilisearch/vue3-ts-playground --parallel",
     "playground:react": "turbo run dev --filter=@meilisearch/react-playground --parallel",
     "playground:local-react": "turbo run dev --filter=@meilisearch/local-react-playground --parallel",

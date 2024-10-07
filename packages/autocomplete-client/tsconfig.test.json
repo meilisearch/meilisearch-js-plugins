@@ -6,6 +6,5 @@
   },
   "include": [
     "./**/*"
-  ],
-  "exclude": ["playgrounds/angular"]
+  ]
 }
