@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "React playground for instant-meilisearch",
-  "main": "src/index.jsx",
   "scripts": {
     "dev": "parcel serve index.html --open --port 1111",
     "build": "parcel build index.html",
