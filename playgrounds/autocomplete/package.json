@@ -31,6 +31,6 @@
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "eslint-config-meilisearch": "*",
-    "parcel-bundler": "^1.12.5"
+    "parcel": "^2.12.0"
   }
 }
