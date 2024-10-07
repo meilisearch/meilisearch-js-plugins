@@ -1,5 +1,18 @@
 # @meilisearch/autocomplete-client
 
+## 0.4.0
+
+### Minor Changes
+
+- 26e7cfd: - update `meilisearch` js client
+  - update `parcel` and `turbo`
+  - get rid of angular playground tests, as [angular-instantsearch got deprecated](https://www.algolia.com/blog/algolia/migrating-from-angular-instantsearch/)
+
+### Patch Changes
+
+- Updated dependencies [26e7cfd]
+  - @meilisearch/instant-meilisearch@0.21.0
+
 ## 0.3.0
 
 ### Minor Changes
