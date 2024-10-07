@@ -45,7 +45,8 @@
   },
   "alias": {
     "node:crypto": false,
-    "node:buffer": false
+    "node:buffer": false,
+    "node:process": false
   },
   "packageManager": "yarn@1.22.22"
 }
