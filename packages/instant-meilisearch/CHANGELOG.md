@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.21.1
+
+### Patch Changes
+
+- 1e7bf78: Fix wrong "meilisearch" client being imported in UMD bundle.
+
 ## 0.21.0
 
 ### Minor Changes
