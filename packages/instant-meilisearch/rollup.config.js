@@ -38,7 +38,6 @@ const ROLLUP_OPTIONS = [
   // browser-friendly IIFE build
   {
     input: INPUT, // directory to transpilation of typescript
-    external: ['cross-fetch', 'cross-fetch/polyfill'],
     output: {
       name: 'window',
       extend: true,
@@ -55,11 +54,7 @@ const ROLLUP_OPTIONS = [
     },
     plugins: [
       ...COMMON_PLUGINS,
-      nodeResolve({
-        mainFields: ['jsnext', 'browser', 'main'],
-        preferBuiltins: true,
-        browser: true,
-      }),
+      nodeResolve({ exportConditions: ['browser'] }),
       commonjs(),
       babel(),
       // json(),
