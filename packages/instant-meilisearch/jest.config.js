@@ -10,9 +10,8 @@ module.exports = {
   projects: [
     {
       globals: {
-        'ts-jest': {
-          tsconfig: 'tsconfig.test.json',
-        },
+        'ts-jest': { tsconfig: 'tsconfig.test.json' },
+        fetch: globalThis.fetch,
       },
       preset: 'ts-jest',
       displayName: 'dom',
@@ -22,9 +21,8 @@ module.exports = {
     },
     {
       globals: {
-        'ts-jest': {
-          tsconfig: 'tsconfig.test.json',
-        },
+        'ts-jest': { tsconfig: 'tsconfig.test.json' },
+        fetch: globalThis.fetch,
       },
       preset: 'ts-jest',
       displayName: 'node',

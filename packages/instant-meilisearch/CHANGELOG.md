@@ -1,5 +1,19 @@
 # @meilisearch/instant-meilisearch
 
+## 0.21.1
+
+### Patch Changes
+
+- 1e7bf78: Fix wrong "meilisearch" client being imported in UMD bundle.
+
+## 0.21.0
+
+### Minor Changes
+
+- 26e7cfd: - update `meilisearch` js client
+  - update `parcel` and `turbo`
+  - get rid of angular playground tests, as [angular-instantsearch got deprecated](https://www.algolia.com/blog/algolia/migrating-from-angular-instantsearch/)
+
 ## 0.20.1
 
 ### Patch Changes

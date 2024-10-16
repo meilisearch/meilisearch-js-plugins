@@ -10,7 +10,6 @@
   "ignore": [
     "@meilisearch/geo-playground",
     "@meilisearch/vanilla-playground",
-    "@meilisearch/angular-playground",
     "@meilisearch/vue3-ts-playground",
     "@meilisearch/react-playground",
     "@meilisearch/local-react-playground",

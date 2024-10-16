@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "Instant-meilisearch playground written with vanilla javascript",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel serve index.html --open --port 2222",
     "build": "parcel build index.html",
@@ -18,6 +17,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.20.1"
+    "@meilisearch/instant-meilisearch": "0.21.1"
   }
 }

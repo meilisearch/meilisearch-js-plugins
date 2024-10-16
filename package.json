@@ -13,7 +13,6 @@
   "scripts": {
     "playground:geosearch": "turbo run dev --filter=@meilisearch/geo-playground --parallel",
     "playground:vanilla": "turbo run dev --filter=@meilisearch/vanilla-playground --parallel",
-    "playground:angular": "turbo run dev --filter=@meilisearch/angular-playground --parallel",
     "playground:vue3": "turbo run dev --filter=@meilisearch/vue3-ts-playground --parallel",
     "playground:react": "turbo run dev --filter=@meilisearch/react-playground --parallel",
     "playground:local-react": "turbo run dev --filter=@meilisearch/local-react-playground --parallel",
@@ -37,12 +36,17 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@types/jest": "^29.5.1",
     "@types/jest-diff": "^24.3.0",
-    "parcel-bundler": "^1.12.5",
-    "turbo": "^1.10.12"
+    "parcel": "^2.12.0",
+    "turbo": "^2.1.3"
   },
   "dependencies": {
     "@changesets/cli": "^2.26.1",
     "instantsearch.css": "^8.0.0"
+  },
+  "alias": {
+    "node:crypto": false,
+    "node:buffer": false,
+    "node:process": false
   },
   "packageManager": "yarn@1.22.22"
 }

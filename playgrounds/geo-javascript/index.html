@@ -1,41 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#000000" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+    />
+    <link rel="stylesheet" href="./src/index.css" />
+    <link rel="stylesheet" href="./src/app.css" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css" />
-  <link rel="stylesheet" href="./src/index.css" />
-  <link rel="stylesheet" href="./src/app.css" />
+    <title>Meilisearch + InstantSearch 🌍</title>
+  </head>
 
-  <title>Meilisearch + InstantSearch 🌍</title>
-</head>
+  <body>
+    <div class="ais-InstantSearch">
+      <h1>Meilisearch + InstantSearch.js</h1>
+      <h2>Search in world cities</h2>
+      <p>
+        This is a dataset of 32419 world cities with more than 10000
+        inhabitants.
+      </p>
 
-<body>
-  <div class="ais-InstantSearch">
-    <h1>Meilisearch + InstantSearch.js</h1>
-    <h2>Search in world cities </h2>
-    <p>
-      This is a dataset of 32419 world cities with more than 10000 inhabitants.
-    </p>
+      <div class="left-panel">
+        <div id="sort-by"></div>
+      </div>
 
-    <div class="left-panel">
-      <div id="sort-by"></div>
+      <div class="right-panel">
+        <div id="searchbox" class="ais-SearchBox"></div>
+        <div id="maps" style="height: 500px; width: 500px"></div>
+        <br />
+        <div id="hits"></div>
+        <div id="pagination"></div>
+      </div>
     </div>
 
-    <div class="right-panel">
-      <div id="searchbox" class="ais-SearchBox"></div>
-      <div id="maps" style="height: 500px; width: 500px"></div>
-      <br>
-      <div id="hits"></div>
-      <div id="pagination"></div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-  <script src="/src/app.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <script type="module" src="./src/app.js"></script>
+  </body>
 </html>
