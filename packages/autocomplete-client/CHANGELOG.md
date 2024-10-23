@@ -1,5 +1,11 @@
 # @meilisearch/autocomplete-client
 
+## 0.4.1
+
+### Patch Changes
+
+- 7bc6b54: Fix rollup importing wrong "meilisearch"
+
 ## 0.4.0
 
 ### Minor Changes
