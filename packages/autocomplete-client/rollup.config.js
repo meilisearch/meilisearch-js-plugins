@@ -51,11 +51,7 @@ const ROLLUP_OPTIONS = [
     },
     plugins: [
       ...COMMON_PLUGINS,
-      nodeResolve({
-        mainFields: ['jsnext', 'browser', 'main'],
-        preferBuiltins: true,
-        browser: true,
-      }),
+      nodeResolve({ exportConditions: ['browser'] }),
       commonjs(),
       babel(),
       env === 'production' ? terser() : {}, // will minify the file in production mode
