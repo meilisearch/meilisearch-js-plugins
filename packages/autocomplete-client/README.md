@@ -143,7 +143,9 @@ const client = meilisearchAutocompleteClient({
   url: 'http://localhost:7700',
   apiKey: 'searchKey',
   options: {
-    placeholderSearch: false,
+    // other options
+    meiliSearchParams: {
+    },
   },
 })
 ```
