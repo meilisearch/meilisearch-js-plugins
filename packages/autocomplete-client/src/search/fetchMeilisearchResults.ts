@@ -8,6 +8,7 @@ import {
   HITS_PER_PAGE,
 } from '../constants'
 import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
+import { HighlightResult } from 'instantsearch.js/es/types/algoliasearch'
 
 interface SearchParams {
   /**
@@ -52,20 +53,20 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
         return response.results.map(
           (result: AlgoliaSearchResponse<TRecord>) => ({
             ...result,
-            hits: result.hits.map(
-              (hit: AlgoliaSearchResponse<TRecord>['hits'][number]) => ({
-                ...hit,
-                _highlightResult: hit._highlightResult
-                  ? Object.entries(hit._highlightResult).reduce(
-                      (acc, [key, value]) => ({
-                        ...acc,
-                        [key]: calculateHighlightMetadata(value.value),
-                      }),
-                      {}
-                    )
-                  : {},
-              })
-            ),
+            hits: result.hits.map((hit) => ({
+              ...hit,
+              _highlightResult: (
+                Object.entries(hit?._highlightResult || {}) as Array<
+                  [keyof TRecord, { value: string }]
+                >
+              ).reduce(
+                (acc, [field, highlightResult]) => ({
+                  ...acc,
+                  [field]: calculateHighlightMetadata(highlightResult.value),
+                }),
+                {} as HighlightResult<TRecord>
+              ),
+            })),
           })
         )
       }
