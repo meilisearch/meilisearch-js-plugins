@@ -4,6 +4,7 @@ import {
   dataset,
   meilisearchClient,
 } from '../../../__tests__/test.utils'
+import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../../constants'
 
 beforeAll(async () => {
   await meilisearchClient.deleteIndex('testUid')
@@ -49,9 +50,55 @@ describe('fetchMeilisearchResults', () => {
     })
 
     expect(results[0].hits[0].id).toEqual(2)
+  })
+
+  test('with highlighting metadata', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: 'testUid',
+          query: 'Hit',
+        },
+      ],
+    })
+
     expect(results[0].hits[0]._highlightResult).toEqual({
-      id: { value: '2' },
-      label: { value: '<test>Hit</test> 2' },
+      id: {
+        value: '1',
+        fullyHighlighted: false,
+        matchLevel: 'none',
+        matchedWords: [],
+      },
+      label: {
+        value: `${HIGHLIGHT_PRE_TAG}Hit${HIGHLIGHT_POST_TAG} 1`,
+        fullyHighlighted: false,
+        matchLevel: 'partial',
+        matchedWords: ['Hit'],
+      },
     })
   })
+
+  // test('with fully highlighted match', async () => {
+  //   const results = await fetchMeilisearchResults({
+  //     searchClient,
+  //     queries: [
+  //       {
+  //         indexName: 'testUid',
+  //         query: 'Hit 2',
+  //         params: {
+  //           highlightPreTag: '<test>',
+  //           highlightPostTag: '</test>',
+  //         },
+  //       },
+  //     ],
+  //   })
+
+  //   expect(results[0].hits[0]._highlightResult?.label).toEqual({
+  //     value: '<test>Hit</test> <test>2</test>',
+  //     fullyHighlighted: true,
+  //     matchLevel: 'full',
+  //     matchedWords: ['Hit', '2'],
+  //   })
+  // })
 })
