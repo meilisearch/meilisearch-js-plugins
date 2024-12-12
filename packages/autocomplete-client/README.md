@@ -135,7 +135,8 @@ The `options` field in the `meilisearchAutocompleteClient` function provides the
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 - [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
 - [`requestConfig`](#request-config): Use custom request configurations.
-- ['httpClient'](#custom-http-client): Use a custom HTTP client.
+- [`httpClient`](#custom-http-client): Use a custom HTTP client.
+- [`meiliSearchParams`](#meilisearch-search-parameters): Override search parameters sent to Meilisearch.
 
 ```js
 const client = meilisearchAutocompleteClient({
@@ -236,6 +237,24 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
   }
 }
 ```
+
+### Meilisearch search parameters
+
+`meiliSearchParams` lets you override the parameters sent to Meilisearch.
+The following options can be overridden:
+- [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
+- [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
+- [`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-retrieve)
+- [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#customize-attributes-to-search-on-at-search-time)
+- [`cropLength`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-length)
+- [`cropMarker`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-marker)
+- [`distinct`](https://www.meilisearch.com/docs/learn/relevancy/distinct_attribute)
+- [`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#highlight-tags)
+- [`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
+- [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
+- [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
+- [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
+- [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
 ## 🤖 Compatibility with Meilisearch and Autocomplete
 
