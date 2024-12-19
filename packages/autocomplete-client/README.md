@@ -133,7 +133,6 @@ The `options` field in the `meilisearchAutocompleteClient` function provides the
 - [`placeholderSearch`](#placeholder-search): Enable or disable placeholder search (default: `true`).
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
-- [`matchingStrategy`](#matching-strategy): Determine the search strategy on words matching (default `last`).
 - [`requestConfig`](#request-config): Use custom request configurations.
 - [`httpClient`](#custom-http-client): Use a custom HTTP client.
 - [`meiliSearchParams`](#meilisearch-search-parameters): Override search parameters sent to Meilisearch.
@@ -190,18 +189,6 @@ genres:
 
 ```js
 { keepZeroFacets : true } // default: false
-```
-
-### Matching strategy
-
-`matchingStrategy` gives you the possibility to choose how Meilisearch should handle the presence of multiple query words, see [documentation](https://www.meilisearch.com/docs/reference/api/search#matching-strategy).
-
-For example, if your query is `hello world` by default Meilisearch returns documents containing either both `hello` and `world` or documents that only contain `hello`. This is the `last` strategy, where words are stripped from the right.
-The other strategy is `all`, where both `hello` and `world` **must** be present in a document for it to be returned.
-
-
-```js
-{ matchingStrategy: 'all' }  // default last
 ```
 
 ### Request Config
