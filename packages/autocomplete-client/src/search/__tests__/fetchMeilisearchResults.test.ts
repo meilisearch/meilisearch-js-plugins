@@ -41,6 +41,7 @@ describe('fetchMeilisearchResults', () => {
           query: 'Hit',
           params: {
             hitsPerPage: 1,
+            // TODO: this is not tested for
             highlightPreTag: '<test>',
             highlightPostTag: '</test>',
             page: 1,
