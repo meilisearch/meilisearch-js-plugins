@@ -79,26 +79,22 @@ describe('fetchMeilisearchResults', () => {
     })
   })
 
-  // test('with fully highlighted match', async () => {
-  //   const results = await fetchMeilisearchResults({
-  //     searchClient,
-  //     queries: [
-  //       {
-  //         indexName: 'testUid',
-  //         query: 'Hit 2',
-  //         params: {
-  //           highlightPreTag: '<test>',
-  //           highlightPostTag: '</test>',
-  //         },
-  //       },
-  //     ],
-  //   })
+  test('with fully highlighted match', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: 'testUid',
+          query: 'Hit',
+        },
+      ],
+    })
 
-  //   expect(results[0].hits[0]._highlightResult?.label).toEqual({
-  //     value: '<test>Hit</test> <test>2</test>',
-  //     fullyHighlighted: true,
-  //     matchLevel: 'full',
-  //     matchedWords: ['Hit', '2'],
-  //   })
-  // })
+    expect(results[0].hits[0]._highlightResult?.label).toEqual({
+      value: `${HIGHLIGHT_PRE_TAG}Hit${HIGHLIGHT_POST_TAG} ${HIGHLIGHT_PRE_TAG}2${HIGHLIGHT_POST_TAG}`,
+      fullyHighlighted: true,
+      matchLevel: 'partial',
+      matchedWords: ['Hit'],
+    })
+  })
 })
