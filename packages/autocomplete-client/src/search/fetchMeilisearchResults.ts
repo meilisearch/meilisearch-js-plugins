@@ -78,23 +78,26 @@ function calculateHighlightMetadata(
   preTag: string = HIGHLIGHT_PRE_TAG,
   postTag: string = HIGHLIGHT_POST_TAG
 ): HighlightMetadata {
-  // Find all highlighted words
+  // Extract all highlighted segments
   const highlightRegex = new RegExp(`${preTag}(.*?)${postTag}`, 'g')
   const matches: string[] = []
   let match
   while ((match = highlightRegex.exec(value)) !== null) {
     matches.push(match[1])
   }
-  const matchedWords = matches
 
-  // Remove highlight tags for comparison
+  // Remove highlight tags to get the original, unhighlighted text
   const cleanValue = value.replace(new RegExp(`${preTag}|${postTag}`, 'g'), '')
 
-  // Calculate if fully highlighted
+  // Determine if the entire attribute is highlighted
+  // fullyHighlighted = true if cleanValue and the concatenation of all matched segments are identical
   const highlightedText = matches.join('')
   const fullyHighlighted = cleanValue === highlightedText
 
-  // Determine match level
+  // Determine match level:
+  // - 'none' if no matches
+  // - 'partial' if some matches but not fully highlighted
+  // - 'full' if all text is fully highlighted
   let matchLevel: 'none' | 'partial' | 'full' = 'none'
   if (matches.length > 0) {
     matchLevel = fullyHighlighted ? 'full' : 'partial'
@@ -104,6 +107,6 @@ function calculateHighlightMetadata(
     value,
     fullyHighlighted,
     matchLevel,
-    matchedWords,
+    matchedWords: matches,
   }
 }
