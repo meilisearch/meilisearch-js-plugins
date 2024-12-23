@@ -72,27 +72,16 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
                     | [keyof TRecord, Array<{ value: string }>] // if the field is an array
                   >
                 ).reduce((acc, [field, highlightResult]) => {
-                  // if the field is an array, highlightResult is an array of objects
-                  if (Array.isArray(highlightResult)) {
-                    return {
-                      ...acc,
-                      [field]: highlightResult.map((highlight) =>
-                        calculateHighlightMetadata(
-                          query.query || '',
-                          query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                          query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
-                          highlight.value
-                        )
-                      ),
-                    }
-                  }
                   return {
                     ...acc,
-                    [field]: calculateHighlightMetadata(
-                      query.query || '',
-                      query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                      query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
-                      highlightResult.value
+                    // if the field is an array, highlightResult is an array of objects
+                    [field]: mapOneOrMany(highlightResult, (highlightResult) =>
+                      calculateHighlightMetadata(
+                        query.query || '',
+                        query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
+                        query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
+                        highlightResult.value
+                      )
                     ),
                   }
                 }, {} as HighlightResult<TRecord>),
@@ -152,4 +141,9 @@ function calculateHighlightMetadata(
     matchLevel,
     matchedWords: matches,
   }
+}
+
+// Helper to apply a function to a single value or an array of values
+function mapOneOrMany<T, U>(value: T | T[], mapFn: (value: T) => U): U | U[] {
+  return Array.isArray(value) ? value.map(mapFn) : mapFn(value)
 }
