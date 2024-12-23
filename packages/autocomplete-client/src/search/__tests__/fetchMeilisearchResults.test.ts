@@ -7,7 +7,10 @@ import {
 import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../../constants'
 
 type Movie = (typeof MOVIES)[number]
+
 const INDEX_NAME = 'movies'
+const FIRST_ITEM_ID = MOVIES[0].id
+const SECOND_ITEM_ID = MOVIES[1].id
 
 beforeAll(async () => {
   await meilisearchClient.deleteIndex(INDEX_NAME)
@@ -31,27 +34,27 @@ describe('fetchMeilisearchResults', () => {
       ],
     })
 
-    expect(results[0].hits[0].id).toEqual(2)
-    expect(results[0].hits[1].id).toEqual(5)
+    expect(results[0].hits[0].id).toEqual(FIRST_ITEM_ID)
+    expect(results[0].hits[1].id).toEqual(SECOND_ITEM_ID)
   })
 
-  // test('with custom pagination', async () => {
-  //   const results = await fetchMeilisearchResults({
-  //     searchClient,
-  //     queries: [
-  //       {
-  //         indexName: INDEX_NAME,
-  //         query: 'Hit',
-  //         params: {
-  //           hitsPerPage: 1,
-  //           page: 1,
-  //         },
-  //       },
-  //     ],
-  //   })
+  test('with custom pagination', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: '',
+          params: {
+            hitsPerPage: 1,
+            page: 1, // pages start at 0
+          },
+        },
+      ],
+    })
 
-  //   expect(results[0].hits[0].id).toEqual(2)
-  // })
+    expect(results[0].hits[0].id).toEqual(SECOND_ITEM_ID)
+  })
 
   // test('with custom highlight tags', async () => {
   //   const results = await fetchMeilisearchResults({
