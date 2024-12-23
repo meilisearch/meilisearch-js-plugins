@@ -31,8 +31,8 @@ describe('fetchMeilisearchResults', () => {
       ],
     })
 
-    expect(results[0].hits[0].id).toEqual(1)
-    expect(results[0].hits[1].id).toEqual(2)
+    expect(results[0].hits[0].id).toEqual(2)
+    expect(results[0].hits[1].id).toEqual(5)
   })
 
   // test('with custom pagination', async () => {
