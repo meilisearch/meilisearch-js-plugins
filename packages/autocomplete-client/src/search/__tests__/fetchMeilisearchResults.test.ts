@@ -32,7 +32,7 @@ describe('fetchMeilisearchResults', () => {
     expect(results[0].hits[1].id).toEqual(2)
   })
 
-  test('with custom search parameters', async () => {
+  test('with custom pagination', async () => {
     const results = await fetchMeilisearchResults({
       searchClient,
       queries: [
@@ -41,9 +41,6 @@ describe('fetchMeilisearchResults', () => {
           query: 'Hit',
           params: {
             hitsPerPage: 1,
-            // TODO: this is not tested for
-            highlightPreTag: '<test>',
-            highlightPostTag: '</test>',
             page: 1,
           },
         },
@@ -51,6 +48,26 @@ describe('fetchMeilisearchResults', () => {
     })
 
     expect(results[0].hits[0].id).toEqual(2)
+  })
+
+  test('with custom highlight tags', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: 'testUid',
+          query: 'Hit',
+          params: {
+            highlightPreTag: '<b>',
+            highlightPostTag: '</b>',
+          },
+        },
+      ],
+    })
+
+    expect(results[0].hits[0]._highlightResult?.label?.value).toEqual(
+      '<b>Hit</b> 1'
+    )
   })
 
   test('with highlighting metadata', async () => {
