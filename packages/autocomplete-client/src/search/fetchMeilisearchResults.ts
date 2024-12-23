@@ -18,7 +18,14 @@ interface SearchParams {
   /**
    * A list of queries to execute.
    */
-  queries: AlgoliaMultipleQueriesQuery[]
+  queries: Array<
+    AlgoliaMultipleQueriesQuery & {
+      params?: {
+        highlightPreTag?: string
+        highlightPostTag?: string
+      }
+    }
+  >
 }
 
 interface HighlightMetadata {
@@ -36,7 +43,6 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
     .search<TRecord>(
       queries.map((searchParameters) => {
         const { params, ...headers } = searchParameters
-
         return {
           ...headers,
           params: {
@@ -51,32 +57,46 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
     .then(
       (response: Awaited<ReturnType<typeof searchClient.search<TRecord>>>) => {
         return response.results.map(
-          (result: AlgoliaSearchResponse<TRecord>) => ({
-            ...result,
-            hits: result.hits.map((hit) => ({
-              ...hit,
-              _highlightResult: (
-                Object.entries(hit?._highlightResult || {}) as Array<
-                  | [keyof TRecord, { value: string }]
-                  | [keyof TRecord, Array<{ value: string }>] // if the field is an array
-                >
-              ).reduce((acc, [field, highlightResult]) => {
-                // if the field is an array, highlightResult is an array of objects
-                if (Array.isArray(highlightResult)) {
+          (
+            result: AlgoliaSearchResponse<TRecord>,
+            resultsArrayIndex: number
+          ) => {
+            const query = queries[resultsArrayIndex]
+            return {
+              ...result,
+              hits: result.hits.map((hit) => ({
+                ...hit,
+                _highlightResult: (
+                  Object.entries(hit?._highlightResult || {}) as Array<
+                    | [keyof TRecord, { value: string }]
+                    | [keyof TRecord, Array<{ value: string }>] // if the field is an array
+                  >
+                ).reduce((acc, [field, highlightResult]) => {
+                  // if the field is an array, highlightResult is an array of objects
+                  if (Array.isArray(highlightResult)) {
+                    return {
+                      ...acc,
+                      [field]: highlightResult.map((highlight) =>
+                        calculateHighlightMetadata(
+                          highlight.value,
+                          query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
+                          query.params?.highlightPostTag || HIGHLIGHT_POST_TAG
+                        )
+                      ),
+                    }
+                  }
                   return {
                     ...acc,
-                    [field]: highlightResult.map((highlight) =>
-                      calculateHighlightMetadata(highlight.value)
+                    [field]: calculateHighlightMetadata(
+                      highlightResult.value,
+                      query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
+                      query.params?.highlightPostTag || HIGHLIGHT_POST_TAG
                     ),
                   }
-                }
-                return {
-                  ...acc,
-                  [field]: calculateHighlightMetadata(highlightResult.value),
-                }
-              }, {} as HighlightResult<TRecord>),
-            })),
-          })
+                }, {} as HighlightResult<TRecord>),
+              })),
+            }
+          }
         )
       }
     )
@@ -84,8 +104,8 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
 
 function calculateHighlightMetadata(
   value: string,
-  preTag: string = HIGHLIGHT_PRE_TAG,
-  postTag: string = HIGHLIGHT_POST_TAG
+  preTag: string,
+  postTag: string
 ): HighlightMetadata {
   // Extract all highlighted segments
   const highlightRegex = new RegExp(`${preTag}(.*?)${postTag}`, 'g')

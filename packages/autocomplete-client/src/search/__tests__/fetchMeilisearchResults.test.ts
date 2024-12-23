@@ -76,55 +76,47 @@ describe('fetchMeilisearchResults', () => {
     )
   })
 
-  // test('with highlighting metadata', async () => {
-  //   const results = await fetchMeilisearchResults({
-  //     searchClient,
-  //     queries: [
-  //       {
-  //         indexName: INDEX_NAME,
-  //         query: 'Hit',
-  //       },
-  //     ],
-  //   })
+  test('highlight results contain highlighting metadata', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'Ariel',
+        },
+      ],
+    })
 
-  //   expect(results[0].hits[0]._highlightResult).toEqual({
-  //     id: {
-  //       value: '1',
-  //       fullyHighlighted: false,
-  //       matchLevel: 'none',
-  //       matchedWords: [],
-  //     },
-  //     label: {
-  //       value: `${HIGHLIGHT_PRE_TAG}Hit${HIGHLIGHT_POST_TAG} 1`,
-  //       fullyHighlighted: false,
-  //       matchLevel: 'partial',
-  //       matchedWords: ['Hit'],
-  //     },
-  //   })
-  // })
+    expect(results[0].hits[0]._highlightResult?.id?.fullyHighlighted).toEqual(
+      false
+    )
+    expect(results[0].hits[0]._highlightResult?.id?.matchLevel).toEqual('none')
+    expect(results[0].hits[0]._highlightResult?.id?.matchedWords).toEqual([])
+    expect(results[0].hits[0]._highlightResult?.id?.value).toEqual(String(2))
+  })
 
-  // test('with fully highlighted match', async () => {
-  //   const pre = '<em>'
-  //   const post = '</em>'
-  //   const results = await fetchMeilisearchResults({
-  //     searchClient,
-  //     queries: [
-  //       {
-  //         indexName: INDEX_NAME,
-  //         query: 'Hit 1',
-  //         params: {
-  //           highlightPreTag: pre,
-  //           highlightPostTag: post,
-  //         },
-  //       },
-  //     ],
-  //   })
+  test('with fully highlighted match', async () => {
+    const pre = '<em>'
+    const post = '</em>'
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'Ariel',
+          params: {
+            highlightPreTag: pre,
+            highlightPostTag: post,
+          },
+        },
+      ],
+    })
 
-  //   expect(results[0].hits[0]._highlightResult?.label).toEqual({
-  //     value: `${pre}Hit${post} ${pre}1${post}`,
-  //     fullyHighlighted: true,
-  //     matchLevel: 'full',
-  //     matchedWords: ['Hit'],
-  //   })
-  // })
+    expect(results[0].hits[0]._highlightResult?.title).toEqual({
+      value: `${pre}Ariel${post}`,
+      fullyHighlighted: true,
+      matchLevel: 'full',
+      matchedWords: ['Ariel'],
+    })
+  })
 })
