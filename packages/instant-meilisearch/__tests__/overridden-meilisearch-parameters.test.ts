@@ -35,7 +35,7 @@ describe('InstantMeiliSearch overridden parameters', () => {
     const firstHits = firstResponse.results[0].hits
     expect(firstHits.length).toEqual(1)
     expect(firstHits[0]._highlightResult?.overview?.value).toContain(
-      '<em>While</em> <em>racing</em> <em>to</em> <em>a</em> <em>boxing</em> <em>match</em>'
+      '<em>While racing to a boxing match</em>'
     )
 
     setMeiliSearchParams({
@@ -48,7 +48,7 @@ describe('InstantMeiliSearch overridden parameters', () => {
     const secondHits = secondResponse.results[0].hits
     expect(secondHits.length).toEqual(1)
     expect(secondHits[0]._highlightResult?.overview?.value).toContain(
-      '<om>While</om> <om>racing</om> <om>to</om> <om>a</om> <om>boxing</om> <om>match</om>'
+      '<om>While racing to a boxing match</om>'
     )
   })
 })
