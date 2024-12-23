@@ -1,5 +1,12 @@
 # @meilisearch/instant-meilisearch
 
+## 0.23.0
+
+### Minor Changes
+
+- a794b88: Update meilisearch-js to v0.47
+- f966050: Use Meilisearch v1.12 new highlight behavior
+
 ## 0.22.0
 
 ### Minor Changes
