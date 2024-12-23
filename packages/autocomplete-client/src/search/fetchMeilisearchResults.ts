@@ -140,7 +140,7 @@ function calculateHighlightMetadata(
   // Determine match level:
   // - 'none' if no matches
   // - 'partial' if some matches but not fully highlighted
-  // - 'full' if all text is fully highlighted
+  // - 'full' if the highlighted text is the entire field value content
   let matchLevel: 'none' | 'partial' | 'full' = 'none'
   if (matches.length > 0) {
     matchLevel = cleanValue.includes(query) ? 'full' : 'partial'
