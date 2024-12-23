@@ -56,25 +56,25 @@ describe('fetchMeilisearchResults', () => {
     expect(results[0].hits[0].id).toEqual(SECOND_ITEM_ID)
   })
 
-  // test('with custom highlight tags', async () => {
-  //   const results = await fetchMeilisearchResults({
-  //     searchClient,
-  //     queries: [
-  //       {
-  //         indexName: INDEX_NAME,
-  //         query: 'Hit',
-  //         params: {
-  //           highlightPreTag: '<b>',
-  //           highlightPostTag: '</b>',
-  //         },
-  //       },
-  //     ],
-  //   })
+  test('with custom highlight tags', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'Ariel',
+          params: {
+            highlightPreTag: '<b>',
+            highlightPostTag: '</b>',
+          },
+        },
+      ],
+    })
 
-  //   expect(results[0].hits[0]._highlightResult?.label?.value).toEqual(
-  //     '<b>Hit</b> 1'
-  //   )
-  // })
+    expect(results[0].hits[0]._highlightResult?.title?.value).toEqual(
+      '<b>Ariel</b>'
+    )
+  })
 
   // test('with highlighting metadata', async () => {
   //   const results = await fetchMeilisearchResults({
