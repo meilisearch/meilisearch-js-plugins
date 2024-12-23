@@ -57,15 +57,24 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
               ...hit,
               _highlightResult: (
                 Object.entries(hit?._highlightResult || {}) as Array<
-                  [keyof TRecord, { value: string }]
+                  | [keyof TRecord, { value: string }]
+                  | [keyof TRecord, Array<{ value: string }>] // if the field is an array
                 >
-              ).reduce(
-                (acc, [field, highlightResult]) => ({
+              ).reduce((acc, [field, highlightResult]) => {
+                // if the field is an array, highlightResult is an array of objects
+                if (Array.isArray(highlightResult)) {
+                  return {
+                    ...acc,
+                    [field]: highlightResult.map((highlight) =>
+                      calculateHighlightMetadata(highlight.value)
+                    ),
+                  }
+                }
+                return {
                   ...acc,
                   [field]: calculateHighlightMetadata(highlightResult.value),
-                }),
-                {} as HighlightResult<TRecord>
-              ),
+                }
+              }, {} as HighlightResult<TRecord>),
             })),
           })
         )
