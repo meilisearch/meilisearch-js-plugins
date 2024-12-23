@@ -95,7 +95,7 @@ describe('fetchMeilisearchResults', () => {
     expect(results[0].hits[0]._highlightResult?.id?.value).toEqual(String(2))
   })
 
-  test('with fully highlighted match', async () => {
+  test('highlight results contain fully highlighted match', async () => {
     const pre = '<em>'
     const post = '</em>'
     const results = await fetchMeilisearchResults({
@@ -117,6 +117,72 @@ describe('fetchMeilisearchResults', () => {
       fullyHighlighted: true,
       matchLevel: 'full',
       matchedWords: ['Ariel'],
+    })
+  })
+
+  test('highlight results contains full match but not fully highlighted', async () => {
+    const pre = '<em>'
+    const post = '</em>'
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'Star',
+          params: {
+            highlightPreTag: pre,
+            highlightPostTag: post,
+          },
+        },
+      ],
+    })
+
+    expect(results[0].hits[0]._highlightResult?.title).toEqual({
+      value: `${pre}Star${post} Wars`,
+      fullyHighlighted: false,
+      matchLevel: 'full',
+      matchedWords: ['Star'],
+    })
+  })
+
+  test('highlight results contain partially highlighted match', async () => {
+    const pre = '<em>'
+    const post = '</em>'
+    const movie = MOVIES[0]
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'Tasto', // missing 'i' from 'Taisto'
+          params: {
+            highlightPreTag: pre,
+            highlightPostTag: post,
+          },
+        },
+      ],
+    })
+
+    expect(results[0].hits[0]._highlightResult?.overview).toEqual({
+      // The first word of the overview is highlighted
+      value: `${pre}Taist${post}` + (movie.overview as string).slice(5),
+      fullyHighlighted: false,
+      matchLevel: 'partial',
+      matchedWords: ['Taist'],
+    })
+  })
+
+  test('highlight results contain no match', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [{ indexName: INDEX_NAME, query: '' }],
+    })
+
+    expect(results[0].hits[0]._highlightResult?.title).toEqual({
+      value: 'Ariel',
+      fullyHighlighted: false,
+      matchLevel: 'none',
+      matchedWords: [],
     })
   })
 })

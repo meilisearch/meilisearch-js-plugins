@@ -78,9 +78,10 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
                       ...acc,
                       [field]: highlightResult.map((highlight) =>
                         calculateHighlightMetadata(
-                          highlight.value,
+                          query.query || '',
                           query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                          query.params?.highlightPostTag || HIGHLIGHT_POST_TAG
+                          query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
+                          highlight.value
                         )
                       ),
                     }
@@ -88,9 +89,10 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
                   return {
                     ...acc,
                     [field]: calculateHighlightMetadata(
-                      highlightResult.value,
+                      query.query || '',
                       query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                      query.params?.highlightPostTag || HIGHLIGHT_POST_TAG
+                      query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
+                      highlightResult.value
                     ),
                   }
                 }, {} as HighlightResult<TRecord>),
@@ -102,21 +104,33 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
     )
 }
 
+/**
+ * Calculate the highlight metadata for a given highlight value.
+ * @param query - The query string.
+ * @param preTag - The pre tag.
+ * @param postTag - The post tag.
+ * @param highlightValue - The highlight value response from Meilisearch.
+ * @returns The highlight metadata.
+ */
 function calculateHighlightMetadata(
-  value: string,
+  query: string,
   preTag: string,
-  postTag: string
+  postTag: string,
+  highlightValue: string
 ): HighlightMetadata {
   // Extract all highlighted segments
   const highlightRegex = new RegExp(`${preTag}(.*?)${postTag}`, 'g')
   const matches: string[] = []
   let match
-  while ((match = highlightRegex.exec(value)) !== null) {
+  while ((match = highlightRegex.exec(highlightValue)) !== null) {
     matches.push(match[1])
   }
 
-  // Remove highlight tags to get the original, unhighlighted text
-  const cleanValue = value.replace(new RegExp(`${preTag}|${postTag}`, 'g'), '')
+  // Remove highlight tags to get the highlighted text without the tags
+  const cleanValue = highlightValue.replace(
+    new RegExp(`${preTag}|${postTag}`, 'g'),
+    ''
+  )
 
   // Determine if the entire attribute is highlighted
   // fullyHighlighted = true if cleanValue and the concatenation of all matched segments are identical
@@ -129,11 +143,11 @@ function calculateHighlightMetadata(
   // - 'full' if all text is fully highlighted
   let matchLevel: 'none' | 'partial' | 'full' = 'none'
   if (matches.length > 0) {
-    matchLevel = fullyHighlighted ? 'full' : 'partial'
+    matchLevel = cleanValue.includes(query) ? 'full' : 'partial'
   }
 
   return {
-    value,
+    value: highlightValue,
     fullyHighlighted,
     matchLevel,
     matchedWords: matches,
