@@ -4,11 +4,10 @@ import {
   MOVIES,
   meilisearchClient,
 } from '../../../__tests__/test.utils'
-import { HIGHLIGHT_PRE_TAG, HIGHLIGHT_POST_TAG } from '../../constants'
 
 type Movie = (typeof MOVIES)[number]
 
-const INDEX_NAME = 'movies'
+const INDEX_NAME = 'movies_fetch-meilisearch-results-test'
 const FIRST_ITEM_ID = MOVIES[0].id
 const SECOND_ITEM_ID = MOVIES[1].id
 
