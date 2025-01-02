@@ -115,6 +115,7 @@ export type SearchContext = InstantMeiliSearchOptions &
     pagination: PaginationState
     indexUid: string
     sort?: string | string[]
+    vector?: number[]
   }
 
 export type InstantSearchGeoParams = {
