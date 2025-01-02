@@ -95,6 +95,19 @@ describe('Parameters adapter', () => {
     expect(searchParams.hybrid).toBe(hybridSearchConfig)
   })
 
+  test('vector can be set via search parameters', () => {
+    const vector = [0, 1, 2]
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        vector: vector,
+      },
+    })
+
+    expect(searchParams.vector).toBe(vector)
+  }) 
+
   test('ranking score threshold can be set via search parameters', () => {
     const rankingScoreThreshold = 0.974
 

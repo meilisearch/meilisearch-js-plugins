@@ -53,6 +53,7 @@ export type OverridableMeiliSearchSearchParameters = Pick<
   | 'highlightPreTag'
   | 'highlightPostTag'
   | 'hybrid'
+  | 'vector'
   | 'matchingStrategy'
   | 'rankingScoreThreshold'
   | 'showMatchesPosition'

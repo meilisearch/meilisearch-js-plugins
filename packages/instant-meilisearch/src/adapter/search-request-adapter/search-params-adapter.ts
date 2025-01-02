@@ -67,6 +67,7 @@ function setFinitePagination(
 export function MeiliParamsCreator(searchContext: SearchContext) {
   const {
     query,
+    vector,
     indexUid,
     facets,
     attributesToSnippet,
@@ -238,6 +239,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.hybrid = value
       }
     },
+    addVector() {
+      const value = overrideParams?.vector
+      if (value !== undefined) {
+        meiliSearchParams.vector = value
+      }      
+    },
     addDistinct() {
       const value = overrideParams?.distinct
       if (value !== undefined) {
@@ -282,6 +289,7 @@ export function adaptSearchParams(
   meilisearchParams.addShowRankingScore()
   meilisearchParams.addAttributesToSearchOn()
   meilisearchParams.addHybridSearch()
+  meilisearchParams.addVector()
   meilisearchParams.addDistinct()
   meilisearchParams.addRankingScoreThreshold()
 
