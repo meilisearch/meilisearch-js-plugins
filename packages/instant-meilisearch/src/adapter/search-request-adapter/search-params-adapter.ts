@@ -67,7 +67,6 @@ function setFinitePagination(
 export function MeiliParamsCreator(searchContext: SearchContext) {
   const {
     query,
-    vector,
     indexUid,
     facets,
     attributesToSnippet,
