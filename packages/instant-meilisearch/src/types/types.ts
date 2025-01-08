@@ -57,6 +57,7 @@ export type OverridableMeiliSearchSearchParameters = Pick<
   | 'rankingScoreThreshold'
   | 'showMatchesPosition'
   | 'showRankingScore'
+  | 'vector'
 >
 
 type BaseInstantMeiliSearchOptions = {
