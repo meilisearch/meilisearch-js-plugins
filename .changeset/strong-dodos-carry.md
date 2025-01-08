@@ -2,4 +2,5 @@
 "@meilisearch/instant-meilisearch": minor
 ---
 
-Add vector search param to support vector search with user-provided embedding
+Add `vector` field to the search params object to support user-provided embeddings
+
