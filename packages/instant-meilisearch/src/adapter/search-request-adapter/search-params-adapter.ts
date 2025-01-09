@@ -242,7 +242,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       const value = overrideParams?.vector
       if (value !== undefined) {
         meiliSearchParams.vector = value
-      }      
+      }
     },
     addDistinct() {
       const value = overrideParams?.distinct

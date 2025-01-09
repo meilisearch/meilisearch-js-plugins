@@ -101,12 +101,12 @@ describe('Parameters adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       meiliSearchParams: {
-        vector: vector,
+        vector,
       },
     })
 
     expect(searchParams.vector).toBe(vector)
-  })   
+  })
 
   test('ranking score threshold can be set via search parameters', () => {
     const rankingScoreThreshold = 0.974
