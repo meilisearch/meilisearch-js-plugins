@@ -46,28 +46,7 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
             const query = queries[resultsArrayIndex]
             return {
               ...result,
-              hits: result.hits.map((hit) => ({
-                ...hit,
-                _highlightResult: (
-                  Object.entries(hit?._highlightResult || {}) as Array<
-                    | [keyof TRecord, { value: string }]
-                    | [keyof TRecord, Array<{ value: string }>] // if the field is an array
-                  >
-                ).reduce((acc, [field, highlightResult]) => {
-                  return {
-                    ...acc,
-                    // if the field is an array, highlightResult is an array of objects
-                    [field]: mapOneOrMany(highlightResult, (highlightResult) =>
-                      calculateHighlightMetadata(
-                        query.query || '',
-                        query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                        query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
-                        highlightResult.value
-                      )
-                    ),
-                  }
-                }, {} as HighlightResult<TRecord>),
-              })),
+              hits: buildHits<TRecord>(result, query),
             }
           }
         )
@@ -88,4 +67,32 @@ function buildSearchRequest(queries: AlgoliaMultipleQueriesQuery[]) {
       },
     }
   })
+}
+
+function buildHits<TRecord>(
+  result: AlgoliaSearchResponse<TRecord>,
+  query: AlgoliaMultipleQueriesQuery
+) {
+  return result.hits.map((hit) => ({
+    ...hit,
+    _highlightResult: (
+      Object.entries(hit?._highlightResult || {}) as Array<
+        | [keyof TRecord, { value: string }]
+        | [keyof TRecord, Array<{ value: string }>] // if the field is an array
+      >
+    ).reduce((acc, [field, highlightResult]) => {
+      return {
+        ...acc,
+        // if the field is an array, highlightResult is an array of objects
+        [field]: mapOneOrMany(highlightResult, (highlightResult) =>
+          calculateHighlightMetadata(
+            query.query || '',
+            query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
+            query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
+            highlightResult.value
+          )
+        ),
+      }
+    }, {} as HighlightResult<TRecord>),
+  }))
 }
