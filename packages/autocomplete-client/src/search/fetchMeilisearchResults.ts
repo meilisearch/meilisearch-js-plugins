@@ -8,7 +8,7 @@ import {
   HITS_PER_PAGE,
 } from '../constants'
 import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
-import { HighlightResult } from 'instantsearch.js/es/types/algoliasearch'
+import { FieldHighlight } from 'instantsearch.js/es/types/algoliasearch'
 import { calculateHighlightMetadata } from './highlight'
 import { mapOneOrMany } from '../utils'
 
@@ -93,6 +93,6 @@ function buildHits<TRecord>(
           )
         ),
       }
-    }, {} as HighlightResult<TRecord>),
+    }, {} as FieldHighlight<TRecord>),
   }))
 }

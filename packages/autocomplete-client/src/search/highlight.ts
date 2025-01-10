@@ -1,4 +1,4 @@
-interface HighlightMetadata {
+export interface HighlightMetadata {
   value: string
   fullyHighlighted: boolean
   matchLevel: 'none' | 'partial' | 'full'
