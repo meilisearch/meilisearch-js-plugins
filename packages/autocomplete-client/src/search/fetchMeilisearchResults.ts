@@ -29,13 +29,6 @@ interface SearchParams {
   >
 }
 
-interface HighlightMetadata {
-  value: string
-  fullyHighlighted: boolean
-  matchLevel: 'none' | 'partial' | 'full'
-  matchedWords: string[]
-}
-
 export function fetchMeilisearchResults<TRecord = Record<string, any>>({
   searchClient,
   queries,
