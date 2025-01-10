@@ -102,13 +102,6 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
 
 type DefinedHighlightResult = { value: string } | Array<{ value: string }>
 
-/**
- * Some fields may not return a value at all - nested arrays/objects for example
- *
- * Ideally server honours the `attributesToHighlight` param and only includes
- * those attributes in the response rather than all attributes (highlighted or
- * not)
- */
 type UndefinedHighlightResult = { value?: never } | Array<{ value?: never }>
 
 type PossibleHighlightResult = DefinedHighlightResult | UndefinedHighlightResult
