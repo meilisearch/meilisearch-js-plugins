@@ -10,6 +10,7 @@ import {
 import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
 import { HighlightResult } from 'instantsearch.js/es/types/algoliasearch'
 import { calculateHighlightMetadata } from './highlight'
+import { mapOneOrMany } from '../utils'
 
 interface SearchParams {
   /**
@@ -85,9 +86,4 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
         )
       }
     )
-}
-
-// Helper to apply a function to a single value or an array of values
-function mapOneOrMany<T, U>(value: T | T[], mapFn: (value: T) => U): U | U[] {
-  return Array.isArray(value) ? value.map(mapFn) : mapFn(value)
 }
