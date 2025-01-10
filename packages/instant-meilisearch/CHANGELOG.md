@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.24.0
+
+### Minor Changes
+
+- 203fd63: Add `vector` field to the search params object to support user-provided embeddings
+
 ## 0.23.0
 
 ### Minor Changes
