@@ -35,20 +35,7 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
   queries,
 }: SearchParams): Promise<Array<AlgoliaSearchResponse<TRecord>>> {
   return searchClient
-    .search<TRecord>(
-      queries.map((searchParameters) => {
-        const { params, ...headers } = searchParameters
-        return {
-          ...headers,
-          params: {
-            hitsPerPage: HITS_PER_PAGE,
-            highlightPreTag: HIGHLIGHT_PRE_TAG,
-            highlightPostTag: HIGHLIGHT_POST_TAG,
-            ...params,
-          },
-        }
-      })
-    )
+    .search<TRecord>(buildSearchRequest(queries))
     .then(
       (response: Awaited<ReturnType<typeof searchClient.search<TRecord>>>) => {
         return response.results.map(
@@ -86,4 +73,19 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
         )
       }
     )
+}
+
+function buildSearchRequest(queries: AlgoliaMultipleQueriesQuery[]) {
+  return queries.map((searchParameters) => {
+    const { params, ...headers } = searchParameters
+    return {
+      ...headers,
+      params: {
+        hitsPerPage: HITS_PER_PAGE,
+        highlightPreTag: HIGHLIGHT_PRE_TAG,
+        highlightPostTag: HIGHLIGHT_POST_TAG,
+        ...params,
+      },
+    }
+  })
 }
