@@ -4,6 +4,7 @@ import {
   MOVIES,
   meilisearchClient,
 } from '../../../__tests__/test.utils'
+import { HighlightMetadata } from '../highlight'
 
 type Movie = (typeof MOVIES)[number]
 
@@ -182,6 +183,138 @@ describe('fetchMeilisearchResults', () => {
       fullyHighlighted: false,
       matchLevel: 'none',
       matchedWords: [],
+    })
+  })
+
+  describe('nested object and array highlighting', () => {
+    interface Person {
+      id: number
+      name: string
+      nicknames: string[]
+      familyMembers: Array<{
+        relationship: string
+        name: string
+      }>
+    }
+
+    interface PersonHighlightResult {
+      id: HighlightMetadata
+      name: HighlightMetadata
+      nicknames: HighlightMetadata[]
+      familyMembers: Array<{
+        relationship: HighlightMetadata
+        name: HighlightMetadata
+      }>
+    }
+
+    const PERSON: Person = {
+      id: 1,
+      name: 'Joseph',
+      nicknames: ['Joe', 'Joey'],
+      familyMembers: [
+        {
+          relationship: 'mother',
+          name: 'Susan',
+        },
+        {
+          relationship: 'father',
+          name: 'John',
+        },
+      ],
+    }
+    const PEOPLE_INDEX = 'people_highlight_test'
+
+    beforeAll(async () => {
+      await meilisearchClient.deleteIndex(PEOPLE_INDEX)
+      const task = await meilisearchClient
+        .index(PEOPLE_INDEX)
+        .addDocuments([PERSON])
+      await meilisearchClient.waitForTask(task.taskUid)
+    })
+
+    afterAll(async () => {
+      await meilisearchClient.deleteIndex(PEOPLE_INDEX)
+    })
+
+    test('highlights in array values', async () => {
+      const pre = '<em>'
+      const post = '</em>'
+      const results = await fetchMeilisearchResults<Person>({
+        searchClient,
+        queries: [
+          {
+            indexName: PEOPLE_INDEX,
+            query: 'Joe',
+            params: {
+              highlightPreTag: pre,
+              highlightPostTag: post,
+            },
+          },
+        ],
+      })
+
+      const highlightResult = results[0].hits[0]
+        ._highlightResult as PersonHighlightResult
+      expect(highlightResult.nicknames[0]).toEqual({
+        value: `${pre}Joe${post}`,
+        fullyHighlighted: true,
+        matchLevel: 'full',
+        matchedWords: ['Joe'],
+      })
+    })
+
+    test('highlights in nested objects within arrays', async () => {
+      const pre = '<em>'
+      const post = '</em>'
+      const results = await fetchMeilisearchResults<Person>({
+        searchClient,
+        queries: [
+          {
+            indexName: PEOPLE_INDEX,
+            query: 'Susan',
+            params: {
+              highlightPreTag: pre,
+              highlightPostTag: post,
+            },
+          },
+        ],
+      })
+
+      const highlightResult = results[0].hits[0]
+        ._highlightResult as PersonHighlightResult
+      expect(highlightResult.familyMembers[0].name).toEqual({
+        value: `${pre}Susan${post}`,
+        fullyHighlighted: true,
+        matchLevel: 'full',
+        matchedWords: ['Susan'],
+      })
+    })
+
+    test('highlights multiple nested fields', async () => {
+      const pre = '<em>'
+      const post = '</em>'
+      const results = await fetchMeilisearchResults<Person>({
+        searchClient,
+        queries: [
+          {
+            indexName: PEOPLE_INDEX,
+            query: 'mother',
+            params: {
+              highlightPreTag: pre,
+              highlightPostTag: post,
+            },
+          },
+        ],
+      })
+
+      const highlightResult = results[0].hits[0]
+        ._highlightResult as PersonHighlightResult
+      expect(highlightResult.familyMembers[0].relationship).toEqual({
+        value: `${pre}mother${post}`,
+        fullyHighlighted: true,
+        matchLevel: 'full',
+        matchedWords: ['mother'],
+      })
     })
   })
 })
