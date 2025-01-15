@@ -1,5 +1,5 @@
-import { instantMeiliSearch } from '../src'
-import { meilisearchClient, dataset } from './assets/utils'
+import { instantMeiliSearch } from '../src/index.js'
+import { meilisearchClient, dataset } from './assets/utils.js'
 
 describe('Custom HTTP client tests', () => {
   beforeAll(async () => {

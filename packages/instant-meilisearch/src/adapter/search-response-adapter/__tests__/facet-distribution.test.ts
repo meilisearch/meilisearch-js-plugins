@@ -1,4 +1,4 @@
-import { adaptFacetDistribution } from '../facet-distribution-adapter'
+import { adaptFacetDistribution } from '../facet-distribution-adapter.js'
 
 const initialFacetDistribution = {
   movie: {

@@ -36,6 +36,7 @@
     "test:types": "yarn tsc",
     "version": "node scripts/update_version.js"
   },
+  "type": "module",
   "main": "./dist/instant-meilisearch.umd.js",
   "module": "./dist/instant-meilisearch.esm.js",
   "browser": "./dist/instant-meilisearch.umd.js",

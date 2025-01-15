@@ -1,4 +1,4 @@
-import { adaptHits } from '../hits-adapter'
+import { adaptHits } from '../hits-adapter.js'
 
 const searchResponsePositionMatchesFalse = {
   indexUid: 'steam-video-games',

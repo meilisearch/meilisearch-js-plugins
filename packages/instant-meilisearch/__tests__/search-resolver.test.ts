@@ -1,5 +1,5 @@
-import { Movies } from './assets/utils'
-import { instantMeiliSearch } from '../src'
+import { Movies } from './assets/utils.js'
+import { instantMeiliSearch } from '../src/index.js'
 import { MeiliSearch } from 'meilisearch'
 import { mocked } from 'ts-jest/utils'
 import { PACKAGE_VERSION } from '../src/package-version'

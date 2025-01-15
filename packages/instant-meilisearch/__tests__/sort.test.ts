@@ -1,11 +1,11 @@
-import {
+import { instantMeiliSearch } from '../src/index.js'
   searchClient,
   dataset,
   Movies,
   meilisearchClient,
 } from './assets/utils'
 
-import { splitSortString } from '../src/contexts/sort-context'
+import { splitSortString } from '../src/contexts/sort-context.js'
 
 describe('Sort browser test', () => {
   beforeAll(async () => {

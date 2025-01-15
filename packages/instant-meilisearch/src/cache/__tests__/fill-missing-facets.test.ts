@@ -1,4 +1,4 @@
-import { fillMissingFacets } from '../init-facets-distribution'
+import { fillMissingFacets } from '../init-facets-distribution.js'
 
 describe('Fill missing facets', () => {
   it('should fill missing facets without changing the results', () => {

@@ -1,4 +1,4 @@
-import { adaptGeoResponse } from '../geo-reponse-adapter'
+import { adaptGeoResponse } from '../geo-reponse-adapter.js'
 
 describe('Geopoint adapter', () => {
   test('_geoloc field should be created in hit object with _geo fields', () => {
