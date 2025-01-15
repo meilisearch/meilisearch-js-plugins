@@ -2,7 +2,6 @@
   "name": "@meilisearch/instant-meilisearch",
   "version": "0.23.0",
   "private": false,
-  "type": "module",
   "description": "The search client to use Meilisearch with InstantSearch.",
   "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/instant-meilisearch",
   "license": "MIT",
