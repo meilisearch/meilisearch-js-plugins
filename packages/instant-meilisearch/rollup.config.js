@@ -35,8 +35,7 @@ const COMMON_PLUGINS = [
 
 /** @type {import('rollup').RollupOptions[]} */
 const ROLLUP_OPTIONS = [
-  // TODO: Suspicious, it looks like it's UMD not browser-friendly IIFE build
-  // browser-friendly IIFE build
+  // Browser-friendly build
   {
     input: INPUT, // directory to transpilation of typescript
     output: {
@@ -64,35 +63,36 @@ const ROLLUP_OPTIONS = [
       env === 'production' ? terser() : {}, // will minify the file in production mode
     ],
   },
-  // {
-  //   input: INPUT,
-  //   external: ['meilisearch'],
-  //   output: [
-  //     {
-  //       file: getOutputFileName(
-  //         // will add .min. in filename if in production env
-  //         resolve(ROOT, pkg.cjs),
-  //         env === 'production'
-  //       ),
-  //       exports: 'named',
-  //       format: 'cjs',
-  //       sourcemap: env === 'production', // create sourcemap for error reporting in production mode
-  //     },
-  //     {
-  //       file: getOutputFileName(
-  //         resolve(ROOT, pkg.module),
-  //         env === 'production'
-  //       ),
-  //       exports: 'named',
-  //       format: 'es',
-  //       sourcemap: env === 'production', // create sourcemap for error reporting in production mode
-  //     },
-  //   ],
-  //   plugins: [
-  //     env === 'production' ? terser() : {}, // will minify the file in production mode
-  //     ...COMMON_PLUGINS,
-  //   ],
-  // },
+  // CommonJS and ES Module build
+  {
+    input: INPUT,
+    external: ['meilisearch'],
+    output: [
+      {
+        file: getOutputFileName(
+          // will add .min. in filename if in production env
+          resolve(ROOT, pkg.cjs),
+          env === 'production'
+        ),
+        exports: 'named',
+        format: 'cjs',
+        sourcemap: env === 'production', // create sourcemap for error reporting in production mode
+      },
+      {
+        file: getOutputFileName(
+          resolve(ROOT, pkg.module),
+          env === 'production'
+        ),
+        exports: 'named',
+        format: 'es',
+        sourcemap: env === 'production', // create sourcemap for error reporting in production mode
+      },
+    ],
+    plugins: [
+      env === 'production' ? terser() : {}, // will minify the file in production mode
+      ...COMMON_PLUGINS,
+    ],
+  },
 ]
 
 module.exports = ROLLUP_OPTIONS
