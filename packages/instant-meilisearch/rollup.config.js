@@ -17,7 +17,7 @@ const INPUT = 'src/index.ts'
 /** @type {import('rollup').Plugin[]} */
 const COMMON_PLUGINS = [
   typescript({
-    useTsconfigDeclarationDir: true,
+    // useTsconfigDeclarationDir: true,
     tsconfigOverride: {
       includes: ['src'],
       exclude: [
@@ -28,13 +28,14 @@ const COMMON_PLUGINS = [
         'playgrounds',
         'dist',
       ],
-      esModuleInterop: true,
+      // esModuleInterop: true,
     },
   }),
 ]
 
 /** @type {import('rollup').RollupOptions[]} */
 const ROLLUP_OPTIONS = [
+  // TODO: Suspicious, it looks like it's UMD not browser-friendly IIFE build
   // browser-friendly IIFE build
   {
     input: INPUT, // directory to transpilation of typescript
@@ -54,42 +55,42 @@ const ROLLUP_OPTIONS = [
     },
     plugins: [
       ...COMMON_PLUGINS,
-      nodeResolve({ exportConditions: ['browser'] }),
-      commonjs(),
-      babel(),
+      nodeResolve(),
+      // commonjs(),
+      // babel(),
       // json(),
       env === 'production' ? terser() : {}, // will minify the file in production mode
     ],
   },
-  {
-    input: INPUT,
-    external: ['meilisearch'],
-    output: [
-      {
-        file: getOutputFileName(
-          // will add .min. in filename if in production env
-          resolve(ROOT, pkg.cjs),
-          env === 'production'
-        ),
-        exports: 'named',
-        format: 'cjs',
-        sourcemap: env === 'production', // create sourcemap for error reporting in production mode
-      },
-      {
-        file: getOutputFileName(
-          resolve(ROOT, pkg.module),
-          env === 'production'
-        ),
-        exports: 'named',
-        format: 'es',
-        sourcemap: env === 'production', // create sourcemap for error reporting in production mode
-      },
-    ],
-    plugins: [
-      env === 'production' ? terser() : {}, // will minify the file in production mode
-      ...COMMON_PLUGINS,
-    ],
-  },
+  // {
+  //   input: INPUT,
+  //   external: ['meilisearch'],
+  //   output: [
+  //     {
+  //       file: getOutputFileName(
+  //         // will add .min. in filename if in production env
+  //         resolve(ROOT, pkg.cjs),
+  //         env === 'production'
+  //       ),
+  //       exports: 'named',
+  //       format: 'cjs',
+  //       sourcemap: env === 'production', // create sourcemap for error reporting in production mode
+  //     },
+  //     {
+  //       file: getOutputFileName(
+  //         resolve(ROOT, pkg.module),
+  //         env === 'production'
+  //       ),
+  //       exports: 'named',
+  //       format: 'es',
+  //       sourcemap: env === 'production', // create sourcemap for error reporting in production mode
+  //     },
+  //   ],
+  //   plugins: [
+  //     env === 'production' ? terser() : {}, // will minify the file in production mode
+  //     ...COMMON_PLUGINS,
+  //   ],
+  // },
 ]
 
 module.exports = ROLLUP_OPTIONS
