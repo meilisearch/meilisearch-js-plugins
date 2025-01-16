@@ -13,7 +13,7 @@ module.exports = {
         'ts-jest': { tsconfig: 'tsconfig.test.json' },
         fetch: globalThis.fetch,
       },
-      preset: 'ts-jest',
+      preset: 'ts-jest/presets/default-esm',
       displayName: 'dom',
       testPathIgnorePatterns: [...ignoreFiles],
       coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
@@ -24,7 +24,7 @@ module.exports = {
         'ts-jest': { tsconfig: 'tsconfig.test.json' },
         fetch: globalThis.fetch,
       },
-      preset: 'ts-jest',
+      preset: 'ts-jest/presets/default-esm',
       displayName: 'node',
       testEnvironment: 'node',
       testPathIgnorePatterns: [...ignoreFiles],
@@ -32,4 +32,7 @@ module.exports = {
       setupFilesAfterEnv: ['<rootDir>/scripts/jest_teardown.js'],
     },
   ],
+  transform: {
+    '^.+\\.(js|ts|mjs)$': 'babel-jest',
+  },
 }
