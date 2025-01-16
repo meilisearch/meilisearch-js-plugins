@@ -8,8 +8,9 @@
     "declarationDir": "./dist/types",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
     "lib": [
       "ES2019",
       "ESNext",
@@ -26,6 +27,9 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/index.ts"
+  ],
 }
-
