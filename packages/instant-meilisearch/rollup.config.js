@@ -54,8 +54,10 @@ const ROLLUP_OPTIONS = [
       },
     },
     plugins: [
-      ...COMMON_PLUGINS,
+      // Must be before rollup-plugin-typescript2 in the plugin list
+      // See https://www.npmjs.com/package/rollup-plugin-typescript2#rollupplugin-node-resolve
       nodeResolve(),
+      ...COMMON_PLUGINS,
       // commonjs(),
       // babel(),
       // json(),
