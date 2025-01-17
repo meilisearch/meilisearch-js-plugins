@@ -1,3 +1,4 @@
 {
-  "watchForFileChanges": true
+  "watchForFileChanges": true,
+  "pluginsFile": false
 }

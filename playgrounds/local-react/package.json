@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "predev": "node setup.js",
-    "dev": "vite",
+    "dev": "vite --port 9999",
     "build": "vite build",
     "setup": "node setup.js",
     "lint": "eslint --ext .jsx,.js .",
