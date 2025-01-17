@@ -79,6 +79,41 @@ describe('Parameters adapter', () => {
     )
   })
 
+  test('adapting a searchContext with overridden Meilisearch parameters for a specific index', () => {
+    const meiliSearchParams: OverridableMeiliSearchSearchParameters = {
+      attributesToHighlight: ['movies', 'genres'],
+      highlightPreTag: '<em>',
+      highlightPostTag: '</em>',
+      matchingStrategy: MatchingStrategies.ALL,
+      indexesOverrides: {
+        test: {
+          attributesToHighlight: ['release_date'],
+          highlightPreTag: '<span>',
+          highlightPostTag: '</span>',
+          matchingStrategy: MatchingStrategies.LAST,
+        },
+      },
+    }
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams,
+    })
+
+    expect(searchParams.attributesToHighlight).toEqual(
+      meiliSearchParams.indexesOverrides?.test?.attributesToHighlight
+    )
+    expect(searchParams.highlightPreTag).toEqual(
+      meiliSearchParams.indexesOverrides?.test?.highlightPreTag
+    )
+    expect(searchParams.highlightPostTag).toEqual(
+      meiliSearchParams.indexesOverrides?.test?.highlightPostTag
+    )
+    expect(searchParams.matchingStrategy).toEqual(
+      meiliSearchParams.indexesOverrides?.test?.matchingStrategy
+    )
+  })
+
   test('hybrid search configuration can be set via search parameters', () => {
     const hybridSearchConfig = {
       semanticRatio: 0,
@@ -95,6 +130,29 @@ describe('Parameters adapter', () => {
     expect(searchParams.hybrid).toBe(hybridSearchConfig)
   })
 
+  test('hybrid search configuration can be set via search parameters for a specific index', () => {
+    const hybridSearchConfig = {
+      semanticRatio: 0,
+      embedder: 'default',
+    }
+    const specificHybridSearchConfig = {
+      semanticRatio: 10,
+      embedder: 'default',
+    }
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        hybrid: hybridSearchConfig,
+        indexesOverrides: {
+          test: { hybrid: specificHybridSearchConfig },
+        },
+      },
+    })
+
+    expect(searchParams.hybrid).toBe(specificHybridSearchConfig)
+  })
+
   test('vector can be set via search parameters', () => {
     const vector = [0, 1, 2]
 
@@ -106,6 +164,20 @@ describe('Parameters adapter', () => {
     })
 
     expect(searchParams.vector).toBe(vector)
+  })
+  test('vector can be set via search parameters for a specific index', () => {
+    const vector = [0, 1, 2]
+    const indexVector = [3, 4, 5]
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        vector,
+        indexesOverrides: { test: { vector: indexVector } },
+      },
+    })
+
+    expect(searchParams.vector).toBe(indexVector)
   })
 
   test('ranking score threshold can be set via search parameters', () => {
@@ -121,6 +193,23 @@ describe('Parameters adapter', () => {
     expect(searchParams.rankingScoreThreshold).toBe(rankingScoreThreshold)
   })
 
+  test('ranking score threshold can be set via search parameters for a specific index', () => {
+    const rankingScoreThreshold = 0.974
+    const indexRankingScoreThreshold = 0.567
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        rankingScoreThreshold,
+        indexesOverrides: {
+          test: { rankingScoreThreshold: indexRankingScoreThreshold },
+        },
+      },
+    })
+
+    expect(searchParams.rankingScoreThreshold).toBe(indexRankingScoreThreshold)
+  })
+
   test('distinct search configuration can be set via search parameters', () => {
     const distinctSearchConfig = 'title'
 
@@ -132,6 +221,23 @@ describe('Parameters adapter', () => {
     })
 
     expect(searchParams.distinct).toBe(distinctSearchConfig)
+  })
+
+  test('distinct search configuration can be set via search parameters for a specific', () => {
+    const distinctSearchConfig = 'title'
+    const indexDistinctSearchConfig = 'name'
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        distinct: distinctSearchConfig,
+        indexesOverrides: {
+          test: { distinct: indexDistinctSearchConfig },
+        },
+      },
+    })
+
+    expect(searchParams.distinct).toBe(indexDistinctSearchConfig)
   })
 })
 
