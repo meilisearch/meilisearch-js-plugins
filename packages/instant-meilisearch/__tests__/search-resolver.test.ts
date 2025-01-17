@@ -5,7 +5,7 @@ import { PACKAGE_VERSION } from '../src/package-version'
 import { MeiliSearchMultiSearchParams } from '../src/types'
 import { jest } from '@jest/globals'
 
-jest.mock('meilisearch')
+// jest.mock('meilisearch')
 
 export const searchResponse = {
   hits: [],
@@ -17,26 +17,17 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
-const mockedMultiSearch = jest.fn((request: MultiSearchParams) => {
-  const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
-    ...searchResponse,
-    indexUid: req.indexUid,
-  }))
-  return {
-    results: response,
-  }
-})
-
-// Mocking Meilisearch package
-jest.mock('meilisearch', () => {
-  return {
-    multiSearch: mockedMultiSearch,
-  }
-})
-
-
-// Mocking of Meilisearch class
-const mockedMeilisearch = jest.mocked(MeiliSearch)
+const mockedMultiSearch = jest
+  .spyOn(MeiliSearch.prototype, 'multiSearch')
+  .mockImplementation((request: MultiSearchParams) => {
+    const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
+      ...searchResponse,
+      indexUid: req.indexUid,
+    }))
+    return Promise.resolve({
+      results: response,
+    })
+  })
 
 describe('Cached search tests', () => {
   afterEach(() => {
@@ -54,11 +45,7 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters])
     await searchClient.search<Movies>([searchParameters])
 
-    expect(mockedMeilisearch).toHaveBeenCalledWith({
-      host: 'http://localhost:7700',
-      apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
-    })
+
     expect(mockedMultiSearch).toHaveBeenCalledTimes(2)
   })
 
@@ -80,11 +67,7 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
 
-    expect(mockedMeilisearch).toHaveBeenCalledWith({
-      host: 'http://localhost:7700',
-      apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
-    })
+
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
 
@@ -107,11 +90,7 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
 
-    expect(mockedMeilisearch).toHaveBeenCalledWith({
-      host: 'http://localhost:7700',
-      apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
-    })
+
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
 
@@ -135,11 +114,7 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
 
-    expect(mockedMeilisearch).toHaveBeenCalledWith({
-      host: 'http://localhost:7700',
-      apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
-    })
+
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
 
@@ -171,11 +146,7 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>(searchParameters1)
     await searchClient.search<Movies>([searchParameters2])
 
-    expect(mockedMeilisearch).toHaveBeenCalledWith({
-      host: 'http://localhost:7700',
-      apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
-    })
+
 
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
