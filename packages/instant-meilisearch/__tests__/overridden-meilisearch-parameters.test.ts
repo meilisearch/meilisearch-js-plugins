@@ -50,5 +50,18 @@ describe('InstantMeiliSearch overridden parameters', () => {
     expect(secondHits[0]._highlightResult?.overview?.value).toContain(
       '<om>While racing to a boxing match</om>'
     )
+
+    setMeiliSearchParams({
+      indexesOverrides: {
+        movies: { highlightPreTag: '<span>', highlightPostTag: '</span>' },
+      },
+    })
+    const thirdResponse = await searchClient.search<Movies>(queryParams)
+
+    const thirdHits = thirdResponse.results[0].hits
+    expect(thirdHits.length).toEqual(1)
+    expect(thirdHits[0]._highlightResult?.overview?.value).toContain(
+      '<span>While racing to a boxing match</span>'
+    )
   })
 })
