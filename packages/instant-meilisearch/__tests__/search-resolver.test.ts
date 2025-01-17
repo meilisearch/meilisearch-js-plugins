@@ -17,10 +17,12 @@ export const searchResponse = {
 const mockedMultiSearch = jest
   .spyOn(MeiliSearch.prototype, 'multiSearch')
   .mockImplementation((request: MultiSearchParams) => {
-    const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
-      ...searchResponse,
-      indexUid: req.indexUid,
-    }))
+    const response = request.queries.map(
+      (req: MeiliSearchMultiSearchParams) => ({
+        ...searchResponse,
+        indexUid: req.indexUid,
+      })
+    )
     return Promise.resolve({
       results: response,
     })
@@ -42,7 +44,6 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters])
     await searchClient.search<Movies>([searchParameters])
 
-
     expect(mockedMultiSearch).toHaveBeenCalledTimes(2)
   })
 
@@ -63,7 +64,6 @@ describe('Cached search tests', () => {
     const { searchClient } = instantMeiliSearch('http://localhost:7700')
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
-
 
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
@@ -87,7 +87,6 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
 
-
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
 
@@ -110,7 +109,6 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
-
 
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
@@ -142,8 +140,6 @@ describe('Cached search tests', () => {
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>(searchParameters1)
     await searchClient.search<Movies>([searchParameters2])
-
-
 
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })

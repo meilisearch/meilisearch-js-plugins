@@ -1,1 +1,4 @@
-export { createSearchContext, createFacetSearchContext } from './search-context.js'
+export {
+  createSearchContext,
+  createFacetSearchContext,
+} from './search-context.js'

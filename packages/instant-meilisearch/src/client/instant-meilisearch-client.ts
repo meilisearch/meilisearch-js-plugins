@@ -22,7 +22,10 @@ import {
   adaptSearchParams,
   SearchResolver,
 } from '../adapter/index.js'
-import { createSearchContext, createFacetSearchContext } from '../contexts/index.js'
+import {
+  createSearchContext,
+  createFacetSearchContext,
+} from '../contexts/index.js'
 import {
   SearchCache,
   initFacetDistribution,
@@ -89,9 +92,9 @@ export function instantMeiliSearch(
         meiliSearchParams === undefined
           ? params
           : {
-            ...meiliSearchParams,
-            ...params,
-          }
+              ...meiliSearchParams,
+              ...params,
+            }
     },
     searchClient: {
       clearCache: () => searchCache.clearCache(),
