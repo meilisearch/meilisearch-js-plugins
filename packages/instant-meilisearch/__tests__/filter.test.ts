@@ -3,7 +3,7 @@ import {
   dataset,
   Movies,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {

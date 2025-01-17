@@ -1,11 +1,8 @@
 import { Movies } from './assets/utils.js'
 import { instantMeiliSearch } from '../src/index.js'
 import { MeiliSearch, MultiSearchParams } from 'meilisearch'
-import { PACKAGE_VERSION } from '../src/package-version'
-import { MeiliSearchMultiSearchParams } from '../src/types'
+import { MeiliSearchMultiSearchParams } from '../src/types/index.js'
 import { jest } from '@jest/globals'
-
-// jest.mock('meilisearch')
 
 export const searchResponse = {
   hits: [],

@@ -89,9 +89,9 @@ export function instantMeiliSearch(
         meiliSearchParams === undefined
           ? params
           : {
-              ...meiliSearchParams,
-              ...params,
-            }
+            ...meiliSearchParams,
+            ...params,
+          }
     },
     searchClient: {
       clearCache: () => searchCache.clearCache(),

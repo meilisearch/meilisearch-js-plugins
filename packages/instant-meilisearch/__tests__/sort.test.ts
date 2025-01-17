@@ -4,7 +4,7 @@ import {
   dataset,
   Movies,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
 import { splitSortString } from '../src/contexts/sort-context.js'
 
