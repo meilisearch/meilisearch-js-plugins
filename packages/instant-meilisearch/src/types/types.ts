@@ -41,7 +41,7 @@ export type InstantSearchParams = NonNullable<
   AlgoliaMultipleQueriesQuery['params']
 >
 
-export type OverridableMeiliSearchSearchParameters = Pick<
+type BaseMeiliSearchSearchParameters = Pick<
   MeiliSearchMultiSearchParams,
   | 'attributesToCrop'
   | 'attributesToRetrieve'
@@ -59,6 +59,10 @@ export type OverridableMeiliSearchSearchParameters = Pick<
   | 'showRankingScore'
   | 'vector'
 >
+
+export type OverridableMeiliSearchSearchParameters = {
+  [indexName: string]: BaseMeiliSearchSearchParameters
+} & BaseMeiliSearchSearchParameters
 
 type BaseInstantMeiliSearchOptions = {
   placeholderSearch?: boolean
