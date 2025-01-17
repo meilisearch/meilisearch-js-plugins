@@ -17,7 +17,7 @@ const INPUT = 'src/index.ts'
 /** @type {import('rollup').Plugin[]} */
 const COMMON_PLUGINS = [
   typescript({
-    // useTsconfigDeclarationDir: true,
+    useTsconfigDeclarationDir: true,
     tsconfigOverride: {
       includes: ['src'],
       exclude: [
@@ -28,7 +28,7 @@ const COMMON_PLUGINS = [
         'playgrounds',
         'dist',
       ],
-      // esModuleInterop: true,
+      esModuleInterop: true,
     },
   }),
 ]
@@ -57,8 +57,8 @@ const ROLLUP_OPTIONS = [
       // See https://www.npmjs.com/package/rollup-plugin-typescript2#rollupplugin-node-resolve
       nodeResolve(),
       ...COMMON_PLUGINS,
-      // commonjs(),
-      // babel(),
+      commonjs(),
+      babel(),
       // json(),
       env === 'production' ? terser() : {}, // will minify the file in production mode
     ],
