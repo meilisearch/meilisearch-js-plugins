@@ -4,7 +4,6 @@ import type {
   PaginationState,
   MeiliSearchMultiSearchParams,
   Mutable,
-  OverridableMeiliSearchSearchParameters,
 } from '../../types'
 
 import { adaptGeoSearch } from './geo-rules-adapter'
