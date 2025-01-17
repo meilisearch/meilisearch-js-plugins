@@ -1,5 +1,6 @@
 import { instantMeiliSearch } from '../src/index.js'
 import { meilisearchClient, dataset } from './assets/utils.js'
+import { jest } from '@jest/globals'
 
 describe('Custom HTTP client tests', () => {
   beforeAll(async () => {

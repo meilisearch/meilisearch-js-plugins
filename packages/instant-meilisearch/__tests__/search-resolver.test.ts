@@ -1,9 +1,9 @@
 import { Movies } from './assets/utils.js'
 import { instantMeiliSearch } from '../src/index.js'
-import { MeiliSearch } from 'meilisearch'
-import { mocked } from 'ts-jest/utils'
+import { MeiliSearch, MultiSearchParams } from 'meilisearch'
 import { PACKAGE_VERSION } from '../src/package-version'
 import { MeiliSearchMultiSearchParams } from '../src/types'
+import { jest } from '@jest/globals'
 
 jest.mock('meilisearch')
 
@@ -17,9 +17,7 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
-// Mocking of Meilisearch package
-const mockedMeilisearch = mocked(MeiliSearch, true)
-const mockedMultiSearch = jest.fn((request) => {
+const mockedMultiSearch = jest.fn((request: MultiSearchParams) => {
   const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
     ...searchResponse,
     indexUid: req.indexUid,
@@ -29,10 +27,16 @@ const mockedMultiSearch = jest.fn((request) => {
   }
 })
 
-mockedMeilisearch.mockReturnValue({
-  // @ts-ignore
-  multiSearch: mockedMultiSearch,
+// Mocking Meilisearch package
+jest.mock('meilisearch', () => {
+  return {
+    multiSearch: mockedMultiSearch,
+  }
 })
+
+
+// Mocking of Meilisearch class
+const mockedMeilisearch = jest.mocked(MeiliSearch)
 
 describe('Cached search tests', () => {
   afterEach(() => {

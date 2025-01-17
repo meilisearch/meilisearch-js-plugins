@@ -1,4 +1,5 @@
 import { instantMeiliSearch } from '../src/index.js'
+import {
   searchClient,
   dataset,
   Movies,
