@@ -296,7 +296,28 @@ instantMeiliSearch(
   }
 )
 ```
+When using multi search, meilisearchParams can be overriden for specific indexes :
 
+```js
+instantMeiliSearch(
+  // ...
+  {
+    meiliSearchParams: {
+      // All indexes will highlight overview
+      attributesToHighlight: ['overview'],
+      highlightPreTag: '<em>',
+      highlightPostTag: '</em>',
+      attributesToSearchOn: ['overview'],
+      indexesOverrides: {
+        movies: {
+          // Only title will be highlighted for hits in movies
+          attributesToHighlight: ['title']
+        }
+      }
+    },
+  }
+)
+```
 ### Modify Meilisearch search parameters
 
 `instantMeiliSearch` returns an instance with two properties on it, one of them being `setMeiliSearchParams`.
