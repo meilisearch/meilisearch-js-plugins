@@ -34,26 +34,12 @@ export default {
   projects: [
     {
       ...baseConfig,
-      // globals: {
-      //   'ts-jest': { tsconfig: 'tsconfig.test.json' },
-      //   fetch: globalThis.fetch,
-      // },
-      // preset: 'ts-jest',
       displayName: 'dom',
-      // testPathIgnorePatterns: [...ignoreFiles],
-      // coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
     },
     {
       ...baseConfig,
-      // globals: {
-      //   'ts-jest': { tsconfig: 'tsconfig.test.json' },
-      //   fetch: globalThis.fetch,
-      // },
-      // preset: 'ts-jest',
       displayName: 'node',
       testEnvironment: 'node',
-      // coveragePathIgnorePatterns: ['<rootDir>(/.*)*/assets/'],
-      // testPathIgnorePatterns: ['<rootDir>(/.*)*/assets', 'test.utils'],
     },
   ],
 }
