@@ -1,6 +1,5 @@
-const { instantMeiliSearch } = require('@meilisearch/instant-meilisearch')
-const { MeiliSearch } = require('meilisearch')
-
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch/dist/instant-meilisearch.esm.min.js'
+import { MeiliSearch } from 'meilisearch'
 
 const { searchClient } = instantMeiliSearch('http://localhost:7700', 'masterKey', {})
 const msClient = new MeiliSearch({ host: 'http://localhost:7700', apiKey: 'masterKey'})
