@@ -1,6 +1,6 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src'
-import { dataset, meilisearchClient, Movies } from './assets/utils'
+import { instantMeiliSearch } from '../src/index.js'
+import { dataset, meilisearchClient, type Movies } from './assets/utils.js'
 
 describe('InstantMeiliSearch overridden parameters', () => {
   beforeAll(async () => {

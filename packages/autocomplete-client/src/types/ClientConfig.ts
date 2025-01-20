@@ -1,5 +1,5 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import { MeilisearchOptions } from './MeilisearchOptions'
+import type { MeilisearchOptions } from './MeilisearchOptions.js'
 
 export type InstantMeilisearch = typeof instantMeiliSearch
 export type MeilisearchURL = Parameters<InstantMeilisearch>[0]

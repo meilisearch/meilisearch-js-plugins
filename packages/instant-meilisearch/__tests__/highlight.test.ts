@@ -2,9 +2,9 @@ import { describe, beforeAll, test, expect } from 'vitest'
 import {
   searchClient,
   dataset,
-  Movies,
+  type Movies,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
 describe('Highlight Browser test', () => {
   beforeAll(async () => {

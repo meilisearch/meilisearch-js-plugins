@@ -1,11 +1,11 @@
-import {
+import type {
   InstantMeiliSearchOptions,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   AlgoliaSearchForFacetValuesRequest,
-} from '../types'
-import { splitSortString } from './sort-context'
-import { createPaginationState } from './pagination-context'
+} from '../types/index.js'
+import { splitSortString } from './sort-context.js'
+import { createPaginationState } from './pagination-context.js'
 
 function separateIndexFromSortRules(indexName: string): {
   indexUid: string

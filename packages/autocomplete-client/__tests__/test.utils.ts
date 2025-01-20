@@ -1,4 +1,4 @@
-import { meilisearchAutocompleteClient } from '../src'
+import { meilisearchAutocompleteClient } from '../src/index.js'
 import { MeiliSearch } from 'meilisearch'
 
 const dataset = [

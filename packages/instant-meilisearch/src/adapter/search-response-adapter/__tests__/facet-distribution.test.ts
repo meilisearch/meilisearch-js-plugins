@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { adaptFacetDistribution } from '../facet-distribution-adapter'
+import { adaptFacetDistribution } from '../facet-distribution-adapter.js'
 
 const initialFacetDistribution = {
   movie: {

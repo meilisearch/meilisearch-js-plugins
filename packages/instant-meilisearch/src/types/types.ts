@@ -1,4 +1,4 @@
-import type { SearchClient } from 'instantsearch.js'
+import type SearchClient from 'instantsearch.js'
 import type {
   MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
   multipleSearchForFacetValues,
@@ -127,7 +127,7 @@ export type InstantSearchGeoParams = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type InstantMeiliSearchInstance = SearchClient & {
+export type InstantMeiliSearchInstance = ReturnType<typeof SearchClient> & {
   clearCache: () => void
 }
 

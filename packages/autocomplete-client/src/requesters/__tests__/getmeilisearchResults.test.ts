@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
-import { getMeilisearchResults } from '../'
-import { searchClient } from '../../../__tests__/test.utils'
+import { getMeilisearchResults } from '../index.js'
+import { searchClient } from '../../../__tests__/test.utils.js'
 
 describe('getMeilisearchResults', () => {
   test('the the fields in the returned description object', () => {

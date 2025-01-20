@@ -2,9 +2,9 @@ import { describe, beforeAll, test, expect } from 'vitest'
 import {
   searchClient,
   geoDataset,
-  City,
+  type City,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {

@@ -1,10 +1,10 @@
-import {
+import type {
   MeiliSearch,
   SearchCacheInterface,
   MeiliSearchMultiSearchParams,
   MeilisearchMultiSearchResult,
   PaginationState,
-} from '../../types'
+} from '../../types/index.js'
 
 /**
  * @param  {ResponseCacher} cache

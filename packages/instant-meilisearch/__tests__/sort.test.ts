@@ -2,11 +2,11 @@ import { describe, beforeAll, test, expect } from 'vitest'
 import {
   searchClient,
   dataset,
-  Movies,
+  type Movies,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
-import { splitSortString } from '../src/contexts/sort-context'
+import { splitSortString } from '../src/contexts/sort-context.js'
 
 describe('Sort browser test', () => {
   beforeAll(async () => {

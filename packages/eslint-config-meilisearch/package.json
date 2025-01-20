@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
     "lint": "eslint --ext .js ."
   },
@@ -24,7 +25,6 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-standard": "^5.0.0",
-    "eslint-plugin-vue": "^7.7.0",
-    "prettier": "^2.8.3"
+    "eslint-plugin-vue": "^7.7.0"
   }
 }
