@@ -1,12 +1,9 @@
-import { describe, afterEach, test, expect } from 'vitest'
+import { describe, afterEach, test, expect, vi } from 'vitest'
 import { Movies } from './assets/utils'
 import { instantMeiliSearch } from '../src'
 import { MeiliSearch } from 'meilisearch'
-import { mocked } from 'ts-jest/utils'
 import { PACKAGE_VERSION } from '../src/package-version'
 import { MeiliSearchMultiSearchParams } from '../src/types'
-
-jest.mock('meilisearch')
 
 export const searchResponse = {
   hits: [],
@@ -18,9 +15,11 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
+vi.mock('meilisearch')
+
 // Mocking of Meilisearch package
-const mockedMeilisearch = mocked(MeiliSearch, true)
-const mockedMultiSearch = jest.fn((request) => {
+const mockedMeilisearch = vi.mocked(MeiliSearch, true)
+const mockedMultiSearch = vi.fn((request) => {
   const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
     ...searchResponse,
     indexUid: req.indexUid,
@@ -37,7 +36,7 @@ mockedMeilisearch.mockReturnValue({
 
 describe('Cached search tests', () => {
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   test('the same search parameters twice', async () => {
