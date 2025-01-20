@@ -8095,10 +8095,10 @@ mdn-data@2.0.4:
   resolved "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.4.tgz"
   integrity sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==
 
-meilisearch@^0.47.0:
-  version "0.47.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.47.0.tgz#376bda5d65f7dd7b80e1ad317912664c4a02b05f"
-  integrity sha512-Qq+hatuDJ0z5c+szVb0O/uI7Z2jfMUjj8eNB6xPyKp9Og7GVnrOZJRVoDPqGoVY484Iwh+F61y2UreIetda00w==
+meilisearch@^0.48.2:
+  version "0.48.2"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.48.2.tgz#4c83e927d90b67e5100f504afcd824d4515acbf8"
+  integrity sha512-auDB6grs3f/+dVzzPiAOOFnrVN/L87/+SWZfy56TpimDinWjU4u6Jc2o6lgeLluotpbMOFY1WpTTbqtUdMduQw==
 
 meow@^6.0.0:
   version "6.1.1"
