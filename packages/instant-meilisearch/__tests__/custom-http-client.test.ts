@@ -1,3 +1,4 @@
+import { describe, beforeAll, test, expect } from 'vitest'
 import { instantMeiliSearch } from '../src'
 import { meilisearchClient, dataset } from './assets/utils'
 

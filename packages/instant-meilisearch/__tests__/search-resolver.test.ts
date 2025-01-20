@@ -1,3 +1,4 @@
+import { describe, afterEach, test, expect } from 'vitest'
 import { Movies } from './assets/utils'
 import { instantMeiliSearch } from '../src'
 import { MeiliSearch } from 'meilisearch'

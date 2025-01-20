@@ -1,3 +1,4 @@
+import { describe, beforeAll, test, expect } from 'vitest'
 import {
   searchClient,
   geoDataset,

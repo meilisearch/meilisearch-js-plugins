@@ -1,3 +1,4 @@
+import { describe, beforeAll, test, expect } from 'vitest'
 import { instantMeiliSearch } from '../src'
 import { Movies, meilisearchClient } from './assets/utils'
 import movies from './assets/movies.json'

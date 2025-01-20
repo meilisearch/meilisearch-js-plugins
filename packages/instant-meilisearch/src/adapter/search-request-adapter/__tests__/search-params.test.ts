@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { MatchingStrategies } from 'meilisearch'
 import { adaptSearchParams } from '../search-params-adapter'
 import {

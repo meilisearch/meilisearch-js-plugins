@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { getMeilisearchResults } from '../'
 import { searchClient } from '../../../__tests__/test.utils'
 

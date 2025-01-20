@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { SearchCache } from '../search-cache'
 import { searchResponse } from './assets/utils'
 

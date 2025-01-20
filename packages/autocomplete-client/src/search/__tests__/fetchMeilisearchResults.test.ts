@@ -1,3 +1,4 @@
+import { describe, beforeAll, test, expect, afterAll } from 'vitest'
 import { fetchMeilisearchResults } from '../fetchMeilisearchResults'
 import {
   searchClient,

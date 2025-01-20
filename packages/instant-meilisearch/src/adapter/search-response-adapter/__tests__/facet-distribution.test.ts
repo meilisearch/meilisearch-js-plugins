@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { adaptFacetDistribution } from '../facet-distribution-adapter'
 
 const initialFacetDistribution = {

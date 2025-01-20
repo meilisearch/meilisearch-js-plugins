@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { instantMeiliSearch } from '../src'
 
 describe('InstantMeiliSearch instantiation', () => {

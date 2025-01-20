@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { fillMissingFacets } from '../init-facets-distribution'
 
 describe('Fill missing facets', () => {

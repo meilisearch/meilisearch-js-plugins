@@ -1,3 +1,4 @@
+import { describe, beforeAll, test, expect } from 'vitest'
 import { searchClient, dataset, meilisearchClient } from './assets/utils'
 
 describe('Instant Meilisearch Browser test', () => {
