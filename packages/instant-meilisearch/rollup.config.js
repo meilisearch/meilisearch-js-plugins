@@ -35,7 +35,7 @@ const COMMON_PLUGINS = [
 
 /** @type {import('rollup').RollupOptions[]} */
 const ROLLUP_OPTIONS = [
-  // browser-friendly IIFE build
+  // Browser-friendly build
   {
     input: INPUT, // directory to transpilation of typescript
     output: {
@@ -53,14 +53,17 @@ const ROLLUP_OPTIONS = [
       },
     },
     plugins: [
+      // Must be before rollup-plugin-typescript2 in the plugin list
+      // See https://www.npmjs.com/package/rollup-plugin-typescript2#rollupplugin-node-resolve
+      nodeResolve(),
       ...COMMON_PLUGINS,
-      nodeResolve({ exportConditions: ['browser'] }),
       commonjs(),
       babel(),
       // json(),
       env === 'production' ? terser() : {}, // will minify the file in production mode
     ],
   },
+  // CommonJS and ES Module build
   {
     input: INPUT,
     external: ['meilisearch'],

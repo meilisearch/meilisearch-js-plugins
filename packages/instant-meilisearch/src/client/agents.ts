@@ -1,4 +1,4 @@
-import { PACKAGE_VERSION } from '../package-version'
+import { PACKAGE_VERSION } from '../package-version.js'
 
 export const constructClientAgents = (
   clientAgents: string[] = []

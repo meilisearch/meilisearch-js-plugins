@@ -1,5 +1,5 @@
-import { instantMeiliSearch } from '../src'
-import { Movies, meilisearchClient } from './assets/utils'
+import { instantMeiliSearch } from '../src/index.js'
+import { Movies, meilisearchClient } from './assets/utils.js'
 import movies from './assets/movies.json'
 import games from './assets/games.json'
 

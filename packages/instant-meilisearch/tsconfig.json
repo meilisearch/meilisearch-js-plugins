@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "module": "esnext",
     "noEmit": true,
     "allowJs": false,
     "removeComments": false,
@@ -9,7 +8,9 @@
     "declarationDir": "./dist/types",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
     "lib": [
       "ES2019",
       "ESNext",
@@ -23,7 +24,11 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": true,
     "isolatedModules": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
 }

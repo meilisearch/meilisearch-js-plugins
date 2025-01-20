@@ -1,5 +1,5 @@
-import { instantMeiliSearch } from '../src'
-import { dataset, Movies, meilisearchClient } from './assets/utils'
+import { instantMeiliSearch } from '../src/index.js'
+import { dataset, Movies, meilisearchClient } from './assets/utils.js'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {

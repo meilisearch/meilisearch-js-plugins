@@ -1,5 +1,5 @@
-import { dataset, meilisearchClient, HOST, API_KEY } from './assets/utils'
-import { instantMeiliSearch } from '../src'
+import { dataset, meilisearchClient, HOST, API_KEY } from './assets/utils.js'
+import { instantMeiliSearch } from '../src/index.js'
 
 describe('Default facet distribution', () => {
   beforeAll(async () => {

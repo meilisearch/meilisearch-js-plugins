@@ -1,4 +1,4 @@
-const { MeiliSearch } = require('meilisearch')
+import { MeiliSearch } from 'meilisearch'
 
 const HOST = 'http://localhost:7700'
 const API_KEY = 'masterKey'

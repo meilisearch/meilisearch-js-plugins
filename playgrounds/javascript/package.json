@@ -3,20 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "description": "Instant-meilisearch playground written with vanilla javascript",
+  "type": "module",
   "scripts": {
-    "dev": "parcel serve index.html --open --port 2222",
-    "build": "parcel build index.html",
-    "lint": "eslint --ext .js ."
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
+    "vite": "^6.0.5",
     "eslint-config-meilisearch": "*"
   },
-  "browserslist": [
-    "defaults"
-  ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.23.0"
+    "@meilisearch/instant-meilisearch": "*"
   }
 }

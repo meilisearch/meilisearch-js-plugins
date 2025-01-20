@@ -1,7 +1,6 @@
-const { MeiliSearch } = require('meilisearch')
-const movies = require('./assets/movies.json')
-const games = require('./assets/games.json')
-
+import { MeiliSearch } from 'meilisearch'
+import movies from './assets/movies.json' with { type: 'json' }
+import games from './assets/games.json' with { type: 'json' }
 ;(async () => {
   const client = new MeiliSearch({
     host: 'http://127.0.0.1:7700',
