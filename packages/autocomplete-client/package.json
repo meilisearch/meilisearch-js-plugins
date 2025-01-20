@@ -49,7 +49,6 @@
     "@algolia/autocomplete-js": "^1.7.4",
     "cssnano": "^4.1.10",
     "eslint-config-meilisearch": "*",
-    "instantsearch.js": "^4.56.2",
-    "regenerator-runtime": "^0.13.7"
+    "instantsearch.js": "^4.56.2"
   }
 }

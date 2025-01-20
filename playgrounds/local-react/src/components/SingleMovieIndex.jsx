@@ -1,5 +1,4 @@
 import 'instantsearch.css/themes/algolia-min.css'
-import React from 'react'
 import {
   InstantSearch,
   InfiniteHits,
