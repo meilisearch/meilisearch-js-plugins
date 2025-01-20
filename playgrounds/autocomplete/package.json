@@ -4,10 +4,10 @@
   "private": true,
   "description": "Javascript playground for autocomplete",
   "scripts": {
-    "predev": "node setup.cjs",
-    "dev": "parcel serve index.html --open --port 7777",
-    "build": "parcel build index.html",
-    "setup": "node setup.cjs",
+    "predev": "node setup.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "setup": "node setup.mjs",
     "lint": "eslint --ext .jsx,.js .",
     "lint:fix": "eslint --ext .jsx,.js --fix .",
     "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
@@ -22,15 +22,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@algolia/autocomplete-core": "1.7.4",
-    "@algolia/autocomplete-plugin-query-suggestions": "^1.9.3",
-    "@algolia/autocomplete-plugin-tags": "^1.10.0",
-    "@algolia/autocomplete-theme-classic": "^1.10.0",
+    "@algolia/autocomplete-core": "1.17.9",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.17.9",
+    "@algolia/autocomplete-plugin-tags": "^1.17.9",
+    "@algolia/autocomplete-theme-classic": "^1.17.9",
     "@meilisearch/autocomplete-client": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
-    "eslint-config-meilisearch": "*",
-    "parcel": "^2.12.0"
+    "eslint-config-meilisearch": "*"
   }
 }

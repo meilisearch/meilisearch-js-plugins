@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
-    "concurrently": "^7.1.0",
     "cssnano": "^4.1.10",
     "eslint-config-meilisearch": "*",
     "instantsearch.js": "^4.56.2",
