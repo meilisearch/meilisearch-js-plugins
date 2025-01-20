@@ -136,5 +136,7 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test
+      - name: Build inter-dependencies between packages
+        run: yarn build-inter-dependencies
       - name: Build project
         run: yarn build

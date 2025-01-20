@@ -1,9 +1,9 @@
-import {
+import type {
   InstantMeiliSearchOptions,
   InstantMeiliSearchConfig,
   ApiKeyCallback,
-} from '../../types'
-import { isPureObject } from '../../utils/object'
+} from '../../types/index.js'
+import { isPureObject } from '../../utils/object.js'
 
 /**
  * Get the configuration of instant meilisearch

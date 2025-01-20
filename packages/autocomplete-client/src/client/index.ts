@@ -1,2 +1,2 @@
-export * from './autocompleteSearchClient'
-export * from './createSearchClient'
+export * from './autocompleteSearchClient.js'
+export * from './createSearchClient.js'

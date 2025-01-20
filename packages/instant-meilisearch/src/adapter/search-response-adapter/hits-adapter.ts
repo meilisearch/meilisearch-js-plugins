@@ -2,9 +2,9 @@ import type {
   PaginationState,
   MeilisearchMultiSearchResult,
   InstantMeiliSearchConfig,
-} from '../../types'
-import { adaptFormattedFields } from './format-adapter'
-import { adaptGeoResponse } from './geo-reponse-adapter'
+} from '../../types/index.js'
+import { adaptFormattedFields } from './format-adapter/index.js'
+import { adaptGeoResponse } from './geo-reponse-adapter.js'
 
 /**
  * @param  {MeilisearchMultiSearchResult} searchResult

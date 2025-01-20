@@ -1,2 +1,2 @@
-export * from './search-request-adapter'
-export * from './search-response-adapter'
+export * from './search-request-adapter/index.js'
+export * from './search-response-adapter/index.js'

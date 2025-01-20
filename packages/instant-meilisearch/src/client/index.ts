@@ -1,1 +1,1 @@
-export * from './instant-meilisearch-client'
+export * from './instant-meilisearch-client.js'

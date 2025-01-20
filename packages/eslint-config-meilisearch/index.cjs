@@ -12,7 +12,6 @@ module.exports = {
         commonjs: true, // Needed to avoid import is reserved error
         node: true,
         browser: true,
-        jest: true,
       },
       parser: 'babel-eslint',
       extends: [
@@ -46,17 +45,11 @@ module.exports = {
       env: {
         browser: true,
         es2020: true,
-        'jest/globals': true,
         node: true,
-        jasmine: true,
       },
       globals: {
         instantsearch: true,
         instantMeiliSearch: true,
-        page: true, // for jest/puppeteer tests in tests/env/express
-        browser: true, // for jest/puppeteer tests in tests/env/express
-        context: true, // for jest/puppeteer tests in tests/env/express
-        jestPuppeteer: true, // for jest/puppeteer tests in tests/env/express
       },
       extends: [
         'standard',
@@ -64,7 +57,6 @@ module.exports = {
         'eslint:recommended',
         'plugin:cypress/recommended',
       ],
-      plugins: ['jest'],
       parserOptions: {
         ecmaVersion: 2020,
       },
@@ -111,14 +103,6 @@ module.exports = {
       env: {
         browser: true,
         es2020: true,
-        'jest/globals': true,
-        jasmine: true,
-      },
-      globals: {
-        page: true, // for jest/puppeteer tests in tests/env/express
-        browser: true, // for jest/puppeteer tests in tests/env/express
-        context: true, // for jest/puppeteer tests in tests/env/express
-        jestPuppeteer: true, // for jest/puppeteer tests in tests/env/express
       },
       extends: [
         'standard',
@@ -134,7 +118,7 @@ module.exports = {
         projectFolderIgnoreList: ['dist'],
       },
 
-      plugins: ['jsdoc', '@typescript-eslint', 'jest'],
+      plugins: ['jsdoc', '@typescript-eslint'],
       rules: {
         '@typescript-eslint/no-empty-interface': 'off', // Due to vue-instantsearch not having typings
         'no-dupe-class-members': 'off', // Off due to conflict with typescript overload functions

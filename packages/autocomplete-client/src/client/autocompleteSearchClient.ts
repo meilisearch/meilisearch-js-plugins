@@ -1,5 +1,5 @@
-import { PACKAGE_VERSION } from '../package-version'
-import { createSearchClient } from './createSearchClient'
+import { PACKAGE_VERSION } from '../package-version.js'
+import { createSearchClient } from './createSearchClient.js'
 
 /**
  * Create searchClient instance for autocomplete

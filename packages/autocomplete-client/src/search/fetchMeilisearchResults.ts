@@ -1,4 +1,4 @@
-import {
+import type {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
 } from '@meilisearch/instant-meilisearch'
@@ -6,9 +6,9 @@ import {
   HIGHLIGHT_PRE_TAG,
   HIGHLIGHT_POST_TAG,
   HITS_PER_PAGE,
-} from '../constants'
-import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
-import { HighlightResult } from 'instantsearch.js/es/types/algoliasearch'
+} from '../constants/index.js'
+import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.js'
+import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.js'
 
 interface SearchParams {
   /**

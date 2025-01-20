@@ -1,6 +1,6 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import { SearchClient } from '../types/SearchClient'
-import { ClientConfig } from '../types/ClientConfig'
+import type { SearchClient } from '../types/SearchClient.js'
+import type { ClientConfig } from '../types/ClientConfig.js'
 
 export const concatUserAgents = (clientAgents: string[]): string[] => {
   return clientAgents.concat(clientAgents.filter((agent) => agent))

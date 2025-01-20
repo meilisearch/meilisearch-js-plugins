@@ -1,5 +1,6 @@
-import { adaptPaginationParameters } from '../pagination-adapter'
-import { ceiledDivision } from './../__tests__/assets/number'
+import { describe, expect, it } from 'vitest'
+import { adaptPaginationParameters } from '../pagination-adapter.js'
+import { ceiledDivision } from './../__tests__/assets/number.js'
 
 const numberPagesTestParameters = [
   {

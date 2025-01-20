@@ -1,7 +1,0 @@
-{
-  // extend your base config so you don't have to redefine your compilerOptions
-  "include": [
-    "**/*.ts",
-    "**/*.d.ts",
-  ]
-}

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    // We don't want to check node_modules
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "module": "nodenext",
+    // Node.js 18 supports up to ES2022 according to https://www.npmjs.com/package/@tsconfig/node18
+    "target": "es2022",
+    "lib": ["ESNext", "dom"],
+    "resolveJsonModule": true,
+    "strict": true,
+    "verbatimModuleSyntax": true
+  },
+  // TODO: Will have to build before running tests, so make sure there's a build that doesn't build playgroudns too
+  // will also have to build before type checking? This won't work smoothly. autocomplete depends on the other, so will have to build the other first always
+  "references": [
+    { "path": "./packages/autocomplete-client/tsconfig.json" },
+    { "path": "./packages/instant-meilisearch/tsconfig.json" }
+  ],
+  "files": []
+}

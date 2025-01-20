@@ -1,9 +1,10 @@
-import { fetchMeilisearchResults } from '../fetchMeilisearchResults'
+import { describe, beforeAll, test, expect, afterAll } from 'vitest'
+import { fetchMeilisearchResults } from '../fetchMeilisearchResults.js'
 import {
   searchClient,
   MOVIES,
   meilisearchClient,
-} from '../../../__tests__/test.utils'
+} from '../../../__tests__/test.utils.js'
 
 type Movie = (typeof MOVIES)[number]
 

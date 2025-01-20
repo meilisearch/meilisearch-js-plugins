@@ -1,5 +1,6 @@
-import { instantMeiliSearch } from '../src'
-import { meilisearchClient, dataset } from './assets/utils'
+import { describe, beforeAll, test, expect, vi } from 'vitest'
+import { instantMeiliSearch } from '../src/index.js'
+import { meilisearchClient, dataset } from './assets/utils.js'
 
 describe('Custom HTTP client tests', () => {
   beforeAll(async () => {
@@ -13,7 +14,7 @@ describe('Custom HTTP client tests', () => {
   })
 
   test('a custom HTTP client', async () => {
-    const httpClient = jest.fn(async (url: string, init?: RequestInit) => {
+    const httpClient = vi.fn(async (url: string, init?: RequestInit) => {
       const result = await fetch(url, init)
       return await result.json()
     })

@@ -1,11 +1,12 @@
+import { describe, beforeAll, test, expect } from 'vitest'
 import {
   searchClient,
   dataset,
-  Movies,
+  type Movies,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
-import { splitSortString } from '../src/contexts/sort-context'
+import { splitSortString } from '../src/contexts/sort-context.js'
 
 describe('Sort browser test', () => {
   beforeAll(async () => {
@@ -81,7 +82,7 @@ describe('Sort browser test', () => {
     expect(sortRules).toEqual(['_geoPoint(37.8153, -122.4784):asc'])
   })
 
-  test.only('split no sorting rule', () => {
+  test('split no sorting rule', () => {
     const sortRules = splitSortString('')
 
     expect(sortRules).toEqual([])

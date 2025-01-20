@@ -1,4 +1,5 @@
-import { searchClient, dataset, meilisearchClient } from './assets/utils'
+import { describe, beforeAll, test, expect } from 'vitest'
+import { searchClient, dataset, meilisearchClient } from './assets/utils.js'
 
 describe('Facet stats tests', () => {
   beforeAll(async () => {

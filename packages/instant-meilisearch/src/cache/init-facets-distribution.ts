@@ -1,12 +1,12 @@
-import {
+import type {
   FacetDistribution,
   SearchContext,
   MeiliSearchMultiSearchParams,
   MultiSearchResolver,
   MeilisearchMultiSearchResult,
-} from '../types'
-import { MeiliParamsCreator } from '../adapter'
-import { removeDuplicate } from '../utils'
+} from '../types/index.js'
+import { MeiliParamsCreator } from '../adapter/index.js'
+import { removeDuplicate } from '../utils/index.js'
 
 export function getParametersWithoutFilters(
   searchContext: SearchContext

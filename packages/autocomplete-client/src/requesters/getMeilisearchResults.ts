@@ -1,4 +1,4 @@
-import { createMeilisearchRequester } from './createMeilisearchRequester'
+import { createMeilisearchRequester } from './createMeilisearchRequester.js'
 
 /**
  * Retrieves Meilisearch results from multiple indexes.
