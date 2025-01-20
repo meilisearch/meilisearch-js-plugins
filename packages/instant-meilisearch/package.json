@@ -33,13 +33,16 @@
     "test:types": "yarn tsc",
     "version": "node scripts/update_version.js"
   },
-  "main": "./dist/instant-meilisearch.umd.js",
-  "module": "./dist/instant-meilisearch.esm.js",
-  "browser": "./dist/instant-meilisearch.umd.js",
-  "cjs": "./dist/instant-meilisearch.cjs.js",
-  "source": "src/index.ts",
-  "typings": "./dist/types/index.d.ts",
   "types": "./dist/types/index.d.ts",
+  "main": "./dist/instant-meilisearch.umd.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/instant-meilisearch.esm.js",
+      "require": "./dist/instant-meilisearch.cjs.js",
+      "default": "./dist/instant-meilisearch.umd.js"
+    }
+  },
   "sideEffects": false,
   "files": [
     "dist",
@@ -67,7 +70,6 @@
     "rollup-plugin-terser": "^7.0.0",
     "rollup-plugin-typescript2": "^0.32.1",
     "shx": "^0.3.4",
-    "tslib": "^2.6.1",
-    "typescript": "^4.9.5"
+    "tslib": "^2.6.1"
   }
 }

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "module": "esnext",
     "noEmit": true,
     "allowJs": false,
@@ -10,11 +11,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "lib": [
-      "ES2019",
-      "ESNext",
-      "dom"
-    ],
+    "lib": ["ESNext", "dom"],
+    "target": "ES2022",
     "importHelpers": true,
     // Enforced typing rules
     "strict": true,
