@@ -26,9 +26,7 @@ export default tseslint.config([
   // Vue
   {
     files: ['playgrounds/vue3/src/*.{js,vue}'],
-    extends: [
-      pluginVue.configs['flat/recommended'],
-    ],
+    extends: [pluginVue.configs['flat/recommended']],
   },
   // React
   {
