@@ -5,8 +5,8 @@
   "description": "Javascript playground for autocomplete",
   "scripts": {
     "predev": "node setup.cjs",
-    "dev": "parcel serve index.html --open --port 7777",
-    "build": "parcel build index.html",
+    "dev": "vite --open --port 7777",
+    "build": "vite build",
     "setup": "node setup.cjs",
     "lint": "eslint --ext .jsx,.js .",
     "lint:fix": "eslint --ext .jsx,.js --fix .",
@@ -29,8 +29,7 @@
     "@meilisearch/autocomplete-client": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
     "eslint-config-meilisearch": "*",
-    "parcel": "^2.12.0"
+    "vite": "^6.0.7"
   }
 }
