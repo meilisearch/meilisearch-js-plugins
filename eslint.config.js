@@ -6,6 +6,7 @@ import globals from 'globals'
 import prettier from 'eslint-config-prettier'
 import pluginCypress from 'eslint-plugin-cypress/flat'
 import pluginReact from 'eslint-plugin-react'
+import pluginVue from 'eslint-plugin-vue'
 
 // TODO: Vue,React
 export default tseslint.config([
@@ -21,6 +22,13 @@ export default tseslint.config([
     files: ['packages/*/src/**/*.ts'],
     plugins: { tsdoc },
     rules: { 'tsdoc/syntax': 'off' },
+  },
+  // Vue
+  {
+    files: ['playgrounds/vue3/src/*.{js,vue}'],
+    extends: [
+      pluginVue.configs['flat/recommended'],
+    ],
   },
   // React
   {

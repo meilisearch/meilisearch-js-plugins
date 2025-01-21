@@ -13,7 +13,7 @@
   "scripts": {
     "playground:geosearch": "turbo @meilisearch/geo-playground#dev",
     "playground:vanilla": "turbo @meilisearch/vanilla-playground#dev",
-    "playground:vue3": "turbo @meilisearch/vue3-ts-playground#dev",
+    "playground:vue3": "turbo @meilisearch/vue3-playground#dev",
     "playground:react": "turbo @meilisearch/react-playground#dev",
     "playground:local-react": "turbo @meilisearch/local-react-playground#dev",
     "playground:node": "turbo @meilisearch/node-playground#dev",
@@ -59,6 +59,7 @@
     "eslint-config-prettier": "^9.1.0",
     "@typescript-eslint/utils": "^8.19.0",
     "globals": "^15.14.0",
+    "eslint-plugin-vue": "^9.32.0",
     "typescript-eslint": "^8.19.0",
     "eslint-plugin-cypress": "^4.1.0"
   },
