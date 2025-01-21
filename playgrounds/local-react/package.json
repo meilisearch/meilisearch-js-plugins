@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "description": "React playground for instant-meilisearch",
-  "type": "module",
   "scripts": {
-    "predev": "node setup.js",
+    "predev": "node setup.mjs",
     "dev": "vite",
-    "setup": "node setup.js",
+    "setup": "node setup.mjs",
     "lint": "eslint --ext .jsx,.js .",
     "lint:fix": "eslint --ext .jsx,.js --fix .",
     "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
