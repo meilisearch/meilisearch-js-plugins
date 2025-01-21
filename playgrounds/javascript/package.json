@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "Instant-meilisearch playground written with vanilla javascript",
+  "type": "module",
   "scripts": {
-    "dev": "parcel serve index.html --open --port 2222",
-    "build": "parcel build index.html",
+    "dev": "vite",
     "lint": "eslint --ext .js ."
   },
   "devDependencies": {

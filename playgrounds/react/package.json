@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "React playground for instant-meilisearch",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
     "lint": "eslint --ext .jsx,.js .",
     "lint:fix": "eslint --ext .jsx,.js --fix ."
   },

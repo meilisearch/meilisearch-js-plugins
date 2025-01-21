@@ -14,9 +14,18 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**"]
     },
-    "test:watch": {},
-    "test:e2e": {},
-    "test:e2e:watch": {},
+    "test:watch": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**"]
+    },
+    "test:e2e": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**"]
+    },
+    "test:e2e:watch": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**"]
+    },
     "test:types": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**"]

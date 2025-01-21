@@ -134,8 +134,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: yarn install
-      - name: Build inter-dependencies between packages
-        run: yarn build-inter-dependencies
       - name: Run tests
         run: yarn test
       - name: Build project

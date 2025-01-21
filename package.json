@@ -23,7 +23,6 @@
     "test:e2e:watch": "turbo run test:e2e:watch",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
-    "build-inter-dependencies": "tsc -b packages/instant-meilisearch",
     "build": "turbo run build",
     "test": "vitest run",
     "test:watch": "vitest",
