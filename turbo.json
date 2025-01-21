@@ -8,6 +8,7 @@
     "lint": {},
     "lint:fix": {},
     "dev": {
+      "persistent": true,
       "cache": false,
       "dependsOn": ["build"]
     },
@@ -15,6 +16,7 @@
       "dependsOn": ["build"]
     },
     "test:watch": {
+      "persistent": true,
       "cache": false,
       "dependsOn": ["build"]
     },
@@ -22,6 +24,7 @@
       "dependsOn": ["build"]
     },
     "test:e2e:watch": {
+      "persistent": true,
       "cache": false,
       "dependsOn": ["build"]
     },
