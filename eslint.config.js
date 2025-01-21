@@ -8,7 +8,6 @@ import pluginCypress from 'eslint-plugin-cypress/flat'
 import pluginReact from 'eslint-plugin-react'
 import pluginVue from 'eslint-plugin-vue'
 
-// TODO: Vue,React
 export default tseslint.config([
   { ignores: ['{packages,playgrounds}/*/dist/', 'coverage/'] },
   eslint.configs.recommended,
@@ -18,7 +17,7 @@ export default tseslint.config([
   },
   // TSDoc
   {
-    // TODO: Ignore test files
+    // TODO: Ignore test files between src files
     files: ['packages/*/src/**/*.ts'],
     plugins: { tsdoc },
     rules: { 'tsdoc/syntax': 'off' },
