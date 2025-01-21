@@ -28,9 +28,6 @@
       "cache": false,
       "dependsOn": ["build"]
     },
-    "test:types": {
-      "dependsOn": ["build"]
-    },
     "version": {}
   }
 }
