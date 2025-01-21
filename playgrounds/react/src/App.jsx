@@ -1,5 +1,4 @@
-import 'instantsearch.css/themes/algolia-min.css'
-import React from 'react'
+import "instantsearch.css/themes/algolia-min.css";
 import {
   InstantSearch,
   InfiniteHits,
@@ -11,24 +10,24 @@ import {
   Configure,
   SortBy,
   Snippet,
-} from 'react-instantsearch-dom'
+} from "react-instantsearch";
 
-import './App.css'
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import "./App.css";
+import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const { searchClient } = instantMeiliSearch(
-  'https://ms-adf78ae33284-106.lon.meilisearch.io',
-  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
+  "https://ms-adf78ae33284-106.lon.meilisearch.io",
+  "a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303",
   {
-    primaryKey: 'id',
-  }
-)
+    primaryKey: "id",
+  },
+);
 
 const App = () => (
   <div className="ais-InstantSearch">
     <h1>Meilisearch + React InstantSearch</h1>
     <h2>
-      Search in Steam video games{' '}
+      Search in Steam video games{" "}
       <span role="img" aria-label="emoji">
         🎮
       </span>
@@ -44,14 +43,14 @@ const App = () => (
         <SortBy
           defaultRefinement="steam-video-games"
           items={[
-            { value: 'steam-video-games', label: 'Relevant' },
+            { value: "steam-video-games", label: "Relevant" },
             {
-              value: 'steam-video-games:recommendationCount:desc',
-              label: 'Most Recommended',
+              value: "steam-video-games:recommendationCount:desc",
+              label: "Most Recommended",
             },
             {
-              value: 'steam-video-games:recommendationCount:asc',
-              label: 'Least Recommended',
+              value: "steam-video-games:recommendationCount:asc",
+              label: "Least Recommended",
             },
           ]}
         />
@@ -65,8 +64,8 @@ const App = () => (
         <RefinementList attribute="misc" />
         <Configure
           hitsPerPage={6}
-          attributesToSnippet={['description:50']}
-          snippetEllipsisText={'...'}
+          attributesToSnippet={["description:50"]}
+          snippetEllipsisText={"..."}
         />
       </div>
       <div className="right-panel">
@@ -75,7 +74,7 @@ const App = () => (
       </div>
     </InstantSearch>
   </div>
-)
+);
 
 const Hit = ({ hit }) => {
   return (
@@ -100,7 +99,7 @@ const Hit = ({ hit }) => {
         <b>Recommended:</b> {hit.recommendationCount}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

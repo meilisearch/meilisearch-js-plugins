@@ -4,8 +4,8 @@
   "private": true,
   "description": "React playground for instant-meilisearch",
   "scripts": {
-    "dev": "parcel serve index.html --open --port 1111",
-    "build": "parcel build index.html",
+    "dev": "vite",
+    "build": "vite build",
     "lint": "eslint --ext .jsx,.js .",
     "lint:fix": "eslint --ext .jsx,.js --fix ."
   },

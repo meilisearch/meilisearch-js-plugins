@@ -34,7 +34,7 @@
     "release": "yarn build && changeset publish"
   },
   "dependencies": {
-    "instantsearch.css": "^8.0.0"
+    "instantsearch.css": "^8.5.1"
   },
   "devDependencies": {
     "prettier": "^3.4.2",

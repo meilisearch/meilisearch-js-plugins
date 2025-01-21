@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 export default {
