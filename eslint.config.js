@@ -5,6 +5,7 @@ import vitest from '@vitest/eslint-plugin'
 import globals from 'globals'
 import prettier from 'eslint-config-prettier'
 import pluginCypress from 'eslint-plugin-cypress/flat'
+import pluginReact from 'eslint-plugin-react'
 
 // TODO: Vue,React
 export default tseslint.config([
@@ -20,6 +21,20 @@ export default tseslint.config([
     files: ['packages/*/src/**/*.ts'],
     plugins: { tsdoc },
     rules: { 'tsdoc/syntax': 'off' },
+  },
+  // React
+  {
+    files: ['playgrounds/{local-react,react}/src/*.jsx'],
+    extends: [
+      pluginReact.configs.flat.recommended,
+      pluginReact.configs.flat['jsx-runtime'],
+    ],
+    settings: { react: { version: 'detect' } },
+    languageOptions: { globals: globals.browser },
+    // TODO: Remove rules
+    rules: {
+      'react/prop-types': 'off',
+    },
   },
   // Cypress
   {
