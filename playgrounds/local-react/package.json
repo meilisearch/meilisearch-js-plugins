@@ -7,8 +7,6 @@
     "predev": "node setup.mjs",
     "dev": "vite",
     "setup": "node setup.mjs",
-    "lint": "eslint --ext .jsx,.js .",
-    "lint:fix": "eslint --ext .jsx,.js --fix .",
     "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
     "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\""
   },
@@ -28,7 +26,6 @@
     "react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "react-instantsearch": "^7.15.0",
-    "react-router-dom": "^6.28.2",
-    "eslint-config-meilisearch": "*"
+    "react-router-dom": "^6.28.2"
   }
 }

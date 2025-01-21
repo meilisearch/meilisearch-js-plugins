@@ -230,7 +230,9 @@ describe('Instant Meilisearch Browser test', () => {
     ])
     expectArrayEquivalence(
       response5.results.flatMap((result: any) =>
-        result.hits.map((hit: any) => hit.numberField).filter((v: any) => v !== undefined)
+        result.hits
+          .map((hit: any) => hit.numberField)
+          .filter((v: any) => v !== undefined)
       ),
       [10, 15]
     )

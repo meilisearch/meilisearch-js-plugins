@@ -10,9 +10,6 @@
   "scripts": {
     "dev": "node index.js"
   },
-  "devDependencies": {
-    "eslint-config-meilisearch": "*"
-  },
   "browserslist": [
     "defaults"
   ],

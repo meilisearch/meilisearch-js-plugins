@@ -6,4 +6,4 @@ export default defineConfig({
     fileParallelism: false,
     coverage: { include: ['src/**/*.ts'] },
   },
-});
+})

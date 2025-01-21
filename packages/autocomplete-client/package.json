@@ -8,8 +8,6 @@
   },
   "scripts": {
     "build": "vite build && tsc -p tsconfig.json",
-    "lint": "eslint --ext .js,.ts,.tsx .",
-    "lint:fix": "eslint --ext .js,.ts,.tsx . --fix",
     "version": "node scripts/update_version.cjs"
   },
   "type": "module",
@@ -48,7 +46,6 @@
   "devDependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
     "cssnano": "^4.1.10",
-    "eslint-config-meilisearch": "*",
     "instantsearch.js": "^4.56.2"
   }
 }

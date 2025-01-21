@@ -214,7 +214,7 @@ export type Movies = {
   overview?: string
   poster?: string
   genres?: string[]
-  release_date?: number // eslint-disable-line
+  release_date?: number
   undefinedArray?: undefined[]
   nullArray?: null[]
   objectArray?: Array<{ name: string }>

@@ -45,9 +45,9 @@ yarn test
 # End-to-end tests
 yarn test:e2e
 # Linter
-yarn lint
+yarn style
 # Linter with fixing
-yarn lint:fix
+yarn style:fix
 # Build the project
 yarn build
 ```

@@ -25,8 +25,6 @@
   ],
   "scripts": {
     "build": "vite build && tsc -p tsconfig.json",
-    "lint": "eslint --ext .js,.ts,.tsx .",
-    "lint:fix": "eslint --ext .js,.ts,.tsx . --fix",
     "version": "node scripts/update_version.cjs"
   },
   "type": "module",
@@ -49,10 +47,7 @@
     "meilisearch": "^0.48.2"
   },
   "devDependencies": {
-    "algoliasearch": "^4.17.2",
-    "concurrently": "^7.1.0",
     "cssnano": "^4.1.10",
-    "eslint-config-meilisearch": "*",
     "instantsearch.js": "^4.56.2"
   }
 }

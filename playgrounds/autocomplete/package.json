@@ -7,8 +7,6 @@
     "predev": "node setup.mjs",
     "dev": "vite",
     "setup": "node setup.mjs",
-    "lint": "eslint --ext .jsx,.js .",
-    "lint:fix": "eslint --ext .jsx,.js --fix .",
     "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
     "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\""
   },
@@ -26,8 +24,5 @@
     "@algolia/autocomplete-plugin-tags": "^1.17.9",
     "@algolia/autocomplete-theme-classic": "^1.17.9",
     "@meilisearch/autocomplete-client": "*"
-  },
-  "devDependencies": {
-    "eslint-config-meilisearch": "*"
   }
 }

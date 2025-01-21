@@ -11,13 +11,9 @@ import type { SearchClient as MeilisearchSearchClient } from '../types/SearchCli
 import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.js'
 
 interface SearchParams {
-  /**
-   * The initialized Meilisearch search client.
-   */
+  /** The initialized Meilisearch search client. */
   searchClient: MeilisearchSearchClient
-  /**
-   * A list of queries to execute.
-   */
+  /** A list of queries to execute. */
   queries: Array<
     AlgoliaMultipleQueriesQuery & {
       params?: {
@@ -95,6 +91,7 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
 
 /**
  * Calculate the highlight metadata for a given highlight value.
+ *
  * @param query - The query string.
  * @param preTag - The pre tag.
  * @param postTag - The post tag.

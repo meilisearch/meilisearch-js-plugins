@@ -165,7 +165,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Tests style
-        run: yarn lint
+        run: yarn style
       - name: Yaml Style
         uses: ibiqlik/action-yamllint@v3
         with:

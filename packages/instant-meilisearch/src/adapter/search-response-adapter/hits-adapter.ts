@@ -7,9 +7,9 @@ import { adaptFormattedFields } from './format-adapter/index.js'
 import { adaptGeoResponse } from './geo-reponse-adapter.js'
 
 /**
- * @param  {MeilisearchMultiSearchResult} searchResult
- * @param  {SearchContext} searchContext
- * @returns {Array<Record<string, any>>}
+ * @param {MeilisearchMultiSearchResult} searchResult
+ * @param {SearchContext} searchContext
+ * @returns {Record<string, any>[]}
  */
 export function adaptHits(
   searchResponse: MeilisearchMultiSearchResult & {

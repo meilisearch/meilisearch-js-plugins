@@ -147,21 +147,13 @@ export type MultiSearchResolver = {
 export type AlgoliaFacetStats = Record<
   string,
   {
-    /**
-     * The minimum value in the result set.
-     */
+    /** The minimum value in the result set. */
     min: number
-    /**
-     * The maximum value in the result set.
-     */
+    /** The maximum value in the result set. */
     max: number
-    /**
-     * The average facet value in the result set.
-     */
+    /** The average facet value in the result set. */
     avg: number
-    /**
-     * The sum of all values in the result set.
-     */
+    /** The sum of all values in the result set. */
     sum: number
   }
 >

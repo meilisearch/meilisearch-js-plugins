@@ -7,14 +7,14 @@ function getValueWithEscapedBackslashesAndQuotes(value: string): string {
 }
 
 /**
- * Transform InstantSearch [facet filter](https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/)
- * to Meilisearch compatible filter format.
- * Change sign from `:` to `=`
+ * Transform InstantSearch [facet
+ * filter](https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/)
+ * to Meilisearch compatible filter format. Change sign from `:` to `=`
  * "facet:facetValue" becomes "facet=facetValue"
  *
- * Wrap both the facet and its facet value between quotes.
- * This avoids formatting issues on facets containing multiple words.
- * Escape backslash \\ and quote " characters.
+ * Wrap both the facet and its facet value between quotes. This avoids
+ * formatting issues on facets containing multiple words. Escape backslash \ and
+ * quote " characters.
  *
  * 'My facet:My facet value' becomes '"My facet":"My facet value"'
  *
@@ -30,15 +30,16 @@ function transformFacetFilter(filter: string): string {
 }
 
 /**
- * Transform InstantSearch [numeric filter](https://www.algolia.com/doc/api-reference/api-parameters/numericFilters/)
+ * Transform InstantSearch [numeric
+ * filter](https://www.algolia.com/doc/api-reference/api-parameters/numericFilters/)
  * to Meilisearch compatible filter format.
  *
  * 'price:5.99 TO 100' becomes '"price" 5.99 TO 100'
  *
  * 'price = 5.99' becomes '"price"=5.99'
  *
- * Wrap the attribute between quotes.
- * Escape backslash (\\) and quote (") characters.
+ * Wrap the attribute between quotes. Escape backslash () and quote (")
+ * characters.
  *
  * @param {string} filter
  * @returns {string}
@@ -70,11 +71,11 @@ function transformNumericFilter(filter: string): string {
 }
 
 /**
- * Iterate over all filters.
- * Return the filters in a Meilisearch compatible format.
+ * Iterate over all filters. Return the filters in a Meilisearch compatible
+ * format.
  *
- * @param  {(filter: string) => string} transformCallback
- * @param  {SearchContext['facetFilters']} filters
+ * @param {(filter: string) => string} transformCallback
+ * @param {SearchContext['facetFilters']} filters
  * @returns {Filter}
  */
 function transformFilters(
@@ -91,11 +92,11 @@ function transformFilters(
 }
 
 /**
- * Return the filter in an array if it is a string
- * If filter is array, return without change.
+ * Return the filter in an array if it is a string If filter is array, return
+ * without change.
  *
- * @param  {Filter} [filter]
- * @returns {Array|undefined}
+ * @param {Filter} [filter]
+ * @returns {Array | undefined}
  */
 function filterToArray(filter?: Filter): Array<string | string[]> | undefined {
   return typeof filter === 'string' ? [filter] : filter
@@ -105,9 +106,9 @@ function filterToArray(filter?: Filter): Array<string | string[]> | undefined {
  * Merge filters, transformedNumericFilters and transformedFacetFilters
  * together.
  *
- * @param  {string} filters
- * @param  {Filter} transformedNumericFilters
- * @param  {Filter} transformedFacetFilters
+ * @param {string} filters
+ * @param {Filter} transformedNumericFilters
+ * @param {Filter} transformedFacetFilters
  * @returns {Filter}
  */
 function mergeFilters(
@@ -136,12 +137,12 @@ function mergeFilters(
 }
 
 /**
- * Adapt instantsearch.js filters to Meilisearch filters by
- * combining and transforming all provided filters.
+ * Adapt instantsearch.js filters to Meilisearch filters by combining and
+ * transforming all provided filters.
  *
- * @param  {string|undefined} filters
- * @param  {SearchContext['numericFilters']} numericFilters
- * @param  {SearchContext['facetFilters']} facetFilters
+ * @param {string | undefined} filters
+ * @param {SearchContext['numericFilters']} numericFilters
+ * @param {SearchContext['facetFilters']} facetFilters
  * @returns {Filter}
  */
 export function adaptFilters(

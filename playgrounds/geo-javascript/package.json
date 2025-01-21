@@ -5,13 +5,7 @@
   "description": "Instant-meilisearch playground focussed on GeoSearch written with vanilla javascript",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "lint": "eslint --ext .js .",
-    "lint:fix": "eslint --ext .js --fix ."
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.12",
-    "eslint-config-meilisearch": "*"
+    "dev": "vite"
   },
   "browserslist": [
     "defaults"

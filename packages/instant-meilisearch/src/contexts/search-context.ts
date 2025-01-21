@@ -25,8 +25,8 @@ function separateIndexFromSortRules(indexName: string): {
 }
 
 /**
- * @param  {AlgoliaMultipleQueriesQuery} searchRequest
- * @param  {Context} options
+ * @param {AlgoliaMultipleQueriesQuery} searchRequest
+ * @param {Context} options
  * @returns {SearchContext}
  */
 export function createSearchContext(
@@ -57,8 +57,8 @@ export function createSearchContext(
 }
 
 /**
- * @param  {AlgoliaMultipleQueriesQuery} searchRequest
- * @param  {Context} options
+ * @param {AlgoliaMultipleQueriesQuery} searchRequest
+ * @param {Context} options
  * @returns {SearchContext}
  */
 export function createFacetSearchContext(

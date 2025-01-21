@@ -20,8 +20,12 @@
     "playground:autocomplete": "turbo @meilisearch/autocomplete-playground#dev",
     "test:e2e": "turbo test:e2e",
     "test:e2e:watch": "turbo test:e2e:watch",
-    "lint": "turbo lint",
-    "lint:fix": "turbo lint:fix",
+    "fmt": "prettier -c ./**/*.{js,ts}",
+    "fmt:fix": "prettier -w ./**/*.{js,ts}",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "style": "yarn fmt && yarn lint",
+    "style:fix": "yarn fmt:fix && yarn lint:fix",
     "build": "turbo build",
     "test": "yarn build && vitest run",
     "test:watch": "yarn build && vitest",
@@ -32,8 +36,6 @@
     "release": "yarn build && changeset publish"
   },
   "devDependencies": {
-    "instantsearch.css": "^8.5.1",
-    "prettier": "^3.4.2",
     "vite": "^6.0.9",
     "@vitest/coverage-v8": "^3.0.2",
     "concurrently": "^9.1.2",
@@ -45,7 +47,19 @@
     "typescript": "^5.7.3",
     "@algolia/client-search": "^5.19.0",
     "algoliasearch": "^5.19.0",
-    "search-insights": "^2.17.3"
+    "search-insights": "^2.17.3",
+    "prettier": "^3.4.2",
+    "prettier-plugin-jsdoc": "^1.3.0",
+    "@eslint/js": "^9.16.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.16.0",
+    "eslint-plugin-tsdoc": "^0.4.0",
+    "@vitest/eslint-plugin": "^1.1.23",
+    "eslint-config-prettier": "^9.1.0",
+    "@typescript-eslint/utils": "^8.19.0",
+    "globals": "^15.14.0",
+    "typescript-eslint": "^8.19.0",
+    "eslint-plugin-cypress":"^4.1.0"
   },
   "packageManager": "yarn@1.22.22"
 }

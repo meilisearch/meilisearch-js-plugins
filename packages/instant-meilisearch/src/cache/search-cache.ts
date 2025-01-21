@@ -1,7 +1,7 @@
 import type { SearchCacheInterface } from '../types/index.js'
 import { stringifyArray } from '../utils/index.js'
 /**
- * @param  {Record<string} cache
+ * @param {Record<string} cache
  * @returns {SearchCache}
  */
 export function SearchCache(
@@ -13,7 +13,7 @@ export function SearchCache(
       if (searchCache[key]) {
         try {
           return JSON.parse(searchCache[key])
-        } catch (_) {
+        } catch {
           return undefined
         }
       }

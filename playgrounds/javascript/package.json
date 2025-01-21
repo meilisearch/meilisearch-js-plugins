@@ -5,12 +5,7 @@
   "description": "Instant-meilisearch playground written with vanilla javascript",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "lint": "eslint --ext .js ."
-  },
-  "devDependencies": {
-    "@babel/core": "^7.13.1",
-    "eslint-config-meilisearch": "*"
+    "dev": "vite"
   },
   "browserslist": [
     "defaults"

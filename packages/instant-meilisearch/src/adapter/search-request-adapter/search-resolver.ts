@@ -6,9 +6,7 @@ import type {
   PaginationState,
 } from '../../types/index.js'
 
-/**
- * @param  {ResponseCacher} cache
- */
+/** @param {ResponseCacher} cache */
 export function SearchResolver(
   client: MeiliSearch,
   cache: SearchCacheInterface

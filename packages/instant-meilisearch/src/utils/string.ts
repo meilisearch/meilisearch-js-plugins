@@ -1,5 +1,5 @@
 /**
- * @param  {any} str
+ * @param {any} str
  * @returns {boolean}
  */
 export function isString(str: any): boolean {
@@ -7,7 +7,7 @@ export function isString(str: any): boolean {
 }
 
 /**
- * @param  {any[]} arr
+ * @param {any[]} arr
  * @returns {string}
  */
 export function stringifyArray(arr: any[]): string {

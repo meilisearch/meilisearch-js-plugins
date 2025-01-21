@@ -11,13 +11,13 @@ import { adaptFacetDistribution } from './facet-distribution-adapter.js'
 import { adaptFacetStats } from './adapt-facet-stats.js'
 
 /**
- * Adapt multiple search results from Meilisearch
- * to search results compliant with instantsearch.js
+ * Adapt multiple search results from Meilisearch to search results compliant
+ * with instantsearch.js
  *
- * @param  {Array<MeilisearchMultiSearchResult<T>>} searchResponse
- * @param  {Record<string, FacetDistribution>} initialFacetDistribution
- * @param  {InstantMeiliSearchConfig} config
- * @returns {{ results: Array<AlgoliaSearchResponse<T>> }}
+ * @param {MeilisearchMultiSearchResult<T>[]} searchResponse
+ * @param {Record<string, FacetDistribution>} initialFacetDistribution
+ * @param {InstantMeiliSearchConfig} config
+ * @returns {{ results: AlgoliaSearchResponse<T>[] }}
  */
 export function adaptSearchResults<T = Record<string, any>>(
   meilisearchResults: MeilisearchMultiSearchResult[],
@@ -37,12 +37,12 @@ export function adaptSearchResults<T = Record<string, any>>(
 }
 
 /**
- * Adapt search result from Meilisearch
- * to search result compliant with instantsearch.js
+ * Adapt search result from Meilisearch to search result compliant with
+ * instantsearch.js
  *
- * @param  {MeilisearchMultiSearchResult<Record<string>>} searchResponse
- * @param  {Record<string, FacetDistribution>} initialFacetDistribution
- * @param  {InstantMeiliSearchConfig} config
+ * @param {MeilisearchMultiSearchResult<Record<string>>} searchResponse
+ * @param {Record<string, FacetDistribution>} initialFacetDistribution
+ * @param {InstantMeiliSearchConfig} config
  * @returns {AlgoliaSearchResponse<T>}
  */
 export function adaptSearchResult<T>(

@@ -1,9 +1,9 @@
-import { defineProject } from 'vitest/config';
-import pkg from './package.json' with { type: 'json' };
+import { defineProject } from 'vitest/config'
+import pkg from './package.json' with { type: 'json' }
 
 const globalVarName = pkg.name
   .substring(pkg.name.lastIndexOf('/') + 1)
-  .replace(/-./g, (x) => x[1].toUpperCase());
+  .replace(/-./g, (x) => x[1].toUpperCase())
 
 export default defineProject({
   build: {
@@ -16,9 +16,9 @@ export default defineProject({
       fileName: (format, entryName) => {
         switch (format) {
           case 'umd':
-            return `umd/${entryName}.min.js`;
+            return `umd/${entryName}.min.js`
           default:
-            throw new Error(`unsupported format ${format}`);
+            throw new Error(`unsupported format ${format}`)
         }
       },
     },
@@ -40,4 +40,4 @@ export default defineProject({
     include: ['{src,__tests__}/**/*.test.ts'],
     testTimeout: 100_000, // 100 seconds
   },
-});
+})

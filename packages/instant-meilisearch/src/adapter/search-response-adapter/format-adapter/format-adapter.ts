@@ -3,7 +3,7 @@ import { isPureObject } from '../../../utils/index.js'
 /**
  * Stringify values following instantsearch practices.
  *
- * @param  {any} value - value that needs to be stringified
+ * @param {any} value - Value that needs to be stringified
  */
 function stringifyValue(value: any) {
   if (typeof value === 'string') {
@@ -18,20 +18,16 @@ function stringifyValue(value: any) {
 }
 
 /**
- * Recursif function wrap the deepest possible value
- * the following way: { value: "xx" }.
+ * Recursif function wrap the deepest possible value the following way: { value:
+ * "xx" }.
  *
  * For example:
  *
- * {
- * "rootField": { "value": "x" }
- * "nestedField": { child: { value: "y" } }
- * }
+ * { "rootField": { "value": "x" } "nestedField": { child: { value: "y" } } }
  *
- * recursivity continues until the value is not an array or an object.
+ * Recursivity continues until the value is not an array or an object.
  *
- * @param  {any} value - value of a field
- *
+ * @param {any} value - Value of a field
  * @returns Record<string, any>
  */
 function wrapValue(value: any): Record<string, any> {
@@ -56,8 +52,8 @@ function wrapValue(value: any): Record<string, any> {
 /**
  * Adapt Meilisearch formatted fields to a format compliant to instantsearch.js.
  *
- * @param  {Record<string} formattedHit
- * @param  {SearchContext} searchContext
+ * @param {Record<string} formattedHit
+ * @param {SearchContext} searchContext
  * @returns {Record}
  */
 export function adaptFormattedFields(

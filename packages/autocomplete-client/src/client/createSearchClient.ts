@@ -6,9 +6,7 @@ export const concatUserAgents = (clientAgents: string[]): string[] => {
   return clientAgents.concat(clientAgents.filter((agent) => agent))
 }
 
-/**
- * Create a searchClient instance
- */
+/** Create a searchClient instance */
 export function createSearchClient({ userAgent }: { userAgent: string }) {
   return ({
     url,

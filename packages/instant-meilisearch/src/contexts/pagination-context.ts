@@ -3,9 +3,9 @@ import type { PaginationState } from '../types/index.js'
 /**
  * Create the current state of the pagination
  *
- * @param  {boolean} [finite]
- * @param  {number} [hitsPerPage]
- * @param  {number} [page]
+ * @param {boolean} [finite]
+ * @param {number} [hitsPerPage]
+ * @param {number} [page]
  * @returns {SearchContext}
  */
 export function createPaginationState(
