@@ -27,7 +27,7 @@
     "build": "vite build && tsc -p tsconfig.json",
     "lint": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "eslint --ext .js,.ts,.tsx . --fix",
-    "version": "node scripts/update_version.js"
+    "version": "node scripts/update_version.cjs"
   },
   "type": "module",
   "types": "./dist/types/index.d.ts",

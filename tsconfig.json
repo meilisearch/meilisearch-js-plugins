@@ -12,12 +12,5 @@
     "resolveJsonModule": true,
     "strict": true,
     "verbatimModuleSyntax": true
-  },
-  // TODO: Will have to build before running tests, so make sure there's a build that doesn't build playgroudns too
-  // will also have to build before type checking? This won't work smoothly. autocomplete depends on the other, so will have to build the other first always
-  "references": [
-    { "path": "./packages/autocomplete-client/tsconfig.json" },
-    { "path": "./packages/instant-meilisearch/tsconfig.json" }
-  ],
-  "files": []
+  }
 }

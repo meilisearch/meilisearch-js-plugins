@@ -1,34 +1,32 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
+  "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "outputs": ["dist/**"]
     },
     "lint": {},
     "lint:fix": {},
     "dev": {
-      "cache": false
+      "cache": false,
+      "dependsOn": ["build"]
     },
     "test": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "dependsOn": ["build"]
     },
     "test:watch": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "cache": false,
+      "dependsOn": ["build"]
     },
     "test:e2e": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "dependsOn": ["build"]
     },
     "test:e2e:watch": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "cache": false,
+      "dependsOn": ["build"]
     },
     "test:types": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "dependsOn": ["build"]
     },
     "version": {}
   }
