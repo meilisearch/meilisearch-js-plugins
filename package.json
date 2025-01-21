@@ -27,7 +27,7 @@
     "test:watch": "yarn build && vitest",
     "instant-meilisearch:test:watch": "vitest --project \"@meilisearch/instant-meilisearch\"",
     "autocomplete:test:watch": "vitest --project \"@meilisearch/autocomplete-client\"",
-    "test:types": "tsc --noEmit",
+    "test:types": "yarn build && tsc --noEmit",
     "version-packages": "changeset version && turbo version",
     "release": "yarn build && changeset publish"
   },
