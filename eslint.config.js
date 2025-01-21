@@ -9,7 +9,7 @@ import pluginReact from 'eslint-plugin-react'
 import pluginVue from 'eslint-plugin-vue'
 
 export default tseslint.config([
-  { ignores: ['{packages,playgrounds}/*/dist/', 'coverage/'] },
+  { ignores: ['{packages,playgrounds}/*/dist/'] },
   eslint.configs.recommended,
   {
     files: ['**/*.{js,cjs,mjs}'],
