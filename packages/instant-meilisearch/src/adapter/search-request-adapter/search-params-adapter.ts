@@ -96,7 +96,10 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       meiliSearchParams.q = query
     },
     addFacets() {
-      const value = <Mutable<typeof facets>>facets
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.facets ??
+        overrideParams?.facets ??
+        <Mutable<typeof facets>>facets
       if (value !== undefined) {
         // despite Instantsearch.js typing it as `string[]`,
         // it still can send `string`
@@ -131,7 +134,10 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     },
     addFilters() {
       if (meilisearchFilters.length) {
-        meiliSearchParams.filter = meilisearchFilters
+        meiliSearchParams.filter =
+          overrideParams?.indexesOverrides?.[indexUid]?.filter ??
+          overrideParams?.filter ??
+          meilisearchFilters
       }
     },
     addAttributesToRetrieve() {

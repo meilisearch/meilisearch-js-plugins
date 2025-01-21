@@ -43,6 +43,10 @@ export type InstantSearchParams = NonNullable<
 
 type BaseOverridableMeiliSearchSearchParameters = Pick<
   MeiliSearchMultiSearchParams,
+  | 'sort'
+  | 'hitsPerPage'
+  | 'filter'
+  | 'facets'
   | 'attributesToCrop'
   | 'attributesToRetrieve'
   | 'attributesToSearchOn'
