@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.23.0",
+    "@meilisearch/instant-meilisearch": "0.24.0",
     "scriptjs": "^2.5.9"
   }
 }
