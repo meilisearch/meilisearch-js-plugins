@@ -1,4 +1,4 @@
-import type { SearchClient } from 'instantsearch.js'
+import type SearchClient from 'instantsearch.js'
 import type {
   MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
   multipleSearchForFacetValues,
@@ -139,7 +139,7 @@ export type InstantSearchGeoParams = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type InstantMeiliSearchInstance = SearchClient & {
+export type InstantMeiliSearchInstance = ReturnType<typeof SearchClient> & {
   clearCache: () => void
 }
 
@@ -159,21 +159,13 @@ export type MultiSearchResolver = {
 export type AlgoliaFacetStats = Record<
   string,
   {
-    /**
-     * The minimum value in the result set.
-     */
+    /** The minimum value in the result set. */
     min: number
-    /**
-     * The maximum value in the result set.
-     */
+    /** The maximum value in the result set. */
     max: number
-    /**
-     * The average facet value in the result set.
-     */
+    /** The average facet value in the result set. */
     avg: number
-    /**
-     * The sum of all values in the result set.
-     */
+    /** The sum of all values in the result set. */
     sum: number
   }
 >

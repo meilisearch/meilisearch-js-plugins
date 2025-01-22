@@ -1,8 +1,8 @@
-import { FacetDistribution, SearchContext } from '../../types'
+import type { FacetDistribution, SearchContext } from '../../types/index.js'
 
 function getFacetNames(
   facets: SearchContext['facets'] | string
-): Readonly<string[]> {
+): readonly string[] {
   if (!facets) return []
   else if (typeof facets === 'string') return [facets]
   return facets

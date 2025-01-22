@@ -1,4 +1,4 @@
-import { InstantSearchGeoParams } from '../../types'
+import type { InstantSearchGeoParams } from '../../types/index.js'
 
 export function adaptGeoSearch({
   insideBoundingBox,

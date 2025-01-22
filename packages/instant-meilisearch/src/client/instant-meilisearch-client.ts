@@ -1,5 +1,5 @@
 import { MeiliSearch } from 'meilisearch'
-import {
+import type {
   InstantMeiliSearchOptions,
   AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
@@ -11,32 +11,36 @@ import {
   AlgoliaSearchForFacetValuesResponse,
   InstantMeiliSearchObject,
   ApiKeyCallback,
-} from '../types'
+} from '../types/index.js'
 import {
   getApiKey,
   getInstantMeilisearchConfig,
   validateInstantMeiliSearchParams,
-} from './config'
+} from './config/index.js'
 import {
   adaptSearchResults,
   adaptSearchParams,
   SearchResolver,
-} from '../adapter'
-import { createSearchContext, createFacetSearchContext } from '../contexts'
+} from '../adapter/index.js'
+import {
+  createSearchContext,
+  createFacetSearchContext,
+} from '../contexts/index.js'
 import {
   SearchCache,
   initFacetDistribution,
   getParametersWithoutFilters,
   fillMissingFacets,
-} from '../cache/'
-import { constructClientAgents } from './agents'
+} from '../cache/index.js'
+import { constructClientAgents } from './agents.js'
 
 /**
  * Instantiate SearchClient required by instantsearch.js.
  *
- * @param  {string} hostUrl
- * @param  {string | ApiKeyCallback} [apiKey='']
- * @param  {InstantMeiliSearchOptions} [instantMeiliSearchOptions={}]
+ * @param {string} hostUrl
+ * @param {string | ApiKeyCallback} [apiKey=''] Default is `''`
+ * @param {InstantMeiliSearchOptions} [instantMeiliSearchOptions={}] Default is
+ *   `{}`
  * @returns {InstantMeiliSearchObject}
  */
 export function instantMeiliSearch(
@@ -96,7 +100,7 @@ export function instantMeiliSearch(
     searchClient: {
       clearCache: () => searchCache.clearCache(),
       /**
-       * @param  {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
+       * @param {readonlyAlgoliaMultipleQueriesQuery[]} instantSearchRequests
        * @returns {Array}
        */
       search: async function <T = Record<string, any>>(

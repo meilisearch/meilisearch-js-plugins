@@ -1,3 +1,3 @@
-export * from './array'
-export * from './string'
-export * from './object'
+export * from './array.js'
+export * from './string.js'
+export * from './object.js'

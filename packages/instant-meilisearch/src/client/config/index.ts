@@ -1,9 +1,9 @@
-import {
+import type {
   InstantMeiliSearchOptions,
   InstantMeiliSearchConfig,
   ApiKeyCallback,
-} from '../../types'
-import { isPureObject } from '../../utils/object'
+} from '../../types/index.js'
+import { isPureObject } from '../../utils/object.js'
 
 /**
  * Get the configuration of instant meilisearch
@@ -30,8 +30,9 @@ export function getInstantMeilisearchConfig(
 
 /**
  * Resolves apiKey if it is a function
- * @param  {string | ApiKeyCallback} apiKey
- * @returns {string} api key value
+ *
+ * @param {string | ApiKeyCallback} apiKey
+ * @returns {string} Api key value
  */
 export function getApiKey(apiKey: string | ApiKeyCallback): string {
   // If apiKey is function, call it to get the apiKey
@@ -51,6 +52,7 @@ export function getApiKey(apiKey: string | ApiKeyCallback): string {
 
 /**
  * Validates host and apiKey parameters, throws if invalid
+ *
  * @param hostUrl
  * @param apiKey
  */

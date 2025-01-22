@@ -1,5 +1,20 @@
 # @meilisearch/autocomplete-client
 
+## 0.6.0
+
+### Minor Changes
+
+- fe45115: - Jest -> Vitest
+  - Rollup -> Vite
+  - `"type": "module"`
+  - update `meilisearch-js` to latest version
+  - update everything else that caused a conflict to the latest version, and adapt code
+
+### Patch Changes
+
+- Updated dependencies [fe45115]
+  - @meilisearch/instant-meilisearch@0.24.0
+
 ## 0.5.0
 
 ### Minor Changes

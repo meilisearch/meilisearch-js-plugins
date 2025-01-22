@@ -1,10 +1,10 @@
-import { fetchMeilisearchResults } from '../search'
-import {
+import { fetchMeilisearchResults } from '../search/index.js'
+import type {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
   AlgoliaSearchForFacetValuesResponse,
 } from '@meilisearch/instant-meilisearch'
-import { SearchClient as MeilisearchClient } from '../types/SearchClient'
+import type { SearchClient as MeilisearchClient } from '../types/SearchClient.js'
 
 // All types copied from: autocomplete/packages/autocomplete-preset-algolia/src/requester/createRequester.ts
 // As most of the types are not exported and we need to be able to provide our own Fetcher
@@ -72,37 +72,35 @@ export type Execute<THit> = (
 
 export type RequestParams<THit> = FetcherParams & {
   /**
-   * The function to transform the Algolia response before passing it to the Autocomplete state. You have access to the full Algolia results, as well as the pre-computed hits and facet hits.
+   * The function to transform the Algolia response before passing it to the
+   * Autocomplete state. You have access to the full Algolia results, as well as
+   * the pre-computed hits and facet hits.
    *
-   * This is useful to manipulate the hits, or store data from the results in the [context](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/context/).
+   * This is useful to manipulate the hits, or store data from the results in
+   * the
+   * [context](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/context/).
    */
   transformResponse?: TransformResponse<THit>
 }
 
 export type RequesterDescription<THit> = {
   /**
-   * The search client used for this request. Multiple queries with the same client are batched (if `requesterId` is also the same).
+   * The search client used for this request. Multiple queries with the same
+   * client are batched (if `requesterId` is also the same).
    */
   searchClient: any
   /**
-   * Identifies requesters to confirm their queries should be batched.
-   * This ensures that requesters with the same client but different
-   * post-processing functions don't get batched.
-   * When falsy, batching is disabled.
-   * For example, the Algolia requesters use "algolia".
+   * Identifies requesters to confirm their queries should be batched. This
+   * ensures that requesters with the same client but different post-processing
+   * functions don't get batched. When falsy, batching is disabled. For example,
+   * the Algolia requesters use "algolia".
    */
   requesterId?: string
-  /**
-   * The search parameters used for this query.
-   */
+  /** The search parameters used for this query. */
   queries: AlgoliaMultipleQueriesQuery[]
-  /**
-   * Transforms the response of this search before returning it to the caller.
-   */
+  /** Transforms the response of this search before returning it to the caller. */
   transformResponse: TransformResponse<THit>
-  /**
-   * Post-processing function for multi-queries.
-   */
+  /** Post-processing function for multi-queries. */
   execute: Execute<THit>
 }
 
