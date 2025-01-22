@@ -1,5 +1,6 @@
-import { SearchCache } from '../search-cache'
-import { searchResponse } from './assets/utils'
+import { describe, test, expect } from 'vitest'
+import { SearchCache } from '../search-cache.js'
+import { searchResponse } from './assets/utils.js'
 
 describe('Entries in the cache', () => {
   test('to getEntry on empty cache', () => {

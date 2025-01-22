@@ -1,5 +1,4 @@
 import 'instantsearch.css/themes/algolia-min.css'
-import React from 'react'
 import {
   InstantSearch,
   InfiniteHits,
@@ -11,7 +10,7 @@ import {
   Configure,
   SortBy,
   Snippet,
-} from 'react-instantsearch-dom'
+} from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 
 const { searchClient } = instantMeiliSearch(

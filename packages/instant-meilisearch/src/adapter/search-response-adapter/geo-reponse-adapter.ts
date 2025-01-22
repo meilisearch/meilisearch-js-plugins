@@ -1,6 +1,6 @@
 /**
- * @param  {any[]} hits
- * @returns {Array<Record<string, any>>}
+ * @param {any[]} hits
+ * @returns {Record<string, any>[]}
  */
 export function adaptGeoResponse(hits: any[]): Array<Record<string, any>> {
   for (let i = 0; i < hits.length; i++) {

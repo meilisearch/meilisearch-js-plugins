@@ -4,10 +4,10 @@ import type {
   PaginationState,
   MeiliSearchMultiSearchParams,
   Mutable,
-} from '../../types'
+} from '../../types/index.js'
 
-import { adaptGeoSearch } from './geo-rules-adapter'
-import { adaptFilters } from './filter-adapter'
+import { adaptGeoSearch } from './geo-rules-adapter.js'
+import { adaptFilters } from './filter-adapter.js'
 
 function isPaginationRequired(
   filter: Filter,
@@ -59,10 +59,10 @@ function setFinitePagination(
   }
 }
 /**
- * Adapts instantsearch.js and instant-meilisearch options
- * to meilisearch search query parameters.
+ * Adapts instantsearch.js and instant-meilisearch options to meilisearch search
+ * query parameters.
  *
- * @param  {SearchContext} searchContext
+ * @param {SearchContext} searchContext
  */
 export function MeiliParamsCreator(searchContext: SearchContext) {
   const {
@@ -260,10 +260,10 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
 }
 
 /**
- * Adapt search request from instantsearch.js
- * to search request compliant with Meilisearch
+ * Adapt search request from instantsearch.js to search request compliant with
+ * Meilisearch
  *
- * @param  {SearchContext} searchContext
+ * @param {SearchContext} searchContext
  * @returns {MeiliSearchMultiSearchParams}
  */
 export function adaptSearchParams(

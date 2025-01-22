@@ -48,6 +48,7 @@ jobs:
           project: ./playgrounds/autocomplete
           wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
+          # TODO: This is a flaky one, it is not awaited before cypress starts running tests
           start: yarn playground:autocomplete
           env: playground=local
       - uses: actions/upload-artifact@v4
@@ -164,7 +165,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Tests style
-        run: yarn lint
+        run: yarn style
       - name: Yaml Style
         uses: ibiqlik/action-yamllint@v3
         with:

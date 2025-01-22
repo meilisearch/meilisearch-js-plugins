@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import injectScript from 'scriptjs'
 

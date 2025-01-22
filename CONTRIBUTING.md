@@ -37,7 +37,7 @@ yarn --dev
 Each PR should pass the tests and the linter to be accepted.
 
 ```bash
-# Tests with Jest
+# Tests with Vitest
 docker pull getmeili/meilisearch:latest # Fetch the latest version of Meilisearch image from Docker Hub
 docker run -p 7700:7700 getmeili/meilisearch:latest meilisearch --master-key=masterKey --no-analytics
 # Integration tests
@@ -45,9 +45,9 @@ yarn test
 # End-to-end tests
 yarn test:e2e
 # Linter
-yarn lint
+yarn style
 # Linter with fixing
-yarn lint:fix
+yarn style:fix
 # Build the project
 yarn build
 ```

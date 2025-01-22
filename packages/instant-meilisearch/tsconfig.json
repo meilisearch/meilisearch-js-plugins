@@ -1,29 +1,9 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
-    "noEmit": true,
-    "allowJs": false,
-    "removeComments": false,
-    "declaration": true,
-    "declarationMap": true,
-    "declarationDir": "./dist/types",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "lib": [
-      "ES2019",
-      "ESNext",
-      "dom"
-    ],
-    "importHelpers": true,
-    // Enforced typing rules
-    "strict": true,
-    "alwaysStrict": true,
-    "noImplicitReturns": true,
-    "forceConsistentCasingInFileNames": true,
-    "noUnusedParameters": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true
+    "outDir": "./dist/esm",
+    "declarationDir": "dist/types"
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }

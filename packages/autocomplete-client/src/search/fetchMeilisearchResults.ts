@@ -1,4 +1,4 @@
-import {
+import type {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
 } from '@meilisearch/instant-meilisearch'
@@ -6,18 +6,14 @@ import {
   HIGHLIGHT_PRE_TAG,
   HIGHLIGHT_POST_TAG,
   HITS_PER_PAGE,
-} from '../constants'
-import { SearchClient as MeilisearchSearchClient } from '../types/SearchClient'
-import { HighlightResult } from 'instantsearch.js/es/types/algoliasearch'
+} from '../constants/index.js'
+import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.js'
+import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.js'
 
 interface SearchParams {
-  /**
-   * The initialized Meilisearch search client.
-   */
+  /** The initialized Meilisearch search client. */
   searchClient: MeilisearchSearchClient
-  /**
-   * A list of queries to execute.
-   */
+  /** A list of queries to execute. */
   queries: Array<
     AlgoliaMultipleQueriesQuery & {
       params?: {
@@ -95,6 +91,7 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
 
 /**
  * Calculate the highlight metadata for a given highlight value.
+ *
  * @param query - The query string.
  * @param preTag - The pre tag.
  * @param postTag - The post tag.

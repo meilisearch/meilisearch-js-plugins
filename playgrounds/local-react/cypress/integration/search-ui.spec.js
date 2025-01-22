@@ -19,8 +19,8 @@ describe(`${playground} playground test`, () => {
     cy.contains('15 results')
   })
 
-  it('Contains filter clear', () => {
-    cy.contains('Clear all filters')
+  it('Contains refinements clear', () => {
+    cy.contains('Clear refinements')
   })
 
   it('Contains Genres', () => {

@@ -1,9 +1,10 @@
+import { describe, beforeAll, test, expect } from 'vitest'
 import {
   searchClient,
   dataset,
-  Movies,
+  type Movies,
   meilisearchClient,
-} from './assets/utils'
+} from './assets/utils.js'
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
@@ -164,8 +165,8 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     expectArrayEquivalence(
-      response1.results.flatMap((result) =>
-        result.hits.map((hit) => hit.numberField)
+      response1.results.flatMap((result: any) =>
+        result.hits.map((hit: any) => hit.numberField)
       ),
       [5, 10, 15]
     )
@@ -180,8 +181,8 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     expectArrayEquivalence(
-      response2.results.flatMap((result) =>
-        result.hits.map((hit) => hit.numberField)
+      response2.results.flatMap((result: any) =>
+        result.hits.map((hit: any) => hit.numberField)
       ),
       [10]
     )
@@ -196,8 +197,8 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     expectArrayEquivalence(
-      response3.results.flatMap((result) =>
-        result.hits.map((hit) => hit.numberField)
+      response3.results.flatMap((result: any) =>
+        result.hits.map((hit: any) => hit.numberField)
       ),
       [5, 10, 15]
     )
@@ -212,8 +213,8 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     expectArrayEquivalence(
-      response4.results.flatMap((result) =>
-        result.hits.map((hit) => hit.numberField)
+      response4.results.flatMap((result: any) =>
+        result.hits.map((hit: any) => hit.numberField)
       ),
       [5]
     )
@@ -228,8 +229,10 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
     expectArrayEquivalence(
-      response5.results.flatMap((result) =>
-        result.hits.map((hit) => hit.numberField).filter((v) => v !== undefined)
+      response5.results.flatMap((result: any) =>
+        result.hits
+          .map((hit: any) => hit.numberField)
+          .filter((v: any) => v !== undefined)
       ),
       [10, 15]
     )

@@ -1,7 +1,7 @@
 /**
- * @param  {number} dividend
- * @param  {number} divisor
- * @returns number
+ * @param {number} dividend
+ * @param {number} divisor
+ * @returns Number
  */
 export function ceiledDivision(dividend: number, divisor: number): number {
   if (divisor > 0) {
