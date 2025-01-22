@@ -26,7 +26,7 @@
         <div class="search-panel__results">
           <ais-search-box placeholder="Search here…" />
           <ais-hits>
-            <template v-slot:item="{ item }">
+            <template #item="{ item }">
               <div>
                 <div class="hit-name">
                   <ais-highlight :hit="item" attribute="name" />
@@ -41,8 +41,8 @@
             </template>
           </ais-hits>
           <ais-configure
-            :attributesToSnippet="['description:50']"
-            snippetEllipsisText="…"
+            :attributes-to-snippet="['description:50']"
+            snippet-ellipsis-text="…"
           />
         </div>
         <ais-pagination />
