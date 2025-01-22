@@ -25,7 +25,13 @@ export default defineProject({
     // the following code enables Vite in UMD mode to extend the global object with all of
     // the exports, and not just a property of it ( https://github.com/vitejs/vite/issues/11624 )
     rollupOptions: {
+      external: ['instant-meilisearch'],
       output: {
+        globals: {
+          // Map the external 'instant-meilisearch' import to 'instantMeilisearch' global variable,
+          // i.e. the package name defined in instant-meilisearch's build config
+          'instant-meilisearch': 'instantMeilisearch'
+        },
         footer: `(function () {
                 if (typeof self !== "undefined") {
                   var clonedGlobal = Object.assign({}, self.${globalVarName});
