@@ -38,8 +38,7 @@ function transformFacetFilter(filter: string): string {
  *
  * 'price = 5.99' becomes '"price"=5.99'
  *
- * Wrap the attribute between quotes. Escape backslash (\) and quote (")
- * characters.
+ * Wrap the attribute between quotes. Escape backslash \ and quote " characters.
  *
  * @param {string} filter
  * @returns {string}
