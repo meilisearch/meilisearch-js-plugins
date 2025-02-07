@@ -12,6 +12,7 @@ import {
   Snippet,
 } from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import type { Hit } from 'algoliasearch'
 
 const { searchClient } = instantMeiliSearch(
   'http://localhost:7700',
@@ -36,6 +37,7 @@ const SingleIndex = () => (
       <Stats />
       <div className="left-panel">
         <ClearRefinements />
+        {/* TODO: https://www.algolia.com/doc/guides/building-search-ui/upgrade-guides/react/#replace-defaultrefinement-with-initialuistate-on-instantsearch */}
         <SortBy
           defaultRefinement="games"
           items={[
@@ -66,13 +68,13 @@ const SingleIndex = () => (
       </div>
       <div className="right-panel">
         <SearchBox />
-        <InfiniteHits hitComponent={Hit} />
+        <InfiniteHits hitComponent={HitComponent} />
       </div>
     </InstantSearch>
   </div>
 )
 
-const Hit = ({ hit }) => {
+const HitComponent = ({ hit }: { hit: Hit<any> }) => {
   return (
     <div key={hit.id}>
       <div className="hit-name">
@@ -81,7 +83,7 @@ const Hit = ({ hit }) => {
       <div className="hit-name">
         <Highlight attribute="genres" hit={hit} />
       </div>
-      <img src={hit.image} align="left" alt={hit.name} />
+      <img src={hit.image} alt={hit.name} style={{verticalAlign: "left"}} />
       <div className="hit-name">
         <Snippet attribute="description" hit={hit} />
       </div>

@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "description": "React playground for instant-meilisearch",
+  "type": "module",
   "scripts": {
     "predev": "node setup.mjs",
     "dev": "vite",
     "setup": "node setup.mjs",
     "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
-    "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\""
+    "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\"",
+    "test:types": "tsc -b"
   },
   "keywords": [
     "react",
@@ -21,11 +23,13 @@
   "license": "ISC",
   "devDependencies": {
     "@meilisearch/instant-meilisearch": "*",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "instantsearch.css": "^8.5.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "react-instantsearch": "^7.15.0",
-    "react-router-dom": "^6.28.2"
+    "react-instantsearch": "^7.15.3",
+    "react-router-dom": "^7.1.5"
   }
 }

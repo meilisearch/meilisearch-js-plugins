@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "vite build && tsc -p tsconfig.json",
-    "version": "node scripts/update_version.cjs"
+    "version": "node scripts/update_version.cjs",
+    "test:types": "tsc --noEmit"
   },
   "type": "module",
   "types": "./dist/types/index.d.ts",

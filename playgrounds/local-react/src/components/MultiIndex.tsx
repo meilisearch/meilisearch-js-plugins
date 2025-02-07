@@ -10,6 +10,7 @@ import {
   Hits,
 } from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import type { Hit } from 'algoliasearch'
 
 const { searchClient } = instantMeiliSearch(
   'http://localhost:7700',
@@ -21,7 +22,7 @@ const { searchClient } = instantMeiliSearch(
   }
 )
 
-const Hit = ({ hit }) => {
+const HitComponent = ({ hit }: { hit: Hit<any> }) => {
   return (
     <div key={hit.id}>
       <div className="hit-name">
@@ -50,7 +51,7 @@ const MultiIndex = () => (
             <RefinementList attribute="platforms" />
           </div>
           <div className="right-panel">
-            <Hits hitComponent={Hit} />
+            <Hits hitComponent={HitComponent} />
           </div>
           <Pagination />
         </div>
@@ -67,7 +68,7 @@ const MultiIndex = () => (
             <RefinementList attribute="platforms" />
           </div>
           <div className="right-panel">
-            <InfiniteHits hitComponent={Hit} />
+            <InfiniteHits hitComponent={HitComponent} />
           </div>
         </div>
       </Index>

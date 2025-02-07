@@ -13,6 +13,9 @@
     "test": {
       "dependsOn": ["build"]
     },
+    "test:types": {
+      "dependsOn": ["build"]
+    },
     "test:watch": {
       "persistent": true,
       "cache": false,
