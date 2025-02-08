@@ -12,6 +12,7 @@ import type {
   InstantMeiliSearchObject,
   ApiKeyCallback,
 } from '../types/index.js'
+import type { UiState } from 'instantsearch.js/es/types/ui-state.js'
 import {
   getApiKey,
   getInstantMeilisearchConfig,
@@ -43,11 +44,14 @@ import { constructClientAgents } from './agents.js'
  *   `{}`
  * @returns {InstantMeiliSearchObject}
  */
-export function instantMeiliSearch(
+export function instantMeiliSearch<
+  TUiState extends UiState = UiState,
+  TRouteState = TUiState,
+>(
   hostUrl: string,
   apiKey: string | ApiKeyCallback = '',
   instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
-): InstantMeiliSearchObject {
+): InstantMeiliSearchObject<TUiState, TRouteState> {
   // Validate parameters
   validateInstantMeiliSearchParams(hostUrl, apiKey, instantMeiliSearchOptions)
 

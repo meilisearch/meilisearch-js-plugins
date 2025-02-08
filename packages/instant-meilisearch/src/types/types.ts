@@ -1,4 +1,5 @@
-import type SearchClient from 'instantsearch.js'
+import type InstantSearch from 'instantsearch.js/es/lib/InstantSearch.js'
+import type { UiState } from 'instantsearch.js/es/types/ui-state.js'
 import type {
   MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
   multipleSearchForFacetValues,
@@ -127,14 +128,20 @@ export type InstantSearchGeoParams = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type InstantMeiliSearchInstance = ReturnType<typeof SearchClient> & {
+export type InstantMeiliSearchInstance<
+  TUiState extends UiState = UiState,
+  TRouteState = TUiState,
+> = InstantSearch<TUiState, TRouteState> & {
   clearCache: () => void
 }
 
-export type InstantMeiliSearchObject = {
+export type InstantMeiliSearchObject<
+  TUiState extends UiState = UiState,
+  TRouteState = TUiState,
+> = {
   meiliSearchInstance: MeiliSearch
   setMeiliSearchParams: (params: OverridableMeiliSearchSearchParameters) => void
-  searchClient: InstantMeiliSearchInstance
+  searchClient: InstantMeiliSearchInstance<TUiState, TRouteState>
 }
 
 export type MultiSearchResolver = {
