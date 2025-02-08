@@ -5,13 +5,15 @@
   "description": "Instant-meilisearch playground written with vanilla javascript",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "test:types": "tsc"
   },
   "browserslist": [
     "defaults"
   ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.24.0"
+    "@meilisearch/instant-meilisearch": "0.24.0",
+    "instantsearch.js": "^4.77.3"
   }
 }

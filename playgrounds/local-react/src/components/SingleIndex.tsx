@@ -11,19 +11,16 @@ import {
   SortBy,
   Snippet,
 } from 'react-instantsearch'
-
-import './App.css'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import type { Hit } from 'algoliasearch'
 
 const { searchClient } = instantMeiliSearch(
-  'https://ms-adf78ae33284-106.lon.meilisearch.io',
-  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
-  {
-    primaryKey: 'id',
-  }
+  'http://localhost:7700',
+  'masterKey',
+  { primaryKey: 'id' }
 )
 
-const App = () => (
+const SingleIndex = () => (
   <div className="ais-InstantSearch">
     <h1>Meilisearch + React InstantSearch</h1>
     <h2>
@@ -36,28 +33,29 @@ const App = () => (
       This is not the official Steam dataset but only for demo purpose. Enjoy
       searching with Meilisearch!
     </p>
-    <InstantSearch indexName="steam-video-games" searchClient={searchClient}>
+    <InstantSearch indexName="games" searchClient={searchClient}>
       <Stats />
       <div className="left-panel">
         <ClearRefinements />
+        {/* TODO: https://www.algolia.com/doc/guides/building-search-ui/upgrade-guides/react/#replace-defaultrefinement-with-initialuistate-on-instantsearch */}
         <SortBy
-          defaultRefinement="steam-video-games"
+          defaultRefinement="games"
           items={[
-            { value: 'steam-video-games', label: 'Relevant' },
+            { value: 'games', label: 'Relevant' },
             {
-              value: 'steam-video-games:recommendationCount:desc',
+              value: 'games:recommendationCount:desc',
               label: 'Most Recommended',
             },
             {
-              value: 'steam-video-games:recommendationCount:asc',
+              value: 'games:recommendationCount:asc',
               label: 'Least Recommended',
             },
           ]}
         />
         <h2>Genres</h2>
-        <RefinementList attribute="genres" />
+        <RefinementList attribute="genres" searchable={true} />
         <h2>Players</h2>
-        <RefinementList attribute="players" />
+        <RefinementList attribute="players" searchable={true} />
         <h2>Platforms</h2>
         <RefinementList attribute="platforms" />
         <h2>Misc</h2>
@@ -70,13 +68,13 @@ const App = () => (
       </div>
       <div className="right-panel">
         <SearchBox />
-        <InfiniteHits hitComponent={Hit} />
+        <InfiniteHits hitComponent={HitComponent} />
       </div>
     </InstantSearch>
   </div>
 )
 
-const Hit = ({ hit }) => {
+const HitComponent = ({ hit }: { hit: Hit<any> }) => {
   return (
     <div key={hit.id}>
       <div className="hit-name">
@@ -85,7 +83,7 @@ const Hit = ({ hit }) => {
       <div className="hit-name">
         <Highlight attribute="genres" hit={hit} />
       </div>
-      <img src={hit.image} align="left" alt={hit.name} />
+      <img src={hit.image} alt={hit.name} style={{verticalAlign: "left"}} />
       <div className="hit-name">
         <Snippet attribute="description" hit={hit} />
       </div>
@@ -102,4 +100,4 @@ const Hit = ({ hit }) => {
   )
 }
 
-export default App
+export default SingleIndex

@@ -5,7 +5,8 @@
   "description": "React playground for instant-meilisearch",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "test:types": "tsc -b"
   },
   "keywords": [
     "react",
@@ -17,9 +18,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-instantsearch": "^7.15.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react-instantsearch": "^7.15.3",
     "@meilisearch/instant-meilisearch": "*"
   }
 }

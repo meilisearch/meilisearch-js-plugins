@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:types": "vue-tsc -b"
   },
   "devDependencies": {
-    "vue-instantsearch": "^4.10.8",
+    "vue-instantsearch": "^4.20.4",
     "@meilisearch/instant-meilisearch": "*",
     "vue": "^3.5.13",
+    "@vue/tsconfig": "^0.7.0",
     "instantsearch.css": "^8.5.1",
-    "@vitejs/plugin-vue": "^5.2.1"
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vue-tsc": "^2.2.0"
   }
 }

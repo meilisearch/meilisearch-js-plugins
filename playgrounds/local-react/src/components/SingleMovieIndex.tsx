@@ -9,6 +9,7 @@ import {
   RefinementList,
 } from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import type { Hit } from 'algoliasearch'
 
 const { searchClient } = instantMeiliSearch(
   'http://localhost:7700',
@@ -34,13 +35,13 @@ const SingleIndex = () => (
       </div>
       <div className="right-panel">
         <SearchBox />
-        <InfiniteHits hitComponent={Hit} />
+        <InfiniteHits hitComponent={HitComponent} />
       </div>
     </InstantSearch>
   </div>
 )
 
-const Hit = ({ hit }) => {
+const HitComponent = ({ hit }: { hit: Hit<any> }) => {
   return (
     <div key={hit.id}>
       <div className="hit-name">
