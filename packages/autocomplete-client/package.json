@@ -45,8 +45,7 @@
     "@meilisearch/instant-meilisearch": "*"
   },
   "devDependencies": {
-    "@algolia/autocomplete-js": "^1.7.4",
-    "cssnano": "^4.1.10",
-    "instantsearch.js": "^4.56.2"
+    "@algolia/autocomplete-js": "^1.18.0",
+    "instantsearch.js": "^4.77.3"
   }
 }

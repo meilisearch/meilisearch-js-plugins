@@ -1,5 +1,14 @@
-/* eslint-disable no-undef */
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { default as instantsearch } from 'instantsearch.js'
+import {
+  clearRefinements,
+  configure,
+  hits,
+  pagination,
+  refinementList,
+  searchBox,
+  sortBy,
+} from 'instantsearch.js/es/widgets'
 
 const search = instantsearch({
   indexName: 'steam-video-games',
@@ -13,7 +22,7 @@ const search = instantsearch({
 })
 
 search.addWidgets([
-  instantsearch.widgets.sortBy({
+  sortBy({
     container: '#sort-by',
     items: [
       { value: 'steam-video-games', label: 'Relevant' },
@@ -27,33 +36,33 @@ search.addWidgets([
       },
     ],
   }),
-  instantsearch.widgets.searchBox({
+  searchBox({
     container: '#searchbox',
   }),
-  instantsearch.widgets.clearRefinements({
+  clearRefinements({
     container: '#clear-refinements',
   }),
-  instantsearch.widgets.refinementList({
+  refinementList({
     container: '#genres-list',
     attribute: 'genres',
   }),
-  instantsearch.widgets.refinementList({
+  refinementList({
     container: '#players-list',
     attribute: 'players',
   }),
-  instantsearch.widgets.refinementList({
+  refinementList({
     container: '#platforms-list',
     attribute: 'platforms',
   }),
-  instantsearch.widgets.configure({
+  configure({
     hitsPerPage: 6,
     attributesToSnippet: ['description:150'],
   }),
-  instantsearch.widgets.refinementList({
+  refinementList({
     container: '#misc-list',
     attribute: 'misc',
   }),
-  instantsearch.widgets.hits({
+  hits({
     container: '#hits',
     templates: {
       item: `
@@ -72,7 +81,7 @@ search.addWidgets([
       `,
     },
   }),
-  instantsearch.widgets.pagination({
+  pagination({
     container: '#pagination',
   }),
 ])

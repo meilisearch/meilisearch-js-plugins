@@ -11,6 +11,7 @@ import {
   SortBy,
   Snippet,
 } from 'react-instantsearch'
+import type { Hit } from 'algoliasearch'
 
 import './App.css'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
@@ -40,6 +41,7 @@ const App = () => (
       <Stats />
       <div className="left-panel">
         <ClearRefinements />
+        {/* TODO: https://www.algolia.com/doc/guides/building-search-ui/upgrade-guides/react/#replace-defaultrefinement-with-initialuistate-on-instantsearch */}
         <SortBy
           defaultRefinement="steam-video-games"
           items={[
@@ -76,7 +78,7 @@ const App = () => (
   </div>
 )
 
-const Hit = ({ hit }) => {
+const Hit = ({ hit }: { hit: Hit<any> }) => {
   return (
     <div key={hit.id}>
       <div className="hit-name">
@@ -85,7 +87,7 @@ const Hit = ({ hit }) => {
       <div className="hit-name">
         <Highlight attribute="genres" hit={hit} />
       </div>
-      <img src={hit.image} align="left" alt={hit.name} />
+      <img src={hit.image} alt={hit.name} style={{verticalAlign: "left"}} />
       <div className="hit-name">
         <Snippet attribute="description" hit={hit} />
       </div>

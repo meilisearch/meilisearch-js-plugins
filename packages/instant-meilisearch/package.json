@@ -48,7 +48,6 @@
     "meilisearch": "^0.48.2"
   },
   "devDependencies": {
-    "cssnano": "^4.1.10",
-    "instantsearch.js": "^4.56.2"
+    "instantsearch.js": "^4.77.3"
   }
 }

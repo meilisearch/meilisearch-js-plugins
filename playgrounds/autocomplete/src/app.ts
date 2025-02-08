@@ -3,6 +3,7 @@ import {
   meilisearchAutocompleteClient,
   getMeilisearchResults,
 } from '@meilisearch/autocomplete-client'
+// @ts-expect-error it doesn't have type declarations...
 import '@algolia/autocomplete-theme-classic'
 
 const client = meilisearchAutocompleteClient({
