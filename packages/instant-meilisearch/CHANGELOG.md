@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.25.0
+
+### Minor Changes
+
+- b10435d: Stabilize AI search
+
 ## 0.24.0
 
 ### Minor Changes
