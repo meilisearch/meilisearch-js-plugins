@@ -817,6 +817,7 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
 - ✅ searchable: Whether to add a search input to let the user search for more facet values. [added in 1.3](https://www.meilisearch.com/blog/v1-3-release).
+  **Note:** The `searchable` feature is supported in a limited capacity. However, its associated options (`searchablePlaceholder`, `searchableIsAlwaysActive`, and `searchableEscapeFacetValues`) are not supported due to current technical constraints.
 - ❌ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
 - ❌ searchableIsAlwaysActive: When false, disables the facet search input. Not supported, see `searchable`.
 - ❌ searchableEscapeFacetValues: When true, escapes the facet values.
