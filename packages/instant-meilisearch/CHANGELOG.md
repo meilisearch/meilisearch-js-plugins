@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.26.0
+
+### Minor Changes
+
+- 3085de3: Bump meilisearch to v0.50.0
+
 ## 0.25.0
 
 ### Minor Changes
