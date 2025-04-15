@@ -8,10 +8,7 @@ describe('Instant Meilisearch Browser test', () => {
       .index('movies')
       .updateFilterableAttributes(['genres'])
       .waitTask()
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('empty array on facetDistribution', async () => {

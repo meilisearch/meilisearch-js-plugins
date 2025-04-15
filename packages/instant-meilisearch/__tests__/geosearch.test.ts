@@ -13,11 +13,11 @@ describe('Instant Meilisearch Browser test', () => {
       .index('geotest')
       .updateFilterableAttributes(['_geo'])
       .waitTask()
-    await meilisearchClient.index('geotest').updateSortableAttributes(['_geo']).waitTask()
     await meilisearchClient
       .index('geotest')
-      .addDocuments(geoDataset)
+      .updateSortableAttributes(['_geo'])
       .waitTask()
+    await meilisearchClient.index('geotest').addDocuments(geoDataset).waitTask()
   })
 
   test('aroundRadius and aroundLatLng in geo search', async () => {

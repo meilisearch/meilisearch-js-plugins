@@ -6,17 +6,16 @@ describe('Custom HTTP client tests', () => {
   beforeAll(async () => {
     await meilisearchClient.deleteIndex('movies').waitTask()
 
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('a custom HTTP client', async () => {
-    const httpClient = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
-      const result = await fetch(url, init)
-      return await result.json()
-    })
+    const httpClient = vi.fn(
+      async (url: RequestInfo | URL, init?: RequestInit) => {
+        const result = await fetch(url, init)
+        return await result.json()
+      }
+    )
 
     const { searchClient } = instantMeiliSearch(
       'http://localhost:7700',

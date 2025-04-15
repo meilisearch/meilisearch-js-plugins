@@ -8,10 +8,7 @@ describe('Facet stats tests', () => {
       .index('movies')
       .updateFilterableAttributes(['genres', 'release_date', 'id'])
       .waitTask()
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('Facet stats on an empty facets array', async () => {

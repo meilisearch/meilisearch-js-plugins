@@ -9,10 +9,7 @@ describe('Pagination browser test', () => {
       .index('movies')
       .updateFilterableAttributes(['genres'])
       .waitTask()
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('placeholdersearch set to true', async () => {
