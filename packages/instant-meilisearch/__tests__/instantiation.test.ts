@@ -44,7 +44,7 @@ describe('InstantMeiliSearch instantiation', () => {
 
   test('instantiation with custom request config with correct type', () => {
     const searchClient = instantMeiliSearch('http://localhost:7700', '', {
-      requestConfig: {},
+      requestInit: {},
     })
 
     expect(searchClient).toBeTruthy()
@@ -52,7 +52,7 @@ describe('InstantMeiliSearch instantiation', () => {
 
   test('instantiation with custom request config set to undefined', () => {
     const searchClient = instantMeiliSearch('http://localhost:7700', '', {
-      requestConfig: undefined,
+      requestInit: undefined,
     })
 
     expect(searchClient).toBeTruthy()
@@ -62,9 +62,9 @@ describe('InstantMeiliSearch instantiation', () => {
     expect(() => {
       instantMeiliSearch('http://localhost:7700', '', {
         // @ts-expect-error
-        requestConfig: '',
+        requestInit: '',
       })
-    }).toThrow('Provided requestConfig should be an object')
+    }).toThrow('Provided requestInit should be an object')
   })
 
   test('instantiation with custom HTTP client with correct type', () => {
