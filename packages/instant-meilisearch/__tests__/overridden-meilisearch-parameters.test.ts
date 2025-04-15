@@ -5,10 +5,7 @@ import { dataset, meilisearchClient, type Movies } from './assets/utils.js'
 describe('InstantMeiliSearch overridden parameters', () => {
   beforeAll(async () => {
     await meilisearchClient.deleteIndex('movies').waitTask()
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('instantiating with, and changing overridden Meilisearch parameters', async () => {

@@ -10,10 +10,7 @@ describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
     await meilisearchClient.deleteIndex('movies').waitTask()
 
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('attributesToRetrieve on no attributes', async () => {

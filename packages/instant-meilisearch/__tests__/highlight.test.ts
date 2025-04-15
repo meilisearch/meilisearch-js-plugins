@@ -13,10 +13,7 @@ describe('Highlight Browser test', () => {
       .index('movies')
       .updateFilterableAttributes(['genres'])
       .waitTask()
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('one attributesToHighlight on wrong attribute placeholder', async () => {

@@ -11,14 +11,14 @@ import { splitSortString } from '../src/contexts/sort-context.js'
 describe('Sort browser test', () => {
   beforeAll(async () => {
     await meilisearchClient.deleteIndex('movies').waitTask()
-    await meilisearchClient.index('movies').updateSettings({
-      sortableAttributes: ['release_date', 'title'],
-    }).waitTask()
-
     await meilisearchClient
       .index('movies')
-      .addDocuments(dataset)
+      .updateSettings({
+        sortableAttributes: ['release_date', 'title'],
+      })
       .waitTask()
+
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('sort-by one field', async () => {
