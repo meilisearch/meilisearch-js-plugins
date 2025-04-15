@@ -6,5 +6,4 @@ const client = new MeiliSearch({
   apiKey: 'masterKey',
 })
 await client.index('steam-video-games').delete()
-const task = await client.index('steam-video-games').addDocuments(games)
-await client.waitForTask(task.taskUid)
+client.index('steam-video-games').addDocuments(games).waitTask()
