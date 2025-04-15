@@ -4,12 +4,11 @@ import { dataset, meilisearchClient, type Movies } from './assets/utils.js'
 
 describe('InstantMeiliSearch overridden parameters', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
-    const documentsTask = await meilisearchClient
+    await meilisearchClient.deleteIndex('movies').waitTask()
+    await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+      .waitTask()
   })
 
   test('instantiating with, and changing overridden Meilisearch parameters', async () => {

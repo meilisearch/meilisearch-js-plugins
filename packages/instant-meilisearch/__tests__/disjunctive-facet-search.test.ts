@@ -22,9 +22,7 @@ describe('Keep zero facets tests', () => {
     })
 
     await moviesIndex.addDocuments(movies)
-    const response = await gamesIndex.addDocuments(games)
-
-    await meilisearchClient.waitForTask(response.taskUid)
+    await gamesIndex.addDocuments(games).waitTask()
   })
 
   test('searching on one index with facet filtering', async () => {

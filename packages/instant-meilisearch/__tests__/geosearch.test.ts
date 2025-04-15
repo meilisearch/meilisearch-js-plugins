@@ -8,16 +8,16 @@ import {
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('geotest')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('geotest').waitTask()
     await meilisearchClient
       .index('geotest')
       .updateFilterableAttributes(['_geo'])
-    await meilisearchClient.index('geotest').updateSortableAttributes(['_geo'])
-    const documentsTask = await meilisearchClient
+      .waitTask()
+    await meilisearchClient.index('geotest').updateSortableAttributes(['_geo']).waitTask()
+    await meilisearchClient
       .index('geotest')
       .addDocuments(geoDataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+      .waitTask()
   })
 
   test('aroundRadius and aroundLatLng in geo search', async () => {

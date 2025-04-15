@@ -8,8 +8,7 @@ import {
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('movies').waitTask()
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes([
@@ -18,10 +17,11 @@ describe('Instant Meilisearch Browser test', () => {
         'numberField',
         'crazy_\\_"field"',
       ])
-    const documentsTask = await meilisearchClient
+      .waitTask()
+    await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+      .waitTask()
   })
 
   test('one string facet on filter without a query', async () => {
