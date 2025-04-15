@@ -18,10 +18,7 @@ describe('Instant Meilisearch Browser test', () => {
         'crazy_\\_"field"',
       ])
       .waitTask()
-    await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('one string facet on filter without a query', async () => {

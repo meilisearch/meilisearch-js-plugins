@@ -5,14 +5,14 @@ import { instantMeiliSearch } from '../src/index.js'
 describe('Default facet distribution', () => {
   beforeAll(async () => {
     await meilisearchClient.deleteIndex('movies').waitTask()
-    await meilisearchClient.index('movies').updateSettings({
-      filterableAttributes: ['genres', 'release_date'],
-      sortableAttributes: ['release_date'],
-    }).waitTask()
     await meilisearchClient
       .index('movies')
-      .addDocuments(dataset)
+      .updateSettings({
+        filterableAttributes: ['genres', 'release_date'],
+        sortableAttributes: ['release_date'],
+      })
       .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   // Without facets
