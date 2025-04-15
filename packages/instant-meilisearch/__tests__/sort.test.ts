@@ -10,16 +10,15 @@ import { splitSortString } from '../src/contexts/sort-context.js'
 
 describe('Sort browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('movies').waitTask()
     await meilisearchClient.index('movies').updateSettings({
       sortableAttributes: ['release_date', 'title'],
-    })
+    }).waitTask()
 
-    const documentsTask = await meilisearchClient
+    await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+      .waitTask()
   })
 
   test('sort-by one field', async () => {

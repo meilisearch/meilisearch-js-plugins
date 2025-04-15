@@ -8,15 +8,15 @@ import {
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('movies').waitTask()
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes(['genres'])
-    const documentsTask = await meilisearchClient
+      .waitTask()
+    await meilisearchClient
       .index('movies')
       .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+      .waitTask()
   })
 
   test('1 hitsPerPage', async () => {
