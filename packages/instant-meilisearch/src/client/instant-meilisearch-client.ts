@@ -68,8 +68,8 @@ export function instantMeiliSearch(
     meilisearchConfig.httpClient = instantMeiliSearchOptions.httpClient
   }
 
-  if (instantMeiliSearchOptions.requestConfig !== undefined) {
-    meilisearchConfig.requestConfig = instantMeiliSearchOptions.requestConfig
+  if (instantMeiliSearchOptions.requestInit !== undefined) {
+    meilisearchConfig.requestInit = instantMeiliSearchOptions.requestInit
   }
 
   const meilisearchClient = new MeiliSearch(meilisearchConfig)

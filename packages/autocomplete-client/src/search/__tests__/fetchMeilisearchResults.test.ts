@@ -14,8 +14,7 @@ const SECOND_ITEM_ID = MOVIES[1].id
 
 beforeAll(async () => {
   await meilisearchClient.deleteIndex(INDEX_NAME)
-  const task = await meilisearchClient.index(INDEX_NAME).addDocuments(MOVIES)
-  await meilisearchClient.waitForTask(task.taskUid)
+  await meilisearchClient.index(INDEX_NAME).addDocuments(MOVIES).waitTask()
 })
 
 afterAll(async () => {
