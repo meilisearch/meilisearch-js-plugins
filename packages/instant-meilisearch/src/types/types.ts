@@ -71,7 +71,7 @@ type BaseInstantMeiliSearchOptions = {
 
 export type InstantMeiliSearchOptions = Pick<
   MeilisearchConfig,
-  'requestConfig' | 'httpClient'
+  'requestInit' | 'httpClient'
 > &
   BaseInstantMeiliSearchOptions
 
