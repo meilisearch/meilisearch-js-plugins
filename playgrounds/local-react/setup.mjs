@@ -22,11 +22,8 @@ await gamesIndex.updateSettings({
   sortableAttributes: ['recommendationCount'],
 })
 
-const moviesTask = await moviesIndex.addDocuments(movies)
-const gamesTask = await gamesIndex.addDocuments(games)
-
-await moviesTask.waitTask()
-await gamesTask.waitTask()
+const moviesTask = await moviesIndex.addDocuments(movies).waitTask()
+const gamesTask = await gamesIndex.addDocuments(games).waitTask()
 
 console.log(moviesTask)
 console.log(gamesTask)
