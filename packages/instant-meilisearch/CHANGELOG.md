@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.27.0
+
+### Minor Changes
+
+- 9bcef24: Bump meilisearch dependency to v0.51
+
 ## 0.26.0
 
 ### Minor Changes
