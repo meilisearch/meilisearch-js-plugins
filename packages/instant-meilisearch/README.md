@@ -816,9 +816,10 @@ The `refinementList` widget is one of the most common widgets you can find in a 
 - ✅ limit: How many facet values to retrieve.
 - ✅ showMore: Whether to display a button that expands the number of items.
 - ✅ showMoreLimit: The maximum number of displayed items. Does not work when showMoreLimit > limit.
-- ✅ searchable: Whether to add a search input to let the user search for more facet values. Not supported by Meilisearch. If you'd like to see it implemented [please vote](https://roadmap.meilisearch.com/c/64-search-for-facet-values?utm_medium=social&utm_source=portal_share).
-- ✅ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
-- ✅ searchableIsAlwaysActive: When false, disables the facet search input. Not supported, see `searchable`.
+- ✅ searchable: Whether to add a search input to let the user search for more facet values. [added in 1.3](https://www.meilisearch.com/blog/v1-3-release).
+  **Note:** The `searchable` feature is supported in a limited capacity. However, its associated options (`searchablePlaceholder`, `searchableIsAlwaysActive`, and `searchableEscapeFacetValues`) are not supported due to current technical constraints.
+- ❌ searchablePlaceholder: The value of the search input’s placeholder. Not supported, see `searchable`.
+- ❌ searchableIsAlwaysActive: When false, disables the facet search input. Not supported and unrelated to `searchable`.
 - ❌ searchableEscapeFacetValues: When true, escapes the facet values.
 - ❌ sortBy: Not supported but can be implemented manually using `transformItems` options.
 - ✅ transformItems: A function to transform the items passed to the templates.
