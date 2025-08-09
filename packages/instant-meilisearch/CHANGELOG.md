@@ -11,6 +11,7 @@
 ### Minor Changes
 
 - 3085de3: Bump meilisearch to v0.50.0
+  - This change has a breaking change in Meilisearch dependency, where the Meilisearch class parameter `requestConfig` has been changed to `requestInit`
 
 ## 0.25.0
 
