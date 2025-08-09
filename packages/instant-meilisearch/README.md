@@ -157,7 +157,7 @@ where `searchClient` is to be passed to instantsearch.js or its many framework a
 - [`finitePagination`](#finite-pagination): Enable finite pagination when using the [`pagination`](#-pagination) widget (default: `false`) .
 - [`primaryKey`](#primary-key): Specify the primary key of your documents (default `undefined`).
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
-- [`requestConfig`](#request-config): Use custom request configurations.
+- [`requestInit`](#request-config): Use custom request configurations.
 - [`httpClient`](#custom-http-client): Use a custom HTTP client.
 - [`meiliSearchParams`](#meilisearch-search-parameters): Override a selection of Meilisearch search parameters (default `undefined`).
 
@@ -238,7 +238,7 @@ for example, with custom headers.
 
 ```ts
 {
-  requestConfig: {
+  requestInit: {
     headers: {
       Authorization: AUTH_TOKEN
     },
