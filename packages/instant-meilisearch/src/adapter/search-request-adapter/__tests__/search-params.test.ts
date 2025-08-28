@@ -240,6 +240,39 @@ describe('Parameters adapter', () => {
 
     expect(searchParams.distinct).toBe(indexDistinctSearchConfig)
   })
+
+  test('filter can be set via global override when IS filters are empty', () => {
+    const globalFilter = 'category = "books"'
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      // No facetFilters, filters, or numericFilters - empty IS filters
+      meiliSearchParams: {
+        filter: globalFilter,
+      },
+    })
+
+    expect(searchParams.filter).toBe(globalFilter)
+  })
+
+  test('filter can be set via per-index override when IS filters are empty', () => {
+    const globalFilter = 'category = "books"'
+    const indexFilter = 'status = "active"'
+
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      // No facetFilters, filters, or numericFilters - empty IS filters
+      meiliSearchParams: {
+        filter: globalFilter,
+        indexesOverrides: {
+          test: { filter: indexFilter },
+        },
+      },
+    })
+
+    // Per-index override should take precedence over global override
+    expect(searchParams.filter).toBe(indexFilter)
+  })
 })
 
 describe('Geo filter adapter', () => {

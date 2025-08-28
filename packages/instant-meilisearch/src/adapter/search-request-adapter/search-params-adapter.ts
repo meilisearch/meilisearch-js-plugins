@@ -133,11 +133,14 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addFilters() {
-      if (meilisearchFilters.length) {
-        meiliSearchParams.filter =
-          overrideParams?.indexesOverrides?.[indexUid]?.filter ??
-          overrideParams?.filter ??
-          meilisearchFilters
+      const overrideFilter =
+        overrideParams?.indexesOverrides?.[indexUid]?.filter ??
+        overrideParams?.filter
+
+      if (overrideFilter !== undefined) {
+        meiliSearchParams.filter = overrideFilter
+      } else if (meilisearchFilters.length) {
+        meiliSearchParams.filter = meilisearchFilters
       }
     },
     addAttributesToRetrieve() {
