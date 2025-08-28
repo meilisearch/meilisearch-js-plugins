@@ -4,20 +4,18 @@ import { meilisearchClient, dataset } from './assets/utils.js'
 
 describe('Custom HTTP client tests', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('movies').waitTask()
 
-    const documentsTask = await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('a custom HTTP client', async () => {
-    const httpClient = vi.fn(async (url: string, init?: RequestInit) => {
-      const result = await fetch(url, init)
-      return await result.json()
-    })
+    const httpClient = vi.fn(
+      async (url: RequestInfo | URL, init?: RequestInit) => {
+        const result = await fetch(url, init)
+        return await result.json()
+      }
+    )
 
     const { searchClient } = instantMeiliSearch(
       'http://localhost:7700',

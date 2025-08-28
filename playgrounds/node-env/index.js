@@ -12,8 +12,7 @@ const msClient = new MeiliSearch({
 })
 
 try {
-  const task1 = await msClient.index('node_test').addDocuments([])
-  await msClient.waitForTask(task1.taskUid)
+  await msClient.index('node_test').addDocuments([]).waitTask()
   await searchClient.search([
     {
       indexName: 'node_test',
@@ -23,8 +22,7 @@ try {
     },
   ])
 
-  const task2 = await msClient.index('node_test').delete()
-  await msClient.waitForTask(task2.taskUid)
+  await msClient.index('node_test').delete().waitTask()
   process.exit(0)
 } catch (e) {
   console.log(e)

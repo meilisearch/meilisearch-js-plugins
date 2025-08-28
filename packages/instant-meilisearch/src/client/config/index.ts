@@ -61,7 +61,7 @@ export function validateInstantMeiliSearchParams(
   apiKey: string | (() => string),
   instantMeiliSearchOptions: InstantMeiliSearchOptions
 ) {
-  const { requestConfig, httpClient } = instantMeiliSearchOptions
+  const { requestInit, httpClient } = instantMeiliSearchOptions
   // Validate host url
   if (typeof hostUrl !== 'string') {
     throw new TypeError(
@@ -76,9 +76,9 @@ export function validateInstantMeiliSearchParams(
     )
   }
 
-  // Validate requestConfig
-  if (requestConfig !== undefined && !isPureObject(requestConfig)) {
-    throw new TypeError('Provided requestConfig should be an object')
+  // Validate requestInit
+  if (requestInit !== undefined && !isPureObject(requestInit)) {
+    throw new TypeError('Provided requestInit should be an object')
   }
 
   // Validate custom HTTP client

@@ -8,13 +8,9 @@ import {
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('movies').waitTask()
 
-    const documentsTask = await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('attributesToRetrieve on no attributes', async () => {

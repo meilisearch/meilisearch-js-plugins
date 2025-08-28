@@ -12,17 +12,19 @@ describe('Multi-index search test', () => {
     await moviesIndex.delete()
     await gamesIndex.delete()
 
-    await moviesIndex.updateSettings({
-      filterableAttributes: ['genres', 'color', 'platforms'],
-    })
-    await gamesIndex.updateSettings({
-      filterableAttributes: ['genres', 'color', 'platforms'],
-    })
+    await moviesIndex
+      .updateSettings({
+        filterableAttributes: ['genres', 'color', 'platforms'],
+      })
+      .waitTask()
+    await gamesIndex
+      .updateSettings({
+        filterableAttributes: ['genres', 'color', 'platforms'],
+      })
+      .waitTask()
 
-    await moviesIndex.addDocuments(movies)
-    const response = await gamesIndex.addDocuments(games)
-
-    await meilisearchClient.waitForTask(response.taskUid)
+    await moviesIndex.addDocuments(movies).waitTask()
+    await gamesIndex.addDocuments(games).waitTask()
   })
 
   test('searching on two indexes', async () => {

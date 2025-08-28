@@ -4,15 +4,12 @@ import { dataset, type Movies, meilisearchClient } from './assets/utils.js'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {
-    const deleteTask = await meilisearchClient.deleteIndex('movies')
-    await meilisearchClient.waitForTask(deleteTask.taskUid)
+    await meilisearchClient.deleteIndex('movies').waitTask()
     await meilisearchClient
       .index('movies')
       .updateFilterableAttributes(['genres'])
-    const documentsTask = await meilisearchClient
-      .index('movies')
-      .addDocuments(dataset)
-    await meilisearchClient.index('movies').waitForTask(documentsTask.taskUid)
+      .waitTask()
+    await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('placeholdersearch set to true', async () => {

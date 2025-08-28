@@ -1,8 +1,8 @@
-import type SearchClient from 'instantsearch.js'
 import type {
   MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
   multipleSearchForFacetValues,
 } from '@algolia/client-search'
+import type { InstantSearchOptions } from 'instantsearch.js/es/lib/InstantSearch.js'
 import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,
@@ -83,7 +83,7 @@ type BaseInstantMeiliSearchOptions = {
 
 export type InstantMeiliSearchOptions = Pick<
   MeilisearchConfig,
-  'requestConfig' | 'httpClient'
+  'requestInit' | 'httpClient'
 > &
   BaseInstantMeiliSearchOptions
 
@@ -139,9 +139,10 @@ export type InstantSearchGeoParams = {
   insidePolygon?: ReadonlyArray<readonly number[]>
 }
 
-export type InstantMeiliSearchInstance = ReturnType<typeof SearchClient> & {
-  clearCache: () => void
-}
+export type InstantMeiliSearchInstance =
+  InstantSearchOptions['searchClient'] & {
+    clearCache: () => void
+  }
 
 export type InstantMeiliSearchObject = {
   meiliSearchInstance: MeiliSearch

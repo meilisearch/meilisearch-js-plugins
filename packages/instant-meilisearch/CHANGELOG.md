@@ -1,5 +1,24 @@
 # @meilisearch/instant-meilisearch
 
+## 0.27.0
+
+### Minor Changes
+
+- 9bcef24: Bump meilisearch dependency to v0.51
+
+## 0.26.0
+
+### Minor Changes
+
+- 3085de3: Bump meilisearch to v0.50.0
+  - This change has a breaking change in Meilisearch dependency, where the Meilisearch class parameter `requestConfig` has been changed to `requestInit`
+
+## 0.25.0
+
+### Minor Changes
+
+- b10435d: Stabilize AI search
+
 ## 0.24.0
 
 ### Minor Changes
