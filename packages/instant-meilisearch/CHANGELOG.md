@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.27.1
+
+### Patch Changes
+
+- 7e0dcc11: Fix search client type
+
 ## 0.27.0
 
 ### Minor Changes
