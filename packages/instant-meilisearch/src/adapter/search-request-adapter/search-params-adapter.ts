@@ -195,8 +195,13 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addSort() {
-      if (sort?.length) {
-        meiliSearchParams.sort = Array.isArray(sort) ? sort : [sort]
+      const overrideSort =
+        overrideParams?.indexesOverrides?.[indexUid]?.sort ??
+        overrideParams?.sort
+
+      const value = overrideSort ?? sort
+      if (value && (Array.isArray(value) ? value.length : true)) {
+        meiliSearchParams.sort = Array.isArray(value) ? value : [value]
       }
     },
     addGeoSearchFilter() {
