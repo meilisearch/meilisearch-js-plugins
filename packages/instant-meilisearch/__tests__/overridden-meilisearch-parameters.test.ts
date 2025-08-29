@@ -92,7 +92,9 @@ describe('InstantMeiliSearch overridden parameters', () => {
     const globalHits = globalResponse.results[0].hits
     expect(globalHits.length).toBeGreaterThan(1)
     // Verify titles are sorted in ascending order
-    const globalTitles = globalHits.map((hit: Movies) => hit.title).filter(Boolean)
+    const globalTitles = globalHits
+      .map((hit: Movies) => hit.title)
+      .filter(Boolean)
     expect(globalTitles).toEqual([...globalTitles].sort())
 
     // Test per-index sort override takes precedence over global
@@ -107,7 +109,9 @@ describe('InstantMeiliSearch overridden parameters', () => {
     const perIndexHits = perIndexResponse.results[0].hits
     expect(perIndexHits.length).toBeGreaterThan(1)
     // Verify titles are sorted in descending order
-    const perIndexTitles = perIndexHits.map((hit: Movies) => hit.title).filter(Boolean)
+    const perIndexTitles = perIndexHits
+      .map((hit: Movies) => hit.title)
+      .filter(Boolean)
     expect(perIndexTitles).toEqual([...perIndexTitles].sort().reverse())
   })
 })
