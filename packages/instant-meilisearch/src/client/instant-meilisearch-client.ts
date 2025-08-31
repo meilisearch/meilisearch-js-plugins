@@ -95,6 +95,10 @@ export function instantMeiliSearch(
           : {
               ...meiliSearchParams,
               ...params,
+              indexesOverrides: {
+                ...(meiliSearchParams.indexesOverrides || {}),
+                ...(params.indexesOverrides || {}),
+              },
             }
     },
     searchClient: {

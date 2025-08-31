@@ -96,7 +96,10 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       meiliSearchParams.q = query
     },
     addFacets() {
-      const value = <Mutable<typeof facets>>facets
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.facets ??
+        overrideParams?.facets ??
+        <Mutable<typeof facets>>facets
       if (value !== undefined) {
         // despite Instantsearch.js typing it as `string[]`,
         // it still can send `string`
@@ -105,6 +108,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     },
     addAttributesToCrop() {
       const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.attributesToCrop ??
         overrideParams?.attributesToCrop ??
         <Mutable<typeof attributesToSnippet>>attributesToSnippet
       if (value !== undefined) {
@@ -112,24 +116,36 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addCropLength() {
-      const value = overrideParams?.cropLength
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.cropLength ??
+        overrideParams?.cropLength
       if (value !== undefined) {
         meiliSearchParams.cropLength = value
       }
     },
     addCropMarker() {
-      const value = overrideParams?.cropMarker ?? snippetEllipsisText
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.cropMarker ??
+        overrideParams?.cropMarker ??
+        snippetEllipsisText
       if (value !== undefined) {
         meiliSearchParams.cropMarker = value
       }
     },
     addFilters() {
-      if (meilisearchFilters.length) {
+      const overrideFilter =
+        overrideParams?.indexesOverrides?.[indexUid]?.filter ??
+        overrideParams?.filter
+
+      if (overrideFilter !== undefined) {
+        meiliSearchParams.filter = overrideFilter
+      } else if (meilisearchFilters.length) {
         meiliSearchParams.filter = meilisearchFilters
       }
     },
     addAttributesToRetrieve() {
       const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.attributesToRetrieve ??
         overrideParams?.attributesToRetrieve ??
         <Mutable<typeof attributesToRetrieve>>attributesToRetrieve
       if (value !== undefined) {
@@ -137,18 +153,21 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addAttributesToHighlight() {
-      meiliSearchParams.attributesToHighlight =
+      meiliSearchParams.attributesToHighlight = overrideParams
+        ?.indexesOverrides?.[indexUid]?.attributesToHighlight ??
         overrideParams?.attributesToHighlight ??
-          <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
+        <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
     },
     addPreTag() {
       meiliSearchParams.highlightPreTag =
+        overrideParams?.indexesOverrides?.[indexUid]?.highlightPreTag ??
         overrideParams?.highlightPreTag ??
         highlightPreTag ??
         '__ais-highlight__'
     },
     addPostTag() {
       meiliSearchParams.highlightPostTag =
+        overrideParams?.indexesOverrides?.[indexUid]?.highlightPostTag ??
         overrideParams?.highlightPostTag ??
         highlightPostTag ??
         '__/ais-highlight__'
@@ -176,8 +195,13 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addSort() {
-      if (sort?.length) {
-        meiliSearchParams.sort = Array.isArray(sort) ? sort : [sort]
+      const overrideSort =
+        overrideParams?.indexesOverrides?.[indexUid]?.sort ??
+        overrideParams?.sort
+
+      const value = overrideSort ?? sort
+      if (value && (Array.isArray(value) ? value.length : true)) {
+        meiliSearchParams.sort = Array.isArray(value) ? value : [value]
       }
     },
     addGeoSearchFilter() {
@@ -204,54 +228,69 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       }
     },
     addShowMatchesPosition() {
-      const value = overrideParams?.showMatchesPosition
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.showMatchesPosition ??
+        overrideParams?.showMatchesPosition
       if (value !== undefined) {
         meiliSearchParams.showMatchesPosition = value
       }
     },
     addMatchingStrategy() {
-      const value = overrideParams?.matchingStrategy
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.matchingStrategy ??
+        overrideParams?.matchingStrategy
       if (value !== undefined) {
         meiliSearchParams.matchingStrategy = value
       }
     },
     addShowRankingScore() {
-      const value = overrideParams?.showRankingScore
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.showRankingScore ??
+        overrideParams?.showRankingScore
       if (value !== undefined) {
         meiliSearchParams.showRankingScore = value
       }
     },
     addAttributesToSearchOn() {
       const value =
-        overrideParams?.attributesToSearchOn !== undefined
-          ? overrideParams.attributesToSearchOn
-          : <Mutable<typeof restrictSearchableAttributes>>(
-              restrictSearchableAttributes
-            )
+        overrideParams?.indexesOverrides?.[indexUid]?.attributesToSearchOn ??
+        overrideParams?.attributesToSearchOn ??
+        <Mutable<typeof restrictSearchableAttributes>>(
+          restrictSearchableAttributes
+        )
+
       if (value !== undefined) {
         meiliSearchParams.attributesToSearchOn = value
       }
     },
     addHybridSearch() {
-      const value = overrideParams?.hybrid
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.hybrid ??
+        overrideParams?.hybrid
       if (value !== undefined) {
         meiliSearchParams.hybrid = value
       }
     },
     addVector() {
-      const value = overrideParams?.vector
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.vector ??
+        overrideParams?.vector
       if (value !== undefined) {
         meiliSearchParams.vector = value
       }
     },
     addDistinct() {
-      const value = overrideParams?.distinct
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.distinct ??
+        overrideParams?.distinct
       if (value !== undefined) {
         meiliSearchParams.distinct = value
       }
     },
     addRankingScoreThreshold() {
-      const value = overrideParams?.rankingScoreThreshold
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.rankingScoreThreshold ??
+        overrideParams?.rankingScoreThreshold
       if (value !== undefined) {
         meiliSearchParams.rankingScoreThreshold = value
       }
