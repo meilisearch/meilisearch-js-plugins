@@ -44,7 +44,7 @@
     "templates"
   ],
   "dependencies": {
-    "meilisearch": "0.52"
+    "meilisearch": "0.53"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
