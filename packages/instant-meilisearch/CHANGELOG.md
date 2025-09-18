@@ -1,5 +1,16 @@
 # @meilisearch/instant-meilisearch
 
+## 0.28.0
+
+### Minor Changes
+
+- 91f32626: Bump meilisearch to v0.53
+
+### Patch Changes
+
+- 83040e5a: Fix search client type, bump meilisearch-js dependency
+- 7e0dcc11: Fix search client type
+
 ## 0.27.0
 
 ### Minor Changes
