@@ -8,7 +8,6 @@
 
 ### Patch Changes
 
-- 83040e5: Fix search client type, bump meilisearch-js dependency
 - 7e0dcc1: Fix search client type
 
 ## 0.27.0
