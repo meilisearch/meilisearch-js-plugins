@@ -5,7 +5,6 @@
 ### Minor Changes
 
 - 81420d8: Bump meilisearch to v0.53
-- 91f3262: Bump meilisearch to v0.53
 
 ### Patch Changes
 
