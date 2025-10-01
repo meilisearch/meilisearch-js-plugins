@@ -45,7 +45,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 18
           cache: yarn
@@ -85,7 +85,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 18
           cache: yarn
@@ -128,7 +128,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           cache: yarn
           node-version: ${{ matrix.node }}
