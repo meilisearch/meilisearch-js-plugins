@@ -104,121 +104,181 @@ const geoDataset = [
     id: '1',
     city: 'Lille',
     _geo: { lat: 50.629973371633746, lng: 3.056944739941957 },
-    _geojson: { type: 'Point', coordinates: [3.056944739941957, 50.629973371633746] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.056944739941957, 50.629973371633746],
+    },
   },
   {
     id: '2',
     city: 'Mons-en-Barœul',
     _geo: { lat: 50.64158612012105, lng: 3.110659348034867 },
-    _geojson: { type: 'Point', coordinates: [3.110659348034867, 50.64158612012105] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.110659348034867, 50.64158612012105],
+    },
   },
   {
     id: '3',
     city: 'Hellemmes',
     _geo: { lat: 50.63122096551808, lng: 3.1106399673339933 },
-    _geojson: { type: 'Point', coordinates: [3.1106399673339933, 50.63122096551808] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.1106399673339933, 50.63122096551808],
+    },
   },
   {
     id: '4',
     city: "Villeneuve-d'Ascq",
     _geo: { lat: 50.622468098014565, lng: 3.147642551343714 },
-    _geojson: { type: 'Point', coordinates: [3.147642551343714, 50.622468098014565] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.147642551343714, 50.622468098014565],
+    },
   },
   {
     id: '5',
     city: 'Hem',
     _geo: { lat: 50.655250871381355, lng: 3.189729726624413 },
-    _geojson: { type: 'Point', coordinates: [3.189729726624413, 50.655250871381355] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.189729726624413, 50.655250871381355],
+    },
   },
   {
     id: '6',
     city: 'Roubaix',
     _geo: { lat: 50.69247345189671, lng: 3.176332673774765 },
-    _geojson: { type: 'Point', coordinates: [3.176332673774765, 50.69247345189671] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.176332673774765, 50.69247345189671],
+    },
   },
   {
     id: '7',
     city: 'Tourcoing',
     _geo: { lat: 50.72639746673648, lng: 3.154165365957867 },
-    _geojson: { type: 'Point', coordinates: [3.154165365957867, 50.72639746673648] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.154165365957867, 50.72639746673648],
+    },
   },
   {
     id: '8',
     city: 'Mouscron',
     _geo: { lat: 50.74532555490861, lng: 3.2206407854429853 },
-    _geojson: { type: 'Point', coordinates: [3.2206407854429853, 50.74532555490861] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.2206407854429853, 50.74532555490861],
+    },
   },
   {
     id: '9',
     city: 'Tournai',
     _geo: { lat: 50.60534252860263, lng: 3.3758586941351414 },
-    _geojson: { type: 'Point', coordinates: [3.3758586941351414, 50.60534252860263] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.3758586941351414, 50.60534252860263],
+    },
   },
   {
     id: '10',
     city: 'Ghent',
     _geo: { lat: 51.053777403679035, lng: 3.695773311992693 },
-    _geojson: { type: 'Point', coordinates: [3.695773311992693, 51.053777403679035] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.695773311992693, 51.053777403679035],
+    },
   },
   {
     id: '11',
     city: 'Brussels',
     _geo: { lat: 50.84664097454469, lng: 4.337066356428184 },
-    _geojson: { type: 'Point', coordinates: [4.337066356428184, 50.84664097454469] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [4.337066356428184, 50.84664097454469],
+    },
   },
   {
     id: '12',
     city: 'Charleroi',
     _geo: { lat: 50.40957013888948, lng: 4.434735431508552 },
-    _geojson: { type: 'Point', coordinates: [4.434735431508552, 50.40957013888948] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [4.434735431508552, 50.40957013888948],
+    },
   },
   {
     id: '13',
     city: 'Mons',
     _geo: { lat: 50.45029417885542, lng: 3.962372287090469 },
-    _geojson: { type: 'Point', coordinates: [3.962372287090469, 50.45029417885542] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.962372287090469, 50.45029417885542],
+    },
   },
   {
     id: '14',
     city: 'Valenciennes',
     _geo: { lat: 50.351817774473545, lng: 3.53262836469288 },
-    _geojson: { type: 'Point', coordinates: [3.53262836469288, 50.351817774473545] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.53262836469288, 50.351817774473545],
+    },
   },
   {
     id: '15',
     city: 'Arras',
     _geo: { lat: 50.28448752857995, lng: 2.763751584447816 },
-    _geojson: { type: 'Point', coordinates: [2.763751584447816, 50.28448752857995] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [2.763751584447816, 50.28448752857995],
+    },
   },
   {
     id: '16',
     city: 'Cambrai',
     _geo: { lat: 50.1793405779067, lng: 3.218940995250293 },
-    _geojson: { type: 'Point', coordinates: [3.218940995250293, 50.1793405779067] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [3.218940995250293, 50.1793405779067],
+    },
   },
   {
     id: '17',
     city: 'Bapaume',
     _geo: { lat: 50.1112761272364, lng: 2.854789466608312 },
-    _geojson: { type: 'Point', coordinates: [2.854789466608312, 50.1112761272364] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [2.854789466608312, 50.1112761272364],
+    },
   },
   {
     id: '18',
     city: 'Amiens',
     _geo: { lat: 49.931472529669996, lng: 2.271049975831708 },
-    _geojson: { type: 'Point', coordinates: [2.271049975831708, 49.931472529669996] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [2.271049975831708, 49.931472529669996],
+    },
   },
   {
     id: '19',
     city: 'Compiègne',
     _geo: { lat: 49.444980887725656, lng: 2.7913841281529015 },
-    _geojson: { type: 'Point', coordinates: [2.7913841281529015, 49.444980887725656] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [2.7913841281529015, 49.444980887725656],
+    },
   },
   {
     id: '20',
     city: 'Paris',
     _geo: { lat: 48.90210006089548, lng: 2.370840086740693 },
-    _geojson: { type: 'Point', coordinates: [2.370840086740693, 48.90210006089548] },
+    _geojson: {
+      type: 'Point',
+      coordinates: [2.370840086740693, 48.90210006089548],
+    },
   },
 ]
 

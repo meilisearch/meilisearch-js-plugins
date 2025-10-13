@@ -119,7 +119,7 @@ describe('Instant Meilisearch Browser test', () => {
           insidePolygon: [
             [50.95, 4.1],
             [50.75, 4.6],
-            [50.70, 4.2],
+            [50.7, 4.2],
           ],
         },
       },
@@ -140,7 +140,7 @@ describe('Instant Meilisearch Browser test', () => {
         {
           id: 'geo-only',
           city: 'GeoOnly',
-          _geo: { lat: 50.80, lng: 4.35 },
+          _geo: { lat: 50.8, lng: 4.35 },
         },
       ])
       .waitTask()
@@ -153,7 +153,7 @@ describe('Instant Meilisearch Browser test', () => {
           insidePolygon: [
             [50.95, 4.1],
             [50.75, 4.6],
-            [50.70, 4.2],
+            [50.7, 4.2],
           ],
         },
       },
@@ -164,7 +164,10 @@ describe('Instant Meilisearch Browser test', () => {
     expect(hits.find((h: any) => h.city === 'GeoOnly')).toBeFalsy()
 
     // Cleanup
-    await meilisearchClient.index('geotest').deleteDocument('geo-only').waitTask()
+    await meilisearchClient
+      .index('geotest')
+      .deleteDocument('geo-only')
+      .waitTask()
   })
 
   test('aroundRadius matches _geojson-only documents', async () => {
