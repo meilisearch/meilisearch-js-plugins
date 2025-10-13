@@ -1,6 +1,7 @@
 import type { InstantSearchGeoParams } from '../../types/index.js'
 
 export function adaptGeoSearch({
+  insidePolygon,
   insideBoundingBox,
   aroundLatLng,
   aroundRadius,
@@ -9,6 +10,24 @@ export function adaptGeoSearch({
   let middlePoint: string[] | undefined
   let radius: number | undefined
   let filter: string | undefined
+
+  // Highest precedence: insidePolygon
+  if (Array.isArray(insidePolygon) && insidePolygon.length >= 3) {
+    const formattedPoints = insidePolygon
+      .map((pair) => {
+        if (!Array.isArray(pair) || pair.length < 2) return null
+        const lat = Number.parseFloat(String(pair[0]))
+        const lng = Number.parseFloat(String(pair[1]))
+        if (Number.isNaN(lat) || Number.isNaN(lng)) return null
+        return `[${lat}, ${lng}]`
+      })
+      .filter((pt): pt is string => pt !== null)
+
+    if (formattedPoints.length >= 3) {
+      filter = `_geoPolygon(${formattedPoints.join(', ')})`
+      return filter
+    }
+  }
 
   if (aroundLatLng) {
     const [lat, lng] = aroundLatLng

@@ -11,7 +11,7 @@ describe('Instant Meilisearch Browser test', () => {
     await meilisearchClient.deleteIndex('geotest').waitTask()
     await meilisearchClient
       .index('geotest')
-      .updateFilterableAttributes(['_geo'])
+      .updateFilterableAttributes(['_geo', '_geojson'])
       .waitTask()
     await meilisearchClient
       .index('geotest')
@@ -107,5 +107,97 @@ describe('Instant Meilisearch Browser test', () => {
     const hits = response.results[0].hits
     expect(hits.length).toEqual(2)
     expect(hits[0].city).toEqual('Brussels')
+  })
+
+  test('insidePolygon in geo search', async () => {
+    const response = await searchClient.search<City>([
+      {
+        indexName: 'geotest',
+        params: {
+          query: '',
+          // Simple triangle roughly around Brussels area
+          insidePolygon: [
+            [50.95, 4.1],
+            [50.75, 4.6],
+            [50.70, 4.2],
+          ],
+        },
+      },
+    ])
+
+    const hits = response.results[0].hits
+    // Expect Brussels to be included
+    expect(hits.find((h: City) => h.city === 'Brussels')).toBeTruthy()
+    // Expect far cities like Paris to be excluded
+    expect(hits.find((h: City) => h.city === 'Paris')).toBeFalsy()
+  })
+
+  test('insidePolygon ignores documents without _geojson', async () => {
+    // Add a document inside the polygon but only with _geo (no _geojson)
+    await meilisearchClient
+      .index('geotest')
+      .addDocuments([
+        {
+          id: 'geo-only',
+          city: 'GeoOnly',
+          _geo: { lat: 50.80, lng: 4.35 },
+        },
+      ])
+      .waitTask()
+
+    const response = await searchClient.search<City>([
+      {
+        indexName: 'geotest',
+        params: {
+          query: '',
+          insidePolygon: [
+            [50.95, 4.1],
+            [50.75, 4.6],
+            [50.70, 4.2],
+          ],
+        },
+      },
+    ])
+
+    const hits = response.results[0].hits
+    // Should not include the _geo-only document
+    expect(hits.find((h: any) => h.city === 'GeoOnly')).toBeFalsy()
+
+    // Cleanup
+    await meilisearchClient.index('geotest').deleteDocument('geo-only').waitTask()
+  })
+
+  test('aroundRadius matches _geojson-only documents', async () => {
+    // Add a document only with _geojson near Brussels
+    await meilisearchClient
+      .index('geotest')
+      .addDocuments([
+        {
+          id: 'geojson-only',
+          city: 'GeoJSONOnly',
+          _geojson: { type: 'Point', coordinates: [4.35, 50.8467] },
+        },
+      ])
+      .waitTask()
+
+    const response = await searchClient.search<City>([
+      {
+        indexName: 'geotest',
+        params: {
+          query: '',
+          aroundRadius: 5000,
+          aroundLatLng: '50.8466, 4.35',
+        },
+      },
+    ])
+
+    const hits = response.results[0].hits
+    expect(hits.find((h: any) => h.city === 'GeoJSONOnly')).toBeTruthy()
+
+    // Cleanup
+    await meilisearchClient
+      .index('geotest')
+      .deleteDocument('geojson-only')
+      .waitTask()
   })
 })
