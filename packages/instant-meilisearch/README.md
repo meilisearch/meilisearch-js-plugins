@@ -791,6 +791,7 @@ The following parameters exist:
 - `boundingBox`: The Google Map window box. It is used as parameter in a search request. It takes precedent on all the following parameters.
 - `aroundLatLng`: The middle point of the Google Map. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
 - `aroundRadius`: The radius around a Geo Point, used for sorting in the search request. It only works if `aroundLatLng` is present as well. If `insideBoundingBox` or `boundingBox` is present, it is ignored.
+- `insidePolygon`: Filters search results to only include documents whose coordinates fall within a specified polygon. This parameter accepts an array of coordinate pairs `[[lat, lng], [lat, lng], ...]` that define the polygon vertices (minimum 3 points required). When `insidePolygon` is specified, it takes precedence over `insideBoundingBox` and `around*` parameters. **Note**: This feature requires `_geojson` to be added to your Meilisearch index's `filterableAttributes` setting.
 
 
 For exemple, by adding `boundingBox` in the [`instantSearch`](#-instantsearch) widget parameters, the parameter will be used as a search parameter for the first request.
@@ -815,6 +816,26 @@ Alternatively, the parameters can be passed through the [`searchFunction`](https
     helper.setQueryParameter('aroundLatLng', '51.1241999, 9.662499900000057');
     helper.search()
   },
+```
+
+You can also filter results within a polygon using `insidePolygon` (requires `_geojson` in your Meilisearch `filterableAttributes`).
+
+```js
+// First, ensure your Meilisearch index has the correct settings:
+// {
+//   "filterableAttributes": ["_geojson"]
+// }
+
+// Then use insidePolygon in your search configuration:
+search.addWidgets([
+  instantsearch.widgets.configure({
+    insidePolygon: [
+      [50.8466, 4.35],
+      [50.75, 4.1],
+      [50.65, 4.5],
+    ],
+  }),
+])
 ```
 
 [Read the guide on how GeoSearch works in Meilisearch](https://www.meilisearch.com/docs/learn/getting_started/filtering_and_sorting#geosearch).
