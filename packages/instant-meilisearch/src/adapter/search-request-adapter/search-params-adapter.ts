@@ -206,6 +206,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     },
     addGeoSearchFilter() {
       const {
+        insidePolygon,
         insideBoundingBox,
         aroundLatLng,
         aroundRadius,
@@ -213,6 +214,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       } = searchContext
 
       const filter = adaptGeoSearch({
+        insidePolygon,
         insideBoundingBox,
         aroundLatLng,
         aroundRadius,

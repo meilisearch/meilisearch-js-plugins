@@ -81,3 +81,56 @@ test('Adapt instantsearch geo parameters to meilisearch filters with aroundLatLn
 
   expect(filter).toBe('_geoBoundingBox([1, 2], [3, 4])')
 })
+
+test('Adapt instantsearch geo parameters to meilisearch filters with insidePolygon (triangle)', () => {
+  const filter = adaptGeoSearch({
+    insidePolygon: [
+      [50.0, 3.0],
+      [50.7, 3.2],
+      [50.6, 2.9],
+    ],
+  })
+
+  expect(filter).toBe('_geoPolygon([50, 3], [50.7, 3.2], [50.6, 2.9])')
+})
+
+test('Adapt instantsearch geo parameters to meilisearch filters with insidePolygon (quadrilateral)', () => {
+  const filter = adaptGeoSearch({
+    insidePolygon: [
+      [50.9, 4.1],
+      [50.9, 4.6],
+      [50.7, 4.6],
+      [50.7, 4.1],
+    ],
+  })
+
+  expect(filter).toBe(
+    '_geoPolygon([50.9, 4.1], [50.9, 4.6], [50.7, 4.6], [50.7, 4.1])'
+  )
+})
+
+test('insidePolygon takes precedence over insideBoundingBox and around*', () => {
+  const filter = adaptGeoSearch({
+    insidePolygon: [
+      [1, 1],
+      [2, 2],
+      [3, 3],
+    ],
+    insideBoundingBox: '1,2,3,4',
+    aroundLatLng: '51.1241999, 9.662499900000057',
+    aroundRadius: 10,
+  })
+
+  expect(filter).toBe('_geoPolygon([1, 1], [2, 2], [3, 3])')
+})
+
+test('Invalid insidePolygon (<3 points) gracefully ignored', () => {
+  const filter = adaptGeoSearch({
+    insidePolygon: [
+      [1, 1],
+      [2, 2],
+    ],
+  })
+
+  expect(filter).toBeUndefined()
+})

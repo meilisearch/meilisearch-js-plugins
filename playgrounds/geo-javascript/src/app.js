@@ -2,15 +2,15 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import injectScript from 'scriptjs'
 
-const GOOGLE_API = process.env.GOOGLE_API
+const GOOGLE_API = import.meta.env.GOOGLE_API
 
 injectScript(
   `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
   () => {
     const search = instantsearch({
-      indexName: 'world_cities',
+      indexName: 'world_cities_geojson',
       searchClient: instantMeiliSearch(
-        'https://ms-adf78ae33284-106.lon.meilisearch.io',
+        'https://edge.meilisearch.com',
         'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
         {}
       ).searchClient,
@@ -20,13 +20,13 @@ injectScript(
       instantsearch.widgets.sortBy({
         container: '#sort-by',
         items: [
-          { value: 'world_cities', label: 'Relevant' },
+          { value: 'world_cities_geojson', label: 'Relevant' },
           {
-            value: 'world_cities:population:desc',
+            value: 'world_cities_geojson:population:desc',
             label: 'Most Populated',
           },
           {
-            value: 'world_cities:population:asc',
+            value: 'world_cities_geojson:population:asc',
             label: 'Least Populated',
           },
         ],
@@ -37,15 +37,15 @@ injectScript(
       instantsearch.widgets.configure({
         hitsPerPage: 20,
       }),
-      instantsearch.widgets.geoSearch({
-        container: '#maps',
-        googleReference: window.google,
-        initialZoom: 7,
-        initialPosition: {
-          lat: 50.655250871381355,
-          lng: 4.843585698860502,
-        },
-      }),
+      // instantsearch.widgets.geoSearch({
+      //   container: '#maps',
+      //   googleReference: window.google,
+      //   initialZoom: 7,
+      //   initialPosition: {
+      //     lat: 50.655250871381355,
+      //     lng: 4.843585698860502,
+      //   },
+      // }),
       instantsearch.widgets.infiniteHits({
         container: '#hits',
         templates: {
