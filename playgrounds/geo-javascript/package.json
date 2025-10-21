@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.28.0",
-    "scriptjs": "^2.5.9"
+    "@googlemaps/js-api-loader": "^2.0.1",
+    "@meilisearch/instant-meilisearch": "*"
   }
 }
