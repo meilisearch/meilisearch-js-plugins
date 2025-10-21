@@ -2,10 +2,10 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import { setOptions, importLibrary } from '@googlemaps/js-api-loader'
 
-const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_KEY
+const GOOGLE_MAP_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_KEY
 
 setOptions({
-  apiKey: GOOGLE_API_KEY,
+  apiKey: GOOGLE_MAP_API_KEY,
   version: 'weekly',
 })
 
@@ -48,6 +48,9 @@ importLibrary('maps').then(() => {
         lat: 50.655250871381355,
         lng: 4.843585698860502,
       },
+      enableRefineOnMapMove: false,
+      enableClearMapRefinement: false,
+      enableRefineControl: false,
     }),
     instantsearch.widgets.infiniteHits({
       container: '#hits',
