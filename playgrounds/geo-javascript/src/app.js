@@ -2,7 +2,7 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import { setOptions, importLibrary } from '@googlemaps/js-api-loader'
 
-const GOOGLE_MAP_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_KEY
+const GOOGLE_MAP_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 setOptions({
   apiKey: GOOGLE_MAP_API_KEY,
