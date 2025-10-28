@@ -64,22 +64,27 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
                 ...hit,
                 _highlightResult: (
                   Object.entries(hit?._highlightResult || {}) as Array<
-                    | [keyof TRecord, { value: string }]
-                    | [keyof TRecord, Array<{ value: string }>] // if the field is an array
+                    [keyof TRecord, PossibleHighlightResult]
                   >
                 ).reduce((acc, [field, highlightResult]) => {
-                  return {
-                    ...acc,
-                    // if the field is an array, highlightResult is an array of objects
-                    [field]: mapOneOrMany(highlightResult, (highlightResult) =>
-                      calculateHighlightMetadata(
+                  if (!isDefinedHighlightValue(highlightResult)) {
+                    return acc
+                  }
+
+                  // if the field is an array, highlightResult is an array of objects
+                  acc[field] = mapOneOrMany(
+                    highlightResult,
+                    (highlightResult) => {
+                      return calculateHighlightMetadata(
                         query.query || '',
                         query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
                         query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
                         highlightResult.value
                       )
-                    ),
-                  }
+                    }
+                  )
+
+                  return acc
                 }, {} as HighlightResult<TRecord>),
               })),
             }
@@ -143,4 +148,27 @@ function calculateHighlightMetadata(
 // Helper to apply a function to a single value or an array of values
 function mapOneOrMany<T, U>(value: T | T[], mapFn: (value: T) => U): U | U[] {
   return Array.isArray(value) ? value.map(mapFn) : mapFn(value)
+}
+
+type DefinedHighlightResult = { value: string } | Array<{ value: string }> // if the field is an array
+
+/**
+ * Some fields may not return a value at all - nested arrays/objects for example
+ *
+ * Ideally server honours the `attributesToHighlight` param and only includes
+ * those attributes in the response rather than all attributes (highlighted or
+ * not)
+ */
+type UndefinedHighlightResult = { value?: never } | Array<{ value?: never }>
+
+type PossibleHighlightResult = DefinedHighlightResult | UndefinedHighlightResult
+
+function isDefinedHighlightValue(
+  input: PossibleHighlightResult
+): input is DefinedHighlightResult {
+  if (Array.isArray(input)) {
+    return input.every((r) => r.value !== undefined)
+  }
+
+  return input.value !== undefined
 }
