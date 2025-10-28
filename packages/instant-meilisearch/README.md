@@ -747,29 +747,34 @@ The `geoSearch` widget displays search results on a Google Map. It lets you sear
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-[See our playground for a working exemple](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `Meilisearch`.
+[See our playground for a working example](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `Meilisearch`.
 
 #### Requirements
 
-The Geosearch widgey only works with a valid Google API key.
+The Geosearch widget only works with a valid Google API key.
 
-In order to communicate your Google API key, your `instantSearch` widget should be surrounded by the following function:
+The example below uses the `@googlemaps/js-api-loader` package to load the Google Maps library before initializing `instantSearch`:
 
 ```js
-import injectScript from 'scriptjs'
+import { setOptions, importLibrary } from '@googlemaps/js-api-loader'
 
-injectScript(
-  `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${GOOGLE_API}`,
-  () => {
-      const search = instantsearch({
-      indexName: 'geo',
-      // ...
-      })
-      // ...
+const GOOGLE_MAP_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY'
+
+setOptions({
+  apiKey: GOOGLE_MAP_API_KEY,
+  version: 'weekly',
+})
+
+importLibrary('maps').then(() => {
+  const search = instantsearch({
+    indexName: 'geo',
+    // ...
   })
+  // ...
+})
 ```
 
-Replace `${GOOGLE_API}` with you google api key.
+Replace `YOUR_GOOGLE_MAPS_API_KEY` with your Google API key.
 
 See [code example in the playground](./playgrounds/geo-javascript/src/app.js)
 
