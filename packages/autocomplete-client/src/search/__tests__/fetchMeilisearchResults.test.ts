@@ -184,4 +184,19 @@ describe('fetchMeilisearchResults', () => {
       matchedWords: [],
     })
   })
+
+  test('highlight results skips attributes missing value key', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'kill bill',
+        },
+      ],
+    })
+    console.log(results.map((r) => r.hits))
+
+    expect(results[0].hits[0]._highlightResult?.reviews).toEqual(undefined)
+  })
 })
