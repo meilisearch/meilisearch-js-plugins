@@ -26,6 +26,10 @@ export const MOVIES = [
     genres: ['Drama', 'Crime', 'Comedy'],
     poster: 'https://image.tmdb.org/t/p/w500/ojDg0PGvs6R9xYFodRct2kdI6wC.jpg',
     release_date: 593395200,
+    reviews: [
+      { id: 1, author: 'John', content: 'one star' },
+      { id: 2, author: 'Jane', content: 'two stars' },
+    ],
   },
   {
     id: 5,
@@ -35,6 +39,10 @@ export const MOVIES = [
     genres: ['Crime', 'Comedy'],
     poster: 'https://image.tmdb.org/t/p/w500/75aHn1NOYXh4M7L5shoeQ6NGykP.jpg',
     release_date: 818467200,
+    reviews: [
+      { id: 3, author: 'John', content: 'three stars' },
+      { id: 4, author: 'Jane', content: 'four stars' },
+    ],
   },
   {
     id: 6,
@@ -44,6 +52,10 @@ export const MOVIES = [
     genres: ['Action', 'Thriller', 'Crime'],
     poster: 'https://image.tmdb.org/t/p/w500/rYFAvSPlQUCebayLcxyK79yvtvV.jpg',
     release_date: 750643200,
+    reviews: [
+      { id: 5, author: 'John', content: 'five stars' },
+      { id: 6, author: 'Jane', content: 'six stars' },
+    ],
   },
   {
     id: 11,
@@ -53,6 +65,10 @@ export const MOVIES = [
     genres: ['Adventure', 'Action', 'Science Fiction'],
     poster: 'https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg',
     release_date: 233366400,
+    reviews: [
+      { id: 7, author: 'John', content: 'seven stars' },
+      { id: 8, author: 'Jane', content: 'eight stars' },
+    ],
   },
   {
     id: 30,
@@ -61,6 +77,10 @@ export const MOVIES = [
     genres: ['Animation', 'Science Fiction'],
     poster: 'https://image.tmdb.org/t/p/w500/gSuHDeWemA1menrwfMRChnSmMVN.jpg',
     release_date: 819676800,
+    reviews: [
+      { id: 9, author: 'John', content: 'nine stars' },
+      { id: 10, author: 'Jane', content: 'ten stars' },
+    ],
   },
   {
     id: 24,
@@ -69,6 +89,10 @@ export const MOVIES = [
     genres: ['Action', 'Crime'],
     poster: 'https://image.tmdb.org/t/p/w500/v7TaX8kXMXs5yFFGR41guUDNcnB.jpg',
     release_date: 1065744000,
+    reviews: [
+      { id: 11, author: 'John', content: 'eleven stars' },
+      { id: 12, author: 'Jane', content: 'twelve stars' },
+    ],
   },
 ]
 
