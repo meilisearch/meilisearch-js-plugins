@@ -167,8 +167,8 @@ function isDefinedHighlightValue(
   input: PossibleHighlightResult
 ): input is DefinedHighlightResult {
   if (Array.isArray(input)) {
-    return input.every((r) => r.value !== undefined)
+    return input.every((r) => typeof r.value === 'string')
   }
 
-  return input.value !== undefined
+  return typeof input.value === 'string'
 }
