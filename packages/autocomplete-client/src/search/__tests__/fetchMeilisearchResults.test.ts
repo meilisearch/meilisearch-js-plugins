@@ -195,7 +195,6 @@ describe('fetchMeilisearchResults', () => {
         },
       ],
     })
-    console.log(results.map((r) => r.hits))
 
     expect(results[0].hits[0]._highlightResult?.reviews).toEqual(undefined)
   })
