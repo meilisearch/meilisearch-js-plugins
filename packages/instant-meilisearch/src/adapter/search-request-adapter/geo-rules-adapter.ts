@@ -13,15 +13,30 @@ export function adaptGeoSearch({
 
   // Highest precedence: insidePolygon
   if (Array.isArray(insidePolygon) && insidePolygon.length >= 3) {
+    const invalidPairs: unknown[] = []
+
     const formattedPoints = insidePolygon
       .map((pair) => {
-        if (!Array.isArray(pair) || pair.length < 2) return null
+        if (!Array.isArray(pair) || pair.length < 2) {
+          invalidPairs.push(pair)
+          return null
+        }
         const lat = Number.parseFloat(String(pair[0]))
         const lng = Number.parseFloat(String(pair[1]))
-        if (Number.isNaN(lat) || Number.isNaN(lng)) return null
+        if (Number.isNaN(lat) || Number.isNaN(lng)) {
+          invalidPairs.push(pair)
+          return null
+        }
         return `[${lat}, ${lng}]`
       })
       .filter((pt): pt is string => pt !== null)
+
+    if (invalidPairs.length > 0) {
+      console.warn(
+        'instant-meilisearch: insidePolygon contains invalid coordinate pairs that were ignored:',
+        invalidPairs
+      )
+    }
 
     if (formattedPoints.length >= 3) {
       filter = `_geoPolygon(${formattedPoints.join(', ')})`
