@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.29.0
+
+### Minor Changes
+
+- caf1e80: Add support for insidePolygon filter to geosearch
+
 ## 0.28.0
 
 ### Minor Changes
