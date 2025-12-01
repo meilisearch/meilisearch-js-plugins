@@ -32,7 +32,7 @@ jobs:
     name: autocomplete-client end-to-end-tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup node
         uses: actions/setup-node@v5
         with:
@@ -82,7 +82,7 @@ jobs:
     name: instant-meilisearch end-to-end-tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup node
         uses: actions/setup-node@v5
         with:
@@ -135,7 +135,7 @@ jobs:
         node: ['18', '20']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup node
         uses: actions/setup-node@v5
         with:
@@ -153,7 +153,7 @@ jobs:
     name: style-check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup node
         uses: actions/setup-node@v5
         with:
@@ -171,7 +171,7 @@ jobs:
     runs-on: ubuntu-latest
     name: types-check
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup node
         uses: actions/setup-node@v5
         with:
