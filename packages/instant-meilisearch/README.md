@@ -747,7 +747,7 @@ The `geoSearch` widget displays search results on a Google Map. It lets you sear
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-[See our playground for a working example](./playgrounds/geo-javascript/src/app.js) and this section in our [contributing guide](./CONTRIBUTING.md#-geo-search-playground) to set up your `Meilisearch`.
+Check out our [geosearch demo](https://github.com/meilisearch/demos/tree/main/src/geo-javascript) for a working example.
 
 #### Requirements
 
@@ -776,7 +776,7 @@ importLibrary('maps').then(() => {
 
 Replace `YOUR_GOOGLE_MAPS_API_KEY` with your Google API key.
 
-See [code example in the playground](./playgrounds/geo-javascript/src/app.js)
+Check out our [geosearch demo](https://github.com/meilisearch/demos/tree/main/src/geo-javascript) for a working example.
 
 ### Usage
 
