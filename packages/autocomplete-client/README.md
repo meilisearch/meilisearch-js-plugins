@@ -19,7 +19,6 @@
   <a href="https://github.com/meilisearch/meilisearch-js-plugins/actions"><img src="https://github.com/meilisearch/meilisearch-js-plugins/workflows/Tests/badge.svg?branch=main" alt="Tests"></a>
   <a href="https://github.com/meilisearch/meilisearch-js-plugins/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
   <a href="https://github.com/meilisearch/meilisearch/discussions" alt="Discussions"><img src="https://img.shields.io/badge/github-discussions-red" /></a>
-  <a href="https://ms-bors.herokuapp.com/repositories/48"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
 </p>
 
 **Meilisearch** is an open-source search engine. [Discover what Meilisearch is!](https://github.com/meilisearch/meilisearch)
