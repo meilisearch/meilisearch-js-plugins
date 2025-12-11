@@ -38,8 +38,8 @@ Each PR should pass the tests and the linter to be accepted.
 
 ```bash
 # Tests with Vitest
-docker pull getmeili/meilisearch:latest # Fetch the latest version of Meilisearch image from Docker Hub
-docker run -p 7700:7700 getmeili/meilisearch:latest meilisearch --master-key=masterKey --no-analytics
+docker pull getmeili/meilisearch-enterprise:latest # Fetch the latest version of Meilisearch image from Docker Hub
+docker run -p 7700:7700 getmeili/meilisearch-enterprise:latest meilisearch --master-key=masterKey --no-analytics
 # Integration tests
 yarn test
 # End-to-end tests
@@ -191,7 +191,7 @@ Here are the steps to release a beta version of this package depending on its ty
     - Meilisearch `pre-release beta`: create a branch originating from `bump-meilisearch-v*.*.*` named `pre-release-beta/v*.*.*`. <br>
       Example: `pre-release-beta/v0.30.0`
     - Meilisearch `prototype beta`: create a branch `prototype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
-        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch/tags) is named: `prototype-multi-search-0`, the branch should be named: `prototype-beta/prototype-multi-search`
+        Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch-enterprise/tags) is named: `prototype-multi-search-0`, the branch should be named: `prototype-beta/prototype-multi-search`
 
 2. Enable the pre-release mode by running `yarn changeset pre enter [X]`. `X` is the part after the `/` of your beta branch. Example for `beta/refactor`, X would be `refactor`. This will create a `pre.json` file in `.changesets` that must be pushed on your beta branch.
 
