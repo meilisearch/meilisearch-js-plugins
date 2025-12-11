@@ -4,11 +4,15 @@ on:
   push:
     branches:
       - main
-      - 'pre-release-beta/**'
-      - 'beta/**'
-      - 'prototype-beta/**'
+      - "pre-release-beta/**"
+      - "beta/**"
+      - "prototype-beta/**"
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   publish-npm:
@@ -18,7 +22,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
-          node-version: '18.x'
+          node-version: "18.x"
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: yarn
