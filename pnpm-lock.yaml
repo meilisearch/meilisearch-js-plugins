@@ -23,6 +23,12 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.19.0
         version: 8.49.0(eslint@9.39.1)(typescript@5.9.3)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.7.0(vite@6.4.1)
+      '@vitejs/plugin-vue':
+        specifier: ^5.2.1
+        version: 5.2.4(vite@6.4.1)(vue@3.5.25(typescript@5.9.3))
       '@vitest/eslint-plugin':
         specifier: ^1.1.23
         version: 1.5.2(eslint@9.39.1)(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12))
@@ -56,12 +62,27 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.15.0
+      instantsearch.css:
+        specifier: ^8.5.1
+        version: 8.9.0
       prettier:
         specifier: ^3.4.2
         version: 3.7.4
       prettier-plugin-jsdoc:
         specifier: ^1.3.0
         version: 1.8.0(prettier@3.7.4)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-instantsearch:
+        specifier: ^7.15.0
+        version: 7.21.0(algoliasearch@5.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.28.2
+        version: 6.30.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       search-insights:
         specifier: ^2.17.3
         version: 2.17.3
@@ -80,6 +101,12 @@ importers:
       vitest:
         specifier: ^3.0.2
         version: 3.2.4(@types/debug@4.1.12)
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.25(typescript@5.9.3)
+      vue-instantsearch:
+        specifier: ^4.10.8
+        version: 4.22.6(@vue/server-renderer@3.5.25(vue@3.5.25(typescript@5.9.3)))(algoliasearch@5.46.0)(react@18.3.1)(vue@3.5.25(typescript@5.9.3))
 
   packages/autocomplete-client:
     dependencies:
@@ -89,7 +116,7 @@ importers:
     devDependencies:
       '@algolia/autocomplete-js':
         specifier: ^1.7.4
-        version: 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
+        version: 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
       cssnano:
         specifier: ^4.1.10
         version: 4.1.11
@@ -114,10 +141,10 @@ importers:
     dependencies:
       '@algolia/autocomplete-core':
         specifier: 1.17.9
-        version: 1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
+        version: 1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
       '@algolia/autocomplete-plugin-query-suggestions':
         specifier: ^1.17.9
-        version: 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
+        version: 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
       '@algolia/autocomplete-plugin-tags':
         specifier: ^1.17.9
         version: 1.19.4
@@ -127,7 +154,6 @@ importers:
       '@meilisearch/autocomplete-client':
         specifier: workspace:*
         version: link:../../packages/autocomplete-client
-    devDependencies:
       '@meilisearch/instant-meilisearch':
         specifier: workspace:*
         version: link:../../packages/instant-meilisearch
@@ -135,32 +161,14 @@ importers:
   playgrounds/javascript:
     dependencies:
       '@meilisearch/instant-meilisearch':
-        specifier: 0.29.0
-        version: 0.29.0
+        specifier: workspace:*
+        version: link:../../packages/instant-meilisearch
 
   playgrounds/local-react:
     devDependencies:
       '@meilisearch/instant-meilisearch':
         specifier: workspace:*
         version: link:../../packages/instant-meilisearch
-      '@vitejs/plugin-react':
-        specifier: ^4.3.4
-        version: 4.7.0(vite@6.4.1)
-      instantsearch.css:
-        specifier: ^8.5.1
-        version: 8.9.0
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-instantsearch:
-        specifier: ^7.15.0
-        version: 7.21.0(algoliasearch@5.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.28.2
-        version: 6.30.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   playgrounds/node-env:
     dependencies:
@@ -173,33 +181,12 @@ importers:
       '@meilisearch/instant-meilisearch':
         specifier: workspace:*
         version: link:../../packages/instant-meilisearch
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-instantsearch:
-        specifier: ^7.15.0
-        version: 7.21.0(algoliasearch@5.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   playgrounds/vue3:
     devDependencies:
       '@meilisearch/instant-meilisearch':
         specifier: workspace:*
         version: link:../../packages/instant-meilisearch
-      '@vitejs/plugin-vue':
-        specifier: ^5.2.1
-        version: 5.2.4(vite@6.4.1)(vue@3.5.25(typescript@5.9.3))
-      instantsearch.css:
-        specifier: ^8.5.1
-        version: 8.9.0
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.25(typescript@5.9.3)
-      vue-instantsearch:
-        specifier: ^4.10.8
-        version: 4.22.6(@vue/server-renderer@3.5.25(vue@3.5.25(typescript@5.9.3)))(algoliasearch@5.46.0)(react@18.3.1)(vue@3.5.25(typescript@5.9.3))
 
 packages:
 
@@ -741,9 +728,6 @@ packages:
 
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
-
-  '@meilisearch/instant-meilisearch@0.29.0':
-    resolution: {integrity: sha512-CaHXwO5CezagRFOmbGm9Xww2HWisxbUhbw0CrU4hv24RkUwvKXgaUqPKD8XJ0XRcDe+yeBCYYUvqOfgTmEbSfg==}
 
   '@microsoft/tsdoc-config@0.17.1':
     resolution: {integrity: sha512-UtjIFe0C6oYgTnad4q1QP4qXwLhe6tIpNTRStJ2RZEPIkqQPREAwE5spzVxsdn9UaEMUqhh0AqSx3X4nWAKXWw==}
@@ -3638,79 +3622,79 @@ snapshots:
       '@algolia/requester-fetch': 5.46.0
       '@algolia/requester-node-http': 5.46.0
 
-  '@algolia/autocomplete-core@1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)':
+  '@algolia/autocomplete-core@1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)':
     dependencies:
-      '@algolia/autocomplete-plugin-algolia-insights': 1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
-      '@algolia/autocomplete-shared': 1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
+      '@algolia/autocomplete-plugin-algolia-insights': 1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
+      '@algolia/autocomplete-shared': 1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
       - search-insights
 
-  '@algolia/autocomplete-core@1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)':
+  '@algolia/autocomplete-core@1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)':
     dependencies:
-      '@algolia/autocomplete-plugin-algolia-insights': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
-      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
+      '@algolia/autocomplete-plugin-algolia-insights': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
+      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
       - search-insights
 
-  '@algolia/autocomplete-js@1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)':
+  '@algolia/autocomplete-js@1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)':
     dependencies:
-      '@algolia/autocomplete-core': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
-      '@algolia/autocomplete-preset-algolia': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
-      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
-      '@algolia/client-search': 5.46.0
+      '@algolia/autocomplete-core': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
+      '@algolia/autocomplete-preset-algolia': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
+      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
+      '@algolia/client-search': 4.25.3
       algoliasearch: 5.46.0
       htm: 3.1.1
       preact: 10.28.0
     transitivePeerDependencies:
       - search-insights
 
-  '@algolia/autocomplete-plugin-algolia-insights@1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)':
+  '@algolia/autocomplete-plugin-algolia-insights@1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)':
     dependencies:
-      '@algolia/autocomplete-shared': 1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
+      '@algolia/autocomplete-shared': 1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
       search-insights: 2.17.3
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
 
-  '@algolia/autocomplete-plugin-algolia-insights@1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)':
+  '@algolia/autocomplete-plugin-algolia-insights@1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)':
     dependencies:
-      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
+      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
       search-insights: 2.17.3
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
 
-  '@algolia/autocomplete-plugin-query-suggestions@1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)':
+  '@algolia/autocomplete-plugin-query-suggestions@1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)':
     dependencies:
-      '@algolia/autocomplete-core': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
-      '@algolia/autocomplete-js': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)(search-insights@2.17.3)
-      '@algolia/autocomplete-preset-algolia': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
-      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
-      '@algolia/client-search': 5.46.0
+      '@algolia/autocomplete-core': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
+      '@algolia/autocomplete-js': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)(search-insights@2.17.3)
+      '@algolia/autocomplete-preset-algolia': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
+      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
+      '@algolia/client-search': 4.25.3
       algoliasearch: 5.46.0
     transitivePeerDependencies:
       - search-insights
 
   '@algolia/autocomplete-plugin-tags@1.19.4': {}
 
-  '@algolia/autocomplete-preset-algolia@1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)':
+  '@algolia/autocomplete-preset-algolia@1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)':
     dependencies:
-      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)
-      '@algolia/client-search': 5.46.0
+      '@algolia/autocomplete-shared': 1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)
+      '@algolia/client-search': 4.25.3
       algoliasearch: 5.46.0
 
-  '@algolia/autocomplete-shared@1.17.9(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)':
+  '@algolia/autocomplete-shared@1.17.9(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)':
     dependencies:
-      '@algolia/client-search': 5.46.0
+      '@algolia/client-search': 4.25.3
       algoliasearch: 5.46.0
 
-  '@algolia/autocomplete-shared@1.19.4(@algolia/client-search@5.46.0)(algoliasearch@5.46.0)':
+  '@algolia/autocomplete-shared@1.19.4(@algolia/client-search@4.25.3)(algoliasearch@5.46.0)':
     dependencies:
-      '@algolia/client-search': 5.46.0
+      '@algolia/client-search': 4.25.3
       algoliasearch: 5.46.0
 
   '@algolia/autocomplete-theme-classic@1.19.4': {}
@@ -4280,10 +4264,6 @@ snapshots:
       fs-extra: 8.1.0
       globby: 11.1.0
       read-yaml-file: 1.1.0
-
-  '@meilisearch/instant-meilisearch@0.29.0':
-    dependencies:
-      meilisearch: 0.54.0
 
   '@microsoft/tsdoc-config@0.17.1':
     dependencies:

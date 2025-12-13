@@ -148,7 +148,9 @@ describe('Instant Meilisearch Browser test', () => {
 
   test('numeric filter', async () => {
     const expectArrayEquivalence = <T>(actual: T[], expected: T[]) => {
+      // @ts-expect-error TODO FIX
       expect(actual).toEqual(expect.arrayContaining(expected))
+      // @ts-expect-error TODO FIX
       expect(expected).toEqual(expect.arrayContaining(actual))
     }
 

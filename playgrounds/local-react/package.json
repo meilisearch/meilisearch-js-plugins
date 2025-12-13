@@ -20,12 +20,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@meilisearch/instant-meilisearch": "workspace:*",
-    "instantsearch.css": "^8.5.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "react-instantsearch": "^7.15.0",
-    "react-router-dom": "^6.28.2"
+    "@meilisearch/instant-meilisearch": "workspace:*"
   }
 }
