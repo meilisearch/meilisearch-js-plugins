@@ -7,8 +7,8 @@
     "predev": "node setup.mjs",
     "dev": "vite",
     "setup": "node setup.mjs",
-    "test:e2e": "concurrently --kill-others -s first \"yarn dev\" \"cypress run --env playground=local\"",
-    "test:e2e:watch": "concurrently --kill-others -s first \"yarn dev\" \"cypress open  --env playground=local\""
+    "test:e2e": "cypress run --env playground=local",
+    "test:e2e:watch": "cypress open  --env playground=local"
   },
   "keywords": [
     "react",
