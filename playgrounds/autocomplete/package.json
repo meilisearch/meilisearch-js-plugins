@@ -24,5 +24,8 @@
     "@algolia/autocomplete-plugin-tags": "^1.17.9",
     "@algolia/autocomplete-theme-classic": "^1.17.9",
     "@meilisearch/autocomplete-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@meilisearch/instant-meilisearch": "workspace:*"
   }
 }

@@ -1,12 +1,14 @@
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import { MeiliSearch } from 'meilisearch'
+import {
+  instantMeiliSearch,
+  meilisearch,
+} from '@meilisearch/instant-meilisearch'
 
 const { searchClient } = instantMeiliSearch(
   'http://localhost:7700',
   'masterKey',
   {}
 )
-const msClient = new MeiliSearch({
+const msClient = new meilisearch.MeiliSearch({
   host: 'http://localhost:7700',
   apiKey: 'masterKey',
 })

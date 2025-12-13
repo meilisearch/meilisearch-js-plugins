@@ -127,6 +127,10 @@ importers:
       '@meilisearch/autocomplete-client':
         specifier: workspace:*
         version: link:../../packages/autocomplete-client
+    devDependencies:
+      '@meilisearch/instant-meilisearch':
+        specifier: workspace:*
+        version: link:../../packages/instant-meilisearch
 
   playgrounds/javascript:
     dependencies:
