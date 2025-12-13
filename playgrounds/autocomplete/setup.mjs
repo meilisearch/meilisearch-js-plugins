@@ -5,5 +5,5 @@ const client = new meilisearch.MeiliSearch({
   host: 'http://localhost:7700',
   apiKey: 'masterKey',
 })
-await client.index('steam-video-games').delete()
-client.index('steam-video-games').addDocuments(games).waitTask()
+await client.index('steam-video-games').delete().waitTask()
+await client.index('steam-video-games').addDocuments(games).waitTask()
