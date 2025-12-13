@@ -24,16 +24,16 @@
     "fmt:fix": "prettier -w ./**/*.{js,ts,cjs,mjs,jsx,vue}",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "style": "yarn fmt && yarn lint",
-    "style:fix": "yarn fmt:fix && yarn lint:fix",
+    "style": "pnpm fmt && pnpm lint",
+    "style:fix": "pnpm fmt:fix && pnpm lint:fix",
     "build": "turbo build",
-    "test": "yarn build && vitest run",
-    "test:watch": "yarn build && vitest",
+    "test": "pnpm build && vitest run",
+    "test:watch": "pnpm build && vitest",
     "instant-meilisearch:test:watch": "vitest --project \"@meilisearch/instant-meilisearch\"",
     "autocomplete:test:watch": "vitest --project \"@meilisearch/autocomplete-client\"",
-    "test:types": "yarn build && tsc --noEmit",
+    "test:types": "pnpm build && tsc --noEmit",
     "version-packages": "changeset version && turbo version",
-    "release": "yarn build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "vite": "^6.0.9",
@@ -62,5 +62,5 @@
     "typescript-eslint": "^8.19.0",
     "eslint-plugin-cypress": "^4.1.0"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "pnpm@10.25.0"
 }

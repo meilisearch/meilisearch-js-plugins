@@ -115,14 +115,14 @@ Say goodbye to server deployment and manual updates with [Meilisearch Cloud](htt
 
 ## 🔧 Installation
 
-Use `npm` or `yarn` to install `instant-meilisearch`:
+Use `npm` or `pnpm` to install `instant-meilisearch`:
 
 ```bash
 npm install @meilisearch/instant-meilisearch
 ```
 
 ```bash
-yarn add @meilisearch/instant-meilisearch
+pnpm add @meilisearch/instant-meilisearch
 ```
 
 `instant-meilisearch` is a client for `instantsearch.js`. It does not create any UI component by itself.<br>
