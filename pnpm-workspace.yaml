@@ -1,0 +1,9 @@
+packages:
+  - packages/*
+  - playgrounds/*
+
+minimumReleaseAge: 1440
+
+onlyBuiltDependencies:
+  - cypress
+  - esbuild

@@ -52,10 +52,10 @@ Say goodbye to server deployment and manual updates with [Meilisearch Cloud](htt
 
 ## 🔧 Installation
 
-Use `npm` or `yarn` to install the autocomplete client for Meilisearch.
+Use `npm` or `pnpm` to install the autocomplete client for Meilisearch.
 
 ```
-yarn add @meilisearch/autocomplete-client
+pnpm add @meilisearch/autocomplete-client
 # or
 npm install @meilisearch/autocomplete-client
 ```
