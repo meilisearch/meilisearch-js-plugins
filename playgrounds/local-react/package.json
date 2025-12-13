@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@meilisearch/instant-meilisearch": "*",
+    "@meilisearch/instant-meilisearch": "workspace:*",
     "instantsearch.css": "^8.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -41,7 +41,7 @@
     "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "*"
+    "@meilisearch/instant-meilisearch": "workspace:*"
   },
   "devDependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
