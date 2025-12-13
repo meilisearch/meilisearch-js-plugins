@@ -7,39 +7,41 @@ on:
       - "pre-release-beta/**"
       - "beta/**"
       - "prototype-beta/**"
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 permissions:
   id-token: write # Required for OIDC
   contents: read
 
 jobs:
-  publish-npm:
-    name: Release
+  version-packages:
+    name: Version Packages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
           node-version: "18.x"
-          registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: yarn
-      - name: Create .npmrc file
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-            always-auth = true
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Create Release Pull Request or Publish to npm
+      - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
-          publish: yarn release
+          publish: false
           version: yarn version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.MEILI_BOT_GH_PAT }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-packages:
+    name: Publish Packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24.x"
+      - name: Install dependencies
+        run: yarn
+      - name: Build packages
+        run: yarn build
+      - name: Publish to npm
+        run: yarn release
