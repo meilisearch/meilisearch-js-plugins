@@ -11,7 +11,6 @@
   ],
   "type": "module",
   "scripts": {
-    "playground:geosearch": "turbo @meilisearch/geo-playground#dev",
     "playground:vanilla": "turbo @meilisearch/vanilla-playground#dev",
     "playground:vue3": "turbo @meilisearch/vue3-playground#dev",
     "playground:react": "turbo @meilisearch/react-playground#dev",

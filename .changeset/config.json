@@ -8,7 +8,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@meilisearch/geo-playground",
     "@meilisearch/vanilla-playground",
     "@meilisearch/vue3-playground",
     "@meilisearch/react-playground",
