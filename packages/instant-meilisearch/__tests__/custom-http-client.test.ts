@@ -10,12 +10,13 @@ describe('Custom HTTP client tests', () => {
   })
 
   test('a custom HTTP client', async () => {
-    const httpClient = vi.fn(
-      async (url: RequestInfo | URL, init?: RequestInit) => {
-        const result = await fetch(url, init)
-        return await result.json()
-      }
-    )
+    const httpClient = vi.fn(async function (
+      url: RequestInfo | URL,
+      init?: RequestInit
+    ) {
+      const result = await fetch(url, init)
+      return await result.json()
+    })
 
     const { searchClient } = instantMeiliSearch(
       'http://localhost:7700',
