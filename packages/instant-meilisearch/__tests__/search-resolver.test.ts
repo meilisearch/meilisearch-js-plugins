@@ -19,7 +19,7 @@ vi.mock('meilisearch')
 
 // Mocking of Meilisearch package
 const mockedMeilisearch = vi.mocked(MeiliSearch, true)
-const mockedMultiSearch = vi.fn((request) => {
+const mockedMultiSearch = vi.fn(function (request) {
   const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
     ...searchResponse,
     indexUid: req.indexUid,
