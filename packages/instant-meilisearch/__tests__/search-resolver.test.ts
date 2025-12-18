@@ -29,8 +29,8 @@ const mockedMultiSearch = vi.fn((request) => {
   }
 })
 
+// @ts-ignore
 mockedMeilisearch.mockReturnValue({
-  // @ts-ignore
   multiSearch: mockedMultiSearch,
 })
 
