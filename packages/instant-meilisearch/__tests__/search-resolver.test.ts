@@ -15,32 +15,24 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
-// Mocking of Meilisearch package
-const mockedMultiSearch = vi.hoisted(() =>
-  vi.fn(function (request) {
-    const response = request.queries.map(
-      (req: MeiliSearchMultiSearchParams) => ({
-        ...searchResponse,
-        indexUid: req.indexUid,
-      })
-    )
-    return {
-      results: response,
-    }
-  })
-)
+vi.mock(import('meilisearch'), { spy: true })
 
-vi.mock(import('meilisearch'), async (originalImport) => {
-  const oi = await originalImport()
+function getMeiliSearchMultiSearchSpy(meiliSearch: MeiliSearch) {
+  return vi
+    .spyOn(meiliSearch, 'multiSearch')
+    .mockImplementation(function (request) {
+      const response = request.queries.map(
+        (req: MeiliSearchMultiSearchParams) => ({
+          ...searchResponse,
+          indexUid: req.indexUid,
+        })
+      )
 
-  vi.spyOn(oi, 'MeiliSearch').mockImplementation(
-    class extends oi.MeiliSearch {
-      multiSearch = mockedMultiSearch as any
-    }
-  )
-
-  return oi;
-})
+      return {
+        results: response,
+      } as any
+    })
+}
 
 describe('Cached search tests', () => {
   afterEach(() => {
@@ -54,7 +46,11 @@ describe('Cached search tests', () => {
         query: '',
       },
     }
-    const { searchClient } = instantMeiliSearch('http://localhost:7700')
+    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+      'http://localhost:7700'
+    )
+    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+
     await searchClient.search<Movies>([searchParameters])
     await searchClient.search<Movies>([searchParameters])
 
@@ -80,7 +76,11 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient } = instantMeiliSearch('http://localhost:7700')
+    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+      'http://localhost:7700'
+    )
+    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
 
@@ -106,7 +106,11 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient } = instantMeiliSearch('http://localhost:7700')
+    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+      'http://localhost:7700'
+    )
+    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
@@ -133,7 +137,11 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient } = instantMeiliSearch('http://localhost:7700')
+    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+      'http://localhost:7700'
+    )
+    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
@@ -169,7 +177,11 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient } = instantMeiliSearch('http://localhost:7700')
+    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+      'http://localhost:7700'
+    )
+    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+
     await searchClient.search<Movies>(searchParameters1)
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>(searchParameters1)
