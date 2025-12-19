@@ -33,7 +33,7 @@ const mockedMultiSearch = vi.hoisted(() =>
 
 vi.mock(import('meilisearch'), async (originalImport) => ({
   ...(await originalImport()),
-  multiSearch: mockedMeilisearch,
+  multiSearch: mockedMultiSearch,
 }))
 
 describe('Cached search tests', () => {
