@@ -15,8 +15,6 @@ export const searchResponse = {
   exhaustiveNbHits: false,
 }
 
-vi.mock('meilisearch')
-
 // Mocking of Meilisearch package
 const mockedMeilisearch = vi.mocked(MeiliSearch, true)
 const mockedMultiSearch = vi.fn(function (request) {
@@ -29,10 +27,10 @@ const mockedMultiSearch = vi.fn(function (request) {
   }
 })
 
-// @ts-ignore
-mockedMeilisearch.mockReturnValue({
+vi.mock(import('meilisearch'), async (originalImport) => ({
+  ...(await originalImport()),
   multiSearch: mockedMultiSearch,
-})
+}))
 
 describe('Cached search tests', () => {
   afterEach(() => {
