@@ -17,19 +17,23 @@ export const searchResponse = {
 
 // Mocking of Meilisearch package
 const mockedMeilisearch = vi.mocked(MeiliSearch, true)
-const mockedMultiSearch = vi.fn(function (request) {
-  const response = request.queries.map((req: MeiliSearchMultiSearchParams) => ({
-    ...searchResponse,
-    indexUid: req.indexUid,
-  }))
-  return {
-    results: response,
-  }
-})
+const mockedMultiSearch = vi.hoisted(() =>
+  vi.fn(function (request) {
+    const response = request.queries.map(
+      (req: MeiliSearchMultiSearchParams) => ({
+        ...searchResponse,
+        indexUid: req.indexUid,
+      })
+    )
+    return {
+      results: response,
+    }
+  })
+)
 
 vi.mock(import('meilisearch'), async (originalImport) => ({
   ...(await originalImport()),
-  multiSearch: mockedMultiSearch,
+  multiSearch: mockedMeilisearch,
 }))
 
 describe('Cached search tests', () => {
