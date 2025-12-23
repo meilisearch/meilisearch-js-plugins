@@ -17,7 +17,7 @@ jobs:
     name: Release & Version
     runs-on: ubuntu-latest
     outputs:
-      published: ${{ steps.changesets.outputs.published }}
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
@@ -38,7 +38,7 @@ jobs:
     name: Publish to npm (OIDC)
     needs: release
     # Only run if Changesets indicates there are packages to publish
-    if: needs.release.outputs.published == 'true'
+    if: needs.release.outputs.hasChangesets == 'false'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -46,13 +46,12 @@ jobs:
         with:
           node-version: "24.x"
           registry-url: "https://registry.npmjs.org"
+      - name: Upgrade npm for OIDC
+        run: npm install -g npm@latest
       - name: Install dependencies
         run: yarn install
       - name: Build packages
         run: yarn build
-      - name: Enable provenance
-        # changeset publish calls npm publish internally without --provenance
-        run: echo "provenance=true" >> .npmrc
       - name: Publish packages
         # No NPM_TOKEN env here - uses OIDC token from id-token: write permission
         run: yarn changeset publish
