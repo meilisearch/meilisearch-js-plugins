@@ -12,6 +12,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.29.0"
+    "@meilisearch/instant-meilisearch": "workspace:*"
   }
 }

@@ -7,8 +7,8 @@
     "predev": "node setup.mjs",
     "dev": "vite",
     "setup": "node setup.mjs",
-    "test:e2e": "cypress run --env playground=local",
-    "test:e2e:watch": "cypress open  --env playground=local"
+    "test:e2e": "concurrently --kill-others -s first \"pnpm dev\" \"cypress run --env playground=local\"",
+    "test:e2e:watch": "concurrently --kill-others -s first \"pnpm dev\" \"cypress open  --env playground=local\""
   },
   "keywords": [
     "react",
@@ -20,12 +20,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@meilisearch/instant-meilisearch": "*",
-    "instantsearch.css": "^8.5.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "react-instantsearch": "^7.15.0",
-    "react-router-dom": "^6.28.2"
+    "@meilisearch/instant-meilisearch": "workspace:*"
   }
 }

@@ -7,8 +7,8 @@
     "predev": "node setup.mjs",
     "dev": "vite",
     "setup": "node setup.mjs",
-    "test:e2e": "cypress run --env playground=local",
-    "test:e2e:watch": "cypress open  --env playground=local"
+    "test:e2e": "concurrently --kill-others -s first \"pnpm dev\" \"cypress run --env playground=local\"",
+    "test:e2e:watch": "concurrently --kill-others -s first \"pnpm dev\" \"cypress open  --env playground=local\""
   },
   "keywords": [
     "autocomplete"
@@ -19,10 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@algolia/autocomplete-core": "1.17.9",
-    "@algolia/autocomplete-plugin-query-suggestions": "^1.17.9",
-    "@algolia/autocomplete-plugin-tags": "^1.17.9",
-    "@algolia/autocomplete-theme-classic": "^1.17.9",
-    "@meilisearch/autocomplete-client": "*"
+    "@meilisearch/autocomplete-client": "workspace:*",
+    "@meilisearch/instant-meilisearch": "workspace:*"
   }
 }

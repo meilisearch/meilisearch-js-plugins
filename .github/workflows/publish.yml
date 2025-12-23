@@ -20,17 +20,13 @@ jobs:
       hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "24.x"
-      - name: Install dependencies
-        run: yarn install
+      - uses: ./.github/actions/set-up-node
       - name: Create Release Pull Request
         id: changesets
         uses: changesets/action@v1
         with:
           publish: false
-          version: yarn version-packages
+          version: pnpm version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.MEILI_BOT_GH_PAT }}
 
@@ -42,16 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v5
+      - uses: ./.github/actions/set-up-node
         with:
-          node-version: "24.x"
           registry-url: "https://registry.npmjs.org"
-      - name: Upgrade npm for OIDC
-        run: npm install -g npm@latest
-      - name: Install dependencies
-        run: yarn install
       - name: Build packages
-        run: yarn build
+        run: pnpm build
       - name: Publish packages
         # No NPM_TOKEN env here - uses OIDC token from id-token: write permission
-        run: yarn changeset publish
+        run: pnpm changeset publish

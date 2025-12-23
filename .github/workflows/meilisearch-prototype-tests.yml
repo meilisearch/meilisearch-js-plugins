@@ -44,13 +44,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Setup node
-        uses: actions/setup-node@v5
-        with:
-          node-version: 18
-          cache: yarn
-      - name: Install dependencies
-        run: yarn
+      - uses: ./.github/actions/set-up-node
       - name: Run local browser tests
         uses: cypress-io/github-action@v6
         with:
@@ -84,20 +78,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Setup node
-        uses: actions/setup-node@v5
-        with:
-          node-version: 18
-          cache: yarn
-      - name: Install dependencies
-        run: yarn
+      - uses: ./.github/actions/set-up-node
       - name: Run local browser tests
         uses: cypress-io/github-action@v6
         with:
           project: ./playgrounds/local-react
           wait-on: 'http://localhost:7700'
           # Tests are only done on one playground to avoid long testing time
-          start: yarn playground:local-react
+          start: pnpm playground:local-react
           env: playground=local
       - uses: actions/upload-artifact@v5
         if: failure()
@@ -123,18 +111,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['18', '20']
-    name: integration-tests (Node.js ${{ matrix.node }})
+        node-version: ['20', '22', '24']
+    name: integration-tests (Node.js ${{ matrix.node-version }})
     steps:
       - uses: actions/checkout@v6
-      - name: Setup node
-        uses: actions/setup-node@v5
+      - uses: ./.github/actions/set-up-node
         with:
-          cache: yarn
-          node-version: ${{ matrix.node }}
-      - name: Install dependencies
-        run: yarn install
+          node-version: ${{ matrix.node-version }}
       - name: Run tests
-        run: yarn test
+        run: pnpm test
       - name: Build project
-        run: yarn build
+        run: pnpm build

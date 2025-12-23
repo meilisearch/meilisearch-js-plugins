@@ -29,7 +29,7 @@ First of all, thank you for contributing to Meilisearch! The goal of this docume
 ### Setup
 
 ```bash
-yarn --dev
+pnpm install
 ```
 
 ### Tests and Linter
@@ -41,15 +41,15 @@ Each PR should pass the tests and the linter to be accepted.
 docker pull getmeili/meilisearch-enterprise:latest # Fetch the latest version of Meilisearch image from Docker Hub
 docker run -p 7700:7700 getmeili/meilisearch-enterprise:latest meilisearch --master-key=masterKey --no-analytics
 # Integration tests
-yarn test
+pnpm test
 # End-to-end tests
-yarn test:e2e
+pnpm test:e2e
 # Linter
-yarn style
+pnpm style
 # Linter with fixing
-yarn style:fix
+pnpm style:fix
 # Build the project
-yarn build
+pnpm build
 ```
 
 If you want to test a specific package, from the root directory run any of the above command with the `filter` flag.
@@ -67,7 +67,7 @@ turbo run test --filter=@meilisearch/instant-meilisearch
 
 We use [changesets](https://github.com/Noviny/changesets) to do versioning.
 
-For each PR that changes something in the package(s), you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `yarn changeset`.
+For each PR that changes something in the package(s), you need to [add a changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) by running `pnpm changeset`.
 
 This command will run questions:
 - select the packages concerned by the PR changes
@@ -86,29 +86,29 @@ To test directly your changes in `@meilisearch/instant-meilisearch`, you can run
 
 `Vue 3`
 ```bash
-yarn playground:vue
+pnpm playground:vue
 ```
 
 `React`:
 
 ```bash
-yarn playground:react
+pnpm playground:react
 ```
 
 `Vanilla JS`:
 ```
-yarn playground:javascript
+pnpm playground:javascript
 ```
 
 `HTML`:
 ```
-yarn playground:html
+pnpm playground:html
 ```
 
 An additional playground is provided to test out the [GeoSearch](./packages/instant-meilisearch#-geo-search).
 
 ```bash
-yarn playground:geosearch
+pnpm playground:geosearch
 ```
 
 Note: If the Google Maps stopped working, please create a new [Google Api Key](https://developers.google.com/maps/documentation/javascript/get-api-key) and add it in the `.env` file at the root of the playground: `/playgrounds/geo-javascript`
@@ -118,7 +118,7 @@ Note: If the Google Maps stopped working, please create a new [Google Api Key](h
 To test directly your changes made in `@meilisearch/autocomplete-client`, you can run the following playground:
 
 ```
-yarn playground:autocomplete
+pnpm playground:autocomplete
 ```
 
 ## Git Guidelines
@@ -157,13 +157,13 @@ This repository uses the [changesets](https://github.com/Noviny/changesets) libr
 
 ⚠️ Each PR merged on `main` involving a change in the package(s) should contain modifications in the `.changeset` folder. See [changeset section](#versioning-with-changesets).
 
-Each merge on `main` triggers the [`release` CI](./.github/workflows/publish.yml) generating a PR titled `Version Packages`. This PR updates the versions and contains changelogs of the impacted packages based on the `yarn changesets` commands you ran on each PR.
+Each merge on `main` triggers the [`release` CI](./.github/workflows/publish.yml) generating a PR titled `Version Packages`. This PR updates the versions and contains changelogs of the impacted packages based on the `pnpm changesets` commands you ran on each PR.
 
 To release on GitHub and `npm` you must merge this `Version packages` PR. This will trigger the publishing action and create the GitHub and `npm` releases for all affected packages.
 
 See more in depth explaination on [versioning](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#version), [publishing](https://github.com/changesets/changesets/blob/main/docs/command-line-options.md#publish) and the [changesets github-action](https://github.com/changesets/action).
 
-If you merged a beta branch, that was released, into main, you were probably in the `changesets` [pre-release](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) mode (see section on [releasing a beta](#release-a-beta-version)). If the `pre.json` file is present in the `.changesets` folder, you need to exit that mode. This is possible by running `yarn changeset pre exit`. Once done, create a PR with the changes and merge it to main.
+If you merged a beta branch, that was released, into main, you were probably in the `changesets` [pre-release](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) mode (see section on [releasing a beta](#release-a-beta-version)). If the `pre.json` file is present in the `.changesets` folder, you need to exit that mode. This is possible by running `pnpm changeset pre exit`. Once done, create a PR with the changes and merge it to main.
 
 #### Codesandbox update
 
@@ -193,7 +193,7 @@ Here are the steps to release a beta version of this package depending on its ty
     - Meilisearch `prototype beta`: create a branch `prototype-beta/xx-xx`. Where `xxx` has the same name as the docker image containing the prototype.
         Example: If the [docker image](https://hub.docker.com/r/getmeili/meilisearch-enterprise/tags) is named: `prototype-multi-search-0`, the branch should be named: `prototype-beta/prototype-multi-search`
 
-2. Enable the pre-release mode by running `yarn changeset pre enter [X]`. `X` is the part after the `/` of your beta branch. Example for `beta/refactor`, X would be `refactor`. This will create a `pre.json` file in `.changesets` that must be pushed on your beta branch.
+2. Enable the pre-release mode by running `pnpm changeset pre enter [X]`. `X` is the part after the `/` of your beta branch. Example for `beta/refactor`, X would be `refactor`. This will create a `pre.json` file in `.changesets` that must be pushed on your beta branch.
 
 3. Commit and push your related PRs to the newly created branch (step 1).
 
