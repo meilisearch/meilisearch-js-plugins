@@ -95,6 +95,7 @@ export default tseslint.config([
     rules: {
       'vitest/no-identical-title': 'off',
       'vitest/valid-title': 'off',
+      'vitest/no-conditional-expect': 'off',
     },
   },
   // Disable any style linting, as prettier takes care of that separately

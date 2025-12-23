@@ -1,23 +1,41 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "monthly"
+      interval: 'monthly'
     labels:
-      - "dependencies"
-    rebase-strategy: disabled
+      - 'dependencies'
 
   - package-ecosystem: npm
-    directory: "/"
+    directory: '/'
     schedule:
-      interval: weekly
-      time: "04:00"
-    open-pull-requests-limit: 10
+      interval: 'monthly'
     labels:
-      - skip-changelog
       - dependencies
     versioning-strategy: increase
-    rebase-strategy: disabled
-    allow:
-      - dependency-name: meilisearch
+    groups:
+      vite:
+        patterns:
+          - 'vite'
+          - '@vitejs/plugin-vue'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - 'react-router-dom'
+      instantsearch:
+        patterns:
+          - '*instantsearch*'
+          - '@algolia/*'
+          - 'algoliasearch'
+          - 'algoliasearch-helper'
+          - 'search-insights'
+      eslint:
+        patterns:
+          - '*eslint*'
+          - 'globals'
+      prettier:
+        patterns:
+          - 'prettier'
+          - 'prettier-plugin-jsdoc'
