@@ -9,21 +9,24 @@ on:
       - "prototype-beta/**"
 
 permissions:
-  id-token: write # Required for OIDC
-  contents: read
+  contents: write # Required for changesets to create PRs and tags
+  id-token: write # Required for npm OIDC authentication
 
 jobs:
-  version-packages:
-    name: Version Packages
+  release:
+    name: Release & Version
     runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
-          node-version: "18.x"
+          node-version: "24.x"
       - name: Install dependencies
-        run: yarn
+        run: yarn install
       - name: Create Release Pull Request
+        id: changesets
         uses: changesets/action@v1
         with:
           publish: false
@@ -31,17 +34,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MEILI_BOT_GH_PAT }}
 
-  publish-packages:
-    name: Publish Packages
+  publish-npm:
+    name: Publish to npm (OIDC)
+    needs: release
+    # Only run if Changesets indicates there are packages to publish
+    if: needs.release.outputs.published == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
           node-version: "24.x"
+          registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
-        run: yarn
+        run: yarn install
       - name: Build packages
         run: yarn build
-      - name: Publish to npm
-        run: yarn release
+      - name: Enable provenance
+        # changeset publish calls npm publish internally without --provenance
+        run: echo "provenance=true" >> .npmrc
+      - name: Publish packages
+        # No NPM_TOKEN env here - uses OIDC token from id-token: write permission
+        run: yarn changeset publish
