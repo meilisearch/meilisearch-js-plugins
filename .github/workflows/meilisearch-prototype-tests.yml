@@ -53,12 +53,12 @@ jobs:
           # Tests are only done on one playground to avoid long testing time
           start: pnpm playground:autocomplete
           env: playground=local
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: cypress-videos
@@ -87,12 +87,12 @@ jobs:
           # Tests are only done on one playground to avoid long testing time
           start: pnpm playground:local-react
           env: playground=local
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: cypress-videos
