@@ -51,7 +51,7 @@
     "algoliasearch-helper": "3.23.0",
     "concurrently": "9.2.1",
     "cssnano": "4.1.10",
-    "cypress": "8.6.0",
+    "cypress": "15.8.1",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-cypress": "5.2.0",
