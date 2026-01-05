@@ -1,5 +1,13 @@
 # @meilisearch/autocomplete-client
 
+## 0.6.1
+
+### Patch Changes
+
+- cfc1608: Bump dependency versions
+- Updated dependencies [cfc1608]
+  - @meilisearch/instant-meilisearch@0.29.1
+
 ## 0.6.0
 
 ### Minor Changes
@@ -64,28 +72,28 @@
 
   ```js
   // 1.
-  const client = instantMeiliSearch(/*...*/);
+  const client = instantMeiliSearch(/*...*/)
   // 2.
-  const searchClient = instantMeiliSearch(/*...*/);
+  const searchClient = instantMeiliSearch(/*...*/)
   // 3.
   instantsearch({
-    indexName: "movies",
+    indexName: 'movies',
     searchClient: instantMeiliSearch(/*...*/),
-  });
+  })
   ```
 
   to the following
 
   ```js
   // 1.
-  const { searchClient: client } = instantMeiliSearch(/*...*/);
+  const { searchClient: client } = instantMeiliSearch(/*...*/)
   // 2.
-  const { searchClient } = instantMeiliSearch(/*...*/);
+  const { searchClient } = instantMeiliSearch(/*...*/)
   // 3.
   instantsearch({
-    indexName: "movies",
+    indexName: 'movies',
     searchClient: instantMeiliSearch(/*...*/).searchClient,
-  });
+  })
   ```
 
 - Updated dependencies [5b6be19]

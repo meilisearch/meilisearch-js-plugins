@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.29.1
+
+### Patch Changes
+
+- cfc1608: Bump dependency versions
+
 ## 0.29.0
 
 ### Minor Changes
@@ -125,7 +131,6 @@
 ### Minor Changes
 
 - 234d699: - exposed created `MeiliSearch` instance
-
   - re-exported all of `"meilisearch"` package
 
   These improvements make it so that no separate `"meilisearch"` package
@@ -138,14 +143,14 @@
   import {
     instantMeiliSearch,
     meilisearch,
-  } from "@meilisearch/instant-meilisearch";
+  } from '@meilisearch/instant-meilisearch'
   // re-exported "meilisearch" ^
 
   const {
     meiliSearchInstance,
     // ^ re-usable MeiliSearch instance
     searchClient,
-  } = instantMeiliSearch(/*...*/);
+  } = instantMeiliSearch(/*...*/)
   ```
 
 - 767a334: Update meilisearch-js version
@@ -181,28 +186,28 @@
 
   ```js
   // 1.
-  const client = instantMeiliSearch(/*...*/);
+  const client = instantMeiliSearch(/*...*/)
   // 2.
-  const searchClient = instantMeiliSearch(/*...*/);
+  const searchClient = instantMeiliSearch(/*...*/)
   // 3.
   instantsearch({
-    indexName: "movies",
+    indexName: 'movies',
     searchClient: instantMeiliSearch(/*...*/),
-  });
+  })
   ```
 
   to the following
 
   ```js
   // 1.
-  const { searchClient: client } = instantMeiliSearch(/*...*/);
+  const { searchClient: client } = instantMeiliSearch(/*...*/)
   // 2.
-  const { searchClient } = instantMeiliSearch(/*...*/);
+  const { searchClient } = instantMeiliSearch(/*...*/)
   // 3.
   instantsearch({
-    indexName: "movies",
+    indexName: 'movies',
     searchClient: instantMeiliSearch(/*...*/).searchClient,
-  });
+  })
   ```
 
 ### Patch Changes
@@ -227,28 +232,28 @@
 
   ```js
   // 1.
-  const client = instantMeiliSearch(/*...*/);
+  const client = instantMeiliSearch(/*...*/)
   // 2.
-  const searchClient = instantMeiliSearch(/*...*/);
+  const searchClient = instantMeiliSearch(/*...*/)
   // 3.
   instantsearch({
-    indexName: "movies",
+    indexName: 'movies',
     searchClient: instantMeiliSearch(/*...*/),
-  });
+  })
   ```
 
   to the following
 
   ```js
   // 1.
-  const { searchClient: client } = instantMeiliSearch(/*...*/);
+  const { searchClient: client } = instantMeiliSearch(/*...*/)
   // 2.
-  const { searchClient } = instantMeiliSearch(/*...*/);
+  const { searchClient } = instantMeiliSearch(/*...*/)
   // 3.
   instantsearch({
-    indexName: "movies",
+    indexName: 'movies',
     searchClient: instantMeiliSearch(/*...*/).searchClient,
-  });
+  })
   ```
 
 ### Patch Changes
