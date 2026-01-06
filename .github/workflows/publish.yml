@@ -21,11 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/set-up-node
+        with:
+          registry-url: "https://registry.npmjs.org"
       - name: Create Release Pull Request
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: false
+          # Omit 'publish' entirely to skip publishing in this job
           version: pnpm version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.MEILI_BOT_GH_PAT }}
@@ -33,7 +35,7 @@ jobs:
   publish-npm:
     name: Publish to npm (OIDC)
     needs: release
-    # Only run if Changesets indicates there are packages to publish
+    # Only run when there are NO changesets (i.e. the version PR was merged)
     if: needs.release.outputs.hasChangesets == 'false'
     runs-on: ubuntu-latest
     steps:
@@ -44,5 +46,4 @@ jobs:
       - name: Build packages
         run: pnpm build
       - name: Publish packages
-        # No NPM_TOKEN env here - uses OIDC token from id-token: write permission
         run: pnpm changeset publish
