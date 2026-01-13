@@ -9,41 +9,40 @@ on:
       - "prototype-beta/**"
 
 permissions:
-  contents: write # Required for changesets to create PRs and tags
+  contents: write # Required for changesets to push tags & create releases
   id-token: write # Required for npm OIDC authentication
 
 jobs:
   release:
-    name: Release & Version
+    name: Release & Publish
     runs-on: ubuntu-latest
-    outputs:
-      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: ./.github/actions/set-up-node
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.MEILI_BOT_GH_PAT }}
+
+      - name: Setup Node & install dependencies
+        uses: ./.github/actions/set-up-node
         with:
           registry-url: "https://registry.npmjs.org"
-      - name: Create Release Pull Request
+
+      - name: Create Release PR or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          # Omit 'publish' entirely to skip publishing in this job
+          # Bump versions + generate changelogs + open/update "Version Packages" PR
           version: pnpm version-packages
+
+          # Publish to npm, then push tags and create GitHub Releases
+          publish: pnpm release
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.MEILI_BOT_GH_PAT }}
 
-  publish-npm:
-    name: Publish to npm (OIDC)
-    needs: release
-    # Only run when there are NO changesets (i.e. the version PR was merged)
-    if: needs.release.outputs.hasChangesets == 'false'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: ./.github/actions/set-up-node
-        with:
-          registry-url: "https://registry.npmjs.org"
-      - name: Build packages
-        run: pnpm build
-      - name: Publish packages
-        run: pnpm changeset publish
+      - name: Log changesets outputs
+        run: |
+          echo "hasChangesets=${{ steps.changesets.outputs.hasChangesets }}"
+          echo "published=${{ steps.changesets.outputs.published }}"
+          echo "publishedPackages=${{ steps.changesets.outputs.publishedPackages }}"
