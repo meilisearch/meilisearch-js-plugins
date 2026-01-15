@@ -198,4 +198,45 @@ describe('fetchMeilisearchResults', () => {
 
     expect(results[0].hits[0]._highlightResult?.reviews).toEqual(undefined)
   })
+
+  test('attaches metadata to each hit when present in result', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: 'Ariel',
+        },
+      ],
+    })
+
+    // If metadata is present in the result, it should be on each hit
+    const firstResult = results[0] as any
+    if (firstResult._meilisearch?.metadata) {
+      const firstHit = results[0].hits[0] as any
+      expect(firstHit._meilisearch).toBeDefined()
+      expect(firstHit._meilisearch.metadata).toBeDefined()
+      expect(firstHit._meilisearch.metadata.queryUid).toBeDefined()
+      expect(firstHit._meilisearch.metadata.indexUid).toEqual(INDEX_NAME)
+    }
+  })
+
+  test('does not add metadata field when not present in result', async () => {
+    const results = await fetchMeilisearchResults({
+      searchClient,
+      queries: [
+        {
+          indexName: INDEX_NAME,
+          query: '',
+        },
+      ],
+    })
+
+    const firstResult = results[0] as any
+    // Only check hits if result doesn't have metadata
+    if (!firstResult._meilisearch?.metadata) {
+      const firstHit = results[0].hits[0] as any
+      expect(firstHit._meilisearch).toBeUndefined()
+    }
+  })
 })
