@@ -52,6 +52,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
   - [Keep zero facets](#keep-zero-facets)
   - [Request Config](#request-config)
   - [Custom HTTP client](#custom-http-client)
+  - [Meilisearch search metadata](#meilisearch-search-metadata)
   - [Meilisearch search parameters](#meilisearch-search-parameters)
   - [Modify Meilisearch search parameters](#modify-meilisearch-search-parameters)
 - [🪡 Example with InstantSearch](#-example-with-instantsearch)
@@ -262,6 +263,74 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
     return response.data
   }
 }
+```
+
+### Meilisearch search metadata
+
+> [!info]
+> [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch).
+
+Search metadata are useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
+
+#### Usage
+
+The search client returns `MeilisearchSearchResponse` which extends the standard `AlgoliaSearchResponse` with an optional `metadata` field:
+
+```ts
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import instantsearch from 'instantsearch.js'
+
+const { searchClient } = instantMeiliSearch(
+  'https://ms-adf78ae33284-106.lon.meilisearch.io',
+  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
+)
+
+const search = instantsearch({
+  indexName: 'movies',
+  searchClient,
+})
+
+// Access metadata from results
+search.on('render', () => {
+  const results = search.helper?.lastResults
+  if (results?._rawResults?.[0]?.metadata) {
+    const { queryUid, indexUid, primaryKey } = results._rawResults[0].metadata
+    console.log('Query UID:', queryUid) // UUID v7 identifying the query
+    console.log('Index UID:', indexUid)
+    console.log('Primary key:', primaryKey)
+
+    // Use queryUid for analytics events
+    // Example: send click event to Meilisearch Cloud Analytics
+    // fetch('/events', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     eventType: 'click',
+    //     queryUid: queryUid,
+    //     indexUid: indexUid,
+    //     objectId: documentId,
+    //     position: hitPosition
+    //   })
+    // })
+  }
+})
+```
+
+#### Self-hosted instances
+
+For self-hosted Meilisearch instances, you need to enable search metadata by setting the `Meili-Include-Metadata` header:
+
+```ts
+const { searchClient } = instantMeiliSearch(
+  'http://localhost:7700',
+  'your-api-key',
+  {
+    requestInit: {
+      headers: {
+        'Meili-Include-Metadata': 'true'
+      }
+    }
+  }
+)
 ```
 
 ### Meilisearch search parameters

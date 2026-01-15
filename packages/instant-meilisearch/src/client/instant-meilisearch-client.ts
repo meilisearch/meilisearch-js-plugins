@@ -11,6 +11,7 @@ import type {
   AlgoliaSearchForFacetValuesResponse,
   InstantMeiliSearchObject,
   ApiKeyCallback,
+  MeilisearchSearchResponse,
 } from '../types/index.js'
 import {
   getApiKey,
@@ -109,7 +110,7 @@ export function instantMeiliSearch(
        */
       search: async function <T = Record<string, any>>(
         instantSearchRequests: readonly AlgoliaMultipleQueriesQuery[]
-      ): Promise<{ results: Array<AlgoliaSearchResponse<T>> }> {
+      ): Promise<{ results: Array<MeilisearchSearchResponse<T>> }> {
         try {
           const meilisearchRequests = []
           const instantSearchPagination: PaginationState[] = []

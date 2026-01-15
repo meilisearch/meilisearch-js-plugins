@@ -117,10 +117,25 @@ export type InstantSearchPagination = {
   nbPages: number
 }
 
+export type MeilisearchSearchMetadata = {
+  queryUid: string
+  indexUid: string
+  primaryKey?: string
+  remote?: string
+}
+
 export type MeilisearchMultiSearchResult<T = Record<string, any>> =
   MultiSearchResult<T> & {
     pagination: PaginationState
+    metadata?: MeilisearchSearchMetadata
   }
+
+export type MeilisearchSearchResponse<T = Record<string, any>> = Omit<
+  import('@algolia/client-search').SearchResponse<T>,
+  never
+> & {
+  metadata?: MeilisearchSearchMetadata
+}
 
 export type SearchContext = InstantMeiliSearchOptions &
   InstantSearchParams & {
