@@ -6,11 +6,8 @@ import type {
 /**
  * Get Meilisearch metadata for a specific index from InstantSearch results.
  *
- * @param results - The InstantSearch results object containing _rawResults
- * @param options - Options object with indexUid to select a specific index
- * @returns The metadata for the specified index, or undefined if not found
- *
  * @example
+ *
  * ```ts
  * // Get metadata for a specific index
  * const metadata = getAnalyticsMetadata(results, { indexUid: 'movies' })
@@ -18,6 +15,10 @@ import type {
  *   console.log(metadata.queryUid)
  * }
  * ```
+ *
+ * @param results - The InstantSearch results object containing _rawResults
+ * @param options - Options object with indexUid to select a specific index
+ * @returns The metadata for the specified index, or undefined if not found
  */
 export function getAnalyticsMetadata(
   results: { _rawResults?: MeilisearchSearchResponse[] },
@@ -27,32 +28,28 @@ export function getAnalyticsMetadata(
 /**
  * Get all Meilisearch metadata from InstantSearch results.
  *
- * @param results - The InstantSearch results object containing _rawResults
- * @returns An array of metadata objects from all raw results
- *
  * @example
+ *
  * ```ts
  * // Get metadata for all indexes
  * const allMetadata = getAnalyticsMetadata(results)
- * allMetadata.forEach(metadata => {
+ * allMetadata.forEach((metadata) => {
  *   console.log(`${metadata.indexUid}: ${metadata.queryUid}`)
  * })
  * ```
+ *
+ * @param results - The InstantSearch results object containing _rawResults
+ * @returns An array of metadata objects from all raw results
  */
-export function getAnalyticsMetadata(
-  results: { _rawResults?: MeilisearchSearchResponse[] }
-): MeilisearchSearchMetadata[]
+export function getAnalyticsMetadata(results: {
+  _rawResults?: MeilisearchSearchResponse[]
+}): MeilisearchSearchMetadata[]
 
-/**
- * Implementation
- */
+/** Implementation */
 export function getAnalyticsMetadata(
   results: { _rawResults?: MeilisearchSearchResponse[] },
   options?: { indexUid: string }
-):
-  | MeilisearchSearchMetadata
-  | undefined
-  | MeilisearchSearchMetadata[] {
+): MeilisearchSearchMetadata | undefined | MeilisearchSearchMetadata[] {
   if (!results?._rawResults) {
     return options ? undefined : []
   }

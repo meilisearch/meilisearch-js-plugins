@@ -6,7 +6,8 @@ This repository is a monorepo that contains two packages: `@meilisearch/instant-
 
 ## Development
 
-- Use `nvm use` to use the correct Node version.
+- Use `nvm use` to use the correct Node version
+- Use `pnpm style:fix` to lint and format code
 
 ## Code conventions
 
