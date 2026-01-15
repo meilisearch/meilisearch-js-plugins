@@ -246,7 +246,7 @@ The following options can be overridden:
 
 ## Meilisearch Analytics
 
-> [!info]
+> [!NOTE]
 > [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client).
 
 Search metadata is useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
