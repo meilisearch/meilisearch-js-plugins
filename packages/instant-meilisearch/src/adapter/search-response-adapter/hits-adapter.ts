@@ -18,7 +18,7 @@ export function adaptHits(
   config: InstantMeiliSearchConfig
 ): any {
   const { hits } = searchResponse
-  const { hitsPerPage } = searchResponse.pagination
+  const { hitsPerPage, page } = searchResponse.pagination
   const { finitePagination, primaryKey } = config // Needs: finite, hitsPerPage
 
   // if the length of the hits is bigger than the hitsPerPage
@@ -28,7 +28,7 @@ export function adaptHits(
     hits.splice(hits.length - 1, 1)
   }
 
-  let adaptedHits = hits.map((hit: Record<string, any>) => {
+  let adaptedHits = hits.map((hit: Record<string, any>, hitIndex: number) => {
     // Creates Hit object compliant with InstantSearch
     if (Object.keys(hit).length > 0) {
       const {
@@ -49,6 +49,10 @@ export function adaptHits(
       if (primaryKey) {
         adaptedHit.objectID = hit[primaryKey]
       }
+
+      // Inject position for analytics (1-based, accounting for pagination)
+      adaptedHit.__position = page * hitsPerPage + hitIndex + 1
+
       return adaptedHit
     }
     return hit

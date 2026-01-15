@@ -132,9 +132,12 @@ export type MeilisearchMultiSearchResult<T = Record<string, any>> =
 
 export type MeilisearchSearchResponse<T = Record<string, any>> = Omit<
   import('@algolia/client-search').SearchResponse<T>,
-  never
+  'hits'
 > & {
-  metadata?: MeilisearchSearchMetadata
+  hits: Array<T & { __position: number }>
+  _meilisearch?: {
+    metadata: MeilisearchSearchMetadata
+  }
 }
 
 export type SearchContext = InstantMeiliSearchOptions &

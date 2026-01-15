@@ -60,29 +60,30 @@ const config = {
 }
 
 describe('Metadata adapter', () => {
-  test('should preserve metadata.queryUid when present in Meilisearch response', () => {
+  test('should preserve metadata under _meilisearch namespace when present in Meilisearch response', () => {
     const adaptedResult = adaptSearchResult(
       searchResponseWithMetadata,
       {},
       config
     )
 
-    expect(adaptedResult.metadata).toBeDefined()
-    expect(adaptedResult.metadata?.queryUid).toBe(
+    expect(adaptedResult._meilisearch).toBeDefined()
+    expect(adaptedResult._meilisearch?.metadata).toBeDefined()
+    expect(adaptedResult._meilisearch?.metadata.queryUid).toBe(
       '0199a41a-8186-70b3-b6e1-90e8cb582f35'
     )
-    expect(adaptedResult.metadata?.indexUid).toBe('movies')
-    expect(adaptedResult.metadata?.primaryKey).toBe('id')
+    expect(adaptedResult._meilisearch?.metadata.indexUid).toBe('movies')
+    expect(adaptedResult._meilisearch?.metadata.primaryKey).toBe('id')
   })
 
-  test('should not add metadata field when not present in Meilisearch response', () => {
+  test('should not add _meilisearch field when metadata not present in Meilisearch response', () => {
     const adaptedResult = adaptSearchResult(
       searchResponseWithoutMetadata,
       {},
       config
     )
 
-    expect(adaptedResult.metadata).toBeUndefined()
+    expect(adaptedResult._meilisearch).toBeUndefined()
   })
 
   test('adapted result should still contain standard InstantSearch fields', () => {
