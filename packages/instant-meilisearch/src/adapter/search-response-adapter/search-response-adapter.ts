@@ -3,6 +3,7 @@ import type {
   FacetDistribution,
   InstantMeiliSearchConfig,
   MeilisearchMultiSearchResult,
+  MeilisearchSearchResponse,
 } from '../../types/index.js'
 import { adaptHits } from './hits-adapter.js'
 import { adaptTotalHits } from './total-hits-adapter.js'
@@ -17,14 +18,14 @@ import { adaptFacetStats } from './adapt-facet-stats.js'
  * @param {MeilisearchMultiSearchResult<T>[]} searchResponse
  * @param {Record<string, FacetDistribution>} initialFacetDistribution
  * @param {InstantMeiliSearchConfig} config
- * @returns {{ results: AlgoliaSearchResponse<T>[] }}
+ * @returns {{ results: MeilisearchSearchResponse<T>[] }}
  */
 export function adaptSearchResults<T = Record<string, any>>(
   meilisearchResults: MeilisearchMultiSearchResult[],
   initialFacetDistribution: Record<string, FacetDistribution>,
   config: InstantMeiliSearchConfig
-): { results: Array<AlgoliaSearchResponse<T>> } {
-  const instantSearchResult: Array<AlgoliaSearchResponse<T>> =
+): { results: Array<MeilisearchSearchResponse<T>> } {
+  const instantSearchResult: Array<MeilisearchSearchResponse<T>> =
     meilisearchResults.map((meilisearchResult) => {
       return adaptSearchResult<T>(
         meilisearchResult,
@@ -43,19 +44,20 @@ export function adaptSearchResults<T = Record<string, any>>(
  * @param {MeilisearchMultiSearchResult<Record<string>>} searchResponse
  * @param {Record<string, FacetDistribution>} initialFacetDistribution
  * @param {InstantMeiliSearchConfig} config
- * @returns {AlgoliaSearchResponse<T>}
+ * @returns {MeilisearchSearchResponse<T>}
  */
 export function adaptSearchResult<T>(
   meiliSearchResult: MeilisearchMultiSearchResult,
   initialFacetDistribution: FacetDistribution,
   config: InstantMeiliSearchConfig
-): AlgoliaSearchResponse<T> {
+): MeilisearchSearchResponse<T> {
   const {
     processingTimeMs,
     query,
     indexUid,
     facetDistribution: responseFacetDistribution = {},
     facetStats = {},
+    metadata,
   } = meiliSearchResult
 
   const facets = Object.keys(responseFacetDistribution)
@@ -76,7 +78,7 @@ export function adaptSearchResult<T>(
   )
 
   // Create result object compliant with InstantSearch
-  const adaptedSearchResult = {
+  const adaptedSearchResult: MeilisearchSearchResponse<T> = {
     index: indexUid,
     hitsPerPage,
     page,
@@ -90,5 +92,11 @@ export function adaptSearchResult<T>(
     exhaustiveNbHits: false,
     facets_stats: adaptFacetStats(facetStats),
   }
+
+  // Include metadata if present (for Meilisearch Cloud Analytics compatibility)
+  if (metadata) {
+    adaptedSearchResult.metadata = metadata
+  }
+
   return adaptedSearchResult
 }
