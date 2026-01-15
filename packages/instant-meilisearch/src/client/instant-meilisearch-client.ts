@@ -1,7 +1,6 @@
 import { MeiliSearch } from 'meilisearch'
 import type {
   InstantMeiliSearchOptions,
-  AlgoliaSearchResponse,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   FacetDistribution,
