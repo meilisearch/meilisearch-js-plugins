@@ -244,24 +244,23 @@ The following options can be overridden:
 - [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
 - [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
-## Meilisearch search metadata & analytics events
+## Meilisearch Analytics
 
 > [!info]
 > [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client).
 
-Search metadata is useful for interacting with [Meilisearch Cloud Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint), which allows you to track user interactions like clicks and conversions.
+Search metadata is useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
 
 ### Usage
 
-Each Autocomplete item (hit) includes an optional `_meilisearch.metadata` field when search metadata is enabled. You can use the `buildAnalyticsEvent` helper to easily create event payloads for the `/events` endpoint:
+Each Autocomplete item (hit) includes an optional `_meilisearch.metadata` field when search metadata is enabled. You can use the `getItemAnalyticsMetadata` helper to retrieve the metadata and build event payloads for the `/events` endpoint:
 
 ```ts
 import { autocomplete } from '@algolia/autocomplete-js'
 import {
   meilisearchAutocompleteClient,
   getMeilisearchResults,
-  buildAnalyticsEvent,
-  getItemMetadata,
+  getItemAnalyticsMetadata,
 } from '@meilisearch/autocomplete-client'
 import '@algolia/autocomplete-theme-classic'
 
@@ -289,44 +288,34 @@ autocomplete({
           },
         },
         onSelect({ item }) {
-          // Send click event to Meilisearch Cloud Analytics
-          const event = buildAnalyticsEvent({
-            eventType: 'click',
-            eventName: 'Search Result Clicked',
-            item,
-            userId: 'user-123', // optional: required for conversion attribution
-          })
+          // Get metadata from the item
+          const metadata = getItemAnalyticsMetadata(item)
 
-          fetch('https://ms-adf78ae33284-106.lon.meilisearch.io/events', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer YOUR_API_KEY',
-            },
-            body: JSON.stringify(event),
-          })
+          if (metadata) {
+            // Build and send click event to Meilisearch Cloud Analytics
+            fetch('https://ms-adf78ae33284-106.lon.meilisearch.io/events', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_API_KEY',
+              },
+              body: JSON.stringify({
+                eventType: 'click',
+                eventName: 'Search Result Clicked',
+                indexUid: metadata.indexUid,
+                queryUid: metadata.queryUid,
+                objectId: item.objectID,
+                position: item.__position,
+                userId: 'user-123', // optional: required for conversion attribution
+              }),
+            })
+          }
         },
       },
     ]
   },
 })
 ```
-
-The `buildAnalyticsEvent` helper automatically resolves:
-- `queryUid` and `indexUid` from `item._meilisearch.metadata`
-- `objectId` from `item.objectID` or the item's primary key field
-- `position` from `item.__position`
-
-You can also access the metadata directly using `getItemMetadata(item)` if you need to inspect it before building an event.
-
-### User identification for conversion tracking
-
-To properly track conversions and attribute them to searches, you must identify users. You can do this in two ways:
-
-1. Include `userId` in the event payload (as shown above)
-2. Set the `X-MS-USER-ID` header on both search requests and `/events` requests
-
-For more details, see the [Analytics Events endpoint documentation](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
 
 ### Self-hosted instances
 

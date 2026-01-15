@@ -52,7 +52,7 @@ NB: If you don't have any Meilisearch instance running and containing your data,
   - [Keep zero facets](#keep-zero-facets)
   - [Request Config](#request-config)
   - [Custom HTTP client](#custom-http-client)
-  - [Meilisearch search metadata](#meilisearch-search-metadata)
+  - [Meilisearch Analytics](#meilisearch-analytics)
   - [Meilisearch search parameters](#meilisearch-search-parameters)
   - [Modify Meilisearch search parameters](#modify-meilisearch-search-parameters)
 - [🪡 Example with InstantSearch](#-example-with-instantsearch)
@@ -265,12 +265,12 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 }
 ```
 
-### Meilisearch search metadata
+### Meilisearch Analytics
 
 > [!info]
 > [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch).
 
-Search metadata are useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
+Search metadata is useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
 
 #### Usage
 
@@ -320,7 +320,7 @@ search.on('render', () => {
 
 #### Using metadata for analytics events
 
-Each hit now includes a `__position` field that you can use for click events:
+Each hit includes a `__position` field that you can use for click events:
 
 ```ts
 import { connectHits } from 'instantsearch.js/es/connectors'
