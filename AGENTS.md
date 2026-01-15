@@ -11,7 +11,7 @@ This repository is a monorepo that contains two packages: `@meilisearch/instant-
 
 ## Code conventions
 
-- Prefer self-descriptive code to comments. Only use commands for complex logic due to specificity of libraries or to explain business logic.
+- Prefer self-descriptive code to comments. Only use comments for complex logic.
 
 ## Testing
 
