@@ -60,33 +60,44 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
             const query = queries[resultsArrayIndex]
             return {
               ...result,
-              hits: result.hits.map((hit) => ({
-                ...hit,
-                _highlightResult: (
-                  Object.entries(hit?._highlightResult || {}) as Array<
-                    [keyof TRecord, PossibleHighlightResult]
-                  >
-                ).reduce((acc, [field, highlightResult]) => {
-                  if (!isDefinedHighlightValue(highlightResult)) {
-                    return acc
-                  }
-
-                  // if the field is an array, highlightResult is an array of objects
-                  acc[field] = mapOneOrMany(
-                    highlightResult,
-                    (highlightResult) => {
-                      return calculateHighlightMetadata(
-                        query.query || '',
-                        query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                        query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
-                        highlightResult.value
-                      )
+              hits: result.hits.map((hit) => {
+                const enrichedHit: any = {
+                  ...hit,
+                  _highlightResult: (
+                    Object.entries(hit?._highlightResult || {}) as Array<
+                      [keyof TRecord, PossibleHighlightResult]
+                    >
+                  ).reduce((acc, [field, highlightResult]) => {
+                    if (!isDefinedHighlightValue(highlightResult)) {
+                      return acc
                     }
-                  )
 
-                  return acc
-                }, {} as HighlightResult<TRecord>),
-              })),
+                    // if the field is an array, highlightResult is an array of objects
+                    acc[field] = mapOneOrMany(
+                      highlightResult,
+                      (highlightResult) => {
+                        return calculateHighlightMetadata(
+                          query.query || '',
+                          query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
+                          query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
+                          highlightResult.value
+                        )
+                      }
+                    )
+
+                    return acc
+                  }, {} as HighlightResult<TRecord>),
+                }
+
+                // Attach metadata to each hit if present (for Meilisearch Cloud Analytics)
+                if ((result as any)._meilisearch?.metadata) {
+                  enrichedHit._meilisearch = {
+                    metadata: (result as any)._meilisearch.metadata,
+                  }
+                }
+
+                return enrichedHit
+              }),
             }
           }
         )
