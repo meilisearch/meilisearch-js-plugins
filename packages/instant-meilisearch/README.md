@@ -267,7 +267,7 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 
 ### Meilisearch Analytics
 
-> [!info]
+> [!NOTE]
 > [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch).
 
 Search metadata is useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
