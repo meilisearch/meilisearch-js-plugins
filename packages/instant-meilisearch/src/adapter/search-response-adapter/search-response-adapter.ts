@@ -1,5 +1,4 @@
 import type {
-  AlgoliaSearchResponse,
   FacetDistribution,
   InstantMeiliSearchConfig,
   MeilisearchMultiSearchResult,
@@ -93,9 +92,9 @@ export function adaptSearchResult<T>(
     facets_stats: adaptFacetStats(facetStats),
   }
 
-  // Include metadata if present (for Meilisearch Cloud Analytics compatibility)
+  // Include Meilisearch analytics metadata
   if (metadata) {
-    adaptedSearchResult.metadata = metadata
+    adaptedSearchResult._meilisearch = { metadata }
   }
 
   return adaptedSearchResult

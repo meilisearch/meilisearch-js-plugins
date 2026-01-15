@@ -274,10 +274,10 @@ Search metadata are useful for interacting with the [Meilisearch Analytics Event
 
 #### Usage
 
-The search client returns `MeilisearchSearchResponse` which extends the standard `AlgoliaSearchResponse` with an optional `metadata` field:
+The search client returns `MeilisearchSearchResponse` which extends the standard `AlgoliaSearchResponse` with an optional `_meilisearch` namespace containing metadata:
 
 ```ts
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeiliSearch, getAnalyticsMetadata } from '@meilisearch/instant-meilisearch'
 import instantsearch from 'instantsearch.js'
 
 const { searchClient } = instantMeiliSearch(
@@ -290,29 +290,76 @@ const search = instantsearch({
   searchClient,
 })
 
-// Access metadata from results
+// Access metadata from results using the helper utility
 search.on('render', () => {
   const results = search.helper?.lastResults
-  if (results?._rawResults?.[0]?.metadata) {
-    const { queryUid, indexUid, primaryKey } = results._rawResults[0].metadata
-    console.log('Query UID:', queryUid) // UUID v7 identifying the query
-    console.log('Index UID:', indexUid)
-    console.log('Primary key:', primaryKey)
 
-    // Use queryUid for analytics events
-    // Example: send click event to Meilisearch Cloud Analytics
-    // fetch('/events', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     eventType: 'click',
-    //     queryUid: queryUid,
-    //     indexUid: indexUid,
-    //     objectId: documentId,
-    //     position: hitPosition
-    //   })
-    // })
+  // Get metadata for a specific index
+  const metadata = getAnalyticsMetadata(results, { indexUid: 'movies' })
+  if (metadata) {
+    console.log('Query UID:', metadata.queryUid) // UUID v7 identifying the query
+    console.log('Index UID:', metadata.indexUid)
+    console.log('Primary key:', metadata.primaryKey)
   }
 })
+```
+
+You can also access metadata directly from the raw results:
+
+```ts
+search.on('render', () => {
+  const results = search.helper?.lastResults
+  if (results?._rawResults?.[0]?._meilisearch?.metadata) {
+    const { queryUid, indexUid, primaryKey } = results._rawResults[0]._meilisearch.metadata
+    console.log('Query UID:', queryUid)
+    console.log('Index UID:', indexUid)
+    console.log('Primary key:', primaryKey)
+  }
+})
+```
+
+#### Using metadata for analytics events
+
+Each hit now includes a `__position` field that you can use for click events:
+
+```ts
+import { connectHits } from 'instantsearch.js/es/connectors'
+import { getAnalyticsMetadata } from '@meilisearch/instant-meilisearch'
+
+const renderHits = (renderOptions) => {
+  const { hits, results } = renderOptions
+
+  // Get metadata for sending analytics events
+  const metadata = getAnalyticsMetadata(results, { indexUid: 'movies' })
+
+  document.querySelector('#hits').innerHTML = hits
+    .map((hit) => `
+      <article>
+        <h2>${hit.title}</h2>
+        <button onclick="sendClickEvent('${hit.objectID}', ${hit.__position})">
+          View Details
+        </button>
+      </article>
+    `)
+    .join('')
+
+  window.sendClickEvent = (objectId, position) => {
+    if (metadata) {
+      fetch('/events', {
+        method: 'POST',
+        body: JSON.stringify({
+          eventType: 'click',
+          queryUid: metadata.queryUid,
+          indexUid: metadata.indexUid,
+          objectId: objectId,
+          position: position
+        })
+      })
+    }
+  }
+}
+
+connectHits(renderHits)
 ```
 
 #### Self-hosted instances
