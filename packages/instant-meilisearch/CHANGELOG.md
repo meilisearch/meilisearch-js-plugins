@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.30.0
+
+### Minor Changes
+
+- 4bcefa0: Add Meilisearch analytics compatibility
+
 ## 0.29.1
 
 ### Patch Changes

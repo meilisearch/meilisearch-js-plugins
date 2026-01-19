@@ -1,5 +1,16 @@
 # @meilisearch/autocomplete-client
 
+## 0.7.0
+
+### Minor Changes
+
+- 4bcefa0: Add Meilisearch analytics compatibility
+
+### Patch Changes
+
+- Updated dependencies [4bcefa0]
+  - @meilisearch/instant-meilisearch@0.30.0
+
 ## 0.6.1
 
 ### Patch Changes
