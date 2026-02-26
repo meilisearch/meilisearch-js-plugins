@@ -11,7 +11,7 @@ landing_getting_started_1: |-
       const search = instantsearch({
         indexName: 'movies',
         searchClient: instantMeiliSearch(
-          'http://localhost:7700',
+          'MEILISEARCH_URL',
           'searchKey'
         ).searchClient,
       })
@@ -58,7 +58,7 @@ getting_started_front_end_integration_md: |-
       const search = instantsearch({
         indexName: "movies",
         searchClient: instantMeiliSearch(
-          "http://localhost:7700"
+          "MEILISEARCH_URL"
         ).searchClient
         });
         search.addWidgets([
