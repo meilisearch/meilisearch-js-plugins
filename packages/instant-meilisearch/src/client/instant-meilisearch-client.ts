@@ -163,7 +163,7 @@ export function instantMeiliSearch(
           return instantSearchResponse
         } catch (e: any) {
           console.error(e)
-          throw new Error(e)
+          throw new Error(e, { cause: e })
         }
       },
       searchForFacetValues: async function (
