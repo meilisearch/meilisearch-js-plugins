@@ -12,6 +12,6 @@ export function isString(str: any): boolean {
  */
 export function stringifyArray(arr: any[]): string {
   return arr.reduce((acc: string, curr: any) => {
-    return (acc + JSON.stringify(curr))
+    return acc + JSON.stringify(curr)
   }, '')
 }
