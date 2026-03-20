@@ -11,7 +11,7 @@
   <a href="https://discord.meilisearch.com">Discord</a> |
   <a href="https://roadmap.meilisearch.com/tabs/1-under-consideration">Roadmap</a> |
   <a href="https://www.meilisearch.com">Website</a> |
-  <a href="https://www.meilisearch.com/docs/faq">FAQ</a>
+  <a href="https://www.meilisearch.com/docs/learn/resources/faq">FAQ</a>
 </h4>
 
 <p align="center">
@@ -35,7 +35,7 @@ If you use Angular, React, or Vue, you might want to check out these repositorie
 - [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
 - [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
 
-NB: If you don't have any Meilisearch instance running and containing your data, you should take a look at this [getting started page](https://www.meilisearch.com/docs/learn/getting_started/installation).
+NB: If you don't have any Meilisearch instance running and containing your data, you should take a look at this [getting started page](https://www.meilisearch.com/docs/learn/self_hosted/install_meilisearch_locally).
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -147,7 +147,7 @@ where `searchClient` is to be passed to instantsearch.js or its many framework a
 ### Parameters
 
 - `Host` - URL of Meilisearch instance
-- `API Key` - Meilisearch access API Key. This can either be a string or a synchronous function that returns a string. ⚠️ Prefer using a key with only [search permissions](https://www.meilisearch.com/docs/learn/security/master_api_keys#master-key-and-api-keys) as it is used on your front-end.
+- `API Key` - Meilisearch access API Key. This can either be a string or a synchronous function that returns a string. ⚠️ Prefer using a key with only [search permissions](https://www.meilisearch.com/docs/learn/security/basic_security#master-key-and-api-keys) as it is used on your front-end.
 
 ## 💅 Customization
 
@@ -201,7 +201,7 @@ Example:
 
 ### Primary key
 
-Specify the field in your documents containing the [unique identifier](https://www.meilisearch.com/docs/learn/core_concepts/documents#primary-field) (`undefined` by default). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
+Specify the field in your documents containing the [unique identifier](https://www.meilisearch.com/docs/learn/getting_started/documents#primary-field) (`undefined` by default). By adding this option, we avoid instantSearch errors that are thrown in the browser console. In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
 
 ```js
 { primaryKey : 'id' } // default: undefined
@@ -268,7 +268,7 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 ### Meilisearch Analytics
 
 > [!NOTE]
-> [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch).
+> [Search metadata](https://www.meilisearch.com/docs/reference/api/authorization?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch).
 
 Search metadata is useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
 
@@ -384,19 +384,19 @@ const { searchClient } = instantMeiliSearch(
 
 `meiliSearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
 The following options can be overridden:
-- [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
-- [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
-- [`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-retrieve)
-- [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#customize-attributes-to-search-on-at-search-time)
-- [`cropLength`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-length)
-- [`cropMarker`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-marker)
+- [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
+- [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
+- [`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-retrieve)
+- [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#customize-attributes-to-search-on-at-search-time)
+- [`cropLength`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-length)
+- [`cropMarker`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-marker)
 - [`distinct`](https://www.meilisearch.com/docs/learn/relevancy/distinct_attribute)
-- [`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#highlight-tags)
-- [`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
-- [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
-- [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
-- [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
-- [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
+- [`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#highlight-tags)
+- [`hybrid`](https://www.meilisearch.com/docs/learn/ai_powered_search/getting_started_with_ai_search)
+- [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
+- [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
+- [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
+- [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
 ```js
 instantMeiliSearch(
@@ -468,7 +468,7 @@ setMeiliSearchParams({
 
 The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widgets/js/) library powered by Algolia provides all the front-end tools you need to highly customize your search bar environment.
 
-InstantSearch requires that you provide an indexName. The indexName corresponds to the [index `uid`](https://www.meilisearch.com/docs/learn/core_concepts/indexes#indexes) in which your document are stored in Meilisearch.
+InstantSearch requires that you provide an indexName. The indexName corresponds to the [index `uid`](https://www.meilisearch.com/docs/learn/getting_started/indexes#indexes) in which your document are stored in Meilisearch.
 
 In `index.html`:
 
@@ -607,7 +607,7 @@ List of all the components that are available in [instantSearch](https://github.
 
 `instantSearch` is the main component. It manages the widget and lets you add new ones.
 
-- ✅ IndexName: [`uid` of your index](https://www.meilisearch.com/docs/learn/core_concepts/indexes#indexes). _required_
+- ✅ IndexName: [`uid` of your index](https://www.meilisearch.com/docs/learn/getting_started/indexes#indexes). _required_
 - ✅ SearchClient: Search client, in our case instant-meilisearch. See [customization](#-customization) for details on options. _required_
 - ❌ numberLocale: Does not work with both Algoliasearch and instant-meilisearch.
 - ✅ searchFunction: Surcharge the search function provided by the search client.
@@ -673,7 +673,7 @@ Because these are the search parameters of AlgoliaSearch and not the InstantSear
 Since we do not act as AlgoliaSearch on search parameters, detailed compatibility can be found in [this issue](https://github.com/meilisearch/meilisearch-js-plugins/issues/389).<br>
 This component should only be used if no other component provides the same configuration.
 
-We also suggest looking at [Meilisearch's search parameters](https://www.meilisearch.com/docs/reference/api/search#search-parameters) to determine how they act.
+We also suggest looking at [Meilisearch's search parameters](https://www.meilisearch.com/docs/reference/api/search/search-with-post#search-parameters) to determine how they act.
 
 ```js
 instantsearch.widgets.configure({
@@ -819,7 +819,7 @@ The `snippet` function returns an attribute from a hit into its snippet form, wh
 
 Note that the attribute has to be added to `attributesToSnippet` in [configuration](#-configure). Highlight is applied on snippeted fields.
 
-Snippeting is called `cropping` in Meilisearch, [more about it here](https://www.meilisearch.com/docs/reference/api/search#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
+Snippeting is called `cropping` in Meilisearch, [more about it here](https://www.meilisearch.com/docs/reference/api/search/search-with-post#attributes-to-retrieve). It is possible to change the size of the snippeting by adding its character size in the attributesToSnippet parameter. <br>
 For example: `"description:40"`.
 
 The `40` value represents the number of characters (rounded down to always have full words) and not the number of words. Thus, the snippet string size is always equal to or lower than `40` characters.
@@ -1012,7 +1012,7 @@ The `hierarchicalMenu` widget is used to create navigation based on a hierarchy 
 #### Hierarchical Menu Usage
 To make it work with Meilisearch your documents must have a specific structure, an explanation of the structure can [be found here](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/#requirements).
 
-Contrary to `instantsearch.js`, the hierarchical fields are added in [`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings#filterable-attributes).
+Contrary to `instantsearch.js`, the hierarchical fields are added in [`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings/list-all-settings#filterable-attributes).
 
 Example:
 Give the following document structure:
@@ -1054,7 +1054,7 @@ The `rangeSlider` widget provides a user-friendly way to filter the results, bas
 - ✅ tooltips: Whether to show tooltips. The default tooltips show the raw value.
 - ✅ cssClasses: The CSS classes to override.
 
-To be able to use the `rangeSlider` on an attribute, the attribute must be in the[`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings#filterable-attributes) and must contain numeric values.
+To be able to use the `rangeSlider` on an attribute, the attribute must be in the[`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings/list-all-settings#filterable-attributes) and must contain numeric values.
 
 ### ✅ Menu
 
@@ -1098,7 +1098,7 @@ The `rangeInput` widget allows a user to select a numeric range using a minimum 
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-To be able to use the `RangeInput` on an attribute, the attribute must be in the[`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings#filterable-attributes) and must contain numeric values.
+To be able to use the `RangeInput` on an attribute, the attribute must be in the[`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings/list-all-settings#filterable-attributes) and must contain numeric values.
 
 ### ✅ MenuSelect
 
@@ -1154,7 +1154,7 @@ The `RatingMenu` widget lets the user refine search results by clicking on stars
 - ✅ templates: The templates to use for the widget.
 - ✅ cssClasses: The CSS classes to override.
 
-Contrary to `instantsearch.js`, To be able to use `RatingMenu` the field containing the rating has to be added in the [`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings#filterable-attributes) setting in your index settings.
+Contrary to `instantsearch.js`, To be able to use `RatingMenu` the field containing the rating has to be added in the [`filterableAttributes`](https://www.meilisearch.com/docs/reference/api/settings/list-all-settings#filterable-attributes) setting in your index settings.
 
 ### ✅ ClearRefinements
 
@@ -1282,7 +1282,7 @@ A sort formula is expressed like this: `index:attribute:order`.
 
 `index` is mandatory, and when adding `attribute:order`, they must always be added together.
 
-When sorting on an attribute, the attribute has to be added to the [`sortableAttributes`](https://www.meilisearch.com/docs/reference/api/settings#sortable-attributes) setting on your index.
+When sorting on an attribute, the attribute has to be added to the [`sortableAttributes`](https://www.meilisearch.com/docs/reference/api/settings/list-all-settings#sortable-attributes) setting on your index.
 
 Example:
 ```js
@@ -1295,9 +1295,9 @@ In this scenario, in the `clothes` index, we want the price to be sorted in an a
 
 #### Relevancy
 
-The impact sorting has on the returned hits is determined by the [`ranking-rules`](https://www.meilisearch.com/docs/learn/core_concepts/relevancy#ranking-rules) ordered list of each index. The `sort` ranking-rule position in the list makes sorting documents more or less important than other rules. If you want to change the sort impact on the relevancy, it is possible to change it in the [ranking-rule setting](https://www.meilisearch.com/docs/learn/core_concepts/relevancy#relevancy). For example, to favor exhaustivity over relevancy.
+The impact sorting has on the returned hits is determined by the [`ranking-rules`](https://www.meilisearch.com/docs/learn/relevancy/relevancy#ranking-rules) ordered list of each index. The `sort` ranking-rule position in the list makes sorting documents more or less important than other rules. If you want to change the sort impact on the relevancy, it is possible to change it in the [ranking-rule setting](https://www.meilisearch.com/docs/learn/relevancy/relevancy#relevancy). For example, to favor exhaustivity over relevancy.
 
-See [relevancy guide](https://www.meilisearch.com/docs/learn/core_concepts/relevancy#relevancy).
+See [relevancy guide](https://www.meilisearch.com/docs/learn/relevancy/relevancy#relevancy).
 
 #### Example
 
