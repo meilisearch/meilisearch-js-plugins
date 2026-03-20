@@ -11,7 +11,7 @@
   <a href="https://discord.meilisearch.com">Discord</a> |
   <a href="https://roadmap.meilisearch.com/tabs/1-under-consideration">Roadmap</a> |
   <a href="https://www.meilisearch.com">Website</a> |
-  <a href="https://www.meilisearch.com/docs/faq">FAQ</a>
+  <a href="https://www.meilisearch.com/docs/learn/resources/faq">FAQ</a>
 </h4>
 
 <p align="center">
@@ -159,7 +159,7 @@ When placeholder search is set to `false`, no results appears when the search bo
 
 ### Primary key
 
-Specify the field in your documents containing the [unique identifier](https://www.meilisearch.com/docs/learn/core_concepts/documents#primary-field) (`undefined` by default). By adding this option, we avoid errors that are thrown in some environments. For example, In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
+Specify the field in your documents containing the [unique identifier](https://www.meilisearch.com/docs/learn/getting_started/documents#primary-field) (`undefined` by default). By adding this option, we avoid errors that are thrown in some environments. For example, In `React` particularly, this option removes the `Each child in a list should have a unique "key" prop` error.
 
 ```js
 { primaryKey : 'id' } // default: undefined
@@ -230,24 +230,24 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 
 `meiliSearchParams` lets you override the parameters sent to Meilisearch.
 The following options can be overridden:
-- [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
-- [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
-- [`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-retrieve)
-- [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#customize-attributes-to-search-on-at-search-time)
-- [`cropLength`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-length)
-- [`cropMarker`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-marker)
+- [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
+- [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
+- [`attributesToRetrieve`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-retrieve)
+- [`attributesToSearchOn`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#customize-attributes-to-search-on-at-search-time)
+- [`cropLength`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-length)
+- [`cropMarker`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#crop-marker)
 - [`distinct`](https://www.meilisearch.com/docs/learn/relevancy/distinct_attribute)
-- [`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#highlight-tags)
-- [`hybrid`](https://www.meilisearch.com/docs/learn/experimental/vector_search)
-- [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
-- [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
-- [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
-- [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
+- [`highlightPreTag`, `highlightPostTag`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#highlight-tags)
+- [`hybrid`](https://www.meilisearch.com/docs/learn/ai_powered_search/getting_started_with_ai_search)
+- [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
+- [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
+- [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
+- [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search/search-with-post?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
 ## Meilisearch Analytics
 
 > [!NOTE]
-> [Search metadata](https://www.meilisearch.com/docs/reference/api/overview?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client).
+> [Search metadata](https://www.meilisearch.com/docs/reference/api/authorization?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client#search-metadata) is enabled by default on [Meilisearch Cloud](https://www.meilisearch.com/cloud?utm_campaign=oss&utm_source=github&utm_medium=autocomplete-client).
 
 Search metadata is useful for interacting with the [Meilisearch Analytics Events](https://www.meilisearch.com/docs/learn/analytics/events_endpoint).
 
