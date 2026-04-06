@@ -353,7 +353,7 @@ This package guarantees compatibility with [version v1.x of Meilisearch](https:/
 
 **Node / NPM versions**:
 
-- NodeJS >= 18
+- NodeJS >= 20.19.0
 
 ## ⚙️ Development Workflow and Contributing
 

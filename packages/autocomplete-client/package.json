@@ -6,6 +6,9 @@
   "scripts": {
     "build": "tsc"
   },
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
