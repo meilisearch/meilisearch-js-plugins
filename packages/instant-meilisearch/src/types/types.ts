@@ -34,7 +34,6 @@ export type {
   Config as MeilisearchConfig,
 } from 'meilisearch'
 
-/** The Meilisearch client class type (instance shape). */
 export type Meilisearch = MeilisearchClient
 
 export type MeilisearchMultiSearchParams = MultiSearchQuery

@@ -41,7 +41,7 @@ What we expect:
 ### Setup
 
 ```bash
-nvm use # Uses .nvmrc (Node v20.19.0)
+nvm use # Uses .nvmrc
 pnpm install
 ```
 
