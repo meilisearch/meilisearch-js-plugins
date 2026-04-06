@@ -4,7 +4,7 @@ import type {
 } from '@algolia/client-search'
 import type { InstantSearchOptions } from 'instantsearch.js/es/lib/InstantSearch.js'
 import type {
-  MultiSearchQuery as MeiliSearchMultiSearchParams,
+  MultiSearchQuery,
   MultiSearchResult,
   Config as MeilisearchConfig,
   Meilisearch,
@@ -31,9 +31,19 @@ export type {
   FacetDistribution,
   Meilisearch,
   FacetStats as MeiliFacetStats,
-  MultiSearchQuery as MeiliSearchMultiSearchParams,
   Config as MeilisearchConfig,
 } from 'meilisearch'
+
+/** The Meilisearch client class type (instance shape). */
+export type Meilisearch = MeilisearchClient
+
+export type MeilisearchMultiSearchParams = MultiSearchQuery
+
+/** @deprecated Use {@link Meilisearch} instead. */
+export type MeiliSearch = Meilisearch
+
+/** @deprecated Use {@link MeilisearchMultiSearchParams} instead. */
+export type MeiliSearchMultiSearchParams = MeilisearchMultiSearchParams
 
 export type ApiKeyCallback = () => string
 
@@ -42,7 +52,7 @@ export type InstantSearchParams = NonNullable<
 >
 
 type BaseOverridableMeiliSearchSearchParameters = Pick<
-  MeiliSearchMultiSearchParams,
+  MeilisearchMultiSearchParams,
   | 'sort'
   | 'hitsPerPage'
   | 'filter'
@@ -170,7 +180,7 @@ export type InstantMeiliSearchObject = {
 
 export type MultiSearchResolver = {
   multiSearch: (
-    searchQueries: MeiliSearchMultiSearchParams[],
+    searchQueries: MeilisearchMultiSearchParams[],
     instantSearchPagination: PaginationState[]
   ) => Promise<MeilisearchMultiSearchResult[]>
 }
