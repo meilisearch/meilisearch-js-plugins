@@ -8,9 +8,9 @@ import {
   HITS_PER_PAGE,
 } from '../constants/index.js'
 import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.js'
-import { FieldHighlight } from 'instantsearch.js/es/types/algoliasearch'
 import { calculateHighlightMetadata } from './highlight.js'
-import { mapOneOrMany } from '../utils.js'
+
+const MAX_HIGHLIGHT_DEPTH = 20
 
 interface SearchParams {
   /** The initialized Meilisearch search client. */
@@ -69,30 +69,35 @@ function buildHits<TRecord>(
   result: AlgoliaSearchResponse<TRecord>,
   query: AlgoliaMultipleQueriesQuery
 ) {
+  const queryStr = query.query || ''
+  const preTag = query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG
+  const postTag = query.params?.highlightPostTag || HIGHLIGHT_POST_TAG
+
   return result.hits.map((hit) => {
     const enrichedHit: any = {
       ...hit,
-      _highlightResult: (
-        Object.entries(hit?._highlightResult || {}) as Array<
-          [keyof TRecord, PossibleHighlightResult]
-        >
-      ).reduce((acc, [field, highlightResult]) => {
-        if (!isDefinedHighlightValue(highlightResult)) {
-          return acc
-        }
-
-        // if the field is an array, highlightResult is an array of objects
-        acc[field] = mapOneOrMany(highlightResult, (highlightResult) =>
-          calculateHighlightMetadata(
-            query.query || '',
-            query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-            query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
-            highlightResult.value
+      _highlightResult: Object.entries(hit?._highlightResult || {}).reduce(
+        (acc, [field, highlightResult]) => {
+          if (
+            !shouldIncludeTopLevelHighlightField(
+              highlightResult,
+              preTag,
+              postTag
+            )
+          ) {
+            return acc
+          }
+          acc[field] = enrichHighlightTree(
+            highlightResult,
+            queryStr,
+            preTag,
+            postTag,
+            0
           )
-        )
-
-        return acc
-      }, {} as FieldHighlight<TRecord>),
+          return acc
+        },
+        {} as Record<string, unknown>
+      ),
     }
 
     // Attach metadata to each hit if present (for Meilisearch Cloud Analytics)
@@ -120,4 +125,87 @@ function isDefinedHighlightValue(
   }
 
   return typeof input.value === 'string'
+}
+
+function shouldIncludeTopLevelHighlightField(
+  input: unknown,
+  preTag: string,
+  postTag: string
+): boolean {
+  if (input === null || input === undefined) {
+    return false
+  }
+  if (isDefinedHighlightValue(input as PossibleHighlightResult)) {
+    return true
+  }
+  if (!preTag || !postTag) {
+    return false
+  }
+  return highlightTreeContainsMarkers(input, preTag, postTag, 0)
+}
+
+function highlightTreeContainsMarkers(
+  input: unknown,
+  preTag: string,
+  postTag: string,
+  depth: number
+): boolean {
+  if (depth > MAX_HIGHLIGHT_DEPTH) {
+    return false
+  }
+  if (input === null || input === undefined) {
+    return false
+  }
+  if (Array.isArray(input)) {
+    return input.some((item) =>
+      highlightTreeContainsMarkers(item, preTag, postTag, depth + 1)
+    )
+  }
+  if (typeof input === 'object') {
+    const obj = input as Record<string, unknown>
+    if (typeof obj.value === 'string') {
+      return obj.value.includes(preTag) && obj.value.includes(postTag)
+    }
+    return Object.values(obj).some((v) =>
+      highlightTreeContainsMarkers(v, preTag, postTag, depth + 1)
+    )
+  }
+  return false
+}
+
+function enrichHighlightTree(
+  input: unknown,
+  query: string,
+  preTag: string,
+  postTag: string,
+  depth: number
+): unknown {
+  if (depth > MAX_HIGHLIGHT_DEPTH) {
+    return input
+  }
+
+  if (input === null || input === undefined) {
+    return input
+  }
+
+  if (Array.isArray(input)) {
+    return input.map((item) =>
+      enrichHighlightTree(item, query, preTag, postTag, depth + 1)
+    )
+  }
+
+  if (typeof input === 'object') {
+    const obj = input as Record<string, unknown>
+    if (typeof obj.value === 'string') {
+      const meta = calculateHighlightMetadata(query, preTag, postTag, obj.value)
+      return { ...obj, ...meta }
+    }
+    const out: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = enrichHighlightTree(v, query, preTag, postTag, depth + 1)
+    }
+    return out
+  }
+
+  return input
 }

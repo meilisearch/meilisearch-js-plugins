@@ -7,6 +7,7 @@ export interface HighlightMetadata {
 
 /**
  * Calculate the highlight metadata for a given highlight value.
+ *
  * @param query - The query string.
  * @param preTag - The pre tag.
  * @param postTag - The post tag.
@@ -44,7 +45,14 @@ export function calculateHighlightMetadata(
   // - 'full' if the highlighted text is the entire field value content
   let matchLevel: 'none' | 'partial' | 'full' = 'none'
   if (matches.length > 0) {
-    matchLevel = cleanValue.includes(query) ? 'full' : 'partial'
+    const trimmedQuery = query.trim()
+    if (!trimmedQuery) {
+      matchLevel = 'partial'
+    } else {
+      const cleanLower = cleanValue.toLowerCase()
+      const queryLower = trimmedQuery.toLowerCase()
+      matchLevel = cleanLower.includes(queryLower) ? 'full' : 'partial'
+    }
   }
 
   return {
