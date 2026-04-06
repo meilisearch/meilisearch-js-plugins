@@ -29,12 +29,6 @@ This library is the search client that you should use to make [Meilisearch](http
 
 Instead of reinventing the wheel, we have opted to reuse the InstantSearch library for our own front-end tooling. We will contribute upstream any improvements that may result from our adoption of InstantSearch.
 
-If you use Angular, React, or Vue, you might want to check out these repositories:
-
-- [meilisearch-angular](https://github.com/meilisearch/meilisearch-angular/)
-- [meilisearch-react](https://github.com/meilisearch/meilisearch-react/)
-- [meilisearch-vue](https://github.com/meilisearch/meilisearch-vue/)
-
 NB: If you don't have any Meilisearch instance running and containing your data, you should take a look at this [getting started page](https://www.meilisearch.com/docs/learn/getting_started/installation).
 
 ## Table of Contents <!-- omit in toc -->
