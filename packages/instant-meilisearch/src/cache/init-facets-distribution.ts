@@ -1,7 +1,7 @@
 import type {
   FacetDistribution,
   SearchContext,
-  MeiliSearchMultiSearchParams,
+  MeilisearchMultiSearchParams,
   MultiSearchResolver,
   MeilisearchMultiSearchResult,
 } from '../types/index.js'
@@ -10,7 +10,7 @@ import { removeDuplicate } from '../utils/index.js'
 
 export function getParametersWithoutFilters(
   searchContext: SearchContext
-): MeiliSearchMultiSearchParams {
+): MeilisearchMultiSearchParams {
   const defaultSearchContext = {
     ...searchContext,
     // placeholdersearch true to ensure a request is made
@@ -30,7 +30,7 @@ export function getParametersWithoutFilters(
 // Used to fill the missing facet values when `keepZeroFacets` is set to true
 export async function initFacetDistribution(
   searchResolver: MultiSearchResolver,
-  queries: MeiliSearchMultiSearchParams[],
+  queries: MeilisearchMultiSearchParams[],
   initialFacetDistribution: Record<string, FacetDistribution>
 ): Promise<Record<string, FacetDistribution>> {
   const removeIndexUidDuplicates = removeDuplicate('indexUid')

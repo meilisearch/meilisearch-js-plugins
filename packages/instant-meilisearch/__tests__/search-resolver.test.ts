@@ -22,7 +22,7 @@ function getMeiliSearchMultiSearchSpy(meiliSearch: Meilisearch) {
     .spyOn(meiliSearch, 'multiSearch')
     .mockImplementation(function (request) {
       const response = request.queries.map(
-        (req: MeiliSearchMultiSearchParams) => ({
+        (req: MeilisearchMultiSearchParams) => ({
           ...searchResponse,
           indexUid: req.indexUid,
         })

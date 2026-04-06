@@ -1,7 +1,7 @@
 import type {
   Meilisearch,
   SearchCacheInterface,
-  MeiliSearchMultiSearchParams,
+  MeilisearchMultiSearchParams,
   MeilisearchMultiSearchResult,
   PaginationState,
 } from '../../types/index.js'
@@ -13,7 +13,7 @@ export function SearchResolver(
 ) {
   return {
     multiSearch: async function (
-      searchQueries: MeiliSearchMultiSearchParams[],
+      searchQueries: MeilisearchMultiSearchParams[],
       instantSearchPagination: PaginationState[]
     ): Promise<MeilisearchMultiSearchResult[]> {
       const key = cache.formatKey([searchQueries])
