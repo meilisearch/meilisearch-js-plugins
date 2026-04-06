@@ -3,7 +3,7 @@ description: "Install pnpm, configure Node.js, and install dependencies with pnp
 inputs:
   node-version:
     description: "Same as in actions/setup-node"
-    default: "20.19.0"
+    default: "lts/*"
   registry-url:
     description: "Same as in actions/setup-node"
     default: ""
