@@ -6,6 +6,9 @@
     "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
   "scripts": {
     "playground:vanilla": "turbo @meilisearch/vanilla-playground#dev",
     "playground:vue3": "turbo @meilisearch/vue3-playground#dev",
