@@ -8,6 +8,7 @@ import {
   HITS_PER_PAGE,
 } from '../constants/index.js'
 import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.js'
+import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.js'
 import { calculateHighlightMetadata } from './highlight.js'
 
 const MAX_HIGHLIGHT_DEPTH = 20
@@ -96,7 +97,7 @@ function buildHits<TRecord>(
           )
           return acc
         },
-        {} as Record<string, unknown>
+        {} as HighlightResult<TRecord>
       ),
     }
 
