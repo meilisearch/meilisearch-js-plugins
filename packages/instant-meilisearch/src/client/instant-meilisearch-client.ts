@@ -11,28 +11,28 @@ import type {
   InstantMeiliSearchObject,
   ApiKeyCallback,
   MeilisearchSearchResponse,
-} from '../types/index.js'
+} from '../types/index.ts'
 import {
   getApiKey,
   getInstantMeilisearchConfig,
   validateInstantMeiliSearchParams,
-} from './config/index.js'
+} from './config/index.ts'
 import {
   adaptSearchResults,
   adaptSearchParams,
   SearchResolver,
-} from '../adapter/index.js'
+} from '../adapter/index.ts'
 import {
   createSearchContext,
   createFacetSearchContext,
-} from '../contexts/index.js'
+} from '../contexts/index.ts'
 import {
   SearchCache,
   initFacetDistribution,
   getParametersWithoutFilters,
   fillMissingFacets,
-} from '../cache/index.js'
-import { constructClientAgents } from './agents.js'
+} from '../cache/index.ts'
+import { constructClientAgents } from './agents.ts'
 
 /**
  * Instantiate SearchClient required by instantsearch.js.

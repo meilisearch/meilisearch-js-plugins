@@ -5,10 +5,6 @@
     "type": "git",
     "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
-  "workspaces": [
-    "packages/*",
-    "playgrounds/*"
-  ],
   "type": "module",
   "scripts": {
     "playground:vanilla": "turbo @meilisearch/vanilla-playground#dev",
@@ -26,11 +22,11 @@
     "style": "pnpm fmt && pnpm lint",
     "style:fix": "pnpm fmt:fix && pnpm lint:fix",
     "build": "turbo build",
-    "test": "pnpm build && vitest run",
-    "test:watch": "pnpm build && vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "instant-meilisearch:test:watch": "vitest --project \"@meilisearch/instant-meilisearch\"",
     "autocomplete:test:watch": "vitest --project \"@meilisearch/autocomplete-client\"",
-    "test:types": "pnpm build && tsc --noEmit",
+    "test:types": "tsc",
     "version-packages": "changeset version && turbo version",
     "release": "pnpm build && changeset publish"
   },
@@ -69,12 +65,12 @@
     "react-router-dom": "7.13.2",
     "search-insights": "2.17.3",
     "turbo": "2.7.2",
-    "typescript": "5.7.3",
+    "typescript": "5.9.3",
     "typescript-eslint": "8.58.0",
     "vite": "8.0.3",
-    "vitest": "4.0.16",
+    "vitest": "4.1.2",
     "vue": "3.5.25",
     "vue-instantsearch": "4.22.6"
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@10.33.0"
 }

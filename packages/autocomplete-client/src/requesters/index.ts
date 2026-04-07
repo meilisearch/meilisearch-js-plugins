@@ -1,3 +1,3 @@
-export * from './createMeilisearchRequester.js'
-export * from './createRequester.js'
-export * from './getMeilisearchResults.js'
+export * from './createMeilisearchRequester.ts'
+export * from './createRequester.ts'
+export * from './getMeilisearchResults.ts'

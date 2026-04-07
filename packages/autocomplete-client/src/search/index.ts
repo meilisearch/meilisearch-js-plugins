@@ -1,1 +1,1 @@
-export * from './fetchMeilisearchResults.js'
+export * from './fetchMeilisearchResults.ts'

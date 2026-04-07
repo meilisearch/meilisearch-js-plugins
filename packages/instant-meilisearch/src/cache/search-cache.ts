@@ -1,5 +1,5 @@
-import type { SearchCacheInterface } from '../types/index.js'
-import { stringifyArray } from '../utils/index.js'
+import type { SearchCacheInterface } from '../types/index.ts'
+import { stringifyArray } from '../utils/index.ts'
 /**
  * @param {Record<string} cache
  * @returns {SearchCache}

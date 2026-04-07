@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { fillMissingFacets } from '../init-facets-distribution.js'
+import { fillMissingFacets } from '../init-facets-distribution.ts'
 
 describe('Fill missing facets', () => {
   it('should fill missing facets without changing the results', () => {

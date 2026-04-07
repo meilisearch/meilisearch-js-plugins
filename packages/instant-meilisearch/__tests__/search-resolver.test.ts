@@ -1,9 +1,9 @@
 import { describe, afterEach, test, expect, vi } from 'vitest'
-import type { Movies } from './assets/utils.js'
-import { instantMeiliSearch } from '../src/index.js'
+import type { Movies } from './assets/utils.ts'
+import { instantMeiliSearch } from '../src/index.ts'
 import { MeiliSearch } from 'meilisearch'
-import { PACKAGE_VERSION } from '../src/package-version.js'
-import type { MeiliSearchMultiSearchParams } from '../src/types/index.js'
+import pkg from '../package.json' with { type: 'json' }
+import type { MeiliSearchMultiSearchParams } from '../src/types/index.ts'
 
 export const searchResponse = {
   hits: [],
@@ -57,7 +57,7 @@ describe('Cached search tests', () => {
     expect(MeiliSearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
+      clientAgents: [`Meilisearch instant-meilisearch (v${pkg.version})`],
     })
     expect(mockedMultiSearch).toHaveBeenCalledTimes(2)
   })
@@ -87,7 +87,7 @@ describe('Cached search tests', () => {
     expect(MeiliSearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
+      clientAgents: [`Meilisearch instant-meilisearch (v${pkg.version})`],
     })
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
@@ -118,7 +118,7 @@ describe('Cached search tests', () => {
     expect(MeiliSearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
+      clientAgents: [`Meilisearch instant-meilisearch (v${pkg.version})`],
     })
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
@@ -150,7 +150,7 @@ describe('Cached search tests', () => {
     expect(MeiliSearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
+      clientAgents: [`Meilisearch instant-meilisearch (v${pkg.version})`],
     })
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)
   })
@@ -190,7 +190,7 @@ describe('Cached search tests', () => {
     expect(MeiliSearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
-      clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
+      clientAgents: [`Meilisearch instant-meilisearch (v${pkg.version})`],
     })
 
     expect(mockedMultiSearch).toHaveBeenCalledTimes(3)

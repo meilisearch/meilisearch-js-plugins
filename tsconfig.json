@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
-    // We don't want to check node_modules
+    "noEmit": true,
     "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "module": "nodenext",
-    // Node.js 18 supports up to ES2022 according to https://www.npmjs.com/package/@tsconfig/node18
-    "target": "es2022",
-    "lib": ["ESNext", "dom"],
+    "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true,
+    "module": "node20",
+    "target": "ES2023",
+    "lib": ["ESNext", "DOM"],
     "resolveJsonModule": true,
     "strict": true,
     "verbatimModuleSyntax": true

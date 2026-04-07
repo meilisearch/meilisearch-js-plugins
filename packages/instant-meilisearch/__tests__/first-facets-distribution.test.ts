@@ -1,6 +1,6 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { dataset, meilisearchClient, HOST, API_KEY } from './assets/utils.js'
-import { instantMeiliSearch } from '../src/index.js'
+import { dataset, meilisearchClient, HOST, API_KEY } from './assets/utils.ts'
+import { instantMeiliSearch } from '../src/index.ts'
 
 describe('Default facet distribution', () => {
   beforeAll(async () => {

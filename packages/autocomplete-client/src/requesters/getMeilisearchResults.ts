@@ -1,4 +1,4 @@
-import { createMeilisearchRequester } from './createMeilisearchRequester.js'
+import { createMeilisearchRequester } from './createMeilisearchRequester.ts'
 
 /** Retrieves Meilisearch results from multiple indexes. */
 export const getMeilisearchResults = createMeilisearchRequester({

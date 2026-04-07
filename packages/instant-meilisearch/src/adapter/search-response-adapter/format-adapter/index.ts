@@ -1,1 +1,1 @@
-export * from './format-adapter.js'
+export * from './format-adapter.ts'

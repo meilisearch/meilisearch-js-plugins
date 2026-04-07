@@ -1,4 +1,4 @@
-import { isPureObject } from '../../../utils/index.js'
+import { isPureObject } from '../../../utils/index.ts'
 
 /**
  * Stringify values following instantsearch practices.

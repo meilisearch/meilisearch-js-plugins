@@ -1,4 +1,4 @@
-import type { InstantSearchGeoParams } from '../../types/index.js'
+import type { InstantSearchGeoParams } from '../../types/index.ts'
 
 export function adaptGeoSearch({
   insidePolygon,

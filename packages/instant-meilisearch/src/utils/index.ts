@@ -1,3 +1,3 @@
-export * from './array.js'
-export * from './string.js'
-export * from './object.js'
+export * from './array.ts'
+export * from './string.ts'
+export * from './object.ts'

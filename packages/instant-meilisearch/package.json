@@ -11,9 +11,6 @@
     "type": "git",
     "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "author": {
     "name": "Meilisearch",
     "url": "https://meilisearch.com"
@@ -28,13 +25,14 @@
     "version": "node scripts/update_version.cjs"
   },
   "type": "module",
-  "types": "./dist/types/index.d.ts",
-  "main": "./dist/umd/index.min.js",
   "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "default": "./dist/umd/index.min.js"
+    ".": "./src/index.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
     }
   },
   "sideEffects": false,
@@ -44,6 +42,6 @@
     "templates"
   ],
   "dependencies": {
-    "meilisearch": "0.54"
+    "meilisearch": "0.54.0"
   }
 }

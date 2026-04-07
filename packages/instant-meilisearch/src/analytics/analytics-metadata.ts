@@ -1,7 +1,7 @@
 import type {
   MeilisearchSearchMetadata,
   MeilisearchSearchResponse,
-} from '../types/index.js'
+} from '../types/index.ts'
 
 /**
  * Get Meilisearch metadata for a specific index from InstantSearch results.

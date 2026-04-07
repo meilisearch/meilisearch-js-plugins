@@ -4,7 +4,7 @@ import {
   dataset,
   type Movies,
   meilisearchClient,
-} from './assets/utils.js'
+} from './assets/utils.ts'
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {
@@ -24,7 +24,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
 
-    const hit = <Movies>response.results[0].hits[0]
+    const hit = response.results[0].hits[0] as Movies
     expect(hit.id).not.toBeDefined()
     expect(hit.overview).not.toBeDefined()
     expect(hit.genres).not.toBeDefined()
@@ -43,7 +43,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
 
-    const hit = <Movies>response.results[0].hits[0]
+    const hit = response.results[0].hits[0] as Movies
     expect(hit.id).not.toBeDefined()
     expect(hit.overview).not.toBeDefined()
     expect(hit.genres).not.toBeDefined()
@@ -63,7 +63,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
 
-    const hit = <Movies>response.results[0].hits[0]
+    const hit = response.results[0].hits[0] as Movies
     expect(hit._highlightResult?.id).toBeDefined()
     expect(hit._highlightResult?.overview).toBeDefined()
     expect(hit._highlightResult?.genres).toBeDefined()
@@ -83,7 +83,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
 
-    const hit = <Movies>response.results[0].hits[0]
+    const hit = response.results[0].hits[0] as Movies
     expect(hit.title).toEqual('Ariel')
     expect(hit.id).not.toBeDefined()
     expect(hit.overview).not.toBeDefined()
@@ -103,7 +103,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
 
-    const hit = <Movies>response.results[0].hits[0]
+    const hit = response.results[0].hits[0] as Movies
     expect(hit.title).toEqual('Ariel')
     expect(hit._highlightResult).toBeDefined()
     expect(hit.id).toBeDefined()
@@ -131,7 +131,7 @@ describe('Instant Meilisearch Browser test', () => {
       },
     ])
 
-    const hit = <Movies>response.results[0].hits[0]
+    const hit = response.results[0].hits[0] as Movies
     expect(hit.title).toEqual('Ariel')
     expect(hit._highlightResult?.id).toBeDefined()
     expect(hit._highlightResult?.overview).toBeDefined()

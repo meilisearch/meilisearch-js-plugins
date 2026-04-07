@@ -1,4 +1,4 @@
-import type { MultiSearchResult } from '../../types/index.js'
+import type { MultiSearchResult } from '../../types/index.ts'
 
 export function adaptTotalHits(
   searchResponse: MultiSearchResult<Record<string, any>>
