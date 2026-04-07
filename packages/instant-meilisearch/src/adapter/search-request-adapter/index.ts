@@ -1,2 +1,2 @@
-export * from './search-resolver.js'
-export * from './search-params-adapter.js'
+export * from './search-resolver.ts'
+export * from './search-params-adapter.ts'

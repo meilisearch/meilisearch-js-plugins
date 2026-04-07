@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeiliSearch } from '../src/index.ts'
 
 describe('InstantMeiliSearch instantiation', () => {
   test('instantiation with required params returns InstantMeiliSearchInstance', () => {

@@ -1,6 +1,6 @@
-import { PACKAGE_VERSION } from '../package-version.js'
-import { createSearchClient } from './createSearchClient.js'
+import pkg from '../../package.json' with { type: 'json' }
+import { createSearchClient } from './createSearchClient.ts'
 
 /** Create searchClient instance for autocomplete */
-const userAgent = `Meilisearch autocomplete-client (v${PACKAGE_VERSION})`
+const userAgent = `Meilisearch autocomplete-client (v${pkg.version})`
 export const meilisearchAutocompleteClient = createSearchClient({ userAgent })

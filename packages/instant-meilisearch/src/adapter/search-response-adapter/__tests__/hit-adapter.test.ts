@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { adaptHits } from '../hits-adapter.js'
+import { adaptHits } from '../hits-adapter.ts'
 
 const searchResponsePositionMatchesFalse = {
   indexUid: 'steam-video-games',

@@ -1,4 +1,4 @@
-import type { FacetDistribution, SearchContext } from '../../types/index.js'
+import type { FacetDistribution, SearchContext } from '../../types/index.ts'
 
 function getFacetNames(
   facets: SearchContext['facets'] | string

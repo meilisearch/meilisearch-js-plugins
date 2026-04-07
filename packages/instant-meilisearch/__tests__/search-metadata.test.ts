@@ -1,6 +1,6 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch, getAnalyticsMetadata } from '../src/index.js'
-import { dataset, type Movies, meilisearchClient } from './assets/utils.js'
+import { instantMeiliSearch, getAnalyticsMetadata } from '../src/index.ts'
+import { dataset, type Movies, meilisearchClient } from './assets/utils.ts'
 
 describe('Search metadata integration tests', () => {
   beforeAll(async () => {

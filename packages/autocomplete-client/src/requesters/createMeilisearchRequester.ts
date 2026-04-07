@@ -1,6 +1,6 @@
-import { fetchMeilisearchResults } from '../search/index.js'
+import { fetchMeilisearchResults } from '../search/index.ts'
 
-import { createRequester } from './createRequester.js'
+import { createRequester } from './createRequester.ts'
 
 export const createMeilisearchRequester = createRequester(
   (params) => fetchMeilisearchResults(params),

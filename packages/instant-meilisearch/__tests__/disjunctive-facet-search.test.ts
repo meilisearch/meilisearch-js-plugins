@@ -1,6 +1,6 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
-import { type Movies, meilisearchClient } from './assets/utils.js'
+import { instantMeiliSearch } from '../src/index.ts'
+import { type Movies, meilisearchClient } from './assets/utils.ts'
 import movies from './assets/movies.json' with { type: 'json' }
 import games from './assets/games.json' with { type: 'json' }
 

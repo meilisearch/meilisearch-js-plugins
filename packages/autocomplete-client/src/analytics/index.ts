@@ -1,1 +1,1 @@
-export * from './analytics.js'
+export * from './analytics.ts'

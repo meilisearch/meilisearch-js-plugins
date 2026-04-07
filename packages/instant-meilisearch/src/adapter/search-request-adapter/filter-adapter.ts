@@ -1,4 +1,4 @@
-import type { Filter, SearchContext } from '../../types/index.js'
+import type { Filter, SearchContext } from '../../types/index.ts'
 
 const filterEscapeRegExp = /([\\"])/g
 

@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import {
   getItemAnalyticsMetadata,
   type MeilisearchAutocompleteItem,
-} from '../analytics.js'
+} from '../analytics.ts'
 import type { MeilisearchSearchMetadata } from '@meilisearch/instant-meilisearch'
 
 describe('getItemAnalyticsMetadata', () => {

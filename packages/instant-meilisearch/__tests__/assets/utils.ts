@@ -1,4 +1,4 @@
-import { instantMeiliSearch } from '../../src/index.js'
+import { instantMeiliSearch } from '../../src/index.ts'
 import { MeiliSearch } from 'meilisearch'
 
 const HOST = 'http://localhost:7700'

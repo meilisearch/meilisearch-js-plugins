@@ -1,4 +1,4 @@
 export {
   createSearchContext,
   createFacetSearchContext,
-} from './search-context.js'
+} from './search-context.ts'

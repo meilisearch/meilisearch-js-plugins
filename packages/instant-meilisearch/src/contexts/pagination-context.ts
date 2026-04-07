@@ -1,4 +1,4 @@
-import type { PaginationState } from '../types/index.js'
+import type { PaginationState } from '../types/index.ts'
 
 /**
  * Create the current state of the pagination

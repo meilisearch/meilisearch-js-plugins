@@ -4,10 +4,10 @@ import type {
   PaginationState,
   MeiliSearchMultiSearchParams,
   Mutable,
-} from '../../types/index.js'
+} from '../../types/index.ts'
 
-import { adaptGeoSearch } from './geo-rules-adapter.js'
-import { adaptFilters } from './filter-adapter.js'
+import { adaptGeoSearch } from './geo-rules-adapter.ts'
+import { adaptFilters } from './filter-adapter.ts'
 
 function isPaginationRequired(
   filter: Filter,
@@ -99,7 +99,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       const value =
         overrideParams?.indexesOverrides?.[indexUid]?.facets ??
         overrideParams?.facets ??
-        <Mutable<typeof facets>>facets
+        (facets as Mutable<typeof facets>)
       if (value !== undefined) {
         // despite Instantsearch.js typing it as `string[]`,
         // it still can send `string`
@@ -110,7 +110,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       const value =
         overrideParams?.indexesOverrides?.[indexUid]?.attributesToCrop ??
         overrideParams?.attributesToCrop ??
-        <Mutable<typeof attributesToSnippet>>attributesToSnippet
+        (attributesToSnippet as Mutable<typeof attributesToSnippet>)
       if (value !== undefined) {
         meiliSearchParams.attributesToCrop = value
       }
@@ -147,7 +147,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       const value =
         overrideParams?.indexesOverrides?.[indexUid]?.attributesToRetrieve ??
         overrideParams?.attributesToRetrieve ??
-        <Mutable<typeof attributesToRetrieve>>attributesToRetrieve
+        (attributesToRetrieve as Mutable<typeof attributesToRetrieve>)
       if (value !== undefined) {
         meiliSearchParams.attributesToRetrieve = value
       }
@@ -156,7 +156,9 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       meiliSearchParams.attributesToHighlight = overrideParams
         ?.indexesOverrides?.[indexUid]?.attributesToHighlight ??
         overrideParams?.attributesToHighlight ??
-        <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
+        (attributesToHighlight as Mutable<typeof attributesToHighlight>) ?? [
+          '*',
+        ]
     },
     addPreTag() {
       meiliSearchParams.highlightPreTag =
@@ -257,9 +259,9 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       const value =
         overrideParams?.indexesOverrides?.[indexUid]?.attributesToSearchOn ??
         overrideParams?.attributesToSearchOn ??
-        <Mutable<typeof restrictSearchableAttributes>>(
-          restrictSearchableAttributes
-        )
+        (restrictSearchableAttributes as Mutable<
+          typeof restrictSearchableAttributes
+        >)
 
       if (value !== undefined) {
         meiliSearchParams.attributesToSearchOn = value

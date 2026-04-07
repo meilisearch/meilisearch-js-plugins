@@ -2,29 +2,21 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
     "dev": {
       "persistent": true,
-      "cache": false,
-      "dependsOn": ["build"]
+      "cache": false
     },
-    "test": {
-      "dependsOn": ["build"]
-    },
+    "test": {},
     "test:watch": {
       "persistent": true,
-      "cache": false,
-      "dependsOn": ["build"]
+      "cache": false
     },
-    "test:e2e": {
-      "dependsOn": ["build"]
-    },
+    "test:e2e": {},
     "test:e2e:watch": {
       "persistent": true,
-      "cache": false,
-      "dependsOn": ["build"]
+      "cache": false
     },
     "version": {}
   }

@@ -4,7 +4,7 @@ import {
   dataset,
   type Movies,
   meilisearchClient,
-} from './assets/utils.js'
+} from './assets/utils.ts'
 
 describe('Snippet Browser test', () => {
   beforeAll(async () => {

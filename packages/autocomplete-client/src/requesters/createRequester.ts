@@ -1,10 +1,10 @@
-import { fetchMeilisearchResults } from '../search/index.js'
+import { fetchMeilisearchResults } from '../search/index.ts'
 import type {
   AlgoliaMultipleQueriesQuery,
   AlgoliaSearchResponse,
   AlgoliaSearchForFacetValuesResponse,
 } from '@meilisearch/instant-meilisearch'
-import type { SearchClient as MeilisearchClient } from '../types/SearchClient.js'
+import type { SearchClient as MeilisearchClient } from '../types/SearchClient.ts'
 
 // All types copied from: autocomplete/packages/autocomplete-preset-algolia/src/requester/createRequester.ts
 // As most of the types are not exported and we need to be able to provide our own Fetcher

@@ -1,1 +1,1 @@
-export * from './search-response-adapter.js'
+export * from './search-response-adapter.ts'

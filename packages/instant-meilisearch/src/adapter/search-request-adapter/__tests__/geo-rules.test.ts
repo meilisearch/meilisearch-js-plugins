@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { adaptGeoSearch } from '../geo-rules-adapter.js'
+import { adaptGeoSearch } from '../geo-rules-adapter.ts'
 
 test('Adapt instantsearch geo parameters to meilisearch filters without a boundingBox', () => {
   const filter = adaptGeoSearch({})

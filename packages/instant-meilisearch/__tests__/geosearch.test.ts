@@ -4,7 +4,7 @@ import {
   geoDataset,
   type City,
   meilisearchClient,
-} from './assets/utils.js'
+} from './assets/utils.ts'
 
 describe('Instant Meilisearch Browser test', () => {
   beforeAll(async () => {

@@ -4,9 +4,9 @@ import {
   dataset,
   type Movies,
   meilisearchClient,
-} from './assets/utils.js'
+} from './assets/utils.ts'
 
-import { splitSortString } from '../src/contexts/sort-context.js'
+import { splitSortString } from '../src/contexts/sort-context.ts'
 
 describe('Sort browser test', () => {
   beforeAll(async () => {

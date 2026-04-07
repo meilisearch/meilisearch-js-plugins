@@ -1,6 +1,6 @@
 import { describe, beforeAll, test, expect, vi } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
-import { meilisearchClient, dataset } from './assets/utils.js'
+import { instantMeiliSearch } from '../src/index.ts'
+import { meilisearchClient, dataset } from './assets/utils.ts'
 
 describe('Custom HTTP client tests', () => {
   beforeAll(async () => {

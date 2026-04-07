@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { adaptGeoResponse } from '../geo-reponse-adapter.js'
+import { adaptGeoResponse } from '../geo-reponse-adapter.ts'
 
 describe('Geopoint adapter', () => {
   test('_geoloc field should be created in hit object with _geo fields', () => {
