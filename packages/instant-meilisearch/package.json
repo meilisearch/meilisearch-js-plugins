@@ -24,7 +24,7 @@
     "build": "tsc"
   },
   "engines": {
-    "node": "^20.19.0 || ^22.13.0 || >=24"
+    "node": "^20.19.0 || >=22.12.0"
   },
   "type": "module",
   "exports": {
