@@ -486,8 +486,8 @@ In `index.html`:
     </div>
 
     <script type="module">
-      import { instantMeiliSearch } from 'https://www.unpkg.com/@meilisearch/instant-meilisearch'
-      import instantsearch from 'https://www.unpkg.com/instantsearch.js'
+      import { instantMeiliSearch } from 'https://unpkg.com/@meilisearch/instant-meilisearch'
+      import 'https://unpkg.com/instantsearch.js'
 
       const { searchClient } = instantMeiliSearch(
         'https://ms-adf78ae33284-106.lon.meilisearch.io',
