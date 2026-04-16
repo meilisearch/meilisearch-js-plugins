@@ -278,7 +278,7 @@ The search client returns `MeilisearchSearchResponse` which extends the standard
 
 ```ts
 import { instantMeiliSearch, getAnalyticsMetadata } from '@meilisearch/instant-meilisearch'
-import instantsearch from 'instantsearch.ts'
+import instantsearch from 'instantsearch.js'
 
 const { searchClient } = instantMeiliSearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',

@@ -8,12 +8,14 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./meilisearch": "./src/meilisearch.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
+      "./meilisearch": "./dist/meilisearch.js",
       "./package.json": "./package.json"
     }
   },

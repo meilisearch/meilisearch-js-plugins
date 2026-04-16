@@ -1,5 +1,5 @@
 import { meilisearchAutocompleteClient } from '../src/index.js'
-import { meilisearch } from '@meilisearch/instant-meilisearch'
+import { MeiliSearch } from '@meilisearch/instant-meilisearch/meilisearch'
 
 const dataset = [
   { id: 1, label: 'Hit 1' },
@@ -12,7 +12,7 @@ const searchClient = meilisearchAutocompleteClient({
   apiKey: API_KEY,
 })
 
-const meilisearchClient = new meilisearch.MeiliSearch({
+const meilisearchClient = new MeiliSearch({
   host: 'http://localhost:7700',
   apiKey: 'masterKey',
 })
