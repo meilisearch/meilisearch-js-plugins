@@ -1,2 +1,2 @@
-export * from './search-cache.ts'
-export * from './init-facets-distribution.ts'
+export * from './search-cache.js'
+export * from './init-facets-distribution.js'

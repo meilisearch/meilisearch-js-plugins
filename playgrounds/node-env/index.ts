@@ -25,9 +25,7 @@ try {
   ])
 
   await msClient.index('node_test').delete().waitTask()
-  process.exit(0)
 } catch (e) {
-  console.log(e)
-  console.error('Could not run the `umd` build in a node environment')
-  process.exit(1)
+  console.error(e)
+  process.exitCode = 1
 }

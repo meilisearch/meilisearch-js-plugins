@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { adaptSearchResult } from '../search-response-adapter.ts'
+import { adaptSearchResult } from '../search-response-adapter.js'
 
 const searchResponseWithMetadata = {
   indexUid: 'movies',

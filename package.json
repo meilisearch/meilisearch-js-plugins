@@ -27,7 +27,7 @@
     "instant-meilisearch:test:watch": "vitest --project \"@meilisearch/instant-meilisearch\"",
     "autocomplete:test:watch": "vitest --project \"@meilisearch/autocomplete-client\"",
     "test:types": "tsc",
-    "version-packages": "changeset version && turbo version",
+    "version-packages": "changeset version",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
@@ -64,6 +64,7 @@
     "react-instantsearch": "7.15.0",
     "react-router-dom": "7.13.2",
     "search-insights": "2.17.3",
+    "tsx": "4.21.0",
     "turbo": "2.7.2",
     "typescript": "5.9.3",
     "typescript-eslint": "8.58.0",

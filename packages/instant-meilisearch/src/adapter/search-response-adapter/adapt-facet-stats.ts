@@ -2,7 +2,7 @@ import type {
   AlgoliaSearchResponse,
   MeiliFacetStats,
   AlgoliaFacetStats,
-} from '../../types/index.ts'
+} from '../../types/index.js'
 
 export function adaptFacetStats(
   meiliFacetStats: MeiliFacetStats

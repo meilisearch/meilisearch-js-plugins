@@ -6,9 +6,9 @@ import {
   HIGHLIGHT_PRE_TAG,
   HIGHLIGHT_POST_TAG,
   HITS_PER_PAGE,
-} from '../constants/index.ts'
-import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.ts'
-import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.ts'
+} from '../constants/index.js'
+import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.js'
+import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.js'
 
 interface SearchParams {
   /** The initialized Meilisearch search client. */

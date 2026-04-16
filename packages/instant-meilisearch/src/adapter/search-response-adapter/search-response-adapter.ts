@@ -3,12 +3,12 @@ import type {
   InstantMeiliSearchConfig,
   MeilisearchMultiSearchResult,
   MeilisearchSearchResponse,
-} from '../../types/index.ts'
-import { adaptHits } from './hits-adapter.ts'
-import { adaptTotalHits } from './total-hits-adapter.ts'
-import { adaptPaginationParameters } from './pagination-adapter.ts'
-import { adaptFacetDistribution } from './facet-distribution-adapter.ts'
-import { adaptFacetStats } from './adapt-facet-stats.ts'
+} from '../../types/index.js'
+import { adaptHits } from './hits-adapter.js'
+import { adaptTotalHits } from './total-hits-adapter.js'
+import { adaptPaginationParameters } from './pagination-adapter.js'
+import { adaptFacetDistribution } from './facet-distribution-adapter.js'
+import { adaptFacetStats } from './adapt-facet-stats.js'
 
 /**
  * Adapt multiple search results from Meilisearch to search results compliant

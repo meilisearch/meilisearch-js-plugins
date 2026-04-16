@@ -4,10 +4,10 @@ import type {
   PaginationState,
   MeiliSearchMultiSearchParams,
   Mutable,
-} from '../../types/index.ts'
+} from '../../types/index.js'
 
-import { adaptGeoSearch } from './geo-rules-adapter.ts'
-import { adaptFilters } from './filter-adapter.ts'
+import { adaptGeoSearch } from './geo-rules-adapter.js'
+import { adaptFilters } from './filter-adapter.js'
 
 function isPaginationRequired(
   filter: Filter,

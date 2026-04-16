@@ -4,9 +4,9 @@ import type {
   MeiliSearchMultiSearchParams,
   MultiSearchResolver,
   MeilisearchMultiSearchResult,
-} from '../types/index.ts'
-import { MeiliParamsCreator } from '../adapter/index.ts'
-import { removeDuplicate } from '../utils/index.ts'
+} from '../types/index.js'
+import { MeiliParamsCreator } from '../adapter/index.js'
+import { removeDuplicate } from '../utils/index.js'
 
 export function getParametersWithoutFilters(
   searchContext: SearchContext
