@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
-import { SearchCache } from '../search-cache.ts'
-import { searchResponse } from './assets/utils.ts'
+import { SearchCache } from '../search-cache.js'
+import { searchResponse } from './assets/utils.js'
 
 describe('Entries in the cache', () => {
   test('to getEntry on empty cache', () => {

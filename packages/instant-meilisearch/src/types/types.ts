@@ -2,7 +2,7 @@ import type {
   MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
   multipleSearchForFacetValues,
 } from '@algolia/client-search'
-import type { InstantSearchOptions } from 'instantsearch.js/es/lib/InstantSearch.ts'
+import type { InstantSearchOptions } from 'instantsearch.js/es/lib/InstantSearch.js'
 import type {
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   MultiSearchResult,

@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest'
-import { getAnalyticsMetadata } from '../analytics-metadata.ts'
+import { getAnalyticsMetadata } from '../analytics-metadata.js'
 import type {
   MeilisearchSearchResponse,
   MeilisearchSearchMetadata,
-} from '../../types/index.ts'
+} from '../../types/index.js'
 
 describe('getAnalyticsMetadata', () => {
   const metadata1: MeilisearchSearchMetadata = {

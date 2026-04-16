@@ -4,7 +4,7 @@ import {
   dataset,
   type Movies,
   meilisearchClient,
-} from './assets/utils.ts'
+} from './assets/utils.js'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {

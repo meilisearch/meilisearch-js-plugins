@@ -4,7 +4,7 @@ import type {
   MeiliSearchMultiSearchParams,
   MeilisearchMultiSearchResult,
   PaginationState,
-} from '../../types/index.ts'
+} from '../../types/index.js'
 
 /** @param {ResponseCacher} cache */
 export function SearchResolver(

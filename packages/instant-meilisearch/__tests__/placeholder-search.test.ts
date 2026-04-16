@@ -1,6 +1,6 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.ts'
-import { dataset, type Movies, meilisearchClient } from './assets/utils.ts'
+import { instantMeiliSearch } from '../src/index.js'
+import { dataset, type Movies, meilisearchClient } from './assets/utils.js'
 
 describe('Pagination browser test', () => {
   beforeAll(async () => {

@@ -2,7 +2,7 @@ import type {
   MultiSearchResult,
   InstantSearchPagination,
   PaginationState,
-} from '../../types/index.ts'
+} from '../../types/index.js'
 
 function adaptNbPages(
   searchResponse: MultiSearchResult<Record<string, any>>,

@@ -1,1 +1,1 @@
-export * from './analytics-metadata.ts'
+export * from './analytics-metadata.js'

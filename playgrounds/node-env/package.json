@@ -8,7 +8,7 @@
     ".": "./index.ts"
   },
   "scripts": {
-    "dev": "node index.ts"
+    "dev": "tsx index.ts"
   },
   "browserslist": [
     "defaults"

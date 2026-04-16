@@ -1,10 +1,10 @@
 import { describe, test, expect } from 'vitest'
 import { MatchingStrategies } from 'meilisearch'
-import { adaptSearchParams } from '../search-params-adapter.ts'
+import { adaptSearchParams } from '../search-params-adapter.js'
 import type {
   OverridableMeiliSearchSearchParameters,
   SearchContext,
-} from '../../../types/index.ts'
+} from '../../../types/index.js'
 
 const DEFAULT_CONTEXT: SearchContext = {
   indexUid: 'test',

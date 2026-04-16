@@ -473,7 +473,7 @@ InstantSearch requires that you provide an indexName. The indexName corresponds 
 In `index.html`:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -485,45 +485,42 @@ In `index.html`:
       <div id="hits"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-    <script src="./app.js"></script>
+    <script type="module">
+      import { instantMeiliSearch } from 'https://www.unpkg.com/@meilisearch/instant-meilisearch'
+      import instantsearch from 'https://www.unpkg.com/instantsearch.js'
+
+      const { searchClient } = instantMeiliSearch(
+        'https://ms-adf78ae33284-106.lon.meilisearch.io',
+        'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
+      )
+
+      const search = instantsearch({
+        indexName: 'steam-video-games',
+        searchClient,
+      })
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: '#searchbox',
+        }),
+        instantsearch.widgets.hits({
+          container: '#hits',
+          templates: {
+            item: `
+              <div>
+                <div class="hit-name">
+                  {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
+                </div>
+              </div>
+            `,
+          },
+        }),
+      ])
+
+      search.start()
+    </script>
   </body>
 </html>
-```
-
-In `app.js`:
-
-```js
-const { searchClient } = instantMeiliSearch(
-  'https://ms-adf78ae33284-106.lon.meilisearch.io',
-  'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
-)
-
-const search = instantsearch({
-  indexName: 'steam-video-games',
-  searchClient,
-})
-
-search.addWidgets([
-  instantsearch.widgets.searchBox({
-    container: '#searchbox',
-  }),
-  instantsearch.widgets.hits({
-    container: '#hits',
-    templates: {
-      item: `
-        <div>
-          <div class="hit-name">
-            {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
-          </div>
-        </div>
-      `,
-    },
-  }),
-])
-
-search.start()
 ```
 
 🚀 For a full getting started example, please take a look at this CodeSandbox:

@@ -3,9 +3,9 @@ import type {
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   AlgoliaSearchForFacetValuesRequest,
-} from '../types/index.ts'
-import { splitSortString } from './sort-context.ts'
-import { createPaginationState } from './pagination-context.ts'
+} from '../types/index.js'
+import { splitSortString } from './sort-context.js'
+import { createPaginationState } from './pagination-context.js'
 
 function separateIndexFromSortRules(indexName: string): {
   indexUid: string
