@@ -4,9 +4,6 @@
   "private": true,
   "description": "Instant-meilisearch playground written in node",
   "type": "module",
-  "exports": {
-    ".": "./index.ts"
-  },
   "scripts": {
     "dev": "tsx index.ts"
   },
