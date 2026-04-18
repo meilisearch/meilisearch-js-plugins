@@ -7,8 +7,9 @@ export default defineConfig({
     sourcemap: true,
     target: tsconfig.compilerOptions.target,
     lib: {
-      entry: ['src/index.ts', 'src/meilisearch.ts'],
+      entry: 'src/index.ts',
       formats: ['es'],
+      fileName: 'bundle',
     },
   },
   test: {

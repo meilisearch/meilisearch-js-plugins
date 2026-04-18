@@ -4,6 +4,7 @@
     "skipLibCheck": true,
     "erasableSyntaxOnly": true,
     "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "module": "node20",
     "target": "ES2023",
     "lib": ["ESNext", "DOM"],
