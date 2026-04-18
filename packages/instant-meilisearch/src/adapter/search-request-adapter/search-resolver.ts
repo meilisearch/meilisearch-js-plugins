@@ -1,5 +1,5 @@
 import type {
-  MeiliSearch,
+  Meilisearch,
   SearchCacheInterface,
   MeiliSearchMultiSearchParams,
   MeilisearchMultiSearchResult,
@@ -8,7 +8,7 @@ import type {
 
 /** @param {ResponseCacher} cache */
 export function SearchResolver(
-  client: MeiliSearch,
+  client: Meilisearch,
   cache: SearchCacheInterface
 ) {
   return {

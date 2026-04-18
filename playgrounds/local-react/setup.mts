@@ -1,8 +1,8 @@
-import { MeiliSearch } from 'meilisearch'
+import { Meilisearch } from 'meilisearch'
 import movies from './assets/movies.json' with { type: 'json' }
 import games from './assets/games.json' with { type: 'json' }
 
-const client = new MeiliSearch({
+const client = new Meilisearch({
   host: 'http://127.0.0.1:7700',
   apiKey: 'masterKey',
 })
