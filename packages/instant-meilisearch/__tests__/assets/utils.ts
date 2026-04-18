@@ -1,5 +1,5 @@
 import { instantMeiliSearch } from '../../src/index.js'
-import { MeiliSearch } from 'meilisearch'
+import { Meilisearch } from 'meilisearch'
 
 const HOST = 'http://localhost:7700'
 const API_KEY = 'masterKey'
@@ -317,7 +317,7 @@ const { searchClient: wrongSearchClient } = instantMeiliSearch(
   'http://localhost:7777',
   'masterKey'
 )
-const meilisearchClient = new MeiliSearch({
+const meilisearchClient = new Meilisearch({
   host: HOST,
   apiKey: API_KEY,
 })

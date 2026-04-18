@@ -8,14 +8,12 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./meilisearch": "./src/meilisearch.ts"
+    ".": "./src/index.ts"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./meilisearch": "./dist/meilisearch.js",
       "./package.json": "./package.json"
     }
   },
@@ -44,5 +42,8 @@
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "workspace:*"
+  },
+  "peerDependencies": {
+    "meilisearch": "catalog:"
   }
 }

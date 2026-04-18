@@ -1,5 +1,5 @@
 import { meilisearchAutocompleteClient } from '../src/index.js'
-import { MeiliSearch } from '@meilisearch/instant-meilisearch/meilisearch'
+import { MeiliSearch } from 'meilisearch'
 
 const dataset = [
   { id: 1, label: 'Hit 1' },

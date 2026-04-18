@@ -7,3 +7,6 @@ minimumReleaseAge: 1440
 onlyBuiltDependencies:
   - cypress
   - esbuild
+
+catalog:
+  meilisearch: ^0.50

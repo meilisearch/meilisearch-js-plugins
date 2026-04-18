@@ -57,7 +57,7 @@
     "globals": "17.4.0",
     "instantsearch.css": "8.5.1",
     "instantsearch.js": "4.85.2",
-    "meilisearch": "0.54.0",
+    "meilisearch": "catalog:",
     "prettier": "3.8.1",
     "prettier-plugin-jsdoc": "1.8.0",
     "react": "19.2.4",

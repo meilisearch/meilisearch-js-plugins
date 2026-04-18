@@ -1,4 +1,4 @@
-import { MeiliSearch } from '@meilisearch/instant-meilisearch/meilisearch'
+import { MeiliSearch } from 'meilisearch'
 import games from './assets/games.json' with { type: 'json' }
 
 const client = new MeiliSearch({
