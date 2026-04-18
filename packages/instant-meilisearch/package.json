@@ -21,7 +21,7 @@
     "client"
   ],
   "scripts": {
-    "build": "vite build && tsc"
+    "build": "tsc"
   },
   "type": "module",
   "exports": {
@@ -31,11 +31,7 @@
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
-      "./package.json": "./package.json",
-      "./bundle": {
-        "default": "./dist/bundle.js",
-        "types": "./dist/index.d.ts"
-      }
+      "./package.json": "./package.json"
     }
   },
   "sideEffects": false,
