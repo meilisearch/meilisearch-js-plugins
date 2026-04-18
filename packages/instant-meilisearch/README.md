@@ -485,6 +485,14 @@ In `index.html`:
       <div id="hits"></div>
     </div>
 
+    <script type="importmap">
+      {
+        "imports": {
+          "meilisearch": "https://unpkg.com/meilisearch"
+        }
+      }
+    </script>
+
     <script type="module">
       import { instantMeiliSearch } from 'https://unpkg.com/@meilisearch/instant-meilisearch'
       import 'https://unpkg.com/instantsearch.js'
