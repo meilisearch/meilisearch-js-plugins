@@ -29,7 +29,7 @@ export type AlgoliaSearchForFacetValuesRequest =
 export type {
   Filter,
   FacetDistribution,
-  MeiliSearch,
+  Meilisearch,
   FacetStats as MeiliFacetStats,
   MultiSearchQuery as MeiliSearchMultiSearchParams,
   Config as MeilisearchConfig,
