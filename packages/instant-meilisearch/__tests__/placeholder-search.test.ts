@@ -1,5 +1,5 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeilisearch } from '../src/index.js'
 import { dataset, type Movies, meilisearchClient } from './assets/utils.js'
 
 describe('Pagination browser test', () => {
@@ -13,7 +13,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch set to true', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -32,7 +32,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch set to false', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -51,7 +51,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch with query', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -73,7 +73,7 @@ describe('Pagination browser test', () => {
   })
 
   test('placeholdersearch set to false with filter', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {

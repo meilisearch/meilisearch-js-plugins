@@ -1,5 +1,5 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeilisearch } from '../src/index.js'
 import { type Movies, meilisearchClient } from './assets/utils.js'
 import movies from './assets/movies.json' with { type: 'json' }
 import games from './assets/games.json' with { type: 'json' }
@@ -26,7 +26,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on one index with facet filtering', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -94,7 +94,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on two indexes with facet filtering', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -242,7 +242,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on two indexes with facet filtering and keep zero facets', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -412,7 +412,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on an index with facet filtering with some and operators', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -463,7 +463,7 @@ describe('Keep zero facets tests', () => {
   })
 
   test('searching on an index with facet filtering with some and operators with keep zero facets', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {

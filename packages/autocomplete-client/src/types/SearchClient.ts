@@ -1,3 +1,3 @@
-import type { InstantMeiliSearchInstance } from '@meilisearch/instant-meilisearch'
+import type { InstantMeilisearchInstance } from '@meilisearch/instant-meilisearch'
 
-export type SearchClient = InstantMeiliSearchInstance
+export type SearchClient = InstantMeilisearchInstance

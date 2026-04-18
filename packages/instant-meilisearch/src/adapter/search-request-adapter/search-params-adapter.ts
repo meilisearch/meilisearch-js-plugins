@@ -2,7 +2,7 @@ import type {
   SearchContext,
   Filter,
   PaginationState,
-  MeiliSearchMultiSearchParams,
+  MeilisearchMultiSearchParams,
   Mutable,
 } from '../../types/index.js'
 
@@ -84,12 +84,12 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     restrictSearchableAttributes,
     meiliSearchParams: overrideParams,
   } = searchContext
-  const meiliSearchParams: MeiliSearchMultiSearchParams = { indexUid }
+  const meiliSearchParams: MeilisearchMultiSearchParams = { indexUid }
 
   const meilisearchFilters = adaptFilters(filters, numericFilters, facetFilters)
 
   return {
-    getParams(): MeiliSearchMultiSearchParams {
+    getParams(): MeilisearchMultiSearchParams {
       return meiliSearchParams
     },
     addQuery() {
@@ -305,11 +305,11 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
  * Meilisearch
  *
  * @param {SearchContext} searchContext
- * @returns {MeiliSearchMultiSearchParams}
+ * @returns {MeilisearchMultiSearchParams}
  */
 export function adaptSearchParams(
   searchContext: SearchContext
-): MeiliSearchMultiSearchParams {
+): MeilisearchMultiSearchParams {
   const meilisearchParams = MeiliParamsCreator(searchContext)
   meilisearchParams.addQuery()
   meilisearchParams.addFacets()

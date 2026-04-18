@@ -1,12 +1,12 @@
 <template>
   <div>
     <header class="header">
-      <h1 class="header-title">MeiliSearch + Vue 3 InstantSearch</h1>
+      <h1 class="header-title">Meilisearch + Vue 3 InstantSearch</h1>
       <p class="header-subtitle">Search in Steam video games 🎮</p>
     </header>
     <p class="disclaimer">
       This is not the official Steam dataset but only for demo purpose. Enjoy
-      searching with MeiliSearch!
+      searching with Meilisearch!
     </p>
     <div class="container">
       <ais-instant-search
@@ -52,12 +52,12 @@
 </template>
 
 <script>
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
 export default {
   data() {
     return {
-      searchClient: instantMeiliSearch(
+      searchClient: instantMeilisearch(
         'https://ms-adf78ae33284-106.lon.meilisearch.io',
         'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
         {

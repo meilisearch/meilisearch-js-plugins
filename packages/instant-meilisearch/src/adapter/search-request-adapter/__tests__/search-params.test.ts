@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { MatchingStrategies } from 'meilisearch'
 import { adaptSearchParams } from '../search-params-adapter.js'
 import type {
-  OverridableMeiliSearchSearchParameters,
+  OverridableMeilisearchSearchParameters,
   SearchContext,
 } from '../../../types/index.js'
 
@@ -54,7 +54,7 @@ describe('Parameters adapter', () => {
   })
 
   test('adapting a searchContext with overridden Meilisearch parameters', () => {
-    const meiliSearchParams: OverridableMeiliSearchSearchParameters = {
+    const meiliSearchParams: OverridableMeilisearchSearchParameters = {
       attributesToHighlight: ['movies', 'genres'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',
@@ -81,7 +81,7 @@ describe('Parameters adapter', () => {
   })
 
   test('adapting a searchContext with overridden Meilisearch parameters for a specific index', () => {
-    const meiliSearchParams: OverridableMeiliSearchSearchParameters = {
+    const meiliSearchParams: OverridableMeilisearchSearchParameters = {
       attributesToHighlight: ['movies', 'genres'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',

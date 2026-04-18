@@ -1,6 +1,6 @@
 import type {
-  InstantMeiliSearchOptions,
-  InstantMeiliSearchConfig,
+  InstantMeilisearchOptions,
+  InstantMeilisearchConfig,
   ApiKeyCallback,
 } from '../../types/index.js'
 import { isPureObject } from '../../utils/object.js'
@@ -8,13 +8,13 @@ import { isPureObject } from '../../utils/object.js'
 /**
  * Get the configuration of instant meilisearch
  *
- * @param {InstantMeiliSearchOptions} option
- * @returns {InstantMeiliSearchConfig}
+ * @param {InstantMeilisearchOptions} option
+ * @returns {InstantMeilisearchConfig}
  */
 
 export function getInstantMeilisearchConfig(
-  options: InstantMeiliSearchOptions
-): InstantMeiliSearchConfig {
+  options: InstantMeilisearchOptions
+): InstantMeilisearchConfig {
   const defaultOptions = {
     placeholderSearch: true,
     keepZeroFacets: false,
@@ -56,12 +56,12 @@ export function getApiKey(apiKey: string | ApiKeyCallback): string {
  * @param hostUrl
  * @param apiKey
  */
-export function validateInstantMeiliSearchParams(
+export function validateInstantMeilisearchParams(
   hostUrl: string,
   apiKey: string | (() => string),
-  instantMeiliSearchOptions: InstantMeiliSearchOptions
+  instantMeilisearchOptions: InstantMeilisearchOptions
 ) {
-  const { requestInit, httpClient } = instantMeiliSearchOptions
+  const { requestInit, httpClient } = instantMeilisearchOptions
   // Validate host url
   if (typeof hostUrl !== 'string') {
     throw new TypeError(

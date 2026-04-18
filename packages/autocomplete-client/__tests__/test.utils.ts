@@ -12,7 +12,7 @@ const searchClient = meilisearchAutocompleteClient({
   apiKey: API_KEY,
 })
 
-const meilisearchClient = new meilisearch.MeiliSearch({
+const meilisearchClient = new meilisearch.Meilisearch({
   host: 'http://localhost:7700',
   apiKey: 'masterKey',
 })

@@ -1,15 +1,15 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeilisearch } from '../src/index.js'
 import { dataset, meilisearchClient, type Movies } from './assets/utils.js'
 
-describe('InstantMeiliSearch overridden parameters', () => {
+describe('InstantMeilisearch overridden parameters', () => {
   beforeAll(async () => {
     await meilisearchClient.deleteIndex('movies').waitTask()
     await meilisearchClient.index('movies').addDocuments(dataset).waitTask()
   })
 
   test('instantiating with, and changing overridden Meilisearch parameters', async () => {
-    const { searchClient, setMeiliSearchParams } = instantMeiliSearch(
+    const { searchClient, setMeilisearchParams } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -35,7 +35,7 @@ describe('InstantMeiliSearch overridden parameters', () => {
       '<em>While racing to a boxing match</em>'
     )
 
-    setMeiliSearchParams({
+    setMeilisearchParams({
       highlightPreTag: '<om>',
       highlightPostTag: '</om>',
     })
@@ -48,7 +48,7 @@ describe('InstantMeiliSearch overridden parameters', () => {
       '<om>While racing to a boxing match</om>'
     )
 
-    setMeiliSearchParams({
+    setMeilisearchParams({
       indexesOverrides: {
         movies: { highlightPreTag: '<span>', highlightPostTag: '</span>' },
       },
@@ -70,7 +70,7 @@ describe('InstantMeiliSearch overridden parameters', () => {
       })
       .waitTask()
 
-    const { searchClient, setMeiliSearchParams } = instantMeiliSearch(
+    const { searchClient, setMeilisearchParams } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -98,7 +98,7 @@ describe('InstantMeiliSearch overridden parameters', () => {
     expect(globalTitles).toEqual([...globalTitles].sort())
 
     // Test per-index sort override takes precedence over global
-    setMeiliSearchParams({
+    setMeilisearchParams({
       sort: ['title:asc'],
       indexesOverrides: {
         movies: { sort: ['title:desc'] },

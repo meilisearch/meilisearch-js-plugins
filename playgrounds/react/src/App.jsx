@@ -13,9 +13,9 @@ import {
 } from 'react-instantsearch'
 
 import './App.css'
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
   {

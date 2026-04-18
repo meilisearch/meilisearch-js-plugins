@@ -9,9 +9,9 @@ import {
   Pagination,
   Hits,
 } from 'react-instantsearch'
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'http://localhost:7700',
   'masterKey',
   {

@@ -1,9 +1,9 @@
 import { describe, afterEach, test, expect, vi } from 'vitest'
 import type { Movies } from './assets/utils.js'
-import { instantMeiliSearch } from '../src/index.js'
-import { MeiliSearch } from 'meilisearch'
+import { instantMeilisearch } from '../src/index.js'
+import { Meilisearch } from 'meilisearch'
 import { PACKAGE_VERSION } from '../src/package-version.js'
-import type { MeiliSearchMultiSearchParams } from '../src/types/index.js'
+import type { MeilisearchMultiSearchParams } from '../src/types/index.js'
 
 export const searchResponse = {
   hits: [],
@@ -17,12 +17,12 @@ export const searchResponse = {
 
 vi.mock(import('meilisearch'), { spy: true })
 
-function getMeiliSearchMultiSearchSpy(meiliSearch: MeiliSearch) {
+function getMeilisearchMultiSearchSpy(meiliSearch: Meilisearch) {
   return vi
     .spyOn(meiliSearch, 'multiSearch')
     .mockImplementation(function (request) {
       const response = request.queries.map(
-        (req: MeiliSearchMultiSearchParams) => ({
+        (req: MeilisearchMultiSearchParams) => ({
           ...searchResponse,
           indexUid: req.indexUid,
         })
@@ -46,15 +46,15 @@ describe('Cached search tests', () => {
         query: '',
       },
     }
-    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+    const { searchClient, meiliSearchInstance } = instantMeilisearch(
       'http://localhost:7700'
     )
-    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+    const mockedMultiSearch = getMeilisearchMultiSearchSpy(meiliSearchInstance)
 
     await searchClient.search<Movies>([searchParameters])
     await searchClient.search<Movies>([searchParameters])
 
-    expect(MeiliSearch).toHaveBeenCalledWith({
+    expect(Meilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
@@ -76,15 +76,15 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+    const { searchClient, meiliSearchInstance } = instantMeilisearch(
       'http://localhost:7700'
     )
-    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+    const mockedMultiSearch = getMeilisearchMultiSearchSpy(meiliSearchInstance)
 
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
 
-    expect(MeiliSearch).toHaveBeenCalledWith({
+    expect(Meilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
@@ -106,16 +106,16 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+    const { searchClient, meiliSearchInstance } = instantMeilisearch(
       'http://localhost:7700'
     )
-    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+    const mockedMultiSearch = getMeilisearchMultiSearchSpy(meiliSearchInstance)
 
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
 
-    expect(MeiliSearch).toHaveBeenCalledWith({
+    expect(Meilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
@@ -137,17 +137,17 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+    const { searchClient, meiliSearchInstance } = instantMeilisearch(
       'http://localhost:7700'
     )
-    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+    const mockedMultiSearch = getMeilisearchMultiSearchSpy(meiliSearchInstance)
 
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>([searchParameters1])
     await searchClient.search<Movies>([searchParameters2])
 
-    expect(MeiliSearch).toHaveBeenCalledWith({
+    expect(Meilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
@@ -177,17 +177,17 @@ describe('Cached search tests', () => {
         query: 'other query',
       },
     }
-    const { searchClient, meiliSearchInstance } = instantMeiliSearch(
+    const { searchClient, meiliSearchInstance } = instantMeilisearch(
       'http://localhost:7700'
     )
-    const mockedMultiSearch = getMeiliSearchMultiSearchSpy(meiliSearchInstance)
+    const mockedMultiSearch = getMeilisearchMultiSearchSpy(meiliSearchInstance)
 
     await searchClient.search<Movies>(searchParameters1)
     await searchClient.search<Movies>([searchParameters2])
     await searchClient.search<Movies>(searchParameters1)
     await searchClient.search<Movies>([searchParameters2])
 
-    expect(MeiliSearch).toHaveBeenCalledWith({
+    expect(Meilisearch).toHaveBeenCalledWith({
       host: 'http://localhost:7700',
       apiKey: '',
       clientAgents: [`Meilisearch instant-meilisearch (v${PACKAGE_VERSION})`],
