@@ -556,11 +556,6 @@ This package only guarantees the compatibility with the [version v4 of InstantSe
 
 This package guarantees compatibility with [version v1.x of Meilisearch](https://github.com/meilisearch/meilisearch/releases/latest), but some features may not be present. Please check the [issues](https://github.com/meilisearch/instant-meilisearch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+label%3Aenhancement) for more info.
 
-**Node / NPM versions**:
-
-- NodeJS >= 12.10 <= 18
-- NPM >= 6.x
-
 ## 📜 API resources
 
 List of all the components that are available in [instantSearch](https://github.com/algolia/instantsearch.js) and their compatibility with [Meilisearch](https://github.com/meilisearch/meilisearch/).
