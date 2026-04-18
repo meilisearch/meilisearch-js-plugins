@@ -4,9 +4,9 @@
   "private": true,
   "description": "React playground for instant-meilisearch",
   "scripts": {
-    "predev": "tsx setup.mjs",
+    "predev": "tsx setup.mts",
     "dev": "vite",
-    "setup": "tsx setup.mjs",
+    "setup": "tsx setup.mts",
     "test:e2e": "concurrently --kill-others -s first \"pnpm dev\" \"cypress run --env playground=local\"",
     "test:e2e:watch": "concurrently --kill-others -s first \"pnpm dev\" \"cypress open  --env playground=local\""
   },

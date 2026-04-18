@@ -1,5 +1,5 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import { MeiliSearch } from '@meilisearch/instant-meilisearch/meilisearch'
+import { MeiliSearch } from 'meilisearch'
 
 const { searchClient } = instantMeiliSearch(
   'http://localhost:7700',

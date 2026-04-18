@@ -1,4 +1,4 @@
-import { MeiliSearch } from 'meilisearch'
+import { Meilisearch } from 'meilisearch'
 import type {
   InstantMeiliSearchOptions,
   AlgoliaMultipleQueriesQuery,
@@ -72,7 +72,7 @@ export function instantMeiliSearch(
     meilisearchConfig.requestInit = instantMeiliSearchOptions.requestInit
   }
 
-  const meilisearchClient = new MeiliSearch(meilisearchConfig)
+  const meilisearchClient = new Meilisearch(meilisearchConfig)
 
   const searchCache = SearchCache()
   // create search resolver with included cache
