@@ -13,7 +13,7 @@ describe('InstantMeilisearch overridden parameters', () => {
       'http://localhost:7700',
       'masterKey',
       {
-        meiliSearchParams: {
+        meilisearchParams: {
           highlightPreTag: '<em>',
           highlightPostTag: '</em>',
           attributesToSearchOn: ['overview'],
@@ -74,7 +74,7 @@ describe('InstantMeilisearch overridden parameters', () => {
       'http://localhost:7700',
       'masterKey',
       {
-        meiliSearchParams: {
+        meilisearchParams: {
           sort: ['title:asc'],
         },
       }

@@ -54,7 +54,7 @@ describe('Parameters adapter', () => {
   })
 
   test('adapting a searchContext with overridden Meilisearch parameters', () => {
-    const meiliSearchParams: OverridableMeilisearchSearchParameters = {
+    const meilisearchParams: OverridableMeilisearchSearchParameters = {
       attributesToHighlight: ['movies', 'genres'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',
@@ -63,25 +63,25 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams,
+      meilisearchParams,
     })
 
     expect(searchParams.attributesToHighlight).toEqual(
-      meiliSearchParams.attributesToHighlight
+      meilisearchParams.attributesToHighlight
     )
     expect(searchParams.highlightPreTag).toEqual(
-      meiliSearchParams.highlightPreTag
+      meilisearchParams.highlightPreTag
     )
     expect(searchParams.highlightPostTag).toEqual(
-      meiliSearchParams.highlightPostTag
+      meilisearchParams.highlightPostTag
     )
     expect(searchParams.matchingStrategy).toEqual(
-      meiliSearchParams.matchingStrategy
+      meilisearchParams.matchingStrategy
     )
   })
 
   test('adapting a searchContext with overridden Meilisearch parameters for a specific index', () => {
-    const meiliSearchParams: OverridableMeilisearchSearchParameters = {
+    const meilisearchParams: OverridableMeilisearchSearchParameters = {
       attributesToHighlight: ['movies', 'genres'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',
@@ -98,20 +98,20 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams,
+      meilisearchParams,
     })
 
     expect(searchParams.attributesToHighlight).toEqual(
-      meiliSearchParams.indexesOverrides?.test?.attributesToHighlight
+      meilisearchParams.indexesOverrides?.test?.attributesToHighlight
     )
     expect(searchParams.highlightPreTag).toEqual(
-      meiliSearchParams.indexesOverrides?.test?.highlightPreTag
+      meilisearchParams.indexesOverrides?.test?.highlightPreTag
     )
     expect(searchParams.highlightPostTag).toEqual(
-      meiliSearchParams.indexesOverrides?.test?.highlightPostTag
+      meilisearchParams.indexesOverrides?.test?.highlightPostTag
     )
     expect(searchParams.matchingStrategy).toEqual(
-      meiliSearchParams.indexesOverrides?.test?.matchingStrategy
+      meilisearchParams.indexesOverrides?.test?.matchingStrategy
     )
   })
 
@@ -123,7 +123,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         hybrid: hybridSearchConfig,
       },
     })
@@ -143,7 +143,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         hybrid: hybridSearchConfig,
         indexesOverrides: {
           test: { hybrid: specificHybridSearchConfig },
@@ -159,7 +159,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         vector,
       },
     })
@@ -172,7 +172,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         vector,
         indexesOverrides: { test: { vector: indexVector } },
       },
@@ -186,7 +186,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         rankingScoreThreshold,
       },
     })
@@ -200,7 +200,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         rankingScoreThreshold,
         indexesOverrides: {
           test: { rankingScoreThreshold: indexRankingScoreThreshold },
@@ -216,7 +216,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         distinct: distinctSearchConfig,
       },
     })
@@ -230,7 +230,7 @@ describe('Parameters adapter', () => {
 
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
-      meiliSearchParams: {
+      meilisearchParams: {
         distinct: distinctSearchConfig,
         indexesOverrides: {
           test: { distinct: indexDistinctSearchConfig },
@@ -247,7 +247,7 @@ describe('Parameters adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       // No facetFilters, filters, or numericFilters - empty IS filters
-      meiliSearchParams: {
+      meilisearchParams: {
         filter: globalFilter,
       },
     })
@@ -262,7 +262,7 @@ describe('Parameters adapter', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
       // No facetFilters, filters, or numericFilters - empty IS filters
-      meiliSearchParams: {
+      meilisearchParams: {
         filter: globalFilter,
         indexesOverrides: {
           test: { filter: indexFilter },

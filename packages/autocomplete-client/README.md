@@ -134,7 +134,7 @@ The `options` field in the `meilisearchAutocompleteClient` function provides the
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 - [`requestConfig`](#request-config): Use custom request configurations.
 - [`httpClient`](#custom-http-client): Use a custom HTTP client.
-- [`meiliSearchParams`](#meilisearch-search-parameters): Override search parameters sent to Meilisearch.
+- [`meilisearchParams`](#meilisearch-search-parameters): Override search parameters sent to Meilisearch.
 
 ```js
 const client = meilisearchAutocompleteClient({
@@ -142,7 +142,7 @@ const client = meilisearchAutocompleteClient({
   apiKey: 'searchKey',
   options: {
     // other options
-    meiliSearchParams: {
+    meilisearchParams: {
     },
   },
 })
@@ -228,7 +228,7 @@ You can use your own HTTP client, for example, with [`axios`](https://github.com
 
 ### Meilisearch search parameters
 
-`meiliSearchParams` lets you override the parameters sent to Meilisearch.
+`meilisearchParams` lets you override the parameters sent to Meilisearch.
 The following options can be overridden:
 - [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
 - [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)

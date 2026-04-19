@@ -85,18 +85,18 @@ export function instantMeilisearch(
   )
 
   return {
-    meiliSearchInstance: meilisearchClient,
+    meilisearchInstance: meilisearchClient,
     setMeilisearchParams: (params): void => {
-      const { meiliSearchParams } = instantMeilisearchOptions
+      const { meilisearchParams } = instantMeilisearchOptions
 
-      instantMeilisearchOptions.meiliSearchParams =
-        meiliSearchParams === undefined
+      instantMeilisearchOptions.meilisearchParams =
+        meilisearchParams === undefined
           ? params
           : {
-              ...meiliSearchParams,
+              ...meilisearchParams,
               ...params,
               indexesOverrides: {
-                ...(meiliSearchParams.indexesOverrides || {}),
+                ...(meilisearchParams.indexesOverrides || {}),
                 ...(params.indexesOverrides || {}),
               },
             }

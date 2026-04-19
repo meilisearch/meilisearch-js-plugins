@@ -159,7 +159,7 @@ where `searchClient` is to be passed to instantsearch.js or its many framework a
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 - [`requestInit`](#request-config): Use custom request configurations.
 - [`httpClient`](#custom-http-client): Use a custom HTTP client.
-- [`meiliSearchParams`](#meilisearch-search-parameters): Override a selection of Meilisearch search parameters (default `undefined`).
+- [`meilisearchParams`](#meilisearch-search-parameters): Override a selection of Meilisearch search parameters (default `undefined`).
 
 The options are added as the third parameter of the `instantMeilisearch` function.
 
@@ -382,7 +382,7 @@ const { searchClient } = instantMeilisearch(
 
 ### Meilisearch search parameters
 
-`meiliSearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
+`meilisearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
 The following options can be overridden:
 - [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
 - [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
@@ -402,7 +402,7 @@ The following options can be overridden:
 instantMeilisearch(
   // ...
   {
-    meiliSearchParams: {
+    meilisearchParams: {
       attributesToHighlight: ['overview'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',
@@ -417,7 +417,7 @@ When using multi search, meilisearchParams can be overriden for specific indexes
 instantMeilisearch(
   // ...
   {
-    meiliSearchParams: {
+    meilisearchParams: {
       // All indexes will highlight overview
       attributesToHighlight: ['overview'],
       highlightPreTag: '<em>',
@@ -448,7 +448,7 @@ It only modifies parameters that are defined on the provided object, the followi
 const { setMeilisearchParams } = instantMeilisearch(
   // ...
   {
-    meiliSearchParams: {
+    meilisearchParams: {
       attributesToHighlight: ['overview'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',

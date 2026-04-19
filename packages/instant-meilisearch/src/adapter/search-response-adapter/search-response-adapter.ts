@@ -46,7 +46,7 @@ export function adaptSearchResults<T = Record<string, any>>(
  * @returns {MeilisearchSearchResponse<T>}
  */
 export function adaptSearchResult<T>(
-  meiliSearchResult: MeilisearchMultiSearchResult,
+  meilisearchResult: MeilisearchMultiSearchResult,
   initialFacetDistribution: FacetDistribution,
   config: InstantMeilisearchConfig
 ): MeilisearchSearchResponse<T> {
@@ -57,17 +57,17 @@ export function adaptSearchResult<T>(
     facetDistribution: responseFacetDistribution = {},
     facetStats = {},
     metadata,
-  } = meiliSearchResult
+  } = meilisearchResult
 
   const facets = Object.keys(responseFacetDistribution)
 
   const { hitsPerPage, page, nbPages } = adaptPaginationParameters(
-    meiliSearchResult,
-    meiliSearchResult.pagination
+    meilisearchResult,
+    meilisearchResult.pagination
   )
 
-  const hits = adaptHits(meiliSearchResult, config)
-  const nbHits = adaptTotalHits(meiliSearchResult)
+  const hits = adaptHits(meilisearchResult, config)
+  const nbHits = adaptTotalHits(meilisearchResult)
 
   const facetDistribution = adaptFacetDistribution(
     config.keepZeroFacets,

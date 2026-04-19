@@ -78,7 +78,7 @@ type BaseInstantMeilisearchOptions = {
   keepZeroFacets?: boolean
   clientAgents?: string[]
   finitePagination?: boolean
-  meiliSearchParams?: OverridableMeilisearchSearchParameters
+  meilisearchParams?: OverridableMeilisearchSearchParameters
 }
 
 export type InstantMeilisearchOptions = Pick<
@@ -163,7 +163,7 @@ export type InstantMeilisearchInstance =
   }
 
 export type InstantMeilisearchObject = {
-  meiliSearchInstance: Meilisearch
+  meilisearchInstance: Meilisearch
   setMeilisearchParams: (params: OverridableMeilisearchSearchParameters) => void
   searchClient: InstantMeilisearchInstance
 }

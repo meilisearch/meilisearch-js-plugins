@@ -42,7 +42,7 @@ export function adaptHits(
         adaptFormattedFields(formattedHit)
       )
 
-      if (config?.meiliSearchParams?.showMatchesPosition) {
+      if (config?.meilisearchParams?.showMatchesPosition) {
         adaptedHit._matchesPosition = _matchesPosition
       }
 
