@@ -1,7 +1,7 @@
 import { meilisearch } from '@meilisearch/instant-meilisearch'
 import games from './assets/games.json' with { type: 'json' }
 
-const client = new meilisearch.MeiliSearch({
+const client = new meilisearch.Meilisearch({
   host: 'http://localhost:7700',
   apiKey: 'masterKey',
 })

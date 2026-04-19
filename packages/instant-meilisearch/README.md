@@ -134,15 +134,15 @@ To be able to create a search interface, you'll need to [install `instantsearch.
 ### Basic
 
 ```js
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
-const { searchClient, setMeiliSearchParams } = instantMeiliSearch(
+const { searchClient, setMeilisearchParams } = instantMeilisearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io', // Host
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303' // API key
 )
 ```
 
-where `searchClient` is to be passed to instantsearch.js or its many framework adaptations, and [`setMeiliSearchParams`](#modify-meilisearch-search-parameters) is a function used to set/modify certain Meilisearch search parameters to be overridden.
+where `searchClient` is to be passed to instantsearch.js or its many framework adaptations, and [`setMeilisearchParams`](#modify-meilisearch-search-parameters) is a function used to set/modify certain Meilisearch search parameters to be overridden.
 
 ### Parameters
 
@@ -159,14 +159,14 @@ where `searchClient` is to be passed to instantsearch.js or its many framework a
 - [`keepZeroFacets`](#keep-zero-facets): Show the facets value even when they have 0 matches (default `false`).
 - [`requestInit`](#request-config): Use custom request configurations.
 - [`httpClient`](#custom-http-client): Use a custom HTTP client.
-- [`meiliSearchParams`](#meilisearch-search-parameters): Override a selection of Meilisearch search parameters (default `undefined`).
+- [`meilisearchParams`](#meilisearch-search-parameters): Override a selection of Meilisearch search parameters (default `undefined`).
 
 The options are added as the third parameter of the `instantMeilisearch` function.
 
 ```js
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
   {
@@ -277,10 +277,10 @@ Search metadata is useful for interacting with the [Meilisearch Analytics Events
 The search client returns `MeilisearchSearchResponse` which extends the standard `AlgoliaSearchResponse` with an optional `_meilisearch` namespace containing metadata:
 
 ```ts
-import { instantMeiliSearch, getAnalyticsMetadata } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch, getAnalyticsMetadata } from '@meilisearch/instant-meilisearch'
 import instantsearch from 'instantsearch.js'
 
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
 )
@@ -367,7 +367,7 @@ connectHits(renderHits)
 For self-hosted Meilisearch instances, you need to enable search metadata by setting the `Meili-Include-Metadata` header:
 
 ```ts
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'http://localhost:7700',
   'your-api-key',
   {
@@ -382,7 +382,7 @@ const { searchClient } = instantMeiliSearch(
 
 ### Meilisearch search parameters
 
-`meiliSearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
+`meilisearchParams` lets you override a set of search parameters that are sent off to Meilisearch.
 The following options can be overridden:
 - [`attributesToCrop`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-crop)
 - [`attributesToHighlight`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#attributes-to-highlight)
@@ -399,10 +399,10 @@ The following options can be overridden:
 - [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
 ```js
-instantMeiliSearch(
+instantMeilisearch(
   // ...
   {
-    meiliSearchParams: {
+    meilisearchParams: {
       attributesToHighlight: ['overview'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',
@@ -414,10 +414,10 @@ instantMeiliSearch(
 When using multi search, meilisearchParams can be overriden for specific indexes :
 
 ```js
-instantMeiliSearch(
+instantMeilisearch(
   // ...
   {
-    meiliSearchParams: {
+    meilisearchParams: {
       // All indexes will highlight overview
       attributesToHighlight: ['overview'],
       highlightPreTag: '<em>',
@@ -435,20 +435,20 @@ instantMeiliSearch(
 ```
 ### Modify Meilisearch search parameters
 
-`instantMeiliSearch` returns an instance with two properties on it, one of them being `setMeiliSearchParams`.
+`instantMeilisearch` returns an instance with two properties on it, one of them being `setMeilisearchParams`.
 
 ```js
-const { searchClient, setMeiliSearchParams } = instantMeiliSearch(/*...*/)
+const { searchClient, setMeilisearchParams } = instantMeilisearch(/*...*/)
 ```
 
 It modifies (or sets if not already set) the [overridden Meilisearch search parameters](#meilisearch-search-parameters).
 It only modifies parameters that are defined on the provided object, the following will not change `attributesToHighlight`.
 
 ```js
-const { setMeiliSearchParams } = instantMeiliSearch(
+const { setMeilisearchParams } = instantMeilisearch(
   // ...
   {
-    meiliSearchParams: {
+    meilisearchParams: {
       attributesToHighlight: ['overview'],
       highlightPreTag: '<em>',
       highlightPostTag: '</em>',
@@ -457,7 +457,7 @@ const { setMeiliSearchParams } = instantMeiliSearch(
   }
 )
 
-setMeiliSearchParams({
+setMeilisearchParams({
   highlightPreTag: '<mark>',
   highlightPostTag: '</mark>',
   attributesToSearchOn: ['overview', 'title'],
@@ -495,7 +495,7 @@ In `index.html`:
 In `app.js`:
 
 ```js
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'https://ms-adf78ae33284-106.lon.meilisearch.io',
   'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
 )
@@ -620,11 +620,11 @@ List of all the components that are available in [instantSearch](https://github.
 ```js
 const search = instantsearch({
   indexName: 'instant_search',
-  searchClient: instantMeiliSearch(
+  searchClient: instantMeilisearch(
     'https://ms-adf78ae33284-106.lon.meilisearch.io',
     'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303',
     {
-      // ... InstantMeiliSearch options
+      // ... InstantMeilisearch options
     }
   ).searchClient,
   // ... InstantSearch options

@@ -1,7 +1,7 @@
 import type {
   PaginationState,
   MeilisearchMultiSearchResult,
-  InstantMeiliSearchConfig,
+  InstantMeilisearchConfig,
 } from '../../types/index.js'
 import { adaptFormattedFields } from './format-adapter/index.js'
 import { adaptGeoResponse } from './geo-reponse-adapter.js'
@@ -15,7 +15,7 @@ export function adaptHits(
   searchResponse: MeilisearchMultiSearchResult & {
     pagination: PaginationState
   },
-  config: InstantMeiliSearchConfig
+  config: InstantMeilisearchConfig
 ): any {
   const { hits } = searchResponse
   const { hitsPerPage, page } = searchResponse.pagination
@@ -42,7 +42,7 @@ export function adaptHits(
         adaptFormattedFields(formattedHit)
       )
 
-      if (config?.meiliSearchParams?.showMatchesPosition) {
+      if (config?.meilisearchParams?.showMatchesPosition) {
         adaptedHit._matchesPosition = _matchesPosition
       }
 

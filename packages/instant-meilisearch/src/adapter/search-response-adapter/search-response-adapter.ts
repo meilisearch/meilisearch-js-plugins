@@ -1,6 +1,6 @@
 import type {
   FacetDistribution,
-  InstantMeiliSearchConfig,
+  InstantMeilisearchConfig,
   MeilisearchMultiSearchResult,
   MeilisearchSearchResponse,
 } from '../../types/index.js'
@@ -16,13 +16,13 @@ import { adaptFacetStats } from './adapt-facet-stats.js'
  *
  * @param {MeilisearchMultiSearchResult<T>[]} searchResponse
  * @param {Record<string, FacetDistribution>} initialFacetDistribution
- * @param {InstantMeiliSearchConfig} config
+ * @param {InstantMeilisearchConfig} config
  * @returns {{ results: MeilisearchSearchResponse<T>[] }}
  */
 export function adaptSearchResults<T = Record<string, any>>(
   meilisearchResults: MeilisearchMultiSearchResult[],
   initialFacetDistribution: Record<string, FacetDistribution>,
-  config: InstantMeiliSearchConfig
+  config: InstantMeilisearchConfig
 ): { results: Array<MeilisearchSearchResponse<T>> } {
   const instantSearchResult: Array<MeilisearchSearchResponse<T>> =
     meilisearchResults.map((meilisearchResult) => {
@@ -42,13 +42,13 @@ export function adaptSearchResults<T = Record<string, any>>(
  *
  * @param {MeilisearchMultiSearchResult<Record<string>>} searchResponse
  * @param {Record<string, FacetDistribution>} initialFacetDistribution
- * @param {InstantMeiliSearchConfig} config
+ * @param {InstantMeilisearchConfig} config
  * @returns {MeilisearchSearchResponse<T>}
  */
 export function adaptSearchResult<T>(
-  meiliSearchResult: MeilisearchMultiSearchResult,
+  meilisearchResult: MeilisearchMultiSearchResult,
   initialFacetDistribution: FacetDistribution,
-  config: InstantMeiliSearchConfig
+  config: InstantMeilisearchConfig
 ): MeilisearchSearchResponse<T> {
   const {
     processingTimeMs,
@@ -57,17 +57,17 @@ export function adaptSearchResult<T>(
     facetDistribution: responseFacetDistribution = {},
     facetStats = {},
     metadata,
-  } = meiliSearchResult
+  } = meilisearchResult
 
   const facets = Object.keys(responseFacetDistribution)
 
   const { hitsPerPage, page, nbPages } = adaptPaginationParameters(
-    meiliSearchResult,
-    meiliSearchResult.pagination
+    meilisearchResult,
+    meilisearchResult.pagination
   )
 
-  const hits = adaptHits(meiliSearchResult, config)
-  const nbHits = adaptTotalHits(meiliSearchResult)
+  const hits = adaptHits(meilisearchResult, config)
+  const nbHits = adaptTotalHits(meilisearchResult)
 
   const facetDistribution = adaptFacetDistribution(
     config.keepZeroFacets,

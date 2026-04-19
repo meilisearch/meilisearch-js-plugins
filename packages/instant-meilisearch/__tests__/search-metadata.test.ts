@@ -1,5 +1,5 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch, getAnalyticsMetadata } from '../src/index.js'
+import { instantMeilisearch, getAnalyticsMetadata } from '../src/index.js'
 import { dataset, type Movies, meilisearchClient } from './assets/utils.js'
 
 describe('Search metadata integration tests', () => {
@@ -9,7 +9,7 @@ describe('Search metadata integration tests', () => {
   })
 
   test('metadata is present when Meili-Include-Metadata header is set', async () => {
-    const { searchClient } = instantMeiliSearch(
+    const { searchClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -44,7 +44,7 @@ describe('Search metadata integration tests', () => {
   })
 
   test('metadata is accessible via getAnalyticsMetadata helper', async () => {
-    const { searchClient } = instantMeiliSearch(
+    const { searchClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -86,7 +86,7 @@ describe('Search metadata integration tests', () => {
   })
 
   test('metadata is not present when header is not set', async () => {
-    const { searchClient } = instantMeiliSearch(
+    const { searchClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -107,7 +107,7 @@ describe('Search metadata integration tests', () => {
   })
 
   test('getAnalyticsMetadata returns undefined when metadata is not present', async () => {
-    const { searchClient } = instantMeiliSearch(
+    const { searchClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey'
     )

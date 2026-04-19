@@ -1,5 +1,5 @@
 import { describe, beforeAll, test, expect, vi } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeilisearch } from '../src/index.js'
 import { meilisearchClient, dataset } from './assets/utils.js'
 
 describe('Custom HTTP client tests', () => {
@@ -18,7 +18,7 @@ describe('Custom HTTP client tests', () => {
       return await result.json()
     })
 
-    const { searchClient } = instantMeiliSearch(
+    const { searchClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {

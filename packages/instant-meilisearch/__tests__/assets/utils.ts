@@ -1,5 +1,5 @@
-import { instantMeiliSearch } from '../../src/index.js'
-import { MeiliSearch } from 'meilisearch'
+import { instantMeilisearch } from '../../src/index.js'
+import { Meilisearch } from 'meilisearch'
 
 const HOST = 'http://localhost:7700'
 const API_KEY = 'masterKey'
@@ -309,15 +309,15 @@ export type Movies = {
   _highlightResult?: Movies
 }
 
-const { searchClient } = instantMeiliSearch(
+const { searchClient } = instantMeilisearch(
   'http://localhost:7700',
   'masterKey'
 )
-const { searchClient: wrongSearchClient } = instantMeiliSearch(
+const { searchClient: wrongSearchClient } = instantMeilisearch(
   'http://localhost:7777',
   'masterKey'
 )
-const meilisearchClient = new MeiliSearch({
+const meilisearchClient = new Meilisearch({
   host: HOST,
   apiKey: API_KEY,
 })

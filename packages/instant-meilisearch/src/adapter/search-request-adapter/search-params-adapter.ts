@@ -2,7 +2,7 @@ import type {
   SearchContext,
   Filter,
   PaginationState,
-  MeiliSearchMultiSearchParams,
+  MeilisearchMultiSearchParams,
   Mutable,
 } from '../../types/index.js'
 
@@ -82,18 +82,18 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
     pagination,
     sort,
     restrictSearchableAttributes,
-    meiliSearchParams: overrideParams,
+    meilisearchParams: overrideParams,
   } = searchContext
-  const meiliSearchParams: MeiliSearchMultiSearchParams = { indexUid }
+  const meilisearchParams: MeilisearchMultiSearchParams = { indexUid }
 
   const meilisearchFilters = adaptFilters(filters, numericFilters, facetFilters)
 
   return {
-    getParams(): MeiliSearchMultiSearchParams {
-      return meiliSearchParams
+    getParams(): MeilisearchMultiSearchParams {
+      return meilisearchParams
     },
     addQuery() {
-      meiliSearchParams.q = query
+      meilisearchParams.q = query
     },
     addFacets() {
       const value =
@@ -103,7 +103,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       if (value !== undefined) {
         // despite Instantsearch.js typing it as `string[]`,
         // it still can send `string`
-        meiliSearchParams.facets = typeof value === 'string' ? [value] : value
+        meilisearchParams.facets = typeof value === 'string' ? [value] : value
       }
     },
     addAttributesToCrop() {
@@ -112,7 +112,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.attributesToCrop ??
         <Mutable<typeof attributesToSnippet>>attributesToSnippet
       if (value !== undefined) {
-        meiliSearchParams.attributesToCrop = value
+        meilisearchParams.attributesToCrop = value
       }
     },
     addCropLength() {
@@ -120,7 +120,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.cropLength ??
         overrideParams?.cropLength
       if (value !== undefined) {
-        meiliSearchParams.cropLength = value
+        meilisearchParams.cropLength = value
       }
     },
     addCropMarker() {
@@ -129,7 +129,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.cropMarker ??
         snippetEllipsisText
       if (value !== undefined) {
-        meiliSearchParams.cropMarker = value
+        meilisearchParams.cropMarker = value
       }
     },
     addFilters() {
@@ -138,9 +138,9 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.filter
 
       if (overrideFilter !== undefined) {
-        meiliSearchParams.filter = overrideFilter
+        meilisearchParams.filter = overrideFilter
       } else if (meilisearchFilters.length) {
-        meiliSearchParams.filter = meilisearchFilters
+        meilisearchParams.filter = meilisearchFilters
       }
     },
     addAttributesToRetrieve() {
@@ -149,24 +149,24 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.attributesToRetrieve ??
         <Mutable<typeof attributesToRetrieve>>attributesToRetrieve
       if (value !== undefined) {
-        meiliSearchParams.attributesToRetrieve = value
+        meilisearchParams.attributesToRetrieve = value
       }
     },
     addAttributesToHighlight() {
-      meiliSearchParams.attributesToHighlight = overrideParams
+      meilisearchParams.attributesToHighlight = overrideParams
         ?.indexesOverrides?.[indexUid]?.attributesToHighlight ??
         overrideParams?.attributesToHighlight ??
         <Mutable<typeof attributesToHighlight>>attributesToHighlight ?? ['*']
     },
     addPreTag() {
-      meiliSearchParams.highlightPreTag =
+      meilisearchParams.highlightPreTag =
         overrideParams?.indexesOverrides?.[indexUid]?.highlightPreTag ??
         overrideParams?.highlightPreTag ??
         highlightPreTag ??
         '__ais-highlight__'
     },
     addPostTag() {
-      meiliSearchParams.highlightPostTag =
+      meilisearchParams.highlightPostTag =
         overrideParams?.indexesOverrides?.[indexUid]?.highlightPostTag ??
         overrideParams?.highlightPostTag ??
         highlightPostTag ??
@@ -183,15 +183,15 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
           pagination,
           paginationRequired
         )
-        meiliSearchParams.hitsPerPage = hitsPerPage
-        meiliSearchParams.page = page
+        meilisearchParams.hitsPerPage = hitsPerPage
+        meilisearchParams.page = page
       } else {
         const { limit, offset } = setScrollPagination(
           pagination,
           paginationRequired
         )
-        meiliSearchParams.limit = limit
-        meiliSearchParams.offset = offset
+        meilisearchParams.limit = limit
+        meilisearchParams.offset = offset
       }
     },
     addSort() {
@@ -201,7 +201,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
 
       const value = overrideSort ?? sort
       if (value && (Array.isArray(value) ? value.length : true)) {
-        meiliSearchParams.sort = Array.isArray(value) ? value : [value]
+        meilisearchParams.sort = Array.isArray(value) ? value : [value]
       }
     },
     addGeoSearchFilter() {
@@ -222,10 +222,10 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
       })
 
       if (filter !== undefined) {
-        if (Array.isArray(meiliSearchParams.filter)) {
-          meiliSearchParams.filter.unshift(filter)
+        if (Array.isArray(meilisearchParams.filter)) {
+          meilisearchParams.filter.unshift(filter)
         } else {
-          meiliSearchParams.filter = [filter]
+          meilisearchParams.filter = [filter]
         }
       }
     },
@@ -234,7 +234,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.showMatchesPosition ??
         overrideParams?.showMatchesPosition
       if (value !== undefined) {
-        meiliSearchParams.showMatchesPosition = value
+        meilisearchParams.showMatchesPosition = value
       }
     },
     addMatchingStrategy() {
@@ -242,7 +242,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.matchingStrategy ??
         overrideParams?.matchingStrategy
       if (value !== undefined) {
-        meiliSearchParams.matchingStrategy = value
+        meilisearchParams.matchingStrategy = value
       }
     },
     addShowRankingScore() {
@@ -250,7 +250,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.showRankingScore ??
         overrideParams?.showRankingScore
       if (value !== undefined) {
-        meiliSearchParams.showRankingScore = value
+        meilisearchParams.showRankingScore = value
       }
     },
     addAttributesToSearchOn() {
@@ -262,7 +262,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         )
 
       if (value !== undefined) {
-        meiliSearchParams.attributesToSearchOn = value
+        meilisearchParams.attributesToSearchOn = value
       }
     },
     addHybridSearch() {
@@ -270,7 +270,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.hybrid ??
         overrideParams?.hybrid
       if (value !== undefined) {
-        meiliSearchParams.hybrid = value
+        meilisearchParams.hybrid = value
       }
     },
     addVector() {
@@ -278,7 +278,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.vector ??
         overrideParams?.vector
       if (value !== undefined) {
-        meiliSearchParams.vector = value
+        meilisearchParams.vector = value
       }
     },
     addDistinct() {
@@ -286,7 +286,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.distinct ??
         overrideParams?.distinct
       if (value !== undefined) {
-        meiliSearchParams.distinct = value
+        meilisearchParams.distinct = value
       }
     },
     addRankingScoreThreshold() {
@@ -294,7 +294,7 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         overrideParams?.indexesOverrides?.[indexUid]?.rankingScoreThreshold ??
         overrideParams?.rankingScoreThreshold
       if (value !== undefined) {
-        meiliSearchParams.rankingScoreThreshold = value
+        meilisearchParams.rankingScoreThreshold = value
       }
     },
   }
@@ -305,11 +305,11 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
  * Meilisearch
  *
  * @param {SearchContext} searchContext
- * @returns {MeiliSearchMultiSearchParams}
+ * @returns {MeilisearchMultiSearchParams}
  */
 export function adaptSearchParams(
   searchContext: SearchContext
-): MeiliSearchMultiSearchParams {
+): MeilisearchMultiSearchParams {
   const meilisearchParams = MeiliParamsCreator(searchContext)
   meilisearchParams.addQuery()
   meilisearchParams.addFacets()

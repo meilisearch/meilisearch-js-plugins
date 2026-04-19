@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeilisearch } from '../src/index.js'
 
-describe('InstantMeiliSearch instantiation', () => {
-  test('instantiation with required params returns InstantMeiliSearchInstance', () => {
-    const searchClient = instantMeiliSearch(
+describe('InstantMeilisearch instantiation', () => {
+  test('instantiation with required params returns InstantMeilisearchInstance', () => {
+    const searchClient = instantMeilisearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -11,8 +11,8 @@ describe('InstantMeiliSearch instantiation', () => {
     expect(searchClient).toBeTruthy()
   })
 
-  test('instantiation with function as apiKey returns InstantMeiliSearchInstance', () => {
-    const searchClient = instantMeiliSearch('http://localhost:7700', () => {
+  test('instantiation with function as apiKey returns InstantMeilisearchInstance', () => {
+    const searchClient = instantMeilisearch('http://localhost:7700', () => {
       return 'masterKey'
     })
 
@@ -22,28 +22,28 @@ describe('InstantMeiliSearch instantiation', () => {
   test('instantiation without hostUrl throws error', () => {
     expect(() => {
       // @ts-expect-error
-      instantMeiliSearch(undefined, 'masterKey')
+      instantMeilisearch(undefined, 'masterKey')
     }).toThrow(TypeError)
   })
 
   test('instantiation without apiKey as function or string throws error', () => {
     expect(() => {
       // @ts-expect-error
-      instantMeiliSearch('http://localhost:7700', 123)
+      instantMeilisearch('http://localhost:7700', 123)
     }).toThrow(TypeError)
   })
 
   test('instantiation with function that does not return string as apiKey throws error', () => {
     expect(() => {
       // @ts-expect-error
-      instantMeiliSearch('http://localhost:7700', () => {
+      instantMeilisearch('http://localhost:7700', () => {
         return 123
       })
     }).toThrow(TypeError)
   })
 
   test('instantiation with custom request config with correct type', () => {
-    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+    const searchClient = instantMeilisearch('http://localhost:7700', '', {
       requestInit: {},
     })
 
@@ -51,7 +51,7 @@ describe('InstantMeiliSearch instantiation', () => {
   })
 
   test('instantiation with custom request config set to undefined', () => {
-    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+    const searchClient = instantMeilisearch('http://localhost:7700', '', {
       requestInit: undefined,
     })
 
@@ -60,7 +60,7 @@ describe('InstantMeiliSearch instantiation', () => {
 
   test('instantiation with custom request config set to a string', () => {
     expect(() => {
-      instantMeiliSearch('http://localhost:7700', '', {
+      instantMeilisearch('http://localhost:7700', '', {
         // @ts-expect-error
         requestInit: '',
       })
@@ -68,7 +68,7 @@ describe('InstantMeiliSearch instantiation', () => {
   })
 
   test('instantiation with custom HTTP client with correct type', () => {
-    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+    const searchClient = instantMeilisearch('http://localhost:7700', '', {
       httpClient: async () => {
         return new Promise((resolve) => {
           resolve({})
@@ -80,7 +80,7 @@ describe('InstantMeiliSearch instantiation', () => {
   })
 
   test('instantiation with custom HTTP client set to undefined', () => {
-    const searchClient = instantMeiliSearch('http://localhost:7700', '', {
+    const searchClient = instantMeilisearch('http://localhost:7700', '', {
       httpClient: undefined,
     })
 
@@ -89,7 +89,7 @@ describe('InstantMeiliSearch instantiation', () => {
 
   test('instantiation with custom HTTP client set to a string', () => {
     expect(() => {
-      instantMeiliSearch('http://localhost:7700', '', {
+      instantMeilisearch('http://localhost:7700', '', {
         // @ts-expect-error
         httpClient: 'wrong type',
       })

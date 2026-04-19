@@ -162,7 +162,7 @@ const searchResponsePositionMatchesTrue = {
 }
 
 describe('Hit adapter', () => {
-  test('_matchesPosition should be created in hit object with meiliSearchParams.showMatchesPosition=true', () => {
+  test('_matchesPosition should be created in hit object with meilisearchParams.showMatchesPosition=true', () => {
     const expectedPositionMatch = {
       name: [
         {
@@ -177,7 +177,7 @@ describe('Hit adapter', () => {
       keepZeroFacets: false,
       clientAgents: [],
       finitePagination: true,
-      meiliSearchParams: {
+      meilisearchParams: {
         showMatchesPosition: true,
       },
     }
@@ -187,13 +187,13 @@ describe('Hit adapter', () => {
     expect(adaptedHits[0]._matchesPosition).toEqual(expectedPositionMatch)
   })
 
-  test('_matchesPosition should NOT be created in hit object with meiliSearchParams.showMatchesPosition=false', () => {
+  test('_matchesPosition should NOT be created in hit object with meilisearchParams.showMatchesPosition=false', () => {
     const config = {
       placeholderSearch: true,
       keepZeroFacets: false,
       clientAgents: [],
       finitePagination: true,
-      meiliSearchParams: {
+      meilisearchParams: {
         showMatchesPosition: false,
       },
     }

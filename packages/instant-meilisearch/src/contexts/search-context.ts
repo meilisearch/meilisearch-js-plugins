@@ -1,5 +1,5 @@
 import type {
-  InstantMeiliSearchOptions,
+  InstantMeilisearchOptions,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   AlgoliaSearchForFacetValuesRequest,
@@ -31,7 +31,7 @@ function separateIndexFromSortRules(indexName: string): {
  */
 export function createSearchContext(
   searchRequest: AlgoliaMultipleQueriesQuery,
-  options: InstantMeiliSearchOptions
+  options: InstantMeilisearchOptions
 ): SearchContext {
   const { query, indexName, params: instantSearchParams } = searchRequest
   // Split index name and possible sorting rules
@@ -63,7 +63,7 @@ export function createSearchContext(
  */
 export function createFacetSearchContext(
   searchRequest: AlgoliaSearchForFacetValuesRequest,
-  options: InstantMeiliSearchOptions
+  options: InstantMeilisearchOptions
 ): SearchContext {
   // Split index name and possible sorting rules
   const { indexUid, sortBy } = separateIndexFromSortRules(

@@ -1,6 +1,6 @@
-import { MeiliSearch } from 'meilisearch'
+import { Meilisearch } from 'meilisearch'
 import type {
-  InstantMeiliSearchOptions,
+  InstantMeilisearchOptions,
   AlgoliaMultipleQueriesQuery,
   SearchContext,
   FacetDistribution,
@@ -8,14 +8,14 @@ import type {
   MeilisearchConfig,
   AlgoliaSearchForFacetValuesRequests,
   AlgoliaSearchForFacetValuesResponse,
-  InstantMeiliSearchObject,
+  InstantMeilisearchObject,
   ApiKeyCallback,
   MeilisearchSearchResponse,
 } from '../types/index.js'
 import {
   getApiKey,
   getInstantMeilisearchConfig,
-  validateInstantMeiliSearchParams,
+  validateInstantMeilisearchParams,
 } from './config/index.js'
 import {
   adaptSearchResults,
@@ -39,23 +39,23 @@ import { constructClientAgents } from './agents.js'
  *
  * @param {string} hostUrl
  * @param {string | ApiKeyCallback} [apiKey=''] Default is `''`
- * @param {InstantMeiliSearchOptions} [instantMeiliSearchOptions={}] Default is
+ * @param {InstantMeilisearchOptions} [instantMeilisearchOptions={}] Default is
  *   `{}`
- * @returns {InstantMeiliSearchObject}
+ * @returns {InstantMeilisearchObject}
  */
-export function instantMeiliSearch(
+export function instantMeilisearch(
   hostUrl: string,
   apiKey: string | ApiKeyCallback = '',
-  instantMeiliSearchOptions: InstantMeiliSearchOptions = {}
-): InstantMeiliSearchObject {
+  instantMeilisearchOptions: InstantMeilisearchOptions = {}
+): InstantMeilisearchObject {
   // Validate parameters
-  validateInstantMeiliSearchParams(hostUrl, apiKey, instantMeiliSearchOptions)
+  validateInstantMeilisearchParams(hostUrl, apiKey, instantMeilisearchOptions)
 
   // Resolve possible function to get apiKey
   apiKey = getApiKey(apiKey)
 
   const clientAgents = constructClientAgents(
-    instantMeiliSearchOptions.clientAgents
+    instantMeilisearchOptions.clientAgents
   )
 
   const meilisearchConfig: MeilisearchConfig = {
@@ -64,15 +64,15 @@ export function instantMeiliSearch(
     clientAgents,
   }
 
-  if (instantMeiliSearchOptions.httpClient !== undefined) {
-    meilisearchConfig.httpClient = instantMeiliSearchOptions.httpClient
+  if (instantMeilisearchOptions.httpClient !== undefined) {
+    meilisearchConfig.httpClient = instantMeilisearchOptions.httpClient
   }
 
-  if (instantMeiliSearchOptions.requestInit !== undefined) {
-    meilisearchConfig.requestInit = instantMeiliSearchOptions.requestInit
+  if (instantMeilisearchOptions.requestInit !== undefined) {
+    meilisearchConfig.requestInit = instantMeilisearchOptions.requestInit
   }
 
-  const meilisearchClient = new MeiliSearch(meilisearchConfig)
+  const meilisearchClient = new Meilisearch(meilisearchConfig)
 
   const searchCache = SearchCache()
   // create search resolver with included cache
@@ -81,22 +81,22 @@ export function instantMeiliSearch(
   let initialFacetDistribution: Record<string, FacetDistribution> = {}
 
   const instantMeilisearchConfig = getInstantMeilisearchConfig(
-    instantMeiliSearchOptions
+    instantMeilisearchOptions
   )
 
   return {
-    meiliSearchInstance: meilisearchClient,
-    setMeiliSearchParams: (params): void => {
-      const { meiliSearchParams } = instantMeiliSearchOptions
+    meilisearchInstance: meilisearchClient,
+    setMeilisearchParams: (params): void => {
+      const { meilisearchParams } = instantMeilisearchOptions
 
-      instantMeiliSearchOptions.meiliSearchParams =
-        meiliSearchParams === undefined
+      instantMeilisearchOptions.meilisearchParams =
+        meilisearchParams === undefined
           ? params
           : {
-              ...meiliSearchParams,
+              ...meilisearchParams,
               ...params,
               indexesOverrides: {
-                ...(meiliSearchParams.indexesOverrides || {}),
+                ...(meilisearchParams.indexesOverrides || {}),
                 ...(params.indexesOverrides || {}),
               },
             }
@@ -118,7 +118,7 @@ export function instantMeiliSearch(
           for (const searchRequest of instantSearchRequests) {
             const searchContext: SearchContext = createSearchContext(
               searchRequest,
-              instantMeiliSearchOptions
+              instantMeilisearchOptions
             )
 
             // Adapt the search parameters provided by instantsearch to
@@ -173,7 +173,7 @@ export function instantMeiliSearch(
         for (const request of requests) {
           const searchContext: SearchContext = createFacetSearchContext(
             request,
-            instantMeiliSearchOptions
+            instantMeilisearchOptions
           )
 
           const meilisearchSearchQuery = adaptSearchParams(searchContext)

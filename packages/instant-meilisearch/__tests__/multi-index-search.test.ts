@@ -1,5 +1,5 @@
 import { describe, beforeAll, test, expect } from 'vitest'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeilisearch } from '../src/index.js'
 import { type Movies, meilisearchClient } from './assets/utils.js'
 import movies from './assets/movies.json' with { type: 'json' }
 import games from './assets/games.json' with { type: 'json' }
@@ -28,7 +28,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -56,7 +56,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with scroll pagination', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -91,7 +91,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with page selection pagination', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {
@@ -129,7 +129,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with facet filtering', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey'
     )
@@ -225,7 +225,7 @@ describe('Multi-index search test', () => {
   })
 
   test('searching on two indexes with no placeholder search', async () => {
-    const { searchClient: customClient } = instantMeiliSearch(
+    const { searchClient: customClient } = instantMeilisearch(
       'http://localhost:7700',
       'masterKey',
       {

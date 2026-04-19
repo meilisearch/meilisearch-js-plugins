@@ -1,4 +1,4 @@
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
+import { instantMeilisearch } from '@meilisearch/instant-meilisearch'
 import type { SearchClient } from '../types/SearchClient.js'
 import type { ClientConfig } from '../types/ClientConfig.js'
 
@@ -14,7 +14,7 @@ export function createSearchClient({ userAgent }: { userAgent: string }) {
     options = { clientAgents: [] },
   }: ClientConfig): SearchClient => {
     const clientAgents = options.clientAgents || []
-    const { searchClient } = instantMeiliSearch(url, apiKey, {
+    const { searchClient } = instantMeilisearch(url, apiKey, {
       ...options,
       clientAgents: concatUserAgents([userAgent, ...clientAgents]),
     })
