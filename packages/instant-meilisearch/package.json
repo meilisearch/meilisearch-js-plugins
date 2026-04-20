@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/instant-meilisearch",
-  "version": "0.31.0",
+  "version": "0.31.1",
   "description": "The search client to use Meilisearch with InstantSearch.",
   "homepage": "https://github.com/meilisearch/meilisearch-js-plugins/tree/main/packages/instant-meilisearch",
   "license": "MIT",
@@ -38,9 +38,6 @@
     }
   },
   "sideEffects": false,
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
   "files": [
     "dist",
     "src",
