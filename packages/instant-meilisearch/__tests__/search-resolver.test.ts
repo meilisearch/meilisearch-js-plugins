@@ -1,9 +1,8 @@
 import { describe, afterEach, test, expect, vi } from 'vitest'
 import type { Movies } from './assets/utils.js'
-import { instantMeiliSearch } from '../src/index.js'
+import { instantMeiliSearch, type MeilisearchMultiSearchParams } from '../src/index.js'
 import { Meilisearch } from 'meilisearch'
 import pkg from '../package.json' with { type: 'json' }
-import type { MeiliSearchMultiSearchParams } from '../src/types/index.js'
 
 export const searchResponse = {
   hits: [],
