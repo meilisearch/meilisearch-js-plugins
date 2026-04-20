@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.31.1
+
+### Patch Changes
+
+- f0c7b80: Bump meilisearch peer dependency to v0.57
+
 ## 0.31.0
 
 ### Migration
