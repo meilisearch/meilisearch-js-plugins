@@ -7,7 +7,7 @@ import type {
   MultiSearchQuery,
   MultiSearchResult,
   Config as MeilisearchConfig,
-  Meilisearch,
+  Meilisearch as MeilisearchClient,
 } from 'meilisearch'
 
 // Turns readonly types into mutable ones
@@ -29,7 +29,6 @@ export type AlgoliaSearchForFacetValuesRequest =
 export type {
   Filter,
   FacetDistribution,
-  Meilisearch,
   FacetStats as MeiliFacetStats,
   Config as MeilisearchConfig,
 } from 'meilisearch'
@@ -39,7 +38,7 @@ export type Meilisearch = MeilisearchClient
 export type MeilisearchMultiSearchParams = MultiSearchQuery
 
 /** @deprecated Use {@link Meilisearch} instead. */
-export type MeiliSearch = Meilisearch
+export type MeiliSearch = MeilisearchClient
 
 /** @deprecated Use {@link MeilisearchMultiSearchParams} instead. */
 export type MeiliSearchMultiSearchParams = MeilisearchMultiSearchParams
