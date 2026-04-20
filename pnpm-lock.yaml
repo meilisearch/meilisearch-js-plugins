@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     meilisearch:
-      specifier: ^0.50
-      version: 0.50.0
+      specifier: ^0.57
+      version: 0.57.0
 
 importers:
 
@@ -94,7 +94,7 @@ importers:
         version: 4.85.2(algoliasearch@5.19.0)
       meilisearch:
         specifier: 'catalog:'
-        version: 0.50.0
+        version: 0.57.0
       prettier:
         specifier: 3.8.1
         version: 3.8.1
@@ -148,13 +148,13 @@ importers:
         version: link:../instant-meilisearch
       meilisearch:
         specifier: 'catalog:'
-        version: 0.50.0
+        version: 0.57.0
 
   packages/instant-meilisearch:
     dependencies:
       meilisearch:
         specifier: 'catalog:'
-        version: 0.50.0
+        version: 0.57.0
 
   playgrounds/autocomplete:
     dependencies:
@@ -2567,8 +2567,9 @@ packages:
   mdn-data@2.0.4:
     resolution: {integrity: sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==}
 
-  meilisearch@0.50.0:
-    resolution: {integrity: sha512-9IzIkobvnuS18Eg4dq/eJB9W+eXqeLZjNRgq/kKMswSmVYYSQsXqGgSuCA0JkF+o5RwJlwIsieQee6rh313VhA==}
+  meilisearch@0.57.0:
+    resolution: {integrity: sha512-J3ZdX6MjguEIG9Yo+duRZeVsbMdRuwM2OFvJUs8wZSeBADYZ2qc1eajlClKLRqS/mAhGh2bLiU5SbmhKXKuWSw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -6547,7 +6548,7 @@ snapshots:
 
   mdn-data@2.0.4: {}
 
-  meilisearch@0.50.0: {}
+  meilisearch@0.57.0: {}
 
   merge-stream@2.0.0: {}
 

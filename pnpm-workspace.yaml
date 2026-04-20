@@ -9,4 +9,4 @@ onlyBuiltDependencies:
   - esbuild
 
 catalog:
-  meilisearch: ^0.50
+  meilisearch: ^0.57
