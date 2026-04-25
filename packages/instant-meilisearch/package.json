@@ -21,7 +21,7 @@
     "client"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "vite build && tsc"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
