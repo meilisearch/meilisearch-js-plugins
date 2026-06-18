@@ -44,7 +44,7 @@
     "@eslint/js": "10.0.1",
     "@typescript-eslint/utils": "8.58.0",
     "@vitejs/plugin-react": "5.1.2",
-    "@vitejs/plugin-vue": "6.0.5",
+    "@vitejs/plugin-vue": "6.0.7",
     "@vitest/eslint-plugin": "1.6.14",
     "algoliasearch": "5.19.0",
     "algoliasearch-helper": "3.29.1",
