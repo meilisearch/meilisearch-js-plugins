@@ -52,12 +52,12 @@ Say goodbye to server deployment and manual updates with [Meilisearch Cloud](htt
 
 ## 🔧 Installation
 
-Use `npm` or `pnpm` to install the autocomplete client for Meilisearch.
+Use `npm` or `pnpm` to install the autocomplete client.
 
 ```
-pnpm add @meilisearch/autocomplete-client
+pnpm add @meilisearch/autocomplete-client @meilisearch/instant-meilisearch meilisearch
 # or
-npm install @meilisearch/autocomplete-client
+npm install @meilisearch/autocomplete-client @meilisearch/instant-meilisearch meilisearch
 ```
 
 `@meilisearch/autocomplete-client` is a client for `autocomplete`. It does not import the library.<br>

@@ -40,10 +40,11 @@
     "type": "git",
     "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
-  "dependencies": {
-    "@meilisearch/instant-meilisearch": "workspace:*"
-  },
   "peerDependencies": {
+    "@meilisearch/instant-meilisearch": "^0.31.1",
     "meilisearch": "catalog:"
+  },
+  "devDependencies": {
+    "@meilisearch/instant-meilisearch": "workspace:*"
   }
 }

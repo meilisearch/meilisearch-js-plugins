@@ -11,6 +11,9 @@ export default defineConfig({
       formats: ['es'],
       fileName: 'index',
     },
+    rollupOptions: {
+      external: [/^meilisearch(\/|$)/],
+    },
   },
   test: {
     include: ['{src,__tests__}/**/*.test.ts'],

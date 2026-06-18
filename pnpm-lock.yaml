@@ -143,12 +143,13 @@ importers:
 
   packages/autocomplete-client:
     dependencies:
-      '@meilisearch/instant-meilisearch':
-        specifier: workspace:*
-        version: link:../instant-meilisearch
       meilisearch:
         specifier: 'catalog:'
         version: 0.57.0
+    devDependencies:
+      '@meilisearch/instant-meilisearch':
+        specifier: workspace:*
+        version: link:../instant-meilisearch
 
   packages/instant-meilisearch:
     dependencies:
