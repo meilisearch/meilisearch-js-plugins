@@ -1,5 +1,16 @@
 # @meilisearch/instant-meilisearch
 
+## 0.31.2
+
+### Patch Changes
+
+- 3b0c925: Make runtime dependency boundaries explicit in Vite library builds by externalizing
+  `@meilisearch/instant-meilisearch` and `meilisearch` in `@meilisearch/autocomplete-client`,
+  and `meilisearch` in `@meilisearch/instant-meilisearch`.
+
+  `@meilisearch/autocomplete-client` now declares `@meilisearch/instant-meilisearch` as a
+  peer dependency to reflect the runtime contract instead of relying on transitive installation.
+
 ## 0.31.1
 
 ### Patch Changes
