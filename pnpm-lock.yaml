@@ -102,17 +102,17 @@ importers:
         specifier: 1.8.1
         version: 1.8.1(prettier@3.8.4)
       react:
-        specifier: 19.2.4
-        version: 19.2.4
+        specifier: 19.2.7
+        version: 19.2.7
       react-dom:
-        specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
+        specifier: 19.2.7
+        version: 19.2.7(react@19.2.7)
       react-instantsearch:
         specifier: 7.35.1
-        version: 7.35.1(algoliasearch@5.19.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 7.35.1(algoliasearch@5.19.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react-router-dom:
-        specifier: 7.13.2
-        version: 7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 7.18.0
+        version: 7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       search-insights:
         specifier: 2.17.3
         version: 2.17.3
@@ -139,7 +139,7 @@ importers:
         version: 3.5.32(typescript@5.9.3)
       vue-instantsearch:
         specifier: 4.26.8
-        version: 4.26.8(@vue/server-renderer@3.5.32(vue@3.5.32(typescript@5.9.3)))(algoliasearch@5.19.0)(react@19.2.4)(vue@3.5.32(typescript@5.9.3))
+        version: 4.26.8(@vue/server-renderer@3.5.32(vue@3.5.32(typescript@5.9.3)))(algoliasearch@5.19.0)(react@19.2.7)(vue@3.5.32(typescript@5.9.3))
 
   packages/autocomplete-client:
     dependencies:
@@ -3034,10 +3034,10 @@ packages:
   ramda@0.27.2:
     resolution: {integrity: sha512-SbiLPU40JuJniHexQSAgad32hfwd+DRUdwF2PlVuI5RZD0/vahUco7R8vD86J/tcEKKF9vZrUVwgtmGCqlCKyA==}
 
-  react-dom@19.2.4:
-    resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
+  react-dom@19.2.7:
+    resolution: {integrity: sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ==}
     peerDependencies:
-      react: ^19.2.4
+      react: ^19.2.7
 
   react-instantsearch-core@7.35.1:
     resolution: {integrity: sha512-8o9JjuFbYxjt+QPjpTRkyy3YGPf/GOGBaqWhxNkATDpZNlasTrfKHhnIprEImdKpipynDZrEnAJ7eDVb4+PHyA==}
@@ -3059,15 +3059,15 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react-router-dom@7.13.2:
-    resolution: {integrity: sha512-aR7SUORwTqAW0JDeiWF07e9SBE9qGpByR9I8kJT5h/FrBKxPMS6TiC7rmVO+gC0q52Bx7JnjWe8Z1sR9faN4YA==}
+  react-router-dom@7.18.0:
+    resolution: {integrity: sha512-Fi0yY6kgtKae/Th2xibdWK0KSdYZ4B53Gyf6wRtomOKWgpNm7H7+DyfDhncdz9FKbpS+1jmDhg3F4WoGJ+yFOA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  react-router@7.13.2:
-    resolution: {integrity: sha512-tX1Aee+ArlKQP+NIUd7SE6Li+CiGKwQtbS+FfRxPX6Pe4vHOo6nr9d++u5cwg+Z8K/x8tP+7qLmujDtfrAoUJA==}
+  react-router@7.18.0:
+    resolution: {integrity: sha512-pTTGt8J+ji1NOmYnjzT+bAJy/1zD+Jp4ziO6cL7T3ZLvXKtusO7BpFqlRXitqpcPVqllsIXFHRMt+2/k3Xn6HQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -3076,8 +3076,8 @@ packages:
       react-dom:
         optional: true
 
-  react@19.2.4:
-    resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
+  react@19.2.7:
+    resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
     engines: {node: '>=0.10.0'}
 
   read-yaml-file@1.1.0:
@@ -6004,10 +6004,10 @@ snapshots:
 
   ini@2.0.0: {}
 
-  instantsearch-ui-components@0.30.1(react@19.2.4):
+  instantsearch-ui-components@0.30.1(react@19.2.7):
     dependencies:
       '@swc/helpers': 0.5.18
-      markdown-to-jsx: 7.7.17(react@19.2.4)
+      markdown-to-jsx: 7.7.17(react@19.2.7)
     transitivePeerDependencies:
       - react
 
@@ -6027,10 +6027,10 @@ snapshots:
       algoliasearch-helper: 3.29.1(algoliasearch@5.19.0)
       hogan.js: 3.0.2
       htm: 3.1.1
-      instantsearch-ui-components: 0.30.1(react@19.2.4)
+      instantsearch-ui-components: 0.30.1(react@19.2.7)
       preact: 10.29.2
       qs: 6.15.2
-      react: 19.2.4
+      react: 19.2.7
       search-insights: 2.17.3
 
   internal-slot@1.1.0:
@@ -6382,9 +6382,9 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  markdown-to-jsx@7.7.17(react@19.2.4):
+  markdown-to-jsx@7.7.17(react@19.2.7):
     optionalDependencies:
-      react: 19.2.4
+      react: 19.2.7
 
   math-intrinsics@1.1.0: {}
 
@@ -7005,49 +7005,49 @@ snapshots:
 
   ramda@0.27.2: {}
 
-  react-dom@19.2.4(react@19.2.4):
+  react-dom@19.2.7(react@19.2.7):
     dependencies:
-      react: 19.2.4
+      react: 19.2.7
       scheduler: 0.27.0
 
-  react-instantsearch-core@7.35.1(algoliasearch@5.19.0)(react@19.2.4):
+  react-instantsearch-core@7.35.1(algoliasearch@5.19.0)(react@19.2.7):
     dependencies:
       '@swc/helpers': 0.5.18
       algoliasearch: 5.19.0
       algoliasearch-helper: 3.29.1(algoliasearch@5.19.0)
       instantsearch.js: 4.101.1(algoliasearch@5.19.0)
-      react: 19.2.4
-      use-sync-external-store: 1.6.0(react@19.2.4)
+      react: 19.2.7
+      use-sync-external-store: 1.6.0(react@19.2.7)
 
-  react-instantsearch@7.35.1(algoliasearch@5.19.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-instantsearch@7.35.1(algoliasearch@5.19.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       '@swc/helpers': 0.5.18
       algoliasearch: 5.19.0
-      instantsearch-ui-components: 0.30.1(react@19.2.4)
+      instantsearch-ui-components: 0.30.1(react@19.2.7)
       instantsearch.js: 4.101.1(algoliasearch@5.19.0)
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-      react-instantsearch-core: 7.35.1(algoliasearch@5.19.0)(react@19.2.4)
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
+      react-instantsearch-core: 7.35.1(algoliasearch@5.19.0)(react@19.2.7)
 
   react-is@16.13.1: {}
 
   react-refresh@0.18.0: {}
 
-  react-router-dom@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-router-dom@7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-      react-router: 7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
+      react-router: 7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
 
-  react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-router@7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       cookie: 1.1.1
-      react: 19.2.4
+      react: 19.2.7
       set-cookie-parser: 2.7.2
     optionalDependencies:
-      react-dom: 19.2.4(react@19.2.4)
+      react-dom: 19.2.7(react@19.2.7)
 
-  react@19.2.4: {}
+  react@19.2.7: {}
 
   read-yaml-file@1.1.0:
     dependencies:
@@ -7561,9 +7561,9 @@ snapshots:
       punycode: 1.4.1
       qs: 6.15.2
 
-  use-sync-external-store@1.6.0(react@19.2.4):
+  use-sync-external-store@1.6.0(react@19.2.7):
     dependencies:
-      react: 19.2.4
+      react: 19.2.7
 
   util-deprecate@1.0.2: {}
 
@@ -7636,11 +7636,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-instantsearch@4.26.8(@vue/server-renderer@3.5.32(vue@3.5.32(typescript@5.9.3)))(algoliasearch@5.19.0)(react@19.2.4)(vue@3.5.32(typescript@5.9.3)):
+  vue-instantsearch@4.26.8(@vue/server-renderer@3.5.32(vue@3.5.32(typescript@5.9.3)))(algoliasearch@5.19.0)(react@19.2.7)(vue@3.5.32(typescript@5.9.3)):
     dependencies:
       '@swc/helpers': 0.5.18
       algoliasearch: 5.19.0
-      instantsearch-ui-components: 0.30.1(react@19.2.4)
+      instantsearch-ui-components: 0.30.1(react@19.2.7)
       instantsearch.js: 4.101.1(algoliasearch@5.19.0)
       mitt: 2.1.0
       vue: 3.5.32(typescript@5.9.3)
