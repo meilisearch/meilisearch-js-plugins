@@ -12,7 +12,10 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: [/^@meilisearch\/instant-meilisearch(\/|$)/, /^meilisearch(\/|$)/],
+      external: [
+        /^@meilisearch\/instant-meilisearch(\/|$)/,
+        /^meilisearch(\/|$)/,
+      ],
     },
   },
   test: {
