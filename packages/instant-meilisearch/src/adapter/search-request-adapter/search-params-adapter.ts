@@ -35,7 +35,7 @@ function setScrollPagination(
   }
 
   return {
-    limit: hitsPerPage + 1,
+    limit: hitsPerPage === 0 ? 0 : hitsPerPage + 1,
     offset: page * hitsPerPage,
   }
 }

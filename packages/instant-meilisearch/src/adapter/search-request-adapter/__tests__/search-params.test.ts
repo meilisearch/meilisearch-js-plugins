@@ -375,6 +375,15 @@ describe('Pagination adapter', () => {
     expect(searchParams.offset).toBe(6)
   })
 
+  test('preserves zero hits per page in the request limit', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      pagination: { page: 0, hitsPerPage: 0, finite: false },
+    })
+
+    expect(searchParams.limit).toBe(0)
+  })
+
   test('adapting a finite pagination with no placeholderSearch', () => {
     const searchParams = adaptSearchParams({
       ...DEFAULT_CONTEXT,
