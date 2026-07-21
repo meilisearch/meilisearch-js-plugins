@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.31.3
+
+### Patch Changes
+
+- af64cfd: Preserve zero hits per page in non-finite pagination requests.
+
 ## 0.31.2
 
 ### Patch Changes

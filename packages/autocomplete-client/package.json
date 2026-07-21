@@ -41,7 +41,7 @@
     "url": "https://github.com/meilisearch/meilisearch-js-plugins.git"
   },
   "peerDependencies": {
-    "@meilisearch/instant-meilisearch": "^0.31.2",
+    "@meilisearch/instant-meilisearch": "^0.31.3",
     "meilisearch": "catalog:"
   },
   "devDependencies": {
