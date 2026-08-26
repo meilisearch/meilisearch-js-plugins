@@ -26,6 +26,11 @@ export default tseslint.config([
     files: ['playgrounds/vue3/src/*.{js,vue}'],
     extends: [pluginVue.configs['flat/recommended']],
   },
+  // Standalone browser playground
+  {
+    files: ['playgrounds/standalone/src/app.js'],
+    languageOptions: { globals: globals.browser },
+  },
   // Cypress
   {
     files: [
