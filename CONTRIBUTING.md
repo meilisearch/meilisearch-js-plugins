@@ -113,6 +113,16 @@ pnpm playground:react
 pnpm playground:javascript
 ```
 
+`Standalone no-bundler reproduction`:
+```
+pnpm playground:standalone
+```
+
+`Standalone no-bundler smoke check`:
+```
+pnpm --filter @meilisearch/standalone-playground test:e2e
+```
+
 `HTML`:
 ```
 pnpm playground:html

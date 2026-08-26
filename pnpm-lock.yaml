@@ -190,6 +190,12 @@ importers:
         specifier: workspace:*
         version: link:../../packages/instant-meilisearch
 
+  playgrounds/standalone:
+    dependencies:
+      '@meilisearch/instant-meilisearch':
+        specifier: workspace:*
+        version: link:../../packages/instant-meilisearch
+
   playgrounds/vue3:
     devDependencies:
       '@meilisearch/instant-meilisearch':
