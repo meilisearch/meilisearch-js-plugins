@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { instantMeiliSearch } from '/node_modules/@meilisearch/instant-meilisearch/dist/instant-meilisearch.standalone.mjs'
 
 const statusElement = document.querySelector('[data-testid="status"]')
