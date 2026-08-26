@@ -15,6 +15,7 @@
     "playground:react": "turbo @meilisearch/react-playground#dev",
     "playground:local-react": "turbo @meilisearch/local-react-playground#dev",
     "playground:node": "turbo @meilisearch/node-playground#dev",
+    "playground:standalone": "turbo @meilisearch/standalone-playground#dev",
     "playground:autocomplete": "turbo @meilisearch/autocomplete-playground#dev",
     "test:e2e": "turbo test:e2e",
     "test:e2e:watch": "turbo test:e2e:watch",

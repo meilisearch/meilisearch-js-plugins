@@ -29,7 +29,7 @@ export default tseslint.config([
   // Cypress
   {
     files: [
-      'playgrounds/{autocomplete,local-react}/cypress/integration/*.spec.js',
+      'playgrounds/{autocomplete,local-react,standalone}/cypress/integration/*.spec.js',
     ],
     extends: [pluginCypress.configs.recommended],
     // TODO: Remove rules

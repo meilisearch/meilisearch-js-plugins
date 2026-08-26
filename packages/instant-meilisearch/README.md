@@ -464,6 +464,71 @@ The open-source [InstantSearch](https://www.algolia.com/doc/api-reference/widget
 
 InstantSearch requires that you provide an indexName. The indexName corresponds to the [index `uid`](https://www.meilisearch.com/docs/learn/core_concepts/indexes#indexes) in which your document are stored in Meilisearch.
 
+### No bundler, no CDN, no import map (local `node_modules`)
+
+You can load the standalone ESM artifact directly from `node_modules` in a browser module script. This file already includes the `meilisearch` runtime dependency, so no import map is required for `meilisearch`.
+
+`instantsearch.js` is still provided by the host page (for example from a local vendor file).
+
+In `index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <div>
+      <div id="searchbox"></div>
+      <div id="hits"></div>
+    </div>
+
+    <!-- Host-provided InstantSearch build -->
+    <script src="./vendor/instantsearch.js"></script>
+
+    <script type="module">
+      import { instantMeiliSearch } from './node_modules/@meilisearch/instant-meilisearch/dist/instant-meilisearch.standalone.mjs'
+
+      const { searchClient } = instantMeiliSearch(
+        'https://ms-adf78ae33284-106.lon.meilisearch.io',
+        'a63da4928426f12639e19d62886f621130f3fa9ff3c7534c5d179f0f51c4f303'
+      )
+
+      const search = instantsearch({
+        indexName: 'steam-video-games',
+        searchClient,
+      })
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: '#searchbox',
+        }),
+        instantsearch.widgets.hits({
+          container: '#hits',
+          templates: {
+            item: `
+              <div>
+                <div class="hit-name">
+                  {{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}
+                </div>
+              </div>
+            `,
+          },
+        }),
+      ])
+
+      search.start()
+    </script>
+  </body>
+</html>
+```
+
+If you open the page directly through `file://`, module scripts are subject to browser CORS restrictions. Serve the page over HTTP (for example via Eleventy local/server mode) when using this setup.
+
+### CDN + import map example
+
 In `index.html`:
 
 ```html

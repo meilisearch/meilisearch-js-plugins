@@ -1,0 +1,15 @@
+{
+  "name": "@meilisearch/standalone-playground",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Standalone no-bundler reproduction playground for instant-meilisearch",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "test:e2e": "concurrently --kill-others -s first \"pnpm dev\" \"cypress run --config pluginsFile=false --env playground=standalone\"",
+    "test:e2e:watch": "concurrently --kill-others -s first \"pnpm dev\" \"cypress open --config pluginsFile=false --env playground=standalone\""
+  },
+  "dependencies": {
+    "@meilisearch/instant-meilisearch": "workspace:*"
+  }
+}
