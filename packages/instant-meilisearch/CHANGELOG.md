@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.31.4
+
+### Patch Changes
+
+- 669b1de: Add a standalone ESM artifact at `dist/instant-meilisearch.standalone.mjs` that inlines `meilisearch` for no-bundler browser usage (fixes #1509).
+
 ## 0.31.3
 
 ### Patch Changes
