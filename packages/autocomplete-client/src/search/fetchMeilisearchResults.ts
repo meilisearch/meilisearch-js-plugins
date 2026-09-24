@@ -9,6 +9,9 @@ import {
 } from '../constants/index.js'
 import type { SearchClient as MeilisearchSearchClient } from '../types/SearchClient.js'
 import type { HighlightResult } from 'algoliasearch-helper/types/algoliasearch.js'
+import { calculateHighlightMetadata } from './highlight.js'
+
+const MAX_HIGHLIGHT_DEPTH = 20
 
 interface SearchParams {
   /** The initialized Meilisearch search client. */
@@ -24,32 +27,12 @@ interface SearchParams {
   >
 }
 
-interface HighlightMetadata {
-  value: string
-  fullyHighlighted: boolean
-  matchLevel: 'none' | 'partial' | 'full'
-  matchedWords: string[]
-}
-
 export function fetchMeilisearchResults<TRecord = Record<string, any>>({
   searchClient,
   queries,
 }: SearchParams): Promise<Array<AlgoliaSearchResponse<TRecord>>> {
   return searchClient
-    .search<TRecord>(
-      queries.map((searchParameters) => {
-        const { params, ...headers } = searchParameters
-        return {
-          ...headers,
-          params: {
-            hitsPerPage: HITS_PER_PAGE,
-            highlightPreTag: HIGHLIGHT_PRE_TAG,
-            highlightPostTag: HIGHLIGHT_POST_TAG,
-            ...params,
-          },
-        }
-      })
-    )
+    .search<TRecord>(buildSearchRequest(queries))
     .then(
       (response: Awaited<ReturnType<typeof searchClient.search<TRecord>>>) => {
         return response.results.map(
@@ -60,44 +43,7 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
             const query = queries[resultsArrayIndex]
             return {
               ...result,
-              hits: result.hits.map((hit) => {
-                const enrichedHit: any = {
-                  ...hit,
-                  _highlightResult: (
-                    Object.entries(hit?._highlightResult || {}) as Array<
-                      [keyof TRecord, PossibleHighlightResult]
-                    >
-                  ).reduce((acc, [field, highlightResult]) => {
-                    if (!isDefinedHighlightValue(highlightResult)) {
-                      return acc
-                    }
-
-                    // if the field is an array, highlightResult is an array of objects
-                    acc[field] = mapOneOrMany(
-                      highlightResult,
-                      (highlightResult) => {
-                        return calculateHighlightMetadata(
-                          query.query || '',
-                          query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG,
-                          query.params?.highlightPostTag || HIGHLIGHT_POST_TAG,
-                          highlightResult.value
-                        )
-                      }
-                    )
-
-                    return acc
-                  }, {} as HighlightResult<TRecord>),
-                }
-
-                // Attach metadata to each hit if present (for Meilisearch Cloud Analytics)
-                if ((result as any)._meilisearch?.metadata) {
-                  enrichedHit._meilisearch = {
-                    metadata: (result as any)._meilisearch.metadata,
-                  }
-                }
-
-                return enrichedHit
-              }),
+              hits: buildHits<TRecord>(result, query),
             }
           }
         )
@@ -105,71 +51,69 @@ export function fetchMeilisearchResults<TRecord = Record<string, any>>({
     )
 }
 
-/**
- * Calculate the highlight metadata for a given highlight value.
- *
- * @param query - The query string.
- * @param preTag - The pre tag.
- * @param postTag - The post tag.
- * @param highlightValue - The highlight value response from Meilisearch.
- * @returns The highlight metadata.
- */
-function calculateHighlightMetadata(
-  query: string,
-  preTag: string,
-  postTag: string,
-  highlightValue: string
-): HighlightMetadata {
-  // Extract all highlighted segments
-  const highlightRegex = new RegExp(`${preTag}(.*?)${postTag}`, 'g')
-  const matches: string[] = []
-  let match
-  while ((match = highlightRegex.exec(highlightValue)) !== null) {
-    matches.push(match[1])
-  }
-
-  // Remove highlight tags to get the highlighted text without the tags
-  const cleanValue = highlightValue.replace(
-    new RegExp(`${preTag}|${postTag}`, 'g'),
-    ''
-  )
-
-  // Determine if the entire attribute is highlighted
-  // fullyHighlighted = true if cleanValue and the concatenation of all matched segments are identical
-  const highlightedText = matches.join('')
-  const fullyHighlighted = cleanValue === highlightedText
-
-  // Determine match level:
-  // - 'none' if no matches
-  // - 'partial' if some matches but not fully highlighted
-  // - 'full' if the highlighted text is the entire field value content
-  let matchLevel: 'none' | 'partial' | 'full' = 'none'
-  if (matches.length > 0) {
-    matchLevel = cleanValue.includes(query) ? 'full' : 'partial'
-  }
-
-  return {
-    value: highlightValue,
-    fullyHighlighted,
-    matchLevel,
-    matchedWords: matches,
-  }
+function buildSearchRequest(queries: AlgoliaMultipleQueriesQuery[]) {
+  return queries.map((searchParameters) => {
+    const { params, ...headers } = searchParameters
+    return {
+      ...headers,
+      params: {
+        hitsPerPage: HITS_PER_PAGE,
+        highlightPreTag: HIGHLIGHT_PRE_TAG,
+        highlightPostTag: HIGHLIGHT_POST_TAG,
+        ...params,
+      },
+    }
+  })
 }
 
-// Helper to apply a function to a single value or an array of values
-function mapOneOrMany<T, U>(value: T | T[], mapFn: (value: T) => U): U | U[] {
-  return Array.isArray(value) ? value.map(mapFn) : mapFn(value)
+function buildHits<TRecord>(
+  result: AlgoliaSearchResponse<TRecord>,
+  query: AlgoliaMultipleQueriesQuery
+) {
+  const queryStr = query.query || ''
+  const preTag = query.params?.highlightPreTag || HIGHLIGHT_PRE_TAG
+  const postTag = query.params?.highlightPostTag || HIGHLIGHT_POST_TAG
+
+  return result.hits.map((hit) => {
+    const enrichedHit: any = {
+      ...hit,
+      _highlightResult: Object.entries(hit?._highlightResult || {}).reduce(
+        (acc, [field, highlightResult]) => {
+          if (
+            !shouldIncludeTopLevelHighlightField(
+              highlightResult,
+              preTag,
+              postTag
+            )
+          ) {
+            return acc
+          }
+          acc[field] = enrichHighlightTree(
+            highlightResult,
+            queryStr,
+            preTag,
+            postTag,
+            0
+          )
+          return acc
+        },
+        {} as HighlightResult<TRecord>
+      ),
+    }
+
+    // Attach metadata to each hit if present (for Meilisearch Cloud Analytics)
+    if ((result as any)._meilisearch?.metadata) {
+      enrichedHit._meilisearch = {
+        metadata: (result as any)._meilisearch.metadata,
+      }
+    }
+
+    return enrichedHit
+  })
 }
 
-type DefinedHighlightResult = { value: string } | Array<{ value: string }> // if the field is an array
+type DefinedHighlightResult = { value: string } | Array<{ value: string }>
 
-/**
- * Some fields may not return a value at all - nested arrays/objects for example
- *
- * Ideally server honours the `attributesToHighlight` param and only includes
- * those attributes in the response rather than all attributes (highlighted or
- * not)
- */
 type UndefinedHighlightResult = { value?: never } | Array<{ value?: never }>
 
 type PossibleHighlightResult = DefinedHighlightResult | UndefinedHighlightResult
@@ -182,4 +126,87 @@ function isDefinedHighlightValue(
   }
 
   return typeof input.value === 'string'
+}
+
+function shouldIncludeTopLevelHighlightField(
+  input: unknown,
+  preTag: string,
+  postTag: string
+): boolean {
+  if (input === null || input === undefined) {
+    return false
+  }
+  if (isDefinedHighlightValue(input as PossibleHighlightResult)) {
+    return true
+  }
+  if (!preTag || !postTag) {
+    return false
+  }
+  return highlightTreeContainsMarkers(input, preTag, postTag, 0)
+}
+
+function highlightTreeContainsMarkers(
+  input: unknown,
+  preTag: string,
+  postTag: string,
+  depth: number
+): boolean {
+  if (depth > MAX_HIGHLIGHT_DEPTH) {
+    return false
+  }
+  if (input === null || input === undefined) {
+    return false
+  }
+  if (Array.isArray(input)) {
+    return input.some((item) =>
+      highlightTreeContainsMarkers(item, preTag, postTag, depth + 1)
+    )
+  }
+  if (typeof input === 'object') {
+    const obj = input as Record<string, unknown>
+    if (typeof obj.value === 'string') {
+      return obj.value.includes(preTag) && obj.value.includes(postTag)
+    }
+    return Object.values(obj).some((v) =>
+      highlightTreeContainsMarkers(v, preTag, postTag, depth + 1)
+    )
+  }
+  return false
+}
+
+function enrichHighlightTree(
+  input: unknown,
+  query: string,
+  preTag: string,
+  postTag: string,
+  depth: number
+): unknown {
+  if (depth > MAX_HIGHLIGHT_DEPTH) {
+    return input
+  }
+
+  if (input === null || input === undefined) {
+    return input
+  }
+
+  if (Array.isArray(input)) {
+    return input.map((item) =>
+      enrichHighlightTree(item, query, preTag, postTag, depth + 1)
+    )
+  }
+
+  if (typeof input === 'object') {
+    const obj = input as Record<string, unknown>
+    if (typeof obj.value === 'string') {
+      const meta = calculateHighlightMetadata(query, preTag, postTag, obj.value)
+      return { ...obj, ...meta }
+    }
+    const out: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = enrichHighlightTree(v, query, preTag, postTag, depth + 1)
+    }
+    return out
+  }
+
+  return input
 }

@@ -5,6 +5,7 @@ import {
   MOVIES,
   meilisearchClient,
 } from '../../../__tests__/test.utils.js'
+import { type HighlightMetadata } from '../highlight.js'
 
 type Movie = (typeof MOVIES)[number]
 
@@ -238,5 +239,214 @@ describe('fetchMeilisearchResults', () => {
       const firstHit = results[0].hits[0] as any
       expect(firstHit._meilisearch).toBeUndefined()
     }
+  })
+
+  describe('Highlighting Metadata', () => {
+    interface Person {
+      id: number
+      name: string
+      nicknames: string[]
+      familyMembers: Array<{
+        relationship: string
+        name: string
+      }>
+      crew?: Array<{ role: string; credit: string }>
+    }
+
+    interface PersonHighlightResult {
+      id: HighlightMetadata
+      name: HighlightMetadata
+      nicknames: HighlightMetadata[]
+      familyMembers: Array<{
+        relationship: HighlightMetadata
+        name: HighlightMetadata
+      }>
+      crew?: Array<{
+        role: HighlightMetadata
+        credit: HighlightMetadata
+      }>
+    }
+
+    const PERSON: Person = {
+      id: 1,
+      name: 'Joseph',
+      nicknames: ['Joe', 'Joey'],
+      familyMembers: [
+        {
+          relationship: 'mother',
+          name: 'Susan',
+        },
+        {
+          relationship: 'father',
+          name: 'John',
+        },
+      ],
+      crew: [
+        { role: 'director', credit: 'Neo' },
+        { role: 'producer', credit: 'Trinity' },
+      ],
+    }
+    const PEOPLE_INDEX = 'people_highlight_test'
+
+    beforeAll(async () => {
+      await meilisearchClient.deleteIndex(PEOPLE_INDEX)
+      await meilisearchClient
+        .index(PEOPLE_INDEX)
+        .addDocuments([PERSON])
+        .waitTask()
+    })
+
+    afterAll(async () => {
+      await meilisearchClient.deleteIndex(PEOPLE_INDEX)
+    })
+
+    describe('Recursive Enrichment', () => {
+      test('enriches simple string arrays with metadata', async () => {
+        const pre = '<em>'
+        const post = '</em>'
+        const results = await fetchMeilisearchResults<Person>({
+          searchClient,
+          queries: [
+            {
+              indexName: PEOPLE_INDEX,
+              query: 'Joe',
+              params: {
+                highlightPreTag: pre,
+                highlightPostTag: post,
+              },
+            },
+          ],
+        })
+
+        const highlightResult = results[0].hits[0]
+          ._highlightResult as PersonHighlightResult
+        expect(highlightResult.nicknames[0]).toEqual({
+          value: `${pre}Joe${post}`,
+          fullyHighlighted: true,
+          matchLevel: 'full',
+          matchedWords: ['Joe'],
+        })
+      })
+
+      test('recursively enriches objects nested inside arrays', async () => {
+        const pre = '<em>'
+        const post = '</em>'
+        const results = await fetchMeilisearchResults<Person>({
+          searchClient,
+          queries: [
+            {
+              indexName: PEOPLE_INDEX,
+              query: 'Susan',
+              params: {
+                highlightPreTag: pre,
+                highlightPostTag: post,
+              },
+            },
+          ],
+        })
+
+        const highlightResult = results[0].hits[0]
+          ._highlightResult as PersonHighlightResult
+        expect(highlightResult.familyMembers[0].name).toEqual({
+          value: `${pre}Susan${post}`,
+          fullyHighlighted: true,
+          matchLevel: 'full',
+          matchedWords: ['Susan'],
+        })
+      })
+
+      test('handles multiple highlighted fields within the same nested object', async () => {
+        const pre = '<em>'
+        const post = '</em>'
+        const results = await fetchMeilisearchResults<Person>({
+          searchClient,
+          queries: [
+            {
+              indexName: PEOPLE_INDEX,
+              query: 'mother',
+              params: {
+                highlightPreTag: pre,
+                highlightPostTag: post,
+              },
+            },
+          ],
+        })
+
+        const highlightResult = results[0].hits[0]
+          ._highlightResult as PersonHighlightResult
+        expect(highlightResult.familyMembers[0].relationship).toEqual({
+          value: `${pre}mother${post}`,
+          fullyHighlighted: true,
+          matchLevel: 'full',
+          matchedWords: ['mother'],
+        })
+      })
+
+      test('preserves the original structure for non-matching nested fields', async () => {
+        const pre = '<em>'
+        const post = '</em>'
+        const results = await fetchMeilisearchResults<Person>({
+          searchClient,
+          queries: [
+            {
+              indexName: PEOPLE_INDEX,
+              query: 'Neo',
+              params: {
+                highlightPreTag: pre,
+                highlightPostTag: post,
+              },
+            },
+          ],
+        })
+
+        const highlightResult = results[0].hits[0]
+          ._highlightResult as PersonHighlightResult
+
+        expect(highlightResult.crew).toBeDefined()
+        expect(highlightResult.crew).toHaveLength(2)
+        expect(highlightResult.crew![0].credit).toEqual({
+          value: `${pre}Neo${post}`,
+          fullyHighlighted: true,
+          matchLevel: 'full',
+          matchedWords: ['Neo'],
+        })
+        expect(highlightResult.crew![1].credit).toEqual({
+          value: 'Trinity',
+          fullyHighlighted: false,
+          matchLevel: 'none',
+          matchedWords: [],
+        })
+      })
+    })
+
+    describe('Match Logic', () => {
+      test('performs case-insensitive matchLevel validation', async () => {
+        const pre = '<em>'
+        const post = '</em>'
+        const results = await fetchMeilisearchResults<Person>({
+          searchClient,
+          queries: [
+            {
+              indexName: PEOPLE_INDEX,
+              query: 'joseph',
+              params: {
+                highlightPreTag: pre,
+                highlightPostTag: post,
+              },
+            },
+          ],
+        })
+
+        const highlightResult = results[0].hits[0]
+          ._highlightResult as PersonHighlightResult
+
+        expect(highlightResult.name).toEqual({
+          value: `${pre}Joseph${post}`,
+          fullyHighlighted: true,
+          matchLevel: 'full',
+          matchedWords: ['Joseph'],
+        })
+      })
+    })
   })
 })
