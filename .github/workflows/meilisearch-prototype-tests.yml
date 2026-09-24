@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v6
       - uses: ./.github/actions/set-up-node
       - name: Run local browser tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           project: ./playgrounds/autocomplete
           wait-on: 'http://localhost:7700'
@@ -80,7 +80,7 @@ jobs:
         uses: actions/checkout@v6
       - uses: ./.github/actions/set-up-node
       - name: Run local browser tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           project: ./playgrounds/local-react
           wait-on: 'http://localhost:7700'
