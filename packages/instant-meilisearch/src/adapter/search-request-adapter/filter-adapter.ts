@@ -22,7 +22,11 @@ function getValueWithEscapedBackslashesAndQuotes(value: string): string {
  * @returns {string}
  */
 function transformFacetFilter(filter: string): string {
-  const escapedFilter = getValueWithEscapedBackslashesAndQuotes(filter)
+  // InstantSearch escapes a leading "-" in a facet value as "\-" so it is not
+  // read as an exclusion. Undo it here, otherwise the backslash is escaped
+  // again below and the value never matches.
+  const unescapedFilter = filter.replace(/^([^:]*:)\\-/, '$1-')
+  const escapedFilter = getValueWithEscapedBackslashesAndQuotes(unescapedFilter)
   const colonIndex = escapedFilter.indexOf(':')
   const attribute = escapedFilter.slice(0, colonIndex)
   const value = escapedFilter.slice(colonIndex + 1)
