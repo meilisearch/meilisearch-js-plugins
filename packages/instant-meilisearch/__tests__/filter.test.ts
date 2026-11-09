@@ -250,4 +250,44 @@ describe('Instant Meilisearch Browser test', () => {
 
     return expect(searchClient.search<Movies>([params])).resolves.toBeTruthy()
   })
+
+  test('facet values starting with a dash', async () => {
+    await meilisearchClient.deleteIndex('dash-facet-values').waitTask()
+    await meilisearchClient
+      .index('dash-facet-values')
+      .updateFilterableAttributes(['temp', 'range'])
+      .waitTask()
+    await meilisearchClient
+      .index('dash-facet-values')
+      .addDocuments([
+        { id: 1, temp: -5, range: '-10 to 0' },
+        { id: 2, temp: 5, range: '0 to 10' },
+      ])
+      .waitTask()
+
+    // InstantSearch escapes a leading "-" in a facet value as "\-"
+    const negativeNumber = await searchClient.search<{ id: number }>([
+      {
+        indexName: 'dash-facet-values',
+        params: { query: '', facetFilters: ['temp:\\-5'] },
+      },
+    ])
+    expect(negativeNumber.results[0].hits.map((hit) => hit.id)).toEqual([1])
+
+    const negativeRange = await searchClient.search<{ id: number }>([
+      {
+        indexName: 'dash-facet-values',
+        params: { query: '', facetFilters: ['range:\\-10 to 0'] },
+      },
+    ])
+    expect(negativeRange.results[0].hits.map((hit) => hit.id)).toEqual([1])
+
+    const positiveNumber = await searchClient.search<{ id: number }>([
+      {
+        indexName: 'dash-facet-values',
+        params: { query: '', facetFilters: ['temp:5'] },
+      },
+    ])
+    expect(positiveNumber.results[0].hits.map((hit) => hit.id)).toEqual([2])
+  })
 })
