@@ -272,7 +272,9 @@ describe('Instant Meilisearch Browser test', () => {
         params: { query: '', facetFilters: ['temp:\\-5'] },
       },
     ])
-    expect(negativeNumber.results[0].hits.map((hit) => hit.id)).toEqual([1])
+    expect(
+      negativeNumber.results[0].hits.map((hit: { id: number }) => hit.id)
+    ).toEqual([1])
 
     const negativeRange = await searchClient.search<{ id: number }>([
       {
@@ -280,7 +282,9 @@ describe('Instant Meilisearch Browser test', () => {
         params: { query: '', facetFilters: ['range:\\-10 to 0'] },
       },
     ])
-    expect(negativeRange.results[0].hits.map((hit) => hit.id)).toEqual([1])
+    expect(
+      negativeRange.results[0].hits.map((hit: { id: number }) => hit.id)
+    ).toEqual([1])
 
     const positiveNumber = await searchClient.search<{ id: number }>([
       {
@@ -288,6 +292,8 @@ describe('Instant Meilisearch Browser test', () => {
         params: { query: '', facetFilters: ['temp:5'] },
       },
     ])
-    expect(positiveNumber.results[0].hits.map((hit) => hit.id)).toEqual([2])
+    expect(
+      positiveNumber.results[0].hits.map((hit: { id: number }) => hit.id)
+    ).toEqual([2])
   })
 })
