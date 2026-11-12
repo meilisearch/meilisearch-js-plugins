@@ -1,6 +1,6 @@
 {
   "name": "@meilisearch/standalone-playground",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Standalone no-bundler reproduction playground for instant-meilisearch",
   "type": "module",
