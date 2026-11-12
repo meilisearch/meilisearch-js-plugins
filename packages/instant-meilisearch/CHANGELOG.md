@@ -1,5 +1,11 @@
 # @meilisearch/instant-meilisearch
 
+## 0.31.5
+
+### Patch Changes
+
+- b63b5f4: Fix refinement of facet values starting with a dash
+
 ## 0.31.4
 
 ### Patch Changes
