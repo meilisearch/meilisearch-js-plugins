@@ -57,6 +57,7 @@ export function adaptSearchResult<T>(
     facetDistribution: responseFacetDistribution = {},
     facetStats = {},
     metadata,
+    userData,
   } = meiliSearchResult
 
   const facets = Object.keys(responseFacetDistribution)
@@ -95,6 +96,11 @@ export function adaptSearchResult<T>(
   // Include Meilisearch analytics metadata
   if (metadata) {
     adaptedSearchResult._meilisearch = { metadata }
+  }
+
+  // Forward custom backend userData (e.g. Query Rules redirect payloads)
+  if (userData !== undefined) {
+    adaptedSearchResult.userData = userData
   }
 
   return adaptedSearchResult

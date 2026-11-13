@@ -136,6 +136,7 @@ export type MeilisearchMultiSearchResult<T = Record<string, any>> =
   MultiSearchResult<T> & {
     pagination: PaginationState
     metadata?: MeilisearchSearchMetadata
+    userData?: unknown
   }
 
 export type MeilisearchSearchResponse<T = Record<string, any>> = Omit<
