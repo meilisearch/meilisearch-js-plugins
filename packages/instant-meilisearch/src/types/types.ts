@@ -69,6 +69,7 @@ type BaseOverridableMeiliSearchSearchParameters = Pick<
   | 'rankingScoreThreshold'
   | 'showMatchesPosition'
   | 'showRankingScore'
+  | 'showRankingScoreDetails'
   | 'vector'
 >
 

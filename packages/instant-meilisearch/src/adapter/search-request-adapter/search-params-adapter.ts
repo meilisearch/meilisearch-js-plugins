@@ -255,6 +255,14 @@ export function MeiliParamsCreator(searchContext: SearchContext) {
         meiliSearchParams.showRankingScore = value
       }
     },
+    addShowRankingScoreDetails() {
+      const value =
+        overrideParams?.indexesOverrides?.[indexUid]?.showRankingScoreDetails ??
+        overrideParams?.showRankingScoreDetails
+      if (value !== undefined) {
+        meiliSearchParams.showRankingScoreDetails = value
+      }
+    },
     addAttributesToSearchOn() {
       const value =
         overrideParams?.indexesOverrides?.[indexUid]?.attributesToSearchOn ??
@@ -329,6 +337,7 @@ export function adaptSearchParams(
   meilisearchParams.addShowMatchesPosition()
   meilisearchParams.addMatchingStrategy()
   meilisearchParams.addShowRankingScore()
+  meilisearchParams.addShowRankingScoreDetails()
   meilisearchParams.addAttributesToSearchOn()
   meilisearchParams.addHybridSearch()
   meilisearchParams.addVector()

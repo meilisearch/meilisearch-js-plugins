@@ -390,6 +390,7 @@ The following options can be overridden:
 - [`matchingStrategy`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#matching-strategy)
 - [`showMatchesPosition`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#show-matches-position)
 - [`showRankingScore`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score)
+- [`showRankingScoreDetails`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-details)
 - [`rankingScoreThreshold`](https://www.meilisearch.com/docs/reference/api/search?utm_campaign=oss&utm_source=github&utm_medium=instant-meilisearch#ranking-score-threshold)
 
 ```js

@@ -114,4 +114,30 @@ describe('InstantMeiliSearch overridden parameters', () => {
       .filter(Boolean)
     expect(perIndexTitles).toEqual([...perIndexTitles].sort().reverse())
   })
+
+  test('showRankingScoreDetails returns the ranking score details on hits', async () => {
+    const { searchClient, setMeiliSearchParams } = instantMeiliSearch(
+      'http://localhost:7700',
+      'masterKey'
+    )
+
+    const queryParams = [
+      {
+        indexName: 'movies',
+        params: { query: 'boxing' },
+      },
+    ]
+
+    const defaultResponse = await searchClient.search<Movies>(queryParams)
+    const defaultHits = defaultResponse.results[0].hits
+    expect(defaultHits.length).toBeGreaterThan(0)
+    expect(defaultHits[0]).not.toHaveProperty('_rankingScoreDetails')
+
+    setMeiliSearchParams({ showRankingScoreDetails: true })
+
+    const detailsResponse = await searchClient.search<Movies>(queryParams)
+    const detailsHits = detailsResponse.results[0].hits
+    expect(detailsHits.length).toBeGreaterThan(0)
+    expect(detailsHits[0]).toHaveProperty('_rankingScoreDetails.words')
+  })
 })
