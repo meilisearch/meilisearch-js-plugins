@@ -211,6 +211,37 @@ describe('Parameters adapter', () => {
     expect(searchParams.rankingScoreThreshold).toBe(indexRankingScoreThreshold)
   })
 
+  test('show ranking score details can be set via search parameters', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        showRankingScoreDetails: true,
+      },
+    })
+
+    expect(searchParams.showRankingScoreDetails).toBe(true)
+  })
+
+  test('show ranking score details can be set via search parameters for a specific index', () => {
+    const searchParams = adaptSearchParams({
+      ...DEFAULT_CONTEXT,
+      meiliSearchParams: {
+        showRankingScoreDetails: true,
+        indexesOverrides: {
+          test: { showRankingScoreDetails: false },
+        },
+      },
+    })
+
+    expect(searchParams.showRankingScoreDetails).toBe(false)
+  })
+
+  test('show ranking score details is not sent when not set', () => {
+    const searchParams = adaptSearchParams(DEFAULT_CONTEXT)
+
+    expect(searchParams).not.toHaveProperty('showRankingScoreDetails')
+  })
+
   test('distinct search configuration can be set via search parameters', () => {
     const distinctSearchConfig = 'title'
 
