@@ -10,7 +10,8 @@ function getValueWithEscapedBackslashesAndQuotes(value: string): string {
  * Transform InstantSearch [facet
  * filter](https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/)
  * to Meilisearch compatible filter format. Change sign from `:` to `=`
- * "facet:facetValue" becomes "facet=facetValue"
+ * "facet:facetValue" becomes "facet=facetValue". A leading unescaped "-"
+ * excludes the value instead: "facet:-facetValue" becomes "facet!=facetValue".
  *
  * Wrap both the facet and its facet value between quotes. This avoids
  * formatting issues on facets containing multiple words. Escape backslash \ and
@@ -25,12 +26,15 @@ function transformFacetFilter(filter: string): string {
   // InstantSearch escapes a leading "-" in a facet value as "\-" so it is not
   // read as an exclusion. Undo it here, otherwise the backslash is escaped
   // again below and the value never matches.
+  const isExclusion = /^[^:]*:-/.test(filter)
   const unescapedFilter = filter.replace(/^([^:]*:)\\-/, '$1-')
   const escapedFilter = getValueWithEscapedBackslashesAndQuotes(unescapedFilter)
   const colonIndex = escapedFilter.indexOf(':')
   const attribute = escapedFilter.slice(0, colonIndex)
   const value = escapedFilter.slice(colonIndex + 1)
-  return `"${attribute}"="${value}"`
+  return `"${attribute}"${isExclusion ? '!=' : '='}"${
+    isExclusion ? value.slice(1) : value
+  }"`
 }
 
 /**
