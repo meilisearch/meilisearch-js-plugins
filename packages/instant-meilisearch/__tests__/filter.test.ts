@@ -251,6 +251,19 @@ describe('Instant Meilisearch Browser test', () => {
     return expect(searchClient.search<Movies>([params])).resolves.toBeTruthy()
   })
 
+  test('excludes facet values instead of matching a literal leading dash', async () => {
+    const response = await searchClient.search<Movies>([
+      {
+        indexName: 'movies',
+        params: { query: 'star', facetFilters: ['genres:-Crime'] },
+      },
+    ])
+
+    expect(response.results[0].hits.map((hit: Movies) => hit.title)).toEqual([
+      'Star Wars',
+    ])
+  })
+
   test('facet values starting with a dash', async () => {
     await meilisearchClient.deleteIndex('dash-facet-values').waitTask()
     await meilisearchClient
